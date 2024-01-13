@@ -1,0 +1,99 @@
+body{
+	background-color: lightgrey;
+}
+* { margin: 0; padding: 0; }
+html, body { height: 100%; }
+#vizicities { height: 100%; }
+#header1 {
+	background: #355c7d;
+  background:
+    /* gradient overlay */
+    linear-gradient(
+      to bottom,
+      rgba(203, 53, 107, 0.6), /* #cb356b */
+      rgba(189, 63, 50, 0.5) /* #bd3f32 */
+    ),
+    /* bottom image */
+    url('COVID19pic.jpg') no-repeat left top;
+  background-size: cover;  
+	z-index: 0; 
+}
+#header1 .caption {
+	text-align: center;
+  color: #fff;
+}
+#header1 .caption .title {
+	margin-bottom: 1.5rem;
+} 
+#header1 .caption .text {
+	margin-bottom: 1.5rem;
+}
+#header1 .caption .action {
+	margin-bottom: 1rem;
+	padding-left: 3rem;
+	padding-right: 3rem;
+	border-radius: 15px;
+}
+#Map{
+	background-position: center;
+	width: 100%;
+	min-height: 520px;
+	border-width: 14px;
+  }
+.legend {
+    line-height: 18px;
+    background: white;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+}
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+.card{
+  background-color: lightgrey;
+}
+
+rect {
+                fill: #66bfff;
+                cursor: pointer;
+            }
+            .active {
+                fill: orange;
+                stroke: orange;             
+            }
+            .activelink {
+                fill: none;
+                stroke: orange;
+                stroke-width: 2.5px;
+            }
+            .label {
+                fill: white;
+                font-family: sans-serif;
+                pointer-events: none;
+                font-size: 16px;
+            }           
+            .label_date {
+                fill: white;
+                font-family: sans-serif;
+                pointer-events: none;
+                font-style: italic;
+                font-size: 12px;
+            }
+            .link {
+                fill: none;
+                stroke: #66bfff;
+                stroke-width: 2.5px;
+            }

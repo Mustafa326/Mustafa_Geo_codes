@@ -1,0 +1,191 @@
+body{
+  background-color: #A9A9A9;
+}
+#header1 {
+  background: #355c7d;
+  background:
+    /* gradient overlay */
+    linear-gradient(
+      to bottom,
+      rgba(203, 53, 107, 0.6), /* #cb356b */
+      rgba(189, 63, 50, 0.5) /* #bd3f32 */
+    ),
+    /* bottom image */
+    url('Gisimage.jpg') no-repeat left top;
+  background-size: cover;  
+  z-index: 0;
+}
+#header1 .caption {
+  text-align: center;
+  color: #fff;
+}
+#header1 .caption .title {
+  margin-bottom: 1.5rem;
+} 
+#header1 .caption .text {
+  margin-bottom: 1.5rem;
+}
+#header1 .caption .action {
+  margin-bottom: 1rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  border-radius: 15px;
+}
+
+#Map{
+  background-position: center;
+  width: 100%;
+  min-height: 500px;
+  border: 15px ;
+  border-width: 14px;
+  margin: auto;
+  }
+.container-fluid {
+  text-align: center;
+  font-style: italic;
+  position: relative;
+}
+.legend {
+  line-height: 12px;
+  color: #555;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  border-radius: 8px;
+  
+}
+.legend i {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-right: 5px;
+  position: relative;
+
+}
+.districtLabel{
+  background: rgba(255, 255, 255, 0);
+  border:0;
+  border-radius:0px;
+  box-shadow: 0 0px 0px;
+}
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+    border: none !important;
+}
+.legend_2 {
+    line-height: 20px;
+    background: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+.legend_2 i {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-right: 8px;
+}
+.legend_3 {
+    line-height: 23px;
+    background: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+.legend_3 i {
+    width: 23px;
+    height: 23px;
+    float: left;
+    margin-right: 8px;
+}
+.legend_4 {
+    line-height: 20px;
+    background: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+.legend_4 i {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-right: 8px;
+}
+.legend_5 {
+    line-height: 14px;
+    background: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+.legend_5 i {
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin-right: 8px;
+}
+.legend_6 {
+    line-height: 14px;
+    background: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+.legend_6 i {
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin-right: 8px;
+}
+.infondvichoro {
+  padding: 1px 1px;
+  font: 12px/14px Times New Roman;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  border-radius: 5px;
+}
+.infondvichoro h4 {
+  margin: 0 0 5px;
+  color: black;
+}
+.infondvisymbol {
+  padding: 1px 1px;
+  font: 12px/14px Times New Roman;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  border-radius: 5px;
+}
+.infondvisymbol h4 {
+  margin: 0 0 5px;
+  color: black;
+}
+.infopopdensity {
+  padding: 1px 1px;
+  font: 12px/14px Times New Roman;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  border-radius: 5px;
+}
+.infopopdensity h4 {
+  margin: 0 0 5px;
+  color: black;
+}
+.infolst {
+  padding: 1px 1px;
+  font: 12px/14px Times New Roman;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  border-radius: 5px;
+}
+.infolst h4 {
+  margin: 0 0 5px;
+  color: black;
+}
+.infoprecipitation {
+  padding: 1px 1px;
+  font: 12px/14px Times New Roman;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  border-radius: 5px;
+}
+.infoprecipitation h4 {
+  margin: 0 0 5px;
+  color: black;
+}
+ 

@@ -1,0 +1,46 @@
+body{
+	background-color: lightgrey;
+	opacity: 0.75;
+	margin:auto;
+}
+.Header{
+	display:block;
+	background-image: url("Gisimage.jpg");
+	border: 14px;
+	width: 100%;
+	padding: 3px;
+	margin:none;
+	font-style: italic;
+	font-size: 35px;
+	text-align: center;
+	position: relative;
+	background-position: 200px 200px;
+	background-position: center;
+}
+.Navigation {
+	position: center-fixed;
+}
+.Map{
+	color: white;
+	font: normal 16px,sans-serif;
+	background-color: black;
+	opacity: 0.75;
+	width: 50%;
+	min-height: 500px;
+	border: 15px solid orange;
+	border-width: 14px;
+	padding: 40px;
+	margin: auto;
+	}
+.Formal {
+	float: right;
+}
+.accordion {
+	font-size: 14px;
+	width:30%;
+}
+#heading80{
+	font-size: 14px;
+	width:20%;
+	height: 20%;
+}

@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OSM ROute</title>
+   <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <!--leafletCss-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+    <!--Css(user) link-->
+    <link rel="stylesheet" type="text/css" href="umarfypcss.css">
+    <!--LeafletJavascriptlink-->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+    <!--Leaflet-geocoder-CSS links-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
+    
+    <!--Leaflet location control css files-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="L.Control.Locate.min.css"/>
+    
+    <!--Leaflet-routing-machine-CSS links-->
+    <!--<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css">-->
+   <link rel="stylesheet" href="leaflet-routing-machine.css"/>
+   
+    <!--<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>-->
+</head>
+<feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
+    </feature>
+        <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
+    </feature>
+        <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+<body>
+  <p id="demo"></p>
+  <div class=Head>
+     <h1>OSMRouting</h1>
+   </div>
+   <!--Floating selection bar-->
+   <div id="floating-panel">
+    <b>Start: </b>
+    <select id="start" onclick="click()">
+      <option input type="hidden" id ="starting" value="">Your Location </option>
+      <option value="32.58275441323426, 71.53596315197942">Sakina Hospital</option>
+      <option value="32.58301011042932, 71.54262403989902">Nishtar Hospital</option>
+      <option value="32.58203845728995, 71.54332199171162">Major Sheikh Arshad Hospital</option>
+      <option value="32.59676400977668, 71.61850598581738">Al-Zakaria Mianwali Hotel & Restaurant</option>
+      <option value="32.64300632118921, 71.77586747173274">AL Habib Restaurant And Gardens</option>
+      <option value="32.587555344085644, 71.55412388811484">PSO Petrol Pump</option>
+      <option value="32.59645005501087, 71.60339070324513">Shell Petrol Pump</option>
+      <option value="32.7006258912556, 71.79668141369501">Bannu-Mianwali Petroleum</option>
+      <option value="32.58989059512161, 71.54482534863581">Boys Hostels</option>
+      <option value="32.58490062277077, 71.56362226930555 Merry">Merry Time Girls Hostel</option>
+      <option value="32.60485884501061, 71.54697111583384">AL Shoola Hostel</option>
+      <option value="32.58045310591783, 71.54335233744237">DHQ, Hospital Mianwali</option>
+      <option value="32.579008366106756, 71.54376200480836">Diagnostic Block DHQ Hospital</option>
+      <option value="32.734349498526576, 71.84230042473243">Tasneem Hospital</option>
+      <option value="32.665552822629294, 71.78281975753588">Hill View Hotel and Restaurant</option>
+      <option value="32.59676400977668, 71.61850598581738">Al-Zakaria Mianwali Hotel & Restaurant</option>
+     <option value="32.58504888159668, 71.57679227145007">Ahmad Hotel</option>
+     <option value="32.64705354784898, 71.77638245591423">New Lucky Marwat Hotel</option>
+     <option value="32.71431184734643, 71.80698109631263">MS petrolium</option>
+     <option value="32.717236541871856, 71.81457711220051">Niazi Petroleum</option>
+     <option value="32.737093042584455, 71.86993790641604">Chairman Malik Fateh Pump</option>
+     <option value="32.583164915120896, 71.53452566607405">Mianwali Girls Hostel</option>
+      <option value="32.59350634339317, 71.55572584613729">Saif Hostels And Hotels</option>
+      
+    
+    </select>
+    <b>End: </b>
+    <select id="end" onclick="click()">
+      <option input type="hidden" id ="ending" value="">Your Location </option>
+    <option value="32.58275441323426, 71.53596315197942">Sakina Hospital</option>
+      <option value="32.58301011042932, 71.54262403989902">Nishtar Hospital</option>
+      <option value="32.58203845728995, 71.54332199171162">Major Sheikh Arshad Hospital</option>
+      <option value="32.59676400977668, 71.61850598581738">Al-Zakaria Mianwali Hotel & Restaurant</option>
+      <option value="32.64300632118921, 71.77586747173274">AL Habib Restaurant And Gardens</option>
+      <option value="32.587555344085644, 71.55412388811484">PSO Petrol Pump</option>
+      <option value="32.59645005501087, 71.60339070324513">Shell Petrol Pump</option>
+      <option value="32.7006258912556, 71.79668141369501">Bannu-Mianwali Petroleum</option>
+      <option value="32.58989059512161, 71.54482534863581">Boys Hostels</option>
+      <option value="32.58490062277077, 71.56362226930555 Merry">Merry Time Girls Hostel</option>
+      <option value="32.60485884501061, 71.54697111583384">AL Shoola Hostel</option>
+      <option value="32.58045310591783, 71.54335233744237">DHQ, Hospital Mianwali</option>
+      <option value="32.579008366106756, 71.54376200480836">Diagnostic Block DHQ Hospital</option>
+      <option value="32.734349498526576, 71.84230042473243">Tasneem Hospital</option>
+      <option value="32.665552822629294, 71.78281975753588">Hill View Hotel and Restaurant</option>
+      <option value="32.59676400977668, 71.61850598581738">Al-Zakaria Mianwali Hotel & Restaurant</option>
+     <option value="32.58504888159668, 71.57679227145007">Ahmad Hotel</option>
+     <option value="32.64705354784898, 71.77638245591423">New Lucky Marwat Hotel</option>
+     <option value="32.71431184734643, 71.80698109631263">MS petrolium</option>
+     <option value="32.717236541871856, 71.81457711220051">Niazi Petroleum</option>
+     <option value="32.737093042584455, 71.86993790641604">Chairman Malik Fateh Pump</option>
+     <option value="32.583164915120896, 71.53452566607405">Mianwali Girls Hostel</option>
+      <option value="32.59350634339317, 71.55572584613729">Saif Hostels And Hotels</option>
+    </select>
+    </select>
+    </div>
+  <p id="demo"></p>
+  <div id="Map"></div>
+
+               <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- The scripts are jquery for slider2-->
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <!-- Bootstrap Jquery
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <br>
+<!--Leaflet-Geocoder-JavaScript links-->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <!--Leaflet location control java script-->
+    <script src="L.Control.Locate.min.js"></script>
+    <!--Leaflet-Routing machine-Javascriptlink-->
+    <script src="leaflet-routing-machine.js"></script>
+  <script src="umarfypjs.js"></script>
+</body>
+</html>

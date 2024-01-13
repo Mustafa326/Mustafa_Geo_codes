@@ -1,0 +1,36 @@
+body{
+  background-color: lightgrey;
+}
+.Header{
+  display:block;
+  background-image: url("Gisimage.jpg");
+  border: 14px;
+  width: 100%;
+  padding: 3px;
+  margin:none;
+  font-style: italic;
+  font-size: 35px;
+  text-align: center;
+  position: relative;
+  background-position: 200px 200px;
+  background-position: center;
+}
+.Map{
+  color: white;
+  font: normal 16px,sans-serif;
+  background-color: black;
+  
+  width: 100%;
+  min-height: 500px;
+  border: 15px ;
+  border-width: 14px;
+  padding: 40px;
+  margin: auto;
+  }
+  .card
+  {
+  background-color: blue;
+  color: white;
+  
+  }
+  

@@ -1,0 +1,85 @@
+body{
+  background-color: #A9A9A9;
+}
+.Header{
+  display:block;
+  background-image: url("Gisimage.jpg");
+  border: 10px;
+  width: 100%;
+  margin:none;
+  font-style: italic;
+  font-size: 35px;
+  text-align: center;
+  position: relative;
+  background-position: 200px 200px;
+  background-position: center;
+  
+
+
+  
+}
+#Map{
+  background-position: center;
+  width: 100%;
+  min-height: 500px;
+  border: 15px ;
+  border-width: 14px;
+  margin: auto;
+  }
+.container-fluid {
+  text-align: center;
+  font-style: italic;
+  position: relative;
+}
+.legend {
+  line-height: 12px;
+  color: black;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  border-radius: 5px;
+  overflow: scroll;
+}
+.legend i {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-right: 8px;
+}
+.legend_2 {
+    line-height: 12px;
+    background: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    overflow: scroll;
+}
+.legend_2 i {
+    width: 12px;
+    height: 12px;
+    float: left;
+    margin-right: 8px;
+}
+.legend_3 {
+    line-height: 12px;
+    background: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    overflow: scroll;
+}
+.legend_3 i {
+    width: 12px;
+    height: 12px;
+    float: left;
+    margin-right: 8px;
+}
+.info {
+  padding: 2px 2px;
+  font: 12px/14px Times New Roman;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  border-radius: 5px;
+}
+.info h4 {
+  margin: 0 0 5px;
+  color: black;
+}
+ 

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="Defence2.css">
+
+    <title>SAD2</title>
+
+</head>
+<body>
+    <div class="Header">
+      <header>
+        <strong>Gis Web Portal</strong>
+      </header>
+    </div>
+   
+  <asside class="Navigation">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="https://www.youtube.com/watch?v=yZnNnvXO8HI">Graphs</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'bootstrap3.views.index' %}">Data</a>
+      </li>
+      <li class="nav-item active">
+       <a class="nav-link" href="{% url 'bootstrap4.views.index' %}">Study Area</a>
+      </li>
+          <li class="nav-item active">
+       <a class="nav-link" href="{% url 'semantic.views.index' %}">About</a>
+      </li>
+    </ul>
+  </nav>
+  </div>
+  </asside>
+  <section>
+    <div class="Map">
+    <h>Map</h>
+    <p>This is the Block where the map would be Shown</p>
+  </div>
+    
+  </section>
+ <div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Atmosphere
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+       <div class="table-responsive mx-3">
+            <!--Table-->
+            <table class="table table-hover mb-0">
+
+              <!--Table head-->
+              <thead>
+                <tr>
+                  <th>
+                    <input class="form-check-input" type="checkbox" id="checkbox">
+                    <label for="checkbox" class="mr-2 label-table"></label>
+                  </th>
+                  <th class="th-lg"><a>Satellite <i class="fas fa-sort ml-1"></i></a></th>
+                  <th class="th-lg"><a>Year<i class="fas fa-sort ml-1"></i></a></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <!--Table head-->
+
+              <!--Table body-->
+              <tbody>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox1">
+                    <label for="checkbox1" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox2">
+                    <label for="checkbox2" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox3">
+                    <label for="checkbox3" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+              <!--Table body-->
+            </table>
+            <!--Table-->
+          </div>
+          <!-- Table responsive wrapper -->
+
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Temperature
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Pressure
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+       <div class="table-responsive mx-3">
+            <!--Table-->
+            <table class="table table-hover mb-0">
+
+              <!--Table head-->
+              <thead>
+                <tr>
+                  <th>
+                    <input class="form-check-input" type="checkbox" id="checkbox">
+                    <label for="checkbox" class="mr-2 label-table"></label>
+                  </th>
+                  <th class="th-lg"><a>Satellite <i class="fas fa-sort ml-1"></i></a></th>
+                  <th class="th-lg"><a>Year<i class="fas fa-sort ml-1"></i></a></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <!--Table head-->
+
+              <!--Table body-->
+              <tbody>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox1">
+                    <label for="checkbox1" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox2">
+                    <label for="checkbox2" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox3">
+                    <label for="checkbox3" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+              <!--Table body-->
+            </table>
+            <!--Table-->
+          </div>
+          <!-- Table responsive wrapper -->
+
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <footer class="page-footer">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+</body>
+</html>

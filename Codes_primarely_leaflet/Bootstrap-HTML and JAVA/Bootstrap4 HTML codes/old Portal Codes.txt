@@ -1,0 +1,403 @@
+old portal js codes
+
+var myLat=31.1704;
+var myLong=72.7097;
+var zoom=7;
+/*
+var population;
+var PunjabpLayer1;
+var PunjabpLayer2;
+var PunjabpLayer3;
+//Fuction which contains color  regarding population of the countries for 2010//
+function getColor1(d) {
+    return d > 1500 ? '#800026' :
+           d > 1000  ? '#BD0026' :
+           d > 900  ? '#E31A1C' :
+           d > 800  ? '#FC4E2A' :
+           d > 700   ? '#FD8D3C' :
+           d > 500   ? '#FEB24C' :
+           d > 400   ? '#FED976' :
+                      '#FFEDA0';
+}
+//Function for styling the geojson layer//
+function style1(feature) {
+    return {
+        fillColor: getColor1(feature.properties.pop_dens10),//contains the features property which is varying
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.9
+    };
+}
+
+function style2(feature) {
+    return {
+        fillColor: getColor1(feature.properties.pop_dens15),//contains the features property which is varying
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.9
+    };
+}
+
+function style3(feature) {
+    return {
+        fillColor: getColor1(feature.properties.pop_dens20),//contains the features property which is varying
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.9
+    };
+}
+
+function highlight(e) {
+    // e for event
+    // The target event property returns the element that triggered the event.
+    // Get access to the layer and set a grey border on it
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: 'black',
+        //dashArray: '',
+        fillOpacity: 0.5
+    });
+    layer.bringToFront();
+    // update the control when the user hovers over a state
+    information.update(layer.feature.properties);
+}
+// function to style the layer to their defult style
+function resetHighlight(e) {
+    PunjabpLayer1.resetStyle(e.target);
+    PunjabpLayer2.resetStyle(e.target);
+    PunjabpLayer3.resetStyle(e.target);
+    // Send information to the info class defined below:
+    information.update();
+}
+function addToFeature(feature, layer) {
+    // Grab the layer and perform the actions
+    layer.on({
+        mouseover: highlight,
+        mouseout: resetHighlight
+    });
+}
+//var corner1 = L.latLng(31.5204, 74.3587),
+//corner2 = L.latLng(30.1575, 71.5249),
+//mybounds = L.latLngBounds(corner1, corner2);
+//Declare Map object//
+var map=L.map('Map',{zoomControl: false,fullscreenControl:true,fullscreenControlOptions: {position:'topleft'}}).setView([myLat,myLong],zoom);
+//title Layers//
+L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', { 
+		attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors', 
+		maxZoom: 18,
+		minZoom:2
+		//maxBounds: mybounds
+}).addTo(map);
+//L.control.timelineSlider({position:"topright",timelineItems: ["Day 1", "The Next Day", "Amazing Event", "1776", "12/22/63", "1984"],extraChangeMapParams: {greeting: "Hello World!"},changeMap: changeMapFunction }).addTo(map)
+
+// For adding the zoom to home(center) button to map
+var zoomHome = L.Control.zoomHome({homeZoom:6.5}).addTo(map);
+//adding  geojson layers
+PunjabpLayer1=L.geoJSON(punjabp,{style: style1,onEachFeature: addToFeature,time:"2010"})//.addTo(map)
+PunjabpLayer2=L.geoJSON(punjabp,{style: style2,onEachFeature: addToFeature,time:"2015"})
+PunjabpLayer3=L.geoJSON(punjabp,{style: style3,onEachFeature: addToFeature,time:"2020"})
+//for the bounds
+map.fitBounds(PunjabpLayer1.getBounds())
+//Layergrouping for adding layers
+var population2010 = L.layerGroup([PunjabpLayer1]);
+var population2015 = L.layerGroup([PunjabpLayer2]);
+var population2020 = L.layerGroup([PunjabpLayer3]);
+//var population=L.LayerGroup([population2010,population2015,population2020])
+//feature group allows us to interact with all the layers at once
+population=L.featureGroup([population2010,population2015,population2020]).addTo(map)
+var overlayMaps = {
+	"Population":population,
+	//"Population2015":population2015,
+	//"Population2020":population2020
+};
+//Layer control
+var lcontrol=L.control.layers(null, overlayMaps).addTo(map);
+//for scale
+//var scale=L.control.scale().addTo(map);
+//to remove the population layer if necessary and you do not nececcarly need to use it
+//lcontrol.removeLayer(Layergroup)
+//The code for the first time-slider
+//var Slider= L.control.timelineSlider({position:"topright"}).addTo(map);
+ //The code for the second time slider that works with geojson and layer grouping in time slider
+var sliderControl = L.control.sliderControl({position: "bottomleft",layer:population,timeAttribute: "DateStart"follow: 1,range:true});
+sliderControl.addTo(map);
+sliderControl.startSlider();
+//Make sure to add the slider to the map
+//map.addControl(sliderControl);
+//And initialize the slider
+//sliderControl.startSlider();
+//A leaflet control to view additional information like the number of people per Square Km of area
+var information = L.control();
+information.onAdd = function (map) {
+    this.div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this.div;
+};
+
+// method that we will use to update the control based on feature properties passed
+information.update = function (props) {
+    this.div.innerHTML = '<h4> Punjab Population Density</h4>' +(props ?
+        '<b>' + props.Districts +'</b><br />'+'<p>population density 2010:</p>'+props.pop_dens10+'people/Km<sup>2</sup>'+'<p>population density 2015:</p>'+props.pop_dens15+'people/Km<sup>2</sup>'+'<p>population density 2020:</p>'+props.pop_dens20+'people /Km<sup>2</sup>'
+        :'Hover over a district to know more!');
+};
+
+information.addTo(map);
+var legend = L.control({position : 'bottomright'});
+			legend.onAdd = function(map){
+				var div = L.DomUtil.create('div', 'legend'); // create a div with a class legend
+				var label = [
+					"kept empty"
+				];
+				var grades = [0, 400, 500,700, 800, 900,1000,1500]; // this defines the ranges
+				div.innerHTML = '<div>Legend</div>'; // name or heading of legend
+				for(var i = 0; i < grades.length; i++){
+					div.innerHTML +=
+                    '<i style="background:' + getColor1(grades[i] + 1) + '"></i> ' +
+                    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+				}
+				return div;
+			}
+			legend.addTo(map);
+
+// overlayadd is a LayersControlEvent which is fired when an overlay is selected through the layer control.
+map.on('overlayadd', function (eventLayer) {
+    //Show legend...
+    if (eventLayer.name === 'Population') {
+        // to add the legend to the map
+        this.addControl(legend);
+        // to add the information control on to the map
+        this.addControl(information);
+        //Adding and initializing Slider control
+        this.addControl(sliderControl)
+        sliderControl.startSlider();
+    }
+});   
+//overlayremove is a LayersControlEvent which is fired when an overlay is deselected through the layer control.
+map.on('overlayremove', function (eventLayer) {
+    // hide legend
+    if (eventLayer.name === 'Population') {
+        this.removeControl(legend)
+        this.removeControl(information)
+        this.removeControl(sliderControl);// removes the legend when you uncheck the option in layer control 
+    }
+});
+//Function for having a button outside the map to remove anything from map on click
+*/
+old portal accordian code
+<div class="col-lg-3 col-md-3" id="Accordiancolumn">
+        <div class="container1">
+          <div class="accordian" id="Project">
+            <div class="card bg-primary ">
+              <div class="card-header" id="Temperature">
+                <h5 class="mb-0">
+                  <button class="btn btn-link text-white" data-toggle="collapse" data-target="#TemperatureTab" >Land Surface Temperature</button>
+                </h5>
+              </div>
+              <div class="collapse" id="TemperatureTab" data-parent="#Project">
+                <div class="card-body">
+                  <div class="table-responsive mx-3">
+                    <div class="container-fluid">
+                      <table class="table bg-white text-dark">
+                        <p>This is it</p>
+                        <!--
+                          <thead>
+                            <tr>
+                              <th scope ="col"></th>
+                              <th scope="col">Satellite</th>
+                              <th scope="col">Year</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox1">
+                                <label for="checkbox1" class="mr-2 label-table"></label>
+                              </th>
+                              <td>MOD11A2.006 Terra and Aqua </td>
+                              <td>2012</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox2">
+                                <label for="checkbox2" class="mr-2 label-table"></label>
+                              </th>
+                              <td>MOD11A2.006 Terra and Aqua </td>
+                              <td>2014</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox3">
+                                <label for="checkbox3" class="mr-2 label-table"></label>
+                              </th>
+                              <td>MOD11A2.006 Terra and Aqua </td>
+                              <td>2016</td>
+                            </tr>
+                          </tbody>
+                        -->
+                        </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card bg-primary">
+              <div class="card-header" id="Population">
+                <h6 class="mb-0">
+                  <button class="btn btn-link text-white" data-toggle="collapse" data-target="#PopulationTab">Population</button>
+                </h6>
+              </div>
+              <div class="collapse" id="PopulationTab" data-parent="#Project">
+                <div class="card-body">
+                  <div class="table-responsive mx-3">
+                    <div class="container-fluid">
+                      <table class="table bg-white text-dark">
+                          <thead>
+                            <tr>
+                              <th scope ="col"></th>
+                              <!--<th scope="col">Satellite</th>-->
+                              <th scope="col">Year</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox4">
+                                <label for="checkbox4" class="mr-2 label-table"></label>
+                              </th>
+                              <!--<td>Satellite</td>-->
+                              <td>2010</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox5">
+                                <label for="checkbox5" class="mr-2 label-table"></label>
+                              </th>
+                              <!--<td>Satellite</td>-->
+                              <td>2015</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox6">
+                                <label for="checkbox6" class="mr-2 label-table"></label>
+                              </th>
+                              <!--<td>Satellite</td>-->
+                              <td>2020</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card bg-primary">
+              <div class="card-header" id="Precipitation">
+                <h7 class="mb-0">
+                  <button class="btn btn-link text-white" data-toggle="collapse" data-target="#PrecipitationTab">Precipitation</button>
+                </h7>
+              </div>
+              <div class="collapse" id="PrecipitationTab" data-parent="#Project">
+                <div class="card-body">
+                  <div class="table-responsive mx-3">
+                    <div class="container-fluid">
+                      <table class="table bg-white text-dark">
+                          <thead>
+                            <tr>
+                              <th scope ="col"></th>
+                              <th scope="col">Satellite</th>
+                              <th scope="col">Year</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox7">
+                                <label for="checkbox7" class="mr-2 label-table"></label>
+                              </th>
+                              <td>Satellite</td>
+                              <td>Year</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox8">
+                                <label for="checkbox8" class="mr-2 label-table"></label>
+                              </th>
+                              <td>Satellite</td>
+                              <td>Year</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox9">
+                                <label for="checkbox9" class="mr-2 label-table"></label>
+                              </th>
+                              <td>Satellite</td>
+                              <td>Year</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card bg-primary">
+              <div class="card-header " id="Air Quality index">
+                <h7 class="mb-0">
+                  <button  class="btn btn-link text-white" data-toggle="collapse" data-target="#AirTab">Airquality index</button>
+                </h7>
+              </div>
+              <div class="collapse" id="AirTab" data-parent="#Project">
+                <div class="card-body">
+                  <div class="table-responsive mx-3">
+                    <div class="container-fluid">
+                      <table class="table bg-white text-dark">
+                          <thead>
+                            <tr>
+                              <th scope ="col"></th>
+                              <th scope="col">Satellite</th>
+                              <th scope="col">Year</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox10">
+                                <label for="checkbox10" class="mr-2 label-table"></label>
+                              </th>
+                              <td>Satellite</td>
+                              <td>year</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox11">
+                                <label for="checkbox11" class="mr-2 label-table"></label>
+                              </th>
+                              <td>Satellite</td>
+                              <td>Year</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox12">
+                                <label for="checkbox12" class="mr-2 label-table"></label>
+                              </th>
+                              <td>Satellite</td>
+                              <td>Year</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

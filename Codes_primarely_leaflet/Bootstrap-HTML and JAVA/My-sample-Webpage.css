@@ -1,0 +1,83 @@
+body{
+	background-color: lightgrey;
+	opacity: 0.75;
+	margin:auto;
+}
+.Header{
+	display:block;
+	background-image: url("Gisimage.jpg");
+	border: 14px;
+	width: 100%;
+	padding: 14px;
+	margin:none;
+	font-style: italic;
+	font-size: 80px;
+	text-align: center;
+	position: relative;
+	background-position: 200px 200px;
+	background-position: center;
+}
+.Navigation ul{
+	list-style-type: none;
+	text-decoration: none
+	padding: 0;
+	margin:0;
+}
+
+}
+.Navigation a{
+	color:#fff;
+	text-decoration: none;
+	font-size: 18px;
+	padding:12px;
+}
+.Navigation li a{
+	display: inline-block;
+	background-color: black;
+	color:white;
+	border: 14px;
+	min-width:100%;
+	padding: 14px;
+	margin-top: 5px;
+	float: left;
+
+}
+.Map{
+	color: white;
+	font: normal 16px,sans-serif;
+	background-color: black;
+	opacity: 0.75;
+	width: 50%;
+	min-height: 500px;
+	border: 15px solid orange;
+	border-width: 14px;
+	padding: 40px;
+	margin: auto;
+	
+}
+.Footer{
+	display:block;
+	background-image: url("Gisimage.jpg");
+	opacity: 1;
+	border: 14px;
+	width: 100%;
+	padding: 14px;
+	margin-top: 10px;
+	font-style: italic;
+	font-size: 20px;
+	text-align: center;
+	position: relative;
+	background-position: 200px 200px;
+	background-position: center;
+}
+button{
+	padding: 10px;
+	background-color: rgba(0,136,169,1);
+	border:none;
+	border-radius: 50px;
+	cursor: pointer;
+}
+button:hover{
+	background-color: white;
+	color:black;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Google map Maps API Code Libaries-->
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJfFNbReZ4VAH4HG3ZBXWulDQlqgCkAkw&callback=initMap">
+    </script>
+
+
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="googlecss.css">
+    <title>My Google Map</title>
+  </head>
+  <body>
+    <div class=Head>
+     <h1>Google map</h1>
+   </div>
+   <!--Floating selection bar-->
+   <div id="floating-panel">
+    <b>Start: </b>
+    <select id="start">
+      <option value="33.52030133232931,73.17574935541629">Ist Tucshop</option>
+      <option value="33.52083517742716,73.17431971492769">Ist New Mess</option>
+      <option value="33.522160695351666,73.1732282080375">Ist Boys Hostel</option>
+      <option value="33.51957235042684,73.17336151884078">Ist Girls Hostel</option>
+      <option value="33.519330845865106,73.17475090311049">Ist Mosque</option>
+      <option value="33.52019847022457,73.17505667493819">Geospatial Research and Educationl Lab</option>
+      <option value="33.519678201765586,73.17631462470546">Ist auditorium</option>
+      <option value="33.519977845010445,73.17575672523036">Ist Library</option>
+      <option value="33.52150000000,73.17687000000">HOD Mechanical/ Avionics Engineering</option>
+      <option value="33.52151800000,73.17651600000">HOD Electrical Engineering</option>
+      <option value="33.51956000000,73.17635500000">Transport Office</option>
+      <option value="33.51971900000,73.17599200000">Dean Office</option>
+      <option value="33.51964100000,73.17572400000">Vice Chancellor Office</option>
+      <option value="33.51996700000,73.17574800000">HOD Aerospace Engineering 1st Floor</option>
+      <option value="33.51968300000,73.17629100000">HOD Materials Engineering 1st Floor</option>
+      <option value="33.51979200000,73.17562500000">Student Affairs 1st Floor</option>
+      <option value="33.51903144637547,73.17704021930695">HBl ATM</option>
+    </select>
+    <b>End: </b>
+    <select id="end">
+      <option value="33.52030133232931,73.17574935541629">Ist Tucshop</option>
+      <option value="33.52083517742716,73.17431971492769">Ist New Mess</option>
+      <option value="33.522160695351666,73.1732282080375">Ist Boys Hostel</option>
+      <option value="33.51957235042684,73.17336151884078">Ist Girls Hostel</option>
+      <option value="33.519330845865106,73.17475090311049">Ist Mosque</option>
+      <option value="33.52019847022457,73.17505667493819">Geospatial Research and Educationl Lab</option>
+      <option value="33.519678201765586,73.17631462470546">Ist auditorium</option>
+      <option value="33.519977845010445,73.17575672523036">Ist Library</option>
+      <option value="33.52150000000,73.17687000000">HOD Mechanical/ Avionics Engineering</option>
+      <option value="33.52151800000,73.17651600000">HOD Electrical Engineering</option>
+      <option value="33.51956000000,73.17635500000">Transport Office</option>
+      <option value="33.51971900000,73.17599200000">Dean Office</option>
+      <option value="33.51964100000,73.17572400000">Vice Chancellor Office</option>
+      <option value="33.51996700000,73.17574800000">HOD Aerospace Engineering 1st Floor</option>
+      <option value="33.51968300000,73.17629100000">HOD Materials Engineering 1st Floor</option>
+      <option value="33.51903144637547,73.17704021930695">HBl ATM</option>
+      <option value="33.51979200000,73.17562500000">Student Affairs 1st Floor</option>
+    </select>
+    </select>
+    </div>
+    <!--<div style="width: 640px; height: 480px; border-width: 14px;" id="Map"></div>-->
+    <div id="Map"></div>
+     <!-- Bootstrap Jquery-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="googlejs.js"></script>
+  </body>

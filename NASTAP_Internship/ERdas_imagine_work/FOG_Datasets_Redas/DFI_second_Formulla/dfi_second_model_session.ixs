@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Session_Configuration>
+	<Version>2015</Version>
+	<Workspace_Configuration>
+		<Version>2015</Version>
+		<RibbonState>
+			<Ribbon_Configuration>
+				<tab name="Custom" type="Common" display_name="My Workflow" displayed="false" fexists="" rkexists="" contents_changed="true" info_changed="false">
+					<group groupControls="false" name="Editor" display_name="Tab Editor" displayed="true" icon="" editable="true" reduce_level="-1">
+						<control start="false">
+							<name>OpenTabEditor</name>
+							<type>Button</type>
+							<controlStyle>IconAndCaptionBelow</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>TabEditor</category>
+								<name>OpenTabEditor</name>
+								<type>Application</type>
+								<icon>v_edit.ico</icon>
+								<display_name>Tab Editor</display_name>
+								<description>Edit the contents of the &quot;My Workflow&quot; tab.</description>
+								<help>ewks_tabmyworkflow</help>
+								<order>0</order>
+							</command>
+						</control>
+					</group>
+				</tab>
+				<tab name="QuickBar" type="Toolbar" display_name="QuickBar" displayed="true" below="false" fexists="" rkexists="" contents_changed="true" info_changed="false">
+					<group groupControls="false" name="QuickBar" display_name="QuickBar" displayed="true" icon="" editable="true" reduce_level="-1">
+						<control start="false">
+							<name>Open</name>
+							<type>Button</type>
+							<controlStyle>Icon</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Open</name>
+								<type>Common</type>
+								<icon>folder.ico</icon>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="false">
+							<name>Save</name>
+							<type>Button</type>
+							<controlStyle>Icon</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Save</name>
+								<type>Common</type>
+								<icon>floppy_disk.ico</icon>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="false">
+							<name>Undo</name>
+							<type>Button</type>
+							<controlStyle>Icon</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Undo</name>
+								<type>Common</type>
+								<icon>undo_new.ico</icon>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="false">
+							<name>Select</name>
+							<type>Button</type>
+							<controlStyle>Icon</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Select</name>
+								<type>Common</type>
+								<icon>Select_by_Point.ico</icon>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="false">
+							<name>Zoomin</name>
+							<type>Button</type>
+							<controlStyle>Icon</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Zoomin</name>
+								<type>Common</type>
+								<icon>v_zoom_in.ico</icon>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="false">
+							<name>Zoomout</name>
+							<type>Button</type>
+							<controlStyle>Icon</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Zoomout</name>
+								<type>Common</type>
+								<icon>v_zoom_out.ico</icon>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="false">
+							<name>Clear</name>
+							<type>Button</type>
+							<controlStyle>Icon</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Clear</name>
+								<type>Common</type>
+								<icon>eraser.ico</icon>
+								<order>0</order>
+							</command>
+						</control>
+					</group>
+				</tab>
+				<tab name="SmartControls" type="Toolbar" display_name="Smart Controls" displayed="true" fexists="" rkexists="" contents_changed="true" info_changed="false">
+					<group groupControls="false" name="Smart Controls" display_name="Smart Controls" displayed="true" icon="" editable="true" reduce_level="-1">
+						<control start="true">
+							<name>Select</name>
+							<type>Button</type>
+							<controlStyle>IconAndCaption</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Select</name>
+								<type>Common</type>
+								<icon>Select_by_Point.ico</icon>
+								<display_name>Select</display_name>
+								<description>Select items at the location indicated by clicking with the mouse left button. Use the Shift key to add to the selected set.
+
+Data can be panned or zoomed while in Select mode by rolling the mouse wheel to zoom or middle-mouse dragging to pan.</description>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="true">
+							<name>LayerInfo</name>
+							<type>Button</type>
+							<controlStyle>IconAndCaptionBelow</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>LayerInfo</name>
+								<type>Common</type>
+								<icon>document_info.ico</icon>
+								<display_name>Metadata</display_name>
+								<description>Show detailed information about the selected layer</description>
+								<keyword>imageinfo</keyword>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="true">
+							<name>Roam</name>
+							<type>Button</type>
+							<controlStyle>IconAndCaption</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Roam</name>
+								<type>Common</type>
+								<icon>hand_grab2.ico</icon>
+								<display_name>Pan </display_name>
+								<description>Place the cursor into Pan mode. Grab a location in the View to pan the displayed data in real-time. Or left-click to begin auto-roaming in the direction you drag.
+
+Exit this mode by clicking on the Select icon or one of the other cursor modes.</description>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="true">
+							<name>Fit to Frame</name>
+							<type>Button</type>
+							<controlStyle>IconAndCaptionBelow</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Fit to Frame</name>
+								<type>Common</type>
+								<icon>v_fit_to_size.ico</icon>
+								<display_name>Fit to Frame</display_name>
+								<description>Zooms the selected layer(s) in or out so that the data extent fits the size of the View.</description>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="true">
+							<name>Zoom Reset</name>
+							<type>Button</type>
+							<controlStyle>IconAndCaptionBelow</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Zoom Reset</name>
+								<type>Common</type>
+								<icon>view_1_1.ico</icon>
+								<display_name>Reset Zoom</display_name>
+								<description>Set the display scale of the current View such that one image pixel of the uppermost image is represented by one screen pixel.</description>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="true">
+							<name>True North is Up</name>
+							<type>Button</type>
+							<controlStyle>IconAndCaption</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>True North is Up</name>
+								<type>Common</type>
+								<icon>AlignNorth.ico</icon>
+								<display_name>Align North</display_name>
+								<description>Rotates the currently active 2D View so that Polar (True) North is oriented directly up the screen based on the current projection system being used.</description>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="true">
+							<name>Up is Up</name>
+							<type>Button</type>
+							<controlStyle>IconAndCaptionBelow</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Up is Up</name>
+								<type>Common</type>
+								<icon>alignupisup.ico</icon>
+								<display_name>Align to up is up</display_name>
+								<description>Rotates the currently active 2D View so that the look direction of the sensor which captured the image is oriented directly up the screen. 
+
+This is based on the 3D geometric model associated with the uppermost image in the Views data stack. 
+
+Layover effects will thus be oriented up the screen for easier interpretation.</description>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="true">
+							<name>Close Top Layer</name>
+							<type>Button</type>
+							<controlStyle>IconAndCaptionBelow</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Viewer</category>
+								<name>Close Top Layer</name>
+								<type>Application</type>
+								<icon>Close_TopLayer.ico</icon>
+								<display_name>Close Top Layer</display_name>
+								<description>Remove the top layer from the active View.</description>
+								<order>0</order>
+							</command>
+						</control>
+						<control start="true">
+							<name>Inquire Cursor</name>
+							<type>SplitButton</type>
+							<controlStyle>IconAndCaption</controlStyle>
+							<link>false</link>
+							<recent_list>-1</recent_list>
+							<only_button>false</only_button>
+							<wrap_row>false</wrap_row>
+							<indicator_color></indicator_color>
+							<command>
+								<category>Common</category>
+								<name>Inquire Cursor</name>
+								<type>Common</type>
+								<icon>Inquire_Cursor.ico</icon>
+								<display_name>Inquire</display_name>
+								<order>0</order>
+							</command>
+						</control>
+					</group>
+				</tab>
+			</Ribbon_Configuration>
+			<ViewState>
+				<ApplicationState Name="Viewer" Current="false">
+					<Docked>true</Docked>
+					<Hidden>false</Hidden>
+				</ApplicationState>
+				<ApplicationState Name="SolutionBuilder" Current="true">
+					<Docked>true</Docked>
+					<Hidden>false</Hidden>
+				</ApplicationState>
+				<ViewLayoutState>
+					<ViewLayoutState>
+						<Index>0</Index>
+						<Layout>Vertical</Layout>
+						<Hidden>false</Hidden>
+					</ViewLayoutState>
+					<ViewLayoutState>
+						<Index>1</Index>
+						<Layout>Vertical</Layout>
+						<Hidden>false</Hidden>
+					</ViewLayoutState>
+					<Layout>Horizontal</Layout>
+					<Hidden>false</Hidden>
+				</ViewLayoutState>
+				<Layout>VerticalLeft</Layout>
+				<Reflow>Grid</Reflow>
+			</ViewState>
+			<Minimized>false</Minimized>
+			<Size>
+				<startX>12</startX>
+				<startY>12</startY>
+				<endX>1354</endX>
+				<endY>726</endY>
+			</Size>
+			<Maximized>true</Maximized>
+		</RibbonState>
+		<PaneState>
+			<Pane>
+				<Name>Contents</Name>
+				<Displayed>true</Displayed>
+				<Floating>false</Floating>
+				<Pinned>false</Pinned>
+				<Size>
+					<startX>3</startX>
+					<startY>149</startY>
+					<endX>228</endX>
+					<endY>367</endY>
+				</Size>
+				<Location>Left</Location>
+				<Neighbor>
+					<Name>Retriever</Name>
+					<Location>Top</Location>
+				</Neighbor>
+			</Pane>
+			<Pane>
+				<Name>Retriever</Name>
+				<Displayed>true</Displayed>
+				<Floating>false</Floating>
+				<Pinned>false</Pinned>
+				<Size>
+					<startX>3</startX>
+					<startY>371</startY>
+					<endX>228</endX>
+					<endY>589</endY>
+				</Size>
+				<Location>Left</Location>
+				<Neighbor>
+					<Name>Contents</Name>
+					<Location>Bottom</Location>
+				</Neighbor>
+			</Pane>
+			<Pane>
+				<Name>Operators</Name>
+				<Displayed>true</Displayed>
+				<Floating>false</Floating>
+				<Pinned>false</Pinned>
+				<Size>
+					<startX>1138</startX>
+					<startY>149</startY>
+					<endX>1363</endX>
+					<endY>439</endY>
+				</Size>
+				<Location>Right</Location>
+				<Neighbor>
+					<Name>Properties</Name>
+					<Location>Top</Location>
+				</Neighbor>
+			</Pane>
+			<Pane>
+				<Name>Properties</Name>
+				<Displayed>true</Displayed>
+				<Floating>false</Floating>
+				<Pinned>false</Pinned>
+				<Size>
+					<startX>1138</startX>
+					<startY>443</startY>
+					<endX>1363</endX>
+					<endY>589</endY>
+				</Size>
+				<Location>Right</Location>
+				<Neighbor>
+					<Name>Operators</Name>
+					<Location>Bottom</Location>
+				</Neighbor>
+			</Pane>
+		</PaneState>
+		<KeyboardShortcuts>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>A</Character>
+				<CommandCategory>Common</CommandCategory>
+				<CommandName>SelectAll</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>B</Character>
+				<CommandCategory>Common</CommandCategory>
+				<CommandName>Inquire Box</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>C</Character>
+				<CommandCategory>Common</CommandCategory>
+				<CommandName>Copy</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>I</Character>
+				<CommandCategory>Common</CommandCategory>
+				<CommandName>Inquire Cursor</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>N</Character>
+				<CommandCategory>Global</CommandCategory>
+				<CommandName>NewCurrentView</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>O</Character>
+				<CommandCategory>Common</CommandCategory>
+				<CommandName>Open</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>P</Character>
+				<CommandCategory>Common</CommandCategory>
+				<CommandName>Print</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>Q</Character>
+				<CommandCategory>Global</CommandCategory>
+				<CommandName>Exit</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>R</Character>
+				<CommandCategory>Viewer</CommandCategory>
+				<CommandName>Rotate90Clockwise</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>S</Character>
+				<CommandCategory>Common</CommandCategory>
+				<CommandName>Save</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>V</Character>
+				<CommandCategory>Common</CommandCategory>
+				<CommandName>Paste</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>W</Character>
+				<CommandCategory>GSX Web Service</CommandCategory>
+				<CommandName>Open</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>X</Character>
+				<CommandCategory>Common</CommandCategory>
+				<CommandName>Cut</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>Z</Character>
+				<CommandCategory>Common</CommandCategory>
+				<CommandName>Undo</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>1</Character>
+				<CommandCategory>Viewer</CommandCategory>
+				<CommandName>Set Scale 1 to 1 File</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>2</Character>
+				<CommandCategory>Viewer</CommandCategory>
+				<CommandName>Set Scale 1 to 2 File</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>4</Character>
+				<CommandCategory>Viewer</CommandCategory>
+				<CommandName>Set Scale 1 to 4 File</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>8</Character>
+				<CommandCategory>Viewer</CommandCategory>
+				<CommandName>Set Scale 1 to 8 File</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Control</Modifier>
+				<Character>F4</Character>
+				<CommandCategory>Global</CommandCategory>
+				<CommandName>CloseCurrentView</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Modifier>Alt</Modifier>
+				<Character>F4</Character>
+				<CommandCategory>Global</CommandCategory>
+				<CommandName>Exit</CommandName>
+			</Shortcut>
+			<Shortcut>
+				<Character>F5</Character>
+				<CommandCategory>Common</CommandCategory>
+				<CommandName>Refresh</CommandName>
+			</Shortcut>
+		</KeyboardShortcuts>
+	</Workspace_Configuration>
+	<Retriever>
+	</Retriever>
+	<Application_States>
+		<Application Name="Viewer">
+			<SaveState>dfi_second_model_session/tmp.17049266081010417.vue</SaveState>
+			<Layer_States>
+				<Layer>
+					<LayerIndex>0</LayerIndex>
+					<Table>
+						<Name>Attribute Table:0:0</Name>
+						<Displayed>true</Displayed>
+						<Floating>false</Floating>
+						<Pinned>false</Pinned>
+						<Size>
+							<startX>3</startX>
+							<startY>593</startY>
+							<endX>1363</endX>
+							<endY>713</endY>
+						</Size>
+						<Location>Bottom</Location>
+					</Table>
+				</Layer>
+				<Layer>
+					<LayerIndex>1</LayerIndex>
+				</Layer>
+				<Layer>
+					<LayerIndex>2</LayerIndex>
+				</Layer>
+			</Layer_States>
+		</Application>
+		<Application Name="SolutionBuilder">
+			<SaveState>dfi_second_model_session/tmp.17049266081010418.gmdx</SaveState>
+			<Layer_States>
+				<Layer Current="true">
+					<LayerIndex>0</LayerIndex>
+				</Layer>
+			</Layer_States>
+		</Application>
+	</Application_States>
+</Session_Configuration>

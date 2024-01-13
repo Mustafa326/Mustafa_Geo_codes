@@ -1,0 +1,74 @@
+<PAMDataset>
+  <Metadata domain="Esri">
+    <MDI key="PyramidResamplingType">NEAREST</MDI>
+  </Metadata>
+  <PAMRasterBand band="1">
+    <Description>Layer_1</Description>
+    <Metadata domain="IMAGE_STRUCTURE">
+      <MDI key="COMPRESSION">RLE</MDI>
+    </Metadata>
+    <Metadata>
+      <MDI key="LAYER_TYPE">thematic</MDI>
+      <MDI key="OVERVIEWS_ALGORITHM">IMAGINE Nearest Neighbor Resampling</MDI>
+      <MDI key="STATISTICS_EXCLUDEDVALUES"></MDI>
+      <MDI key="STATISTICS_HISTOBINVALUES">0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|466|0|0|0|0|0|0|0|0|0|0|0|0|3966|0|0|0|0|0|0|0|0|0|0|0|0|0|10674|0|0|0|0|0|0|0|0|0|0|0|0|26601|0|0|0|0|0|0|0|0|0|0|0|0|0|61736|0|0|0|0|0|0|0|0|0|0|0|0|129303|0|0|0|0|0|0|0|0|0|0|0|0|0|163384|0|0|0|0|0|0|0|0|0|0|0|0|168730|0|0|0|0|0|0|0|0|0|0|0|0|196028|0|0|0|0|0|0|0|0|0|0|0|0|0|304385|0|0|0|0|0|0|0|0|0|0|0|0|655507|0|0|0|0|0|0|0|0|0|0|0|0|0|1341563|0|0|0|0|0|0|0|0|0|0|0|0|734430|0|0|0|0|0|0|0|0|0|0|0|0|0|397531|</MDI>
+      <MDI key="STATISTICS_HISTOMAX">255</MDI>
+      <MDI key="STATISTICS_HISTOMIN">0</MDI>
+      <MDI key="STATISTICS_HISTONUMBINS">256</MDI>
+      <MDI key="STATISTICS_MAXIMUM">255</MDI>
+      <MDI key="STATISTICS_MEAN">216.97184634209</MDI>
+      <MDI key="STATISTICS_MEDIAN">228</MDI>
+      <MDI key="STATISTICS_MINIMUM">80</MDI>
+      <MDI key="STATISTICS_MODE">228</MDI>
+      <MDI key="STATISTICS_SKIPFACTORX">1</MDI>
+      <MDI key="STATISTICS_SKIPFACTORY">1</MDI>
+      <MDI key="STATISTICS_STDDEV">29.909170604202</MDI>
+    </Metadata>
+  </PAMRasterBand>
+  <PAMRasterBand band="2">
+    <Description>Layer_2</Description>
+    <Metadata domain="IMAGE_STRUCTURE">
+      <MDI key="COMPRESSION">RLE</MDI>
+    </Metadata>
+    <Metadata>
+      <MDI key="LAYER_TYPE">thematic</MDI>
+      <MDI key="OVERVIEWS_ALGORITHM">IMAGINE Nearest Neighbor Resampling</MDI>
+      <MDI key="STATISTICS_EXCLUDEDVALUES"></MDI>
+      <MDI key="STATISTICS_HISTOBINVALUES">0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|466|0|0|3966|0|0|0|10674|0|0|26601|0|0|0|61736|0|0|129303|0|0|0|163384|0|0|168730|0|0|196028|0|0|0|304385|0|0|655507|0|0|0|1341563|0|0|734430|0|0|0|397531|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|</MDI>
+      <MDI key="STATISTICS_HISTOMAX">255</MDI>
+      <MDI key="STATISTICS_HISTOMIN">0</MDI>
+      <MDI key="STATISTICS_HISTONUMBINS">256</MDI>
+      <MDI key="STATISTICS_MAXIMUM">165</MDI>
+      <MDI key="STATISTICS_MEAN">155.02166581154</MDI>
+      <MDI key="STATISTICS_MEDIAN">158</MDI>
+      <MDI key="STATISTICS_MINIMUM">120</MDI>
+      <MDI key="STATISTICS_MODE">158</MDI>
+      <MDI key="STATISTICS_SKIPFACTORX">1</MDI>
+      <MDI key="STATISTICS_SKIPFACTORY">1</MDI>
+      <MDI key="STATISTICS_STDDEV">7.6820408297833</MDI>
+    </Metadata>
+  </PAMRasterBand>
+  <PAMRasterBand band="3">
+    <Description>Layer_3</Description>
+    <Metadata domain="IMAGE_STRUCTURE">
+      <MDI key="COMPRESSION">RLE</MDI>
+    </Metadata>
+    <Metadata>
+      <MDI key="LAYER_TYPE">thematic</MDI>
+      <MDI key="OVERVIEWS_ALGORITHM">IMAGINE Nearest Neighbor Resampling</MDI>
+      <MDI key="STATISTICS_EXCLUDEDVALUES"></MDI>
+      <MDI key="STATISTICS_HISTOBINVALUES">0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|</MDI>
+      <MDI key="STATISTICS_HISTOMAX">255</MDI>
+      <MDI key="STATISTICS_HISTOMIN">0</MDI>
+      <MDI key="STATISTICS_HISTONUMBINS">256</MDI>
+      <MDI key="STATISTICS_MAXIMUM">0</MDI>
+      <MDI key="STATISTICS_MEAN">0</MDI>
+      <MDI key="STATISTICS_MEDIAN">127.5</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_MODE">0</MDI>
+      <MDI key="STATISTICS_SKIPFACTORX">999</MDI>
+      <MDI key="STATISTICS_SKIPFACTORY">999</MDI>
+      <MDI key="STATISTICS_STDDEV">0</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>

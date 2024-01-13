@@ -1,0 +1,2358 @@
+/3.1
+(ODB.1
+	FirstRootClassName:	"Legend"
+	Roots:	2
+	Version:	31
+)
+
+(Legend.2
+	SymType:	0x01
+	LegType:	0x08
+	ClassType:	0x03
+	FieldNames:	3
+	Symbols:	4
+	Class:	177
+	Class:	178
+	Class:	179
+	Class:	180
+	Class:	181
+	Class:	182
+	Class:	183
+	Class:	184
+	Class:	185
+	Class:	186
+	Class:	187
+	Class:	188
+	Class:	189
+	Class:	190
+	Class:	191
+	Class:	192
+	Class:	193
+	Class:	194
+	Class:	195
+	Class:	196
+	Class:	197
+	Class:	198
+	Class:	199
+	Class:	200
+	Class:	201
+	Class:	202
+	Class:	203
+	Class:	204
+	Class:	205
+	Class:	206
+	Class:	207
+	Class:	208
+	Class:	209
+	Class:	210
+	Class:	211
+	Class:	212
+	Class:	213
+	Class:	214
+	Class:	215
+	Class:	216
+	Class:	217
+	Class:	218
+	Class:	219
+	Class:	220
+	Class:	221
+	Class:	222
+	StdDevs:	1.00000000000000
+	NullSym:	223
+	NullValues:	225
+	StatValues:	226
+	Precision:	-3
+)
+
+(AVStr.3
+	S:	"Cfcc"
+)
+
+(SymList.4
+	Child:	5
+	Child:	14
+	Child:	23
+	Child:	32
+	Child:	41
+	Child:	50
+	Child:	59
+	Child:	68
+	Child:	77
+	Child:	79
+	Child:	81
+	Child:	83
+	Child:	85
+	Child:	87
+	Child:	89
+	Child:	91
+	Child:	93
+	Child:	95
+	Child:	97
+	Child:	99
+	Child:	101
+	Child:	103
+	Child:	105
+	Child:	107
+	Child:	109
+	Child:	111
+	Child:	117
+	Child:	123
+	Child:	129
+	Child:	135
+	Child:	141
+	Child:	143
+	Child:	145
+	Child:	147
+	Child:	149
+	Child:	151
+	Child:	157
+	Child:	159
+	Child:	161
+	Child:	163
+	Child:	165
+	Child:	167
+	Child:	169
+	Child:	171
+	Child:	173
+	Child:	175
+)
+
+(CLnSym.5
+	Color:	6
+	Size:	2.00000000000000
+	Symbols:	7
+)
+
+(TClr.6
+	Red:	0xffff
+)
+
+(SymList.7
+	Child:	8
+	Child:	10
+)
+
+(BLnSym.8
+	Color:	9
+	Width:	2.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.9
+	Red:	0xffff
+)
+
+(VLnHlw.10
+	Color:	11
+	ColorLock:	1
+	Size:	2.00000000000000
+	AltSize:	2.40000000000000
+	BasicLine:	12
+)
+
+(TClr.11
+)
+
+(BLnSym.12
+	Color:	13
+	Width:	-0.20000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.13
+)
+
+(CLnSym.14
+	Color:	15
+	Size:	2.00000000000000
+	Symbols:	16
+)
+
+(TClr.15
+	Red:	0xffff
+)
+
+(SymList.16
+	Child:	17
+	Child:	19
+)
+
+(BLnSym.17
+	Color:	18
+	Width:	2.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.18
+	Red:	0xffff
+)
+
+(VLnHlw.19
+	Color:	20
+	ColorLock:	1
+	Size:	2.00000000000000
+	AltSize:	2.40000000000000
+	BasicLine:	21
+)
+
+(TClr.20
+)
+
+(BLnSym.21
+	Color:	22
+	Width:	-0.20000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.22
+)
+
+(CLnSym.23
+	Color:	24
+	Size:	2.00000000000000
+	Symbols:	25
+)
+
+(TClr.24
+	Red:	0xffff
+)
+
+(SymList.25
+	Child:	26
+	Child:	28
+)
+
+(BLnSym.26
+	Color:	27
+	Width:	2.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.27
+	Red:	0xffff
+)
+
+(VLnHlw.28
+	Color:	29
+	ColorLock:	1
+	Size:	2.00000000000000
+	AltSize:	2.40000000000000
+	BasicLine:	30
+)
+
+(TClr.29
+)
+
+(BLnSym.30
+	Color:	31
+	Width:	-0.20000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.31
+)
+
+(CLnSym.32
+	Color:	33
+	Size:	2.00000000000000
+	Symbols:	34
+)
+
+(TClr.33
+	Red:	0xffff
+)
+
+(SymList.34
+	Child:	35
+	Child:	37
+)
+
+(BLnSym.35
+	Color:	36
+	Width:	2.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.36
+	Red:	0xffff
+)
+
+(VLnHlw.37
+	Color:	38
+	ColorLock:	1
+	Size:	2.00000000000000
+	AltSize:	2.40000000000000
+	BasicLine:	39
+)
+
+(TClr.38
+)
+
+(BLnSym.39
+	Color:	40
+	Width:	-0.20000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.40
+)
+
+(CLnSym.41
+	Color:	42
+	Size:	2.00000000000000
+	Symbols:	43
+)
+
+(TClr.42
+	Red:	0xffff
+)
+
+(SymList.43
+	Child:	44
+	Child:	46
+)
+
+(BLnSym.44
+	Color:	45
+	Width:	2.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.45
+	Red:	0xffff
+)
+
+(VLnHlw.46
+	Color:	47
+	ColorLock:	1
+	Size:	2.00000000000000
+	AltSize:	2.40000000000000
+	BasicLine:	48
+)
+
+(TClr.47
+)
+
+(BLnSym.48
+	Color:	49
+	Width:	-0.20000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.49
+)
+
+(CLnSym.50
+	Color:	51
+	Size:	1.00000000000000
+	Symbols:	52
+)
+
+(TClr.51
+	Red:	0xffff
+)
+
+(SymList.52
+	Child:	53
+	Child:	55
+)
+
+(BLnSym.53
+	Color:	54
+	Width:	1.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.54
+	Red:	0xffff
+)
+
+(VLnHlw.55
+	Color:	56
+	ColorLock:	1
+	Size:	1.00000000000000
+	AltSize:	0.80000000000000
+	BasicLine:	57
+)
+
+(TClr.56
+)
+
+(BLnSym.57
+	Color:	58
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.58
+)
+
+(CLnSym.59
+	Color:	60
+	Size:	1.00000000000000
+	Symbols:	61
+)
+
+(TClr.60
+	Red:	0xffff
+)
+
+(SymList.61
+	Child:	62
+	Child:	64
+)
+
+(BLnSym.62
+	Color:	63
+	Width:	1.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.63
+	Red:	0xffff
+)
+
+(VLnHlw.64
+	Color:	65
+	ColorLock:	1
+	Size:	1.00000000000000
+	AltSize:	0.80000000000000
+	BasicLine:	66
+)
+
+(TClr.65
+)
+
+(BLnSym.66
+	Color:	67
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.67
+)
+
+(CLnSym.68
+	Color:	69
+	Size:	1.00000000000000
+	Symbols:	70
+)
+
+(TClr.69
+	Red:	0xffff
+)
+
+(SymList.70
+	Child:	71
+	Child:	73
+)
+
+(BLnSym.71
+	Color:	72
+	Width:	1.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.72
+	Red:	0xffff
+)
+
+(VLnHlw.73
+	Color:	74
+	ColorLock:	1
+	Size:	1.00000000000000
+	AltSize:	0.80000000000000
+	BasicLine:	75
+)
+
+(TClr.74
+)
+
+(BLnSym.75
+	Color:	76
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.76
+)
+
+(BLnSym.77
+	Color:	78
+	Width:	2.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.78
+)
+
+(BLnSym.79
+	Color:	80
+	Width:	2.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.80
+)
+
+(BLnSym.81
+	Color:	82
+	Width:	2.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.82
+)
+
+(BLnSym.83
+	Color:	84
+	Width:	2.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.84
+)
+
+(BLnSym.85
+	Color:	86
+	Width:	2.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.86
+)
+
+(BLnSym.87
+	Color:	88
+	Width:	1.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.88
+	Red:	0x7878
+	Green:	0x7878
+	Blue:	0x7878
+)
+
+(BLnSym.89
+	Color:	90
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.90
+	Red:	0x7878
+	Green:	0x7878
+	Blue:	0x7878
+)
+
+(BLnSym.91
+	Color:	92
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.92
+	Red:	0x7878
+	Green:	0x7878
+	Blue:	0x7878
+)
+
+(BLnSym.93
+	Color:	94
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.94
+	Red:	0x7878
+	Green:	0x7878
+	Blue:	0x7878
+)
+
+(BLnSym.95
+	Color:	96
+	Width:	0.10000000000000
+	Pattern:	1.00000000000000
+	Pattern:	1.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.96
+	Red:	0x7878
+	Green:	0x7878
+	Blue:	0x7878
+)
+
+(BLnSym.97
+	Color:	98
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.98
+	Red:	0x7878
+	Green:	0x7878
+	Blue:	0x7878
+)
+
+(BLnSym.99
+	Color:	100
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.100
+	Red:	0x7878
+	Green:	0x7878
+	Blue:	0x7878
+)
+
+(BLnSym.101
+	Color:	102
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.102
+	Red:	0x7878
+	Green:	0x7878
+	Blue:	0x7878
+)
+
+(BLnSym.103
+	Color:	104
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.104
+	Red:	0xa100
+	Green:	0x6686
+	Blue:	0x32f0
+)
+
+(BLnSym.105
+	Color:	106
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.106
+	Red:	0xa100
+	Green:	0x6686
+	Blue:	0x32f0
+)
+
+(BLnSym.107
+	Color:	108
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.108
+	Red:	0xa100
+	Green:	0x6686
+	Blue:	0x32f0
+)
+
+(BLnSym.109
+	Color:	110
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.110
+	Red:	0xa100
+	Green:	0x6686
+	Blue:	0x32f0
+)
+
+(CLnSym.111
+	Color:	112
+	Size:	0.10000000000000
+	Symbols:	113
+)
+
+(TClr.112
+	Red:	0xcacc
+	Green:	0xdb
+	Blue:	0xdc00
+)
+
+(SymList.113
+	Child:	114
+	Child:	115
+)
+
+(BLnSym.114
+	Color:	112
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(VLnHsh.115
+	Color:	112
+	Size:	0.10000000000000
+	AltSize:	0.50000000000000
+	Interval:	3.60000000000000
+	BasicLine:	116
+)
+
+(BLnSym.116
+	Color:	112
+	Width:	0.50000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(CLnSym.117
+	Color:	118
+	Size:	0.10000000000000
+	Symbols:	119
+)
+
+(TClr.118
+	Red:	0xcacc
+	Green:	0xdb
+	Blue:	0xdc00
+)
+
+(SymList.119
+	Child:	120
+	Child:	121
+)
+
+(BLnSym.120
+	Color:	118
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(VLnHsh.121
+	Color:	118
+	Size:	0.10000000000000
+	AltSize:	0.50000000000000
+	Interval:	3.60000000000000
+	BasicLine:	122
+)
+
+(BLnSym.122
+	Color:	118
+	Width:	0.50000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(CLnSym.123
+	Color:	124
+	Size:	0.10000000000000
+	Symbols:	125
+)
+
+(TClr.124
+	Red:	0xcacc
+	Green:	0xdb
+	Blue:	0xdc00
+)
+
+(SymList.125
+	Child:	126
+	Child:	127
+)
+
+(BLnSym.126
+	Color:	124
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(VLnHsh.127
+	Color:	124
+	Size:	0.10000000000000
+	AltSize:	0.50000000000000
+	Interval:	3.60000000000000
+	BasicLine:	128
+)
+
+(BLnSym.128
+	Color:	124
+	Width:	0.50000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(CLnSym.129
+	Color:	130
+	Size:	0.10000000000000
+	Symbols:	131
+)
+
+(TClr.130
+	Red:	0xcacc
+	Green:	0xdb
+	Blue:	0xdc00
+)
+
+(SymList.131
+	Child:	132
+	Child:	133
+)
+
+(BLnSym.132
+	Color:	130
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(VLnHsh.133
+	Color:	130
+	Size:	0.10000000000000
+	AltSize:	0.50000000000000
+	Interval:	3.60000000000000
+	BasicLine:	134
+)
+
+(BLnSym.134
+	Color:	130
+	Width:	0.50000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(CLnSym.135
+	Color:	136
+	Size:	0.10000000000000
+	Symbols:	137
+)
+
+(TClr.136
+	Red:	0xcacc
+	Green:	0xdb
+	Blue:	0xdc00
+)
+
+(SymList.137
+	Child:	138
+	Child:	139
+)
+
+(BLnSym.138
+	Color:	136
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(VLnHsh.139
+	Color:	136
+	Size:	0.10000000000000
+	AltSize:	0.50000000000000
+	Interval:	3.60000000000000
+	BasicLine:	140
+)
+
+(BLnSym.140
+	Color:	136
+	Width:	0.50000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(BLnSym.141
+	Color:	142
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.142
+	Red:	0xf7f6
+	Green:	0xa559
+	Blue:	0xff00
+)
+
+(BLnSym.143
+	Color:	144
+	Width:	0.10000000000000
+	Pattern:	1.00000000000000
+	Pattern:	1.00000000000000
+	Pattern:	1.00000000000000
+	Pattern:	2.00000000000000
+	Pattern:	8.00000000000000
+	Pattern:	2.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.144
+	Red:	0xff00
+	Green:	0xbf7b
+	Blue:	0xfe
+)
+
+(BLnSym.145
+	Color:	146
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.146
+	Red:	0xa7b2
+	Green:	0xafff
+	Blue:	0x5e2f
+)
+
+(BLnSym.147
+	Color:	148
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.148
+	Red:	0xc0ff
+	Green:	0x90b1
+	Blue:	0x5834
+)
+
+(BLnSym.149
+	Color:	150
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.150
+	Red:	0x8b8b
+	Green:	0x4545
+	Blue:	0x1313
+)
+
+(CLnSym.151
+	Color:	152
+	Size:	0.10000000000000
+	Symbols:	153
+)
+
+(TClr.152
+	Red:	0xacff
+	Green:	0x9619
+	Blue:	0xac
+)
+
+(SymList.153
+	Child:	154
+	Child:	155
+)
+
+(BLnSym.154
+	Color:	152
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(VLnHsh.155
+	Color:	152
+	Size:	0.10000000000000
+	AltSize:	0.50000000000000
+	Interval:	7.20000000000000
+	BasicLine:	156
+)
+
+(BLnSym.156
+	Color:	152
+	Width:	0.50000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(BLnSym.157
+	Color:	158
+	Width:	2.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.158
+	Blue:	0xffff
+)
+
+(BLnSym.159
+	Color:	160
+	Width:	0.10000000000000
+	Pattern:	1.00000000000000
+	Pattern:	1.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.160
+	Red:	0xd9d
+	Green:	0x81
+	Blue:	0x8200
+)
+
+(BLnSym.161
+	Color:	162
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.162
+	Red:	0x4143
+	Green:	0x58e8
+	Blue:	0xcc0d
+)
+
+(BLnSym.163
+	Color:	164
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.164
+	Blue:	0xffff
+)
+
+(BLnSym.165
+	Color:	166
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.166
+	Blue:	0xffff
+)
+
+(BLnSym.167
+	Color:	168
+	Width:	0.10000000000000
+	Pattern:	1.00000000000000
+	Pattern:	1.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.168
+	Blue:	0xffff
+)
+
+(BLnSym.169
+	Color:	170
+	Width:	1.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.170
+	Red:	0x170b
+	Green:	0xdb
+	Blue:	0xdc00
+)
+
+(BLnSym.171
+	Color:	172
+	Width:	1.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.172
+	Red:	0x170b
+	Green:	0xdb
+	Blue:	0xdc00
+)
+
+(BLnSym.173
+	Color:	174
+	Width:	1.00000000000000
+	Pattern:	6.00000000000000
+	Pattern:	1.00000000000000
+	Pattern:	2.00000000000000
+	Pattern:	1.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.174
+	Red:	0xd9d
+	Green:	0x81
+	Blue:	0x8200
+)
+
+(BLnSym.175
+	Color:	176
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.176
+	Name:	"Transparent"
+)
+
+(LClass.177
+	IsText:	1
+	Label:	"Interstate"
+	MinStr:	"A11"
+	MaxStr:	"A11"
+	Precision:	-3
+)
+
+(LClass.178
+	IsText:	1
+	Label:	"Interstate"
+	MinStr:	"A13"
+	MaxStr:	"A13"
+	Precision:	-3
+)
+
+(LClass.179
+	IsText:	1
+	Label:	"Interstate"
+	MinStr:	"A15"
+	MaxStr:	"A15"
+	Precision:	-3
+)
+
+(LClass.180
+	IsText:	1
+	Label:	"Interstate"
+	MinStr:	"A17"
+	MaxStr:	"A17"
+	Precision:	-3
+)
+
+(LClass.181
+	IsText:	1
+	Label:	"Interstate"
+	MinStr:	"A18"
+	MaxStr:	"A18"
+	Precision:	-3
+)
+
+(LClass.182
+	IsText:	1
+	Label:	"Major"
+	MinStr:	"A21"
+	MaxStr:	"A21"
+	Precision:	-3
+)
+
+(LClass.183
+	IsText:	1
+	Label:	"Major"
+	MinStr:	"A23"
+	MaxStr:	"A23"
+	Precision:	-3
+)
+
+(LClass.184
+	IsText:	1
+	Label:	"Major"
+	MinStr:	"A25"
+	MaxStr:	"A25"
+	Precision:	-3
+)
+
+(LClass.185
+	IsText:	1
+	Label:	"Primary"
+	MinStr:	"A31"
+	MaxStr:	"A31"
+	Precision:	-3
+)
+
+(LClass.186
+	IsText:	1
+	Label:	"Primary"
+	MinStr:	"A32"
+	MaxStr:	"A32"
+	Precision:	-3
+)
+
+(LClass.187
+	IsText:	1
+	Label:	"Primary"
+	MinStr:	"A33"
+	MaxStr:	"A33"
+	Precision:	-3
+)
+
+(LClass.188
+	IsText:	1
+	Label:	"Primary"
+	MinStr:	"A35"
+	MaxStr:	"A35"
+	Precision:	-3
+)
+
+(LClass.189
+	IsText:	1
+	Label:	"Primary"
+	MinStr:	"A37"
+	MaxStr:	"A37"
+	Precision:	-3
+)
+
+(LClass.190
+	IsText:	1
+	Label:	"Local"
+	MinStr:	"A41"
+	MaxStr:	"A41"
+	Precision:	-3
+)
+
+(LClass.191
+	IsText:	1
+	Label:	"Local"
+	MinStr:	"A43"
+	MaxStr:	"A43"
+	Precision:	-3
+)
+
+(LClass.192
+	IsText:	1
+	Label:	"Local"
+	MinStr:	"A44"
+	MaxStr:	"A44"
+	Precision:	-3
+)
+
+(LClass.193
+	IsText:	1
+	Label:	"Local"
+	MinStr:	"A45"
+	MaxStr:	"A45"
+	Precision:	-3
+)
+
+(LClass.194
+	IsText:	1
+	Label:	"Trail"
+	MinStr:	"A51"
+	MaxStr:	"A51"
+	Precision:	-3
+)
+
+(LClass.195
+	IsText:	1
+	Label:	"Circle"
+	MinStr:	"A62"
+	MaxStr:	"A62"
+	Precision:	-3
+)
+
+(LClass.196
+	IsText:	1
+	Label:	"Ramp"
+	MinStr:	"A63"
+	MaxStr:	"A63"
+	Precision:	-3
+)
+
+(LClass.197
+	IsText:	1
+	Label:	"Service"
+	MinStr:	"A64"
+	MaxStr:	"A64"
+	Precision:	-3
+)
+
+(LClass.198
+	IsText:	1
+	Label:	"Undetermined"
+	MinStr:	"A70"
+	MaxStr:	"A70"
+	Precision:	-3
+)
+
+(LClass.199
+	IsText:	1
+	Label:	"Undetermined"
+	MinStr:	"A71"
+	MaxStr:	"A71"
+	Precision:	-3
+)
+
+(LClass.200
+	IsText:	1
+	Label:	"Undetermined"
+	MinStr:	"A73"
+	MaxStr:	"A73"
+	Precision:	-3
+)
+
+(LClass.201
+	IsText:	1
+	Label:	"Undetermined"
+	MinStr:	"A74"
+	MaxStr:	"A74"
+	Precision:	-3
+)
+
+(LClass.202
+	IsText:	1
+	Label:	"Railroad"
+	MinStr:	"B11"
+	MaxStr:	"B11"
+	Precision:	-3
+)
+
+(LClass.203
+	IsText:	1
+	Label:	"Railroad"
+	MinStr:	"B12"
+	MaxStr:	"B12"
+	Precision:	-3
+)
+
+(LClass.204
+	IsText:	1
+	Label:	"Railroad"
+	MinStr:	"B13"
+	MaxStr:	"B13"
+	Precision:	-3
+)
+
+(LClass.205
+	IsText:	1
+	Label:	"Railroad"
+	MinStr:	"B21"
+	MaxStr:	"B21"
+	Precision:	-3
+)
+
+(LClass.206
+	IsText:	1
+	Label:	"Railroad"
+	MinStr:	"B50"
+	MaxStr:	"B50"
+	Precision:	-3
+)
+
+(LClass.207
+	IsText:	1
+	Label:	"Pipeline"
+	MinStr:	"C10"
+	MaxStr:	"C10"
+	Precision:	-3
+)
+
+(LClass.208
+	IsText:	1
+	Label:	"Trasmission Line"
+	MinStr:	"C20"
+	MaxStr:	"C20"
+	Precision:	-3
+)
+
+(LClass.209
+	IsText:	1
+	Label:	"Misc "
+	MinStr:	"C30"
+	MaxStr:	"C30"
+	Precision:	-3
+)
+
+(LClass.210
+	IsText:	1
+	Label:	"D51"
+	MinStr:	"D51"
+	MaxStr:	"D51"
+	Precision:	-3
+)
+
+(LClass.211
+	IsText:	1
+	Label:	"Physical"
+	MinStr:	"E00"
+	MaxStr:	"E00"
+	Precision:	-3
+)
+
+(LClass.212
+	IsText:	1
+	Label:	"Fence"
+	MinStr:	"E10"
+	MaxStr:	"E10"
+	Precision:	-3
+)
+
+(LClass.213
+	IsText:	1
+	Label:	"Major Streams"
+	MinStr:	"H01"
+	MaxStr:	"H01"
+	Precision:	-3
+)
+
+(LClass.214
+	IsText:	1
+	Label:	"Intermittent Streams"
+	MinStr:	"H02"
+	MaxStr:	"H02"
+	Precision:	-3
+)
+
+(LClass.215
+	IsText:	1
+	Label:	"Streams"
+	MinStr:	"H10"
+	MaxStr:	"H10"
+	Precision:	-3
+)
+
+(LClass.216
+	IsText:	1
+	Label:	"Perennial Stream"
+	MinStr:	"H11"
+	MaxStr:	"H11"
+	Precision:	-3
+)
+
+(LClass.217
+	IsText:	1
+	Label:	"Intermittent Streams"
+	MinStr:	"H12"
+	MaxStr:	"H12"
+	Precision:	-3
+)
+
+(LClass.218
+	IsText:	1
+	Label:	"Braided Streama"
+	MinStr:	"H13"
+	MaxStr:	"H13"
+	Precision:	-3
+)
+
+(LClass.219
+	IsText:	1
+	Label:	"canal"
+	MinStr:	"H21"
+	MaxStr:	"H21"
+	Precision:	-3
+)
+
+(LClass.220
+	IsText:	1
+	Label:	"canal"
+	MinStr:	"H22"
+	MaxStr:	"H22"
+	Precision:	-3
+)
+
+(LClass.221
+	IsText:	1
+	Label:	"Pond"
+	MinStr:	"H30"
+	MaxStr:	"H30"
+	Precision:	-3
+)
+
+(LClass.222
+	IsNoData:	1
+	IsText:	1
+	Label:	"No Data"
+	Precision:	-3
+)
+
+(BLnSym.223
+	Color:	224
+	Width:	0.10000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+	Pattern:	0.00000000000000
+)
+
+(TClr.224
+	Name:	"Transparent"
+)
+
+(NameDict.225
+)
+
+(NameDict.226
+)
+

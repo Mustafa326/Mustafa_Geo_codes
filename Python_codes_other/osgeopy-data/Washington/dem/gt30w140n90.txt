@@ -1,0 +1,229 @@
+Identification_Information:  
+  Citation:  
+    Citation_Information:  
+      Originator:  U.S. Geological Survey (USGS) 
+      Publication_Date:  September 2012
+      Title:  GTOPO30: GT30W140N90
+      Geospatial_Data_Presentation_Form:  Remote-sensing image
+      Series_Information:  
+        Series_Name:  GTOPO30
+      Publication_Information:  
+        Publication_Place:  Sioux Falls, SD
+        Publisher:  U. S. Geological Survey
+Earth Resources Observation and Science (EROS) Center
+      Online_Linkage:  http://earthexplorer.usgs.gov
+  Description:  
+    Abstract:  GTOPO30 is a global digital elevation model (DEM) with a horizontal grid spacing of 30 arc seconds (approximately 1 kilometer). GTOPO30 was derived from several raster and vector sources of topographic information. For easier distribution, GTOPO30 has been divided into tiles which can be selected from the map shown above. Detailed information on the characteristics of GTOPO30 including the data distribution format, the data sources, production methods, accuracy, and hints for users, is found in the GTOPO30 README file.
+
+
+
+    Supplemental_Information:  GTOPO30, completed in late 1996, was developed over a three year period through a collaborative effort led by staff at the U.S. Geological Survey's Center for Earth Resources Observation and Science (EROS). The following organizations participated by contributing funding or source data:  the National Aeronautics and Space Administration (NASA), the United Nations Environment Programme/Global Resource Information Database (UNEP/GRID), the U.S. Agency for International Development (USAID), the Instituto Nacional de Estadistica Geografica e Informatica (INEGI) of Mexico, the Geographical Survey Institute (GSI) of Japan, Manaaki Whenua Landcare Research of New Zealand, and the Scientific Committee on Antarctic Research (SCAR).
+
+  Time_Period_of_Content:  
+    Time_Period_Information:  
+       
+        Single_Date/Time:  
+          Calendar_Date:  19961201
+    Currentness_Reference:  Ground condition
+  Status:  
+    Progress:  Complete
+    Maintenance_and_Update_Frequency:  As Needed
+  Spatial_Domain:  
+    Data_Set_G-Polygon:  
+      Data_Set_G-Polygon_Outer_G-Ring:  
+         
+          G-Ring_Latitude:  90
+          G-Ring_Longitude:  -140
+         
+          G-Ring_Latitude:  90
+          G-Ring_Longitude:  -100
+         
+          G-Ring_Latitude:  40
+          G-Ring_Longitude:  -100
+         
+          G-Ring_Latitude:  40
+          G-Ring_Longitude:  -140
+  Keywords:  
+    Theme:  
+       
+        Theme_Keyword_Thesaurus:  None
+        Theme_Keyword:  U.S. Geological Survey
+        Theme_Keyword:  digital elevation model
+        Theme_Keyword:  imagery
+        Theme_Keyword:  SRTM
+        Theme_Keyword:  image map
+        Theme_Keyword:  USGS
+        Theme_Keyword:  DEM
+       
+        Theme_Keyword_Thesaurus:  ISO 19115 Category
+        Theme_Keyword:  010
+        Theme_Keyword:  imageryBaseMapsEarthCover
+    Place:  
+       
+        Place_Keyword_Thesaurus:  None
+        Place_Keyword:  Earth Resources Observation and Science (EROS) Center
+       
+        Place_Keyword_Thesaurus:  U.S. Department of Commerce, 1995, Countries, dependencies, areas of special sovereignty, and their principal administrative divisions, Federal Information Processing Standard 10-4,): Washington, D.C., National Institute of Standards and Technology
+        Place_Keyword:  North America
+        Place_Keyword:  South America
+        Place_Keyword:  Oceania
+        Place_Keyword:  Australia
+        Place_Keyword:  Pacific Islands
+        Place_Keyword:  Antarctica
+        Place_Keyword:  World
+        Place_Keyword:  US
+        Place_Keyword:  United States
+        Place_Keyword:  U.S.
+        Place_Keyword:  Europe
+        Place_Keyword:  Asia
+        Place_Keyword:  Africa
+  Access_Constraints:  Any downloading and use of these data signifies a user's agreement to comprehension and compliance of the USGS Standard Disclaimer.  Insure all portions of metadata are read and clearly understood before using these data in order to protect both user and USGS interests.
+  Use_Constraints:  There is no guarantee of warranty concerning the accuracy of these data.  Users should be aware that temporal changes may have occurred since the data set was collected and that some parts of these data may no longer represent actual surface conditions.  Users should not use these data for critical applications without a full awareness of their limitations.  Acknowledgement of the originating agencies would be appreciated in products derived from these data.  Any user who modifies the data set is obligated to describe the types of modifications they perform.  User specifically agrees not to misrepresent the data set, nor to imply that changes made were approved or endorsed by the U.S. Geological Survey.  Please refer to http://www.usgs.gov/privacy.html for the USGS disclaimer.
+  Point_of_Contact:  
+    Contact_Information:  
+       
+        Contact_Person_Primary:  
+          Contact_Person:  lta@usgs.gov
+        Contact_Organization_Primary:  
+          Contact_Organization:  U.S. Geological Survey Earth Resources Observation and Science (EROS) Center
+          Contact_Person:  lta@usgs.gov
+      Contact_Position:  Long Term Archive (LTA)  Representative
+      Contact_Address:  
+        Address_Type:  mailing and physical address
+        Address:  Long Term Archive (LTA),  U.S. Geological Survey  (USGS)
+Earth Resources Observation and Science (EROS) Center
+47914 252nd Street
+
+
+        City:  Sioux Falls
+        State_or_Province:  SD
+        Postal_Code:  57198-0001
+        Country:  USA
+      Contact_Electronic_Mail_Address:  lta@usgs.gov
+      Hours_of_Service:  0800 - 1600 CT, M-F,  -6 h  GMT
+      Contact_Instructions:  lta@usgs.gov
+  Browse_Graphic:  
+    Browse_Graphic_File_Description:  This is a compressed and resampled version of the product
+    Browse_Graphic_File_Type:  JPEG
+  Security_Information:  
+    Security_Classification_System:  none
+    Security_Classification:  unclassified
+    Security_Handling_Description:  none
+  Native_Data_Set_Environment:  Oracle
+Data_Quality_Information:  
+  Attribute_Accuracy:  
+    Attribute_Accuracy_Report:  The identification of features is provided by the distinct electromagnetic energy it emits, reflects, or otherwise transmits.  This is called the spectral signature.  Other signatures such as tone (lightness or darkness), texture (surface roughness or smoothness), pattern, shadow, shape, and size are as important.  
+  Logical_Consistency_Report:  Not available
+  Completeness_Report:  None
+  Lineage:  
+    Process_Step:  
+      Process_Description:  None
+      Process_Date:  2012
+      Process_Contact:  
+        Contact_Information:  
+           
+Contact_Person_Primary:  
+Contact_Person:  lta@usgs.gov
+Contact_Organization_Primary:  
+Contact_Person:  lta@usgs.gov
+          Contact_Position:  Long Term Archive (LTA)  Representative
+          Contact_Address:  
+Address:  Long Term Archive (LTA),  U.S. Geological Survey  (USGS)
+Earth Resources Observation and Science (EROS) Center
+47914 252nd Street
+
+          Contact_Electronic_Mail_Address:  lta@usgs.gov
+          Contact_Instructions:  lta@usgs.gov
+Spatial_Data_Organization_Information:  
+  Indirect_Spatial_Reference:  Raster
+   
+    Direct_Spatial_Reference_Method:  Raster
+     
+      Raster_Object_Information:  
+        Raster_Object_Type:  Pixel
+Distribution_Information:  
+   
+    Distributor:  
+      Contact_Information:  
+         
+          Contact_Person_Primary:  
+Contact_Person:  lta@usgs.gov
+          Contact_Organization_Primary:  
+Contact_Organization:  U.S. Geological Survey Earth Resources Observation and Science (EROS) Center
+Contact_Person:  lta@usgs.gov
+        Contact_Position:  Long Term Archive (LTA)  Representative
+        Contact_Address:  
+          Address_Type:  mailing and physical address
+          Address:  Long Term Archive (LTA),  U.S. Geological Survey  (USGS)
+Earth Resources Observation and Science (EROS) Center
+47914 252nd Street
+
+
+          City:  Sioux Falls
+          State_or_Province:  SD
+          Postal_Code:  57198-0001
+          Country:  USA
+        Contact_Electronic_Mail_Address:  lta@usgs.gov
+        Hours_of_Service:  0800 - 1600 CT, M-F,   -6 h GMT
+        Contact_Instructions:  lta@usgs.gov
+    Distribution_Liability:  Although these data have been processed successfully on a computer system at the U.S. Geological Survey, no warranty, expressed or implied, is made by the USGS regarding the use of the data on any other system, nor does the act of distribution constitute any such warranty.  
+    Standard_Order_Process:  
+       
+        Digital_Form:  
+          Digital_Transfer_Information:  
+Format_Name:  DEM GeoTIFF
+          Digital_Transfer_Option:  
+ 
+Online_Option:  
+Computer_Contact_Information:  
+ 
+Network_Address:  
+Network_Resource_Name:  http://earthexplorer.usgs.gov
+Offline_Option:  
+Recording_Format:  Varies
+      Fees:  Typically, all data available from USGS/EROS are downloadable at no cost to the user. There are some cases when a service fee is required to convert the analog film record to a digital file.
+      Ordering_Instructions:  Consult the data sets product page for specific information.
+      Turnaround:  A majority of the data are available for immediate downloading. Specific data processing may take 24 to 48 hours and film scanning service requests involving payment to the USGS can require 3 - 4 weeks upon successful payment of the request.
+    Technical_Prerequisites:  Adequate computer capability is the only technical prerequisite for viewing data in digital form. You may return here at any time and add to your data request before final submission. 
+    Available_Time_Period:  
+      Time_Period_Information:  
+         
+          Range_of_Dates/Times:  
+Beginning_Date:  September 2012
+Ending_Date:  unknown
+Metadata_Reference_Information:  
+  Metadata_Date:  19961201
+   
+    Metadata_Review_Date:  as needed
+  Metadata_Contact:  
+    Contact_Information:  
+       
+        Contact_Person_Primary:  
+          Contact_Person:  lta@usgs.gov
+        Contact_Organization_Primary:  
+          Contact_Organization:  U.S. Geological Survey Earth Resources Observation and Science (EROS) Center
+          Contact_Person:  lta@usgs.gov
+      Contact_Position:  Long Term Archive (LTA)  Representative
+      Contact_Address:  
+        Address_Type:  mailing and physical address
+        Address:  Long Term Archive (LTA),  U.S. Geological Survey  (USGS)
+Earth Resources Observation and Science (EROS) Center
+47914 252nd Street
+
+
+        City:  Sioux Falls
+        State_or_Province:  South Dakota
+        Postal_Code:  57198-0001
+        Country:  USA
+      Contact_Electronic_Mail_Address:  lta@usgs.gov
+      Hours_of_Service:  0800 - 1600 CT, M-F,   -6 h  GMT
+      Contact_Instructions:  lta@usgs.gov
+  Metadata_Standard_Name:  Content Standards for Digital Geospatial Metadata
+  Metadata_Standard_Version:  FGDC-STD-001-1998, Version 2
+  Metadata_Time_Convention:  local time
+  Metadata_Access_Constraints:  None
+  Metadata_Use_Constraints:  None
+  Metadata_Security_Information:  
+    Metadata_Security_Classification_System:  None
+    Metadata_Security_Classification:  Unclassified
+    Metadata_Security_Handling_Description:  None

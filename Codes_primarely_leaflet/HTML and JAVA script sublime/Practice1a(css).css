@@ -1,0 +1,125 @@
+
+				.Naruto h{
+					font-size: 20px;
+					font-family: Tahoma;
+					text-decoration: underline;
+					font-style: italic;
+					word-spacing: 0.5em;
+
+				}
+				.Bleach h1{
+					font-size: 20px;
+					font-family: Tahoma;
+					text-decoration: underline;
+					font-style: italic;
+					word-spacing: 0.5em;
+					
+				}
+				.One h3{
+					font-size: 20px;
+					font-family: Tahoma;
+					text-decoration: underline;
+					font-style: italic;
+					word-spacing: 0.5em;
+					
+				}
+				body
+				{
+					background-color:#cccccc;
+					background-image: url("Hidden Leaf Village.png");
+					opacity: 15;
+					margin:auto;
+				}
+				#Main_article{
+						color: white;
+						font: normal 16px,sans-serif;
+						background-color: black;
+						opacity: 0.75;
+					    width: 80%;
+					    border: 15px solid orange;
+					    border-width: 14px;
+					    padding: 40px;
+					    margin: auto;
+					    margin-top: 80px;
+					}
+					#Bleach
+					{
+						color: white;
+						font: normal 16px,sans-serif;
+						background-color: black;
+					    opacity: 0.75;
+						width: 80%;
+						border: 15px solid red;
+						border-width: 14px;
+				        padding: 50px;
+				        margin: auto;
+				        margin-top: 20px;
+				    }
+				    #One
+				    {
+				    	color: white;
+				    	font: normal 16px,sans-serif;
+				    	background-color: black;
+					    opacity: 0.75;
+						width: 80%;
+						border: 15px solid blue;
+						border-width: 14px;
+				        padding: 50px;
+				        margin: auto;
+				        margin-top: 20px;
+
+				    }
+
+
+				   .Navigation ul {
+				  list-style-type: none;
+				  margin: auto;
+				  padding: 0;
+				  margin-top: 20px;
+				  margin-left: 150px;
+				  width:100%;
+				}
+				.Navigation li a {
+					color: white;
+					text-decoration: none;
+				    display: block;
+				    width: 12%;
+				    padding: 10px 12px;
+				    margin: auto;
+				    background-color: black;
+				    opacity: 0.73;
+				    float: left;
+				    box-sizing: border-box;
+				    
+				  }
+				  .Navigation li a:hover {
+				  	background-color: black;
+				  	color: red;
+				  }
+				  .My_Form{
+				  	display: block;
+				  	background-color: black;
+				  	opacity: 0.73;
+				  	color: white;
+				  	border:15px;
+				  	width: 45%;
+				  	padding: 10px;
+				  	margin: auto;
+				  	margin-top: 20px;
+				  }
+				    .My_Form label{
+				    	font-size: 20px;
+				    	font-style: italic;
+				    }
+				    .My_Form textarea{
+				    	padding:0;
+				    	width:80%;
+				    	height: 200px;
+				    }
+				    .My_Form button{
+				    	margin-left: 250px;
+				    }
+				    .My_Form button:hover{
+				    	background-color: red;
+				    	color: black;
+				    }

@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="1practice.css">
+
+    <title>SAD</title>
+
+</head>
+<body>
+  <div class="Header">
+  <header>
+    <strong>Gis Web Portal</strong>
+  </header>
+</div>
+ 
+<!--
+<a class="btn btn-primary" href="#" role="button">Link</a>
+<a class="btn btn-primary" href="#" role="button">Link</a>
+<a class="btn btn-primary" href="#" role="button">Link</a>
+<a class="btn btn-primary" href="#" role="button">Link</a>
+<a class="btn btn-primary" href="#" role="button">Link</a>
+<nav class="navbar navbar-dark bg-dark">
+   Navbar content 
+</nav>
+-->
+<!--
+<div class="Navigation">
+<nav class="navbar navbar-dark bg-primary">
+  <ul class="list-inline">
+ <li> <a class="btn btn-primary" href="#" role="button">Link</a></li>
+ <li><a class="btn btn-primary" href="https://getbootstrap.com/docs/3.4/javascript/#tabs" role="button">Link</a></li>
+ <li><a class="btn btn-primary" href="#" role="button">Link</a></li>
+ <li><a class="btn btn-primary" href="#" role="button">Link</a></li>
+</nav>
+</div>
+<div class="Navigation2">
+<nav class="navbar navbar-dark bg-dark">
+  <a class="btn btn" href="#" role="button"><strong>Data</a></strong>
+<a class="btn btn" href="https://getbootstrap.com/docs/3.4/javascript/#tabs" role="button"><strong>Study Area</strong></a>
+<a class="btn btn" href="#" role="button"><strong>About</a></strong>
+<a class="btn btn" href="#" role="button"><strong>Link</a></strong>
+</div>
+<br>
+<div>
+-->
+<asside class="Navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <a class="nav-link" href="https://www.youtube.com/watch?v=yZnNnvXO8HI">Graphs</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="{% url 'bootstrap3.views.index' %}">Data</a>
+    </li>
+    <li class="nav-item active">
+     <a class="nav-link" href="{% url 'bootstrap4.views.index' %}">Study Area</a>
+    </li>
+        <li class="nav-item active">
+     <a class="nav-link" href="{% url 'semantic.views.index' %}">About</a>
+    </li>
+  </ul>
+</nav>
+</div>
+</asside>
+<section>
+  <div class="Map">
+  <h>Map</h>
+  <p>This is the Block where the map would be Shown</p>
+</div>
+  
+</section>
+<div class="Accordion">
+  <!--Accordion wrapper-->
+  <div class="accordion md-accordion accordion-blocks" id="accordionEx78" role="tablist"
+    aria-multiselectable="true">
+
+    <!-- Accordion card -->
+    <div class="card">
+
+      <!-- Card header -->
+      <div class="card-header" role="tab" id="headingUnfiled">
+
+        <!--Options-->
+        <div class="dropdown float-left">
+          
+        </div>
+
+        <!-- Heading -->
+        <a data-toggle="collapse" data-parent="#accordionEx78" href="#collapseUnfiled" aria-expanded="true"
+          aria-controls="collapseUnfiled">
+          <h5 class="mt-1 mb-0">
+            <span>Temperature</span>
+            <i class="fas fa-angle-down rotate-icon"></i>
+          </h5>
+        </a>
+
+      </div>
+
+      <!-- Card body -->
+      <div id="collapseUnfiled" class="collapse" role="tabpanel" aria-labelledby="headingUnfiled"
+        data-parent="#accordionEx78">
+        <div class="card-body">
+
+          <!--Top Table UI-->
+          <div class="table-ui p-2 mb-3 mx-3 mb-4">
+            <!--
+
+            Grid row
+            <div class="row">
+
+              Grid column
+              <div class="col-xl-4 col-lg-6 col-md-12">
+
+                Name
+                <select class="mdb-select colorful-select dropdown-info mx-2">
+                  <option value="" disabled selected>Bulk actions</option>
+                  <option value="1">Delete</option>
+                  <option value="2">Change folder</option>
+                </select>
+
+              </div>
+            -->
+              <!--Grid column-->
+              <!--
+
+              Grid column
+              <div class="col-xl-4 col-lg-6 col-md-6">
+
+                Blue select
+                <select class="mdb-select colorful-select dropdown-info mx-2">
+                  <option value="" disabled>Show only</option>
+                  <option value="1" selected>All <span> (2000)</span></option>
+                  <option value="2">Clicks <span> (200)</span></option>
+                  <option value="3">Page <span> (1800)</span></option>
+                  <option value="4">Scroll <span> (200)</span></option>
+                  <option value="5">Forms <span> (50)</span></option>
+                  <option value="6">Time <span> (50)</span></option>
+                  <option value="7">UTM <span> (50)</span></option>
+                </select>
+                Blue select
+
+              </div>
+              
+              Grid column-->
+
+              <!--Grid column
+              <div class="col-xl-4 col-lg-6 col-md-6">
+
+                Blue select              <select class="mdb-select colorful-select dropdown-info mx-2">
+                  <option value="" disabled selected>Filter</option>
+                  <option value="1">All <span> (100)</span></option>
+                  <option value="1">Active <span> (2000)</span></option>
+                  <option value="2">Inactive <span> (1000)</span></option>
+                </select>
+                /Blue select
+
+              </div>
+              Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+          </div>
+          <!--Top Table UI-->
+
+          <!-- Table responsive wrapper -->
+          <div class="table-responsive mx-3">
+            <!--Table-->
+            <table class="table table-hover mb-0">
+
+              <!--Table head-->
+              <thead>
+                <tr>
+                  <th>
+                    <input class="form-check-input" type="checkbox" id="checkbox">
+                    <label for="checkbox" class="mr-2 label-table"></label>
+                  </th>
+                  <th class="th-lg"><a>Satellite <i class="fas fa-sort ml-1"></i></a></th>
+                  <th class="th-lg"><a>Year<i class="fas fa-sort ml-1"></i></a></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <!--Table head-->
+
+              <!--Table body-->
+              <tbody>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox1">
+                    <label for="checkbox1" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox2">
+                    <label for="checkbox2" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox3">
+                    <label for="checkbox3" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+              <!--Table body-->
+            </table>
+            <!--Table-->
+          </div>
+          <!-- Table responsive wrapper -->
+
+        </div>
+      </div>
+    </div>
+    <!-- Accordion card -->
+
+    <!-- Accordion card -->
+    <div class="card">
+
+      <!-- Card header -->
+      <div class="card-header" role="tab" id="heading79">
+
+        <!--Options
+        <div class="dropdown float-left">
+          <button class="btn btn-info btn-sm m-0 mr-3 p-2 dropdown-toggle" type="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false"><i class="fas fa-pencil-alt"></i>
+          </button>
+          <div class="dropdown-menu dropdown-info">
+            <a class="dropdown-item" href="#">Add new condition</a>
+            <a class="dropdown-item" href="#">Rename folder</a>
+            <a class="dropdown-item" href="#">Delete folder</a>
+          </div>
+        </div>
+      -->
+
+        <!-- Heading -->
+        <a data-toggle="collapse" data-parent="#accordionEx78" href="#collapse79" aria-expanded="true"
+          aria-controls="collapse79">
+          <h5 class="mt-1 mb-0">
+            <span>Population</span>
+            <i class="fas fa-angle-down rotate-icon"></i>
+          </h5>
+        </a>
+
+      </div>
+
+      <!-- Card body -->
+      <div id="collapse79" class="collapse show" role="tabpanel" aria-labelledby="heading79"
+        data-parent="#accordionEx78">
+        <div class="card-body">
+
+          <!--Top Table UI-->
+          <div class="table-ui p-2 mb-3 mx-3 mb-4">
+
+            <!--Grid row-->
+            <div class="row">
+
+              <!--Grid column-->
+              <div class="col-xl-4 col-lg-6 col-md-12">
+
+                <!--Name
+                <select class="mdb-select colorful-select dropdown-info mx-2">
+                  <option value="" disabled selected>Bulk actions</option>
+                  <option value="1">Delete</option>
+                  <option value="2">Change folder</option>
+                </select>
+
+              </div>
+              Grid column-->
+
+              <!--Grid column
+              <div class="col-xl-4 col-lg-6 col-md-6">
+
+                Blue select
+                <select class="mdb-select colorful-select dropdown-info mx-2">
+                  <option value="" disabled>Show only</option>
+                  <option value="1" selected>All <span> (2000)</span></option>
+                  <option value="2">Clicks <span> (200)</span></option>
+                  <option value="3">Page <span> (1800)</span></option>
+                  <option value="4">Scroll <span> (200)</span></option>
+                  <option value="5">Forms <span> (50)</span></option>
+                  <option value="6">Time <span> (50)</span></option>
+                  <option value="7">UTM <span> (50)</span></option>
+                </select>
+                Blue select-->
+
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column
+              <div class="col-xl-4 col-lg-6 col-md-6">
+
+                Blue select
+                <select class="mdb-select colorful-select dropdown-info mx-2">
+                  <option value="" disabled selected>Filter</option>
+                  <option value="1">All <span> (100)</span></option>
+                  <option value="1">Active <span> (2000)</span></option>
+                  <option value="2">Inactive <span> (1000)</span></option>
+                </select>
+                <Blue select-->
+
+              </div>
+              <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+          </div>
+          <!--Top Table UI-->
+
+          <!-- Table responsive wrapper -->
+          <div class="table-responsive mx-3">
+            <!--Table-->
+            <table class="table table-hover mb-0">
+
+              <!--Table head-->
+              <thead>
+                <tr>
+                  <th>
+                    <input class="form-check-input" type="checkbox" id="checkbox4">
+                    <label for="checkbox4" class="mr-2 label-table"></label>
+                  </th>
+                  <th class="th-lg"><a>Satellite <i class="fas fa-sort ml-1"></i></a></th>
+                  <th class="th-lg"><a>Year<i class="fas fa-sort ml-1"></i></a></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <!--Table head-->
+
+              <!--Table body-->
+              <tbody>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox5">
+                    <label for="checkbox5" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox6">
+                    <label for="checkbox6" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox14">
+                    <label for="checkbox14" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+              <!--Table body-->
+            </table>
+            <!--Table-->
+          </div>
+          <!-- Table responsive wrapper -->
+
+        </div>
+      </div>
+    </div>
+    <!-- Accordion card -->
+
+    <!-- Accordion card -->
+    <div class="card">
+
+      <!-- Card header -->
+      <div class="card-header" role="tab" id="heading80">
+        <!--Options-->
+        
+
+        <!-- Heading -->
+        <a data-toggle="collapse" data-parent="#accordionEx78" href="#collapse80" aria-expanded="true"
+          aria-controls="collapse80">
+          <h5 class="mt-1 mb-0">
+            <span>Atmospharic polution</span>
+            <i class="fas fa-angle-down rotate-icon"></i>
+          </h5>
+        </a>
+      </div>
+
+      <!-- Card body -->
+      <div id="collapse80" class="collapse" role="tabpanel" aria-labelledby="heading80"
+        data-parent="#accordionEx78">
+        <div class="card-body">
+
+          <!--Top Table UI-->
+          <div class="table-ui p-2 mb-3 mx-3 mb-4">
+
+            <!--Grid row-->
+            <div class="row">
+
+              <!--Grid column-->
+              <div class="col-xl-4 col-lg-6 col-md-12">
+
+                <!--Name
+                <select class="mdb-select colorful-select dropdown-info mx-2">
+                  <option value="" disabled selected>Bulk actions</option>
+                  <option value="1">Delete</option>
+                  <option value="2">Change folder</option>
+                </select>
+
+              </div>
+              Grid column-->
+
+              <!--Grid column-->
+              <div class="col-xl-4 col-lg-6 col-md-6">
+
+                <!--Blue select
+                <select class="mdb-select colorful-select dropdown-info mx-2">
+                  <option value="" disabled>Show only</option>
+                  <option value="1" selected>All <span> (2000)</span></option>
+                  <option value="2">Clicks <span> (200)</span></option>
+                  <option value="3">Page <span> (1800)</span></option>
+                  <option value="4">Scroll <span> (200)</span></option>
+                  <option value="5">Forms <span> (50)</span></option>
+                  <option value="6">Time <span> (50)</span></option>
+                  <option value="7">UTM <span> (50)</span></option>
+                </select>
+                Blue select-->
+
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-xl-4 col-lg-6 col-md-6">
+
+                <!--Blue select
+                <select class="mdb-select colorful-select dropdown-info mx-2">
+                  <option value="" disabled selected>Filter</option>
+                  <option value="1">All <span> (100)</span></option>
+                  <option value="1">Active <span> (2000)</span></option>
+                  <option value="2">Inactive <span> (1000)</span></option>
+                </select>
+                <Blue select-->
+
+              </div>
+              <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+          </div>
+          <!--Top Table UI-->
+
+          <!-- Table responsive wrapper -->
+          <div class="table-responsive mx-3">
+            <!--Table-->
+            <table class="table table-hover mb-0">
+
+              <!--Table head-->
+              <thead>
+                <tr>
+                  <th>
+                    <input class="form-check-input" type="checkbox" id="checkbox7">
+                    <label for="checkbox7" class="mr-2 label-table"></label>
+                  </th>
+                  <th class="th-lg"><a>Satellite <i class="fas fa-sort ml-1"></i></a></th>
+                  <th class="th-lg"><a>Year<i class="fas fa-sort ml-1"></i></a></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <!--Table head-->
+
+              <!--Table body-->
+              <tbody>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox8">
+                    <label for="checkbox8" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox9">
+                    <label for="checkbox9" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox10">
+                    <label for="checkbox10" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+              <!--Table body-->
+            </table>
+            <!--Table-->
+          </div>
+          <!-- Table responsive wrapper -->
+
+        </div>
+      </div>
+    </div>
+    <!-- Accordion card -->
+
+    <!-- Accordion card -->
+    <div class="card">
+
+      <!-- Card header -->
+      <div class="card-header" role="tab" id="heading">
+        
+
+        <!-- Heading -->
+        <a data-toggle="collapse" data-parent="#accordionEx78" href="#collapse81" aria-expanded="true"
+          aria-controls="collapse81">
+          <h5 class="mt-1 mb-0">
+            <span>Precipitation</span>
+            <i class="fas fa-angle-down rotate-icon"></i>
+          </h5>
+        </a>
+      </div>
+
+      <!-- Card body -->
+      <div id="collapse81" class="collapse" role="tabpanel" aria-labelledby="heading"
+        data-parent="#accordionEx78">
+        <div class="card-body">
+
+          <!--Top Table UI-->
+          <div class="table-ui p-2 mb-3 mx-3 mb-4">
+
+            <!--Grid row-->
+            <div class="row">
+
+              <!--Grid column-->
+              <div class="col-xl-4 col-lg-6 col-md-12">
+
+                <!--Name
+                <select class="mdb-select colorful-select dropdown-info mx-2">
+                  <option value="" disabled selected>Bulk actions</option>
+                  <option value="1">Delete</option>
+                  <option value="2">Change folder</option>
+                </select>
+
+              </div>
+              Grid column-->
+
+              <!--Grid column-->
+              <div class="col-xl-4 col-lg-6 col-md-6">
+
+                <!--Blue select
+                <select class="mdb-select colorful-select dropdown-info mx-2">
+                  <option value="" disabled>Show only</option>
+                  <option value="1" selected>All <span> (2000)</span></option>
+                  <option value="2">Clicks <span> (200)</span></option>
+                  <option value="3">Page <span> (1800)</span></option>
+                  <option value="4">Scroll <span> (200)</span></option>
+                  <option value="5">Forms <span> (50)</span></option>
+                  <option value="6">Time <span> (50)</span></option>
+                  <option value="7">UTM <span> (50)</span></option>
+                </select>
+                Blue select-->
+
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-xl-4 col-lg-6 col-md-6">
+
+                <!--Blue select
+                <select class="mdb-select colorful-select dropdown-info mx-2">
+                  <option value="" disabled selected>Filter</option>
+                  <option value="1">All <span> (100)</span></option>
+                  <option value="1">Active <span> (2000)</span></option>
+                  <option value="2">Inactive <span> (1000)</span></option>
+                </select>
+                Blue select-->
+
+              </div>
+              <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+          </div>
+          <!--Top Table UI-->
+
+          <!-- Table responsive wrapper -->
+          <div class="table-responsive mx-3">
+            <!--Table-->
+            <table class="table table-hover mb-0">
+
+              <!--Table head-->
+              <thead>
+                <tr>
+                  <th>
+                    <input class="form-check-input" type="checkbox" id="checkbox15">
+                    <label for="checkbox15" class="mr-2 label-table"></label>
+                  </th>
+                  <th class="th-lg"><a>Satellite <i class="fas fa-sort ml-1"></i></a></th>
+                  <th class="th-lg"><a>Year<i class="fas fa-sort ml-1"></i></a></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <!--Table head-->
+
+              <!--Table body-->
+              <tbody>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox11">
+                    <label for="checkbox11" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>Year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox12">
+                    <label for="checkbox12" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <input class="form-check-input" type="checkbox" id="checkbox13">
+                    <label for="checkbox13" class="label-table"></label>
+                  </th>
+                  <td>Satellite</td>
+                  <td>year</td>
+                  <td>
+                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                        title="Tooltip on top"></i></a>
+                    <a><i class="fas fa-pen-square mx-1"></i></a>
+                    <a><i class="fas fa-times mx-1"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+              <!--Table body-->
+            </table>
+            <!--Table-->
+          </div>
+          <!-- Table responsive wrapper -->
+
+        </div>
+      </div>
+    </div>
+    <!-- Accordion card -->
+  </div>
+  <!--/.Accordion wrapper-->
+</div>
+<!--
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+  <a class="navbar-brand" href="#">Logo</a>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+  </ul>
+</nav>
+-->
+<!--
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+   Navbar content 
+</nav>
+-->
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <footer class="page-footer">
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 2018 Copyright:
+        <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+<!-- Footer -->
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="table.css">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+  <div class="Header">
+   <header>
+     <strong>Gis Web Portal</strong>
+   </header>
+  </div>
+  <div class="Navigation">
+    <asside>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">IST/SS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </asside>
+  </div>
+  <!--
+  <div class="Navigation">
+    <asside>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://www.youtube.com/watch?v=yZnNnvXO8HI">Graphs</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'bootstrap3.views.index' %}">Data</a>
+          </li>
+          <li class="nav-item active">
+           <a class="nav-link" href="{% url 'bootstrap4.views.index' %}">Study Area</a>
+          </li>
+          <li class="nav-item active">
+           <a class="nav-link" href="{% url 'semantic.views.index' %}">About</a>
+          </li>
+        </ul>
+      </nav>
+    </asside>
+  </div>
+-->
+  
+  <!--Container for custom accordian
+  <div class="row">
+    <div class="col-lg-4 col-md-4">
+      <div class="container">
+        <div class="accordian" id="Project">
+          <div class="card">
+            <div class="card-header" id="Heading">
+              <h5 class="mb-0">
+                <div id="Temp">
+                  <button type="button" class="btn-link" data-toggle="collapse" data-target="#collapse1">Temperature</button>
+                  <div class="collapse" id="collapse1" data-parent="#Project">google is the best
+                  </div>
+                </div>
+              </h5>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="Heading2">
+              <h6 class="mb-0">
+                <target identification
+                <div id="Population">
+                  <button type="button" class="btn-link" data-toggle="collapse" data-target="#collapse2">Population</button>
+                  <div class="collapse" id="collapse2" data-parent="#Project">google is the best or is it
+                  </div>
+                </div>
+              </h6>
+            </div>
+          </div>
+
+
+          
+
+
+           Target divsion
+          
+          
+          <div id="Precipitation">
+            <button type="button" class="btn-link" data-toggle="collapse" data-target="#collapse3">Precipitation</button>
+            <div class="collapse" id="collapse3" data-parent="#Project">google is the best or is it
+            </div>
+          </div>
+          <div id="Air Quality index">
+            <button type="button" class="btn-link" data-toggle="collapse" data-target="#collapse4">Air Quality index</button>
+            <div class="collapse" id="collapse4" data-parent="#Project">google is the best or is it
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+-->
+<!-- card body accordian-->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-md-4" id="Accordiancolumn">
+      <div class="container1">
+        <div class="accordian" id="Project">
+          <div class="card">
+            <div class="card-header" id="Temperature">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#TemperatureTab" style="color: white;">Temperature</button>
+              </h5>
+            </div>
+            <div class="collapse" id="TemperatureTab" data-parent="#Project">
+              <div class="card-body">
+                <p>My name is khan and I am not a terrorist</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="Population">
+              <h6 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#PopulationTab">Population</button>
+              </h6>
+            </div>
+            <div class="collapse" id="PopulationTab" data-parent="#Project">
+              <div class="card-body">
+                <p>My name is khan and I am not a terrorist and yet people think i am</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="Precipitation">
+              <h7 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#PrecipitationTab">Precipitation</button>
+              </h7>
+            </div>
+            <div class="collapse" id="PrecipitationTab" data-parent="#Project">
+              <div class="card-body">
+                <p>My name is khan and I am not a terrorist, or am I</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="Air Quality index">
+              <h7 class="mb-0">
+                <button  class="btn btn-link" data-toggle="collapse" data-target="#AirTab">Airquality index</button>
+              </h7>
+            </div>
+            <div class="collapse" id="AirTab" data-parent="#Project">
+              <div class="card-body">
+                <p>My name is khan and I am not a terrorist hahahahaaha</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4" id="MapColumn">
+      <div class="Map">
+       <h>Map</h>
+       <p>This is the Block where the map would be Shown</p>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4" id="GraphColumn">
+      One of three columns
+    </div>
+  </div>
+</div>
+  
+      
+    
+
+      
+
+        
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    
+  </body>
+</html>

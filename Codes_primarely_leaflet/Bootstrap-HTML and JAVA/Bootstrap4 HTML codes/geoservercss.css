@@ -1,0 +1,23 @@
+.container {
+            border: 5px solid black;
+        }
+
+        .col-4 {
+            border: 5px solid rgb(64, 64, 64);
+            /* background-color: blueviolet; */
+        }
+
+        /* .col-8{
+            border: 5px solid rgb(194, 21, 21);
+        } */
+        .row {
+          
+        }
+
+        #map {
+            height: 680px;
+        }
+
+        h1 {
+            padding-top: 50px;
+        }

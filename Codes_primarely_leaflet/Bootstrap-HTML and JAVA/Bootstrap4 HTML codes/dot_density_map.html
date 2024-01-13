@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <!--leafletCss-->
+    <link rel="stylesheet" type="text/css" href="leaflet.css"> 
+    <!--Javascriptlink-->
+    <script src="leaflet.js"></script>
+    <!--DVF CSS links-->
+    <link rel="stylesheet" type="text/css" href="dvf.css">
+    <!--MarkerClusterCSS-->
+    <link rel="stylesheet" type="text/css" href="MarkerCluster.css">
+    <link rel="stylesheet" type="text/css" href="MarkerCluster.Default.css">
+
+
+    
+    <!--linking the geojsonfile-->
+    <script src="finalgeojson.geojson"></script>
+    
+    <!-- Bootstrap CSS necessary for the home button on map -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--Mapbox javascript link-->
+    <script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
+    <!--Mapbox Css link-->
+    <link href='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.css' rel='stylesheet' />
+    <!--Css(user) link-->
+    <link rel="stylesheet" type="text/css" href="dot_density_mapcss.css">
+    <!--Css link for the home button on the map-->
+    <link rel="stylesheet" href="leaflet.zoomhome.css">
+    <!--Css link for the FullScreen-->
+    <link rel="stylesheet" href="Control.FullScreen.css">
+    <!--Css link for the timeslider-->
+    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+    <!--Home button javascript java script-->
+    
+    <script src="leaflet.zoomhome.min.js"></script>
+    <!--leaflet marker stack  java script-->
+    <script src="Leaflet.Marker.Stack.js"></script>
+    <!--leaflet marker cluster  java script-->
+    <script src="leaflet.markercluster-src.js"></script>
+    <script src="leaflet.markercluster.js"></script>
+    <!--Fullscreen java script-->
+    <script src="Control.FullScreen.js"></script>
+    <!--timeline java script-->
+    <!--<script src="leaflet-timeline-slider.min.js"></script>-->
+    <!--timeline2 java script-->
+    <script src="leaflet.SliderControl.min.js"></script>
+    <script src="SliderControl.js"></script>
+    <!--Credits to the SVG symbol creator-->
+    Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+    <title>Dot_Density and LST</title>
+  </head>
+  <body>
+    <div class=Head>
+     <h1>LST map</h1>
+   </div>
+   <br>
+   <br>
+   <div id="Map">
+   </div>
+   <!--<div id="Button1">
+    <button type="button">Click me!!</button>
+   </div>
+ -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- The scripts are jquery for slider2-->
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    
+    <!-- Bootstrap Jquery
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    -->
+    <!-- time slider would not work if this is enabled
+      <script src="jquery-3.4.1.min.js"></script>
+    -->
+    <!--DVF javascript Link-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-dvf/0.3.1/leaflet-dvf.js" integrity="sha256-NjpReWDWm8xLsUgsi6D5o/xxBqoK2Nnqq5YyVGzF8MI=" crossorigin="anonymous"></script>
+    <script src="dot_density_mapjs.js"></script>
+  </body>
+</html>

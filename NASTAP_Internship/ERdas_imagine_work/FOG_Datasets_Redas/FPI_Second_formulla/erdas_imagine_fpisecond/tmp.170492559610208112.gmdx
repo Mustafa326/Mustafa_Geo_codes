@@ -1,0 +1,2307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Solution xmlns="http://tempuri.org/XMLSchema.xsd">
+	<Operator Namespace="IMAGINE" Name="Process">
+		<DisplayName>Spatial Model</DisplayName>
+		<Description></Description>
+		<Process>
+			<Namespace></Namespace>
+			<Name></Name>
+			<DisplayName>Spatial Model</DisplayName>
+			<DisplayCategory>General</DisplayCategory>
+			<Icon>Block.ico</Icon>
+			<ColorCategory>Submodel</ColorCategory>
+			<UIProviderNamespace></UIProviderNamespace>
+			<UIProviderName></UIProviderName>
+			<IsUsableInExpression>false</IsUsableInExpression>
+			<Syntax>Model (  )</Syntax>
+			<Operators>Sub-model</Operators>
+			<Tails>Sub-model</Tails>
+		</Process>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Process">
+		<DisplayName>Sub-model</DisplayName>
+		<Description></Description>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>96</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>43</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="UniqueID">
+			<Data>
+				<StringValue>10208__1</StringValue>
+				<Type Namespace="IMAGINE" Name="String"/>
+			</Data>
+		</Attribute>
+		<Process>
+			<Namespace></Namespace>
+			<Name></Name>
+			<DisplayName>Sub-model</DisplayName>
+			<DisplayCategory>General</DisplayCategory>
+			<Icon>Block.ico</Icon>
+			<ColorCategory>Submodel</ColorCategory>
+			<UIProviderNamespace></UIProviderNamespace>
+			<UIProviderName></UIProviderName>
+			<IsUsableInExpression>false</IsUsableInExpression>
+			<Syntax>Model (  )</Syntax>
+			<Operators>NDVI</Operators>
+			<Tails>NDVI</Tails>
+		</Process>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Process">
+		<DisplayName>NDVI</DisplayName>
+		<Description></Description>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>151</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>42</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="UniqueID">
+			<Data>
+				<StringValue>10208__2</StringValue>
+				<Type Namespace="IMAGINE" Name="String"/>
+			</Data>
+		</Attribute>
+		<Process>
+			<Namespace></Namespace>
+			<Name></Name>
+			<DisplayName>NDVI</DisplayName>
+			<DisplayCategory>General</DisplayCategory>
+			<Icon>Block.ico</Icon>
+			<ColorCategory>Submodel</ColorCategory>
+			<UIProviderNamespace></UIProviderNamespace>
+			<UIProviderName></UIProviderName>
+			<IsUsableInExpression>false</IsUsableInExpression>
+			<Syntax>Model (  )</Syntax>
+			<Operators>Raster Input 2</Operators>
+			<Operators>Subtract</Operators>
+			<Operators>Add</Operators>
+			<Operators>Divide</Operators>
+			<Operators>Raster Input</Operators>
+			<Operators>Scalar Input</Operators>
+			<Operators>Scalar Input 2</Operators>
+			<Operators>Multiply</Operators>
+			<Operators>Raster Input 3</Operators>
+			<Operators>Raster Input 4</Operators>
+			<Operators>Multiply 2</Operators>
+			<Operators>Subtract 2</Operators>
+			<Operators>Add 2</Operators>
+			<Operators>Raster Input 5</Operators>
+			<Operators>Subtract 3</Operators>
+			<Operators>Subtract 4</Operators>
+			<Operators>Multiply 3</Operators>
+			<Operators>Scalar Input 3</Operators>
+			<Operators>Add 3</Operators>
+			<Operators>Raster Output</Operators>
+			<Operators>Preview</Operators>
+			<Operators>Gt</Operators>
+			<Operators>Scalar Input 4</Operators>
+			<Operators>Raster Output 2</Operators>
+			<Operators>Preview 2</Operators>
+			<Operators>Criteria</Operators>
+			<Operators>Raster Output 3</Operators>
+			<Operators>Preview 3</Operators>
+			<Tails>Preview</Tails>
+			<Tails>Preview 2</Tails>
+			<Tails>Preview 3</Tails>
+		</Process>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="RasterInput">
+		<DisplayName>Raster Input 2</DisplayName>
+		<Description></Description>
+		<Port Name="Filename">
+			<DisplayName>Filename</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>f:/mustafa_stuff/nastap_internship/2023_12_20_04-00/04-00/hrit msg2 msg2_iodc vis006.tif</StringValue>
+				<Type Namespace="IMAGINE" Name="File"/>
+			</Data>
+		</Port>
+		<Port Name="DataType">
+			<DisplayName>DataType</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Interpolation">
+			<DisplayName>Interpolation</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="MapBoundary">
+			<DisplayName>MapBoundary</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="FileBoundary">
+			<DisplayName>FileBoundary</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="AOI">
+			<DisplayName>AOI</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Recode">
+			<DisplayName>Recode</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="RasterOut">
+			<DisplayName>RasterOut</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="AttributeTable">
+			<DisplayName>AttributeTable</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="AttributesOnRasterOut">
+			<DisplayName>AttributesOnRasterOut</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+			<Data>
+				<StringValue>true</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Port>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Subtract" ChildPort="Input2"/>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Add" ChildPort="Input2"/>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>65</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>119</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>65</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>119</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Subtract">
+		<DisplayName>Subtract</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input 1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Input2">
+			<DisplayName>Input 2</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Output">
+			<DisplayName>Output</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Raster Input 2" ParentPort="RasterOut" ChildPort="Input2"/>
+		<Connections ParentDisplayName="Raster Input" ParentPort="RasterOut" ChildPort="Input1"/>
+		<Connections ParentPort="Output" ChildDisplayName="Divide" ChildPort="Input1"/>
+		<Parents>Raster Input 2</Parents>
+		<Parents>Raster Input</Parents>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>345</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>73</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>345</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>73</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Add">
+		<DisplayName>Add</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input 1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Input2">
+			<DisplayName>Input 2</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Output">
+			<DisplayName>Output</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Raster Input 2" ParentPort="RasterOut" ChildPort="Input2"/>
+		<Connections ParentDisplayName="Raster Input" ParentPort="RasterOut" ChildPort="Input1"/>
+		<Connections ParentPort="Output" ChildDisplayName="Divide" ChildPort="Input2"/>
+		<Parents>Raster Input 2</Parents>
+		<Parents>Raster Input</Parents>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>376</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>193</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>376</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>193</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Divide">
+		<DisplayName>Divide</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Input2">
+			<DisplayName>Input2</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Output">
+			<DisplayName>Output</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Subtract" ParentPort="Output" ChildPort="Input1"/>
+		<Connections ParentDisplayName="Add" ParentPort="Output" ChildPort="Input2"/>
+		<Connections ParentPort="Output" ChildDisplayName="Subtract 4" ChildPort="Input2"/>
+		<Parents>Subtract</Parents>
+		<Parents>Add</Parents>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>514</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>148</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>514</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>148</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="RasterInput">
+		<DisplayName>Raster Input</DisplayName>
+		<Description></Description>
+		<Port Name="Filename">
+			<DisplayName>Filename</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>f:/mustafa_stuff/nastap_internship/2023_12_20_04-00/04-00/hrit msg2 msg2_iodc vis008.tif</StringValue>
+				<Type Namespace="IMAGINE" Name="File"/>
+			</Data>
+		</Port>
+		<Port Name="DataType">
+			<DisplayName>DataType</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Interpolation">
+			<DisplayName>Interpolation</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="MapBoundary">
+			<DisplayName>MapBoundary</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="FileBoundary">
+			<DisplayName>FileBoundary</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="AOI">
+			<DisplayName>AOI</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Recode">
+			<DisplayName>Recode</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="RasterOut">
+			<DisplayName>RasterOut</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="AttributeTable">
+			<DisplayName>AttributeTable</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="AttributesOnRasterOut">
+			<DisplayName>AttributesOnRasterOut</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+			<Data>
+				<StringValue>true</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Port>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Subtract" ChildPort="Input1"/>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Add" ChildPort="Input1"/>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>68</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>33</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>68</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>33</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="ScalarInput">
+		<DisplayName>Scalar Input</DisplayName>
+		<Description></Description>
+		<Port Name="Value">
+			<DisplayName>Value</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>{&quot;datatype&quot;:10,&quot;layers&quot;:[{&quot;layerData&quot;:[&quot;0.45&quot;]}],&quot;nCols&quot;:1,&quot;nRows&quot;:1,&quot;numlayers&quot;:1,&quot;objectType&quot;:0}
+</StringValue>
+				<Type Namespace="IMAGINE" Name="Scalar"/>
+			</Data>
+		</Port>
+		<Port Name="Scalar">
+			<DisplayName>Scalar</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentPort="Scalar" ChildDisplayName="Multiply 2" ChildPort="Input2"/>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>69</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>485</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>69</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>465</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="ScalarInput">
+		<DisplayName>Scalar Input 2</DisplayName>
+		<Description></Description>
+		<Port Name="Value">
+			<DisplayName>Value</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>{&quot;datatype&quot;:10,&quot;layers&quot;:[{&quot;layerData&quot;:[&quot;0.55&quot;]}],&quot;nCols&quot;:1,&quot;nRows&quot;:1,&quot;numlayers&quot;:1,&quot;objectType&quot;:0}
+</StringValue>
+				<Type Namespace="IMAGINE" Name="Scalar"/>
+			</Data>
+		</Port>
+		<Port Name="Scalar">
+			<DisplayName>Scalar</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentPort="Scalar" ChildDisplayName="Multiply" ChildPort="Input1"/>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>64</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>300</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>317</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>353</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Multiply">
+		<DisplayName>Multiply</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input 1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Input2">
+			<DisplayName>Input 2</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Output">
+			<DisplayName>Output</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Scalar Input 2" ParentPort="Scalar" ChildPort="Input1"/>
+		<Connections ParentDisplayName="Raster Input 3" ParentPort="RasterOut" ChildPort="Input2"/>
+		<Connections ParentPort="Output" ChildDisplayName="Add 2" ChildPort="Input1"/>
+		<Parents>Scalar Input 2</Parents>
+		<Parents>Raster Input 3</Parents>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>208</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>319</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>208</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>319</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="RasterInput">
+		<DisplayName>Raster Input 3</DisplayName>
+		<Description></Description>
+		<Port Name="Filename">
+			<DisplayName>Filename</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>f:/mustafa_stuff/nastap_internship/2023_12_20_04-00/04-00/hrit msg2 msg2_iodc ir_108.tif</StringValue>
+				<Type Namespace="IMAGINE" Name="File"/>
+			</Data>
+		</Port>
+		<Port Name="DataType">
+			<DisplayName>DataType</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Interpolation">
+			<DisplayName>Interpolation</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="MapBoundary">
+			<DisplayName>MapBoundary</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="FileBoundary">
+			<DisplayName>FileBoundary</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="AOI">
+			<DisplayName>AOI</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Recode">
+			<DisplayName>Recode</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="RasterOut">
+			<DisplayName>RasterOut</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="AttributeTable">
+			<DisplayName>AttributeTable</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="AttributesOnRasterOut">
+			<DisplayName>AttributesOnRasterOut</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+			<Data>
+				<StringValue>true</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Port>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Multiply" ChildPort="Input2"/>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Subtract 2" ChildPort="Input1"/>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>65</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>212</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>130</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>333</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="RasterInput">
+		<DisplayName>Raster Input 4</DisplayName>
+		<Description></Description>
+		<Port Name="Filename">
+			<DisplayName>Filename</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>f:/mustafa_stuff/nastap_internship/2023_12_20_04-00/04-00/hrit msg2 msg2_iodc ir_120.tif</StringValue>
+				<Type Namespace="IMAGINE" Name="File"/>
+			</Data>
+		</Port>
+		<Port Name="DataType">
+			<DisplayName>DataType</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Interpolation">
+			<DisplayName>Interpolation</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="MapBoundary">
+			<DisplayName>MapBoundary</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="FileBoundary">
+			<DisplayName>FileBoundary</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="AOI">
+			<DisplayName>AOI</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Recode">
+			<DisplayName>Recode</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="RasterOut">
+			<DisplayName>RasterOut</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="AttributeTable">
+			<DisplayName>AttributeTable</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="AttributesOnRasterOut">
+			<DisplayName>AttributesOnRasterOut</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+			<Data>
+				<StringValue>true</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Port>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Multiply 2" ChildPort="Input1"/>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Subtract 2" ChildPort="Input2"/>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>83</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>394</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>130</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>333</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Multiply">
+		<DisplayName>Multiply 2</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input 1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Input2">
+			<DisplayName>Input 2</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Output">
+			<DisplayName>Output</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Raster Input 4" ParentPort="RasterOut" ChildPort="Input1"/>
+		<Connections ParentDisplayName="Scalar Input" ParentPort="Scalar" ChildPort="Input2"/>
+		<Connections ParentPort="Output" ChildDisplayName="Add 2" ChildPort="Input2"/>
+		<Parents>Raster Input 4</Parents>
+		<Parents>Scalar Input</Parents>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>236</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>454</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>207</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>353</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Subtract">
+		<DisplayName>Subtract 2</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input 1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Input2">
+			<DisplayName>Input 2</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Output">
+			<DisplayName>Output</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Raster Input 3" ParentPort="RasterOut" ChildPort="Input1"/>
+		<Connections ParentDisplayName="Raster Input 4" ParentPort="RasterOut" ChildPort="Input2"/>
+		<Connections ParentPort="Output" ChildDisplayName="Multiply 3" ChildPort="Input2"/>
+		<Parents>Raster Input 3</Parents>
+		<Parents>Raster Input 4</Parents>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>400</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>296</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>400</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>296</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Add">
+		<DisplayName>Add 2</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input 1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Input2">
+			<DisplayName>Input 2</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Output">
+			<DisplayName>Output</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Multiply" ParentPort="Output" ChildPort="Input1"/>
+		<Connections ParentDisplayName="Multiply 2" ParentPort="Output" ChildPort="Input2"/>
+		<Connections ParentPort="Output" ChildDisplayName="Subtract 3" ChildPort="Input1"/>
+		<Parents>Multiply</Parents>
+		<Parents>Multiply 2</Parents>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>431</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>415</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="RasterInput">
+		<DisplayName>Raster Input 5</DisplayName>
+		<Description></Description>
+		<Port Name="Filename">
+			<DisplayName>Filename</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>f:/mustafa_stuff/nastap_internship/2023_12_20_04-00/04-00/hrit msg2 msg2_iodc wv_062.tif</StringValue>
+				<Type Namespace="IMAGINE" Name="File"/>
+			</Data>
+		</Port>
+		<Port Name="DataType">
+			<DisplayName>DataType</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Interpolation">
+			<DisplayName>Interpolation</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="MapBoundary">
+			<DisplayName>MapBoundary</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="FileBoundary">
+			<DisplayName>FileBoundary</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="AOI">
+			<DisplayName>AOI</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Recode">
+			<DisplayName>Recode</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="RasterOut">
+			<DisplayName>RasterOut</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="AttributeTable">
+			<DisplayName>AttributeTable</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="AttributesOnRasterOut">
+			<DisplayName>AttributesOnRasterOut</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+			<Data>
+				<StringValue>true</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Port>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Subtract 3" ChildPort="Input2"/>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>551</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>447</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Subtract">
+		<DisplayName>Subtract 3</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input 1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Input2">
+			<DisplayName>Input 2</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Output">
+			<DisplayName>Output</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Add 2" ParentPort="Output" ChildPort="Input1"/>
+		<Connections ParentDisplayName="Raster Input 5" ParentPort="RasterOut" ChildPort="Input2"/>
+		<Connections ParentPort="Output" ChildDisplayName="Subtract 4" ChildPort="Input1"/>
+		<Parents>Add 2</Parents>
+		<Parents>Raster Input 5</Parents>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>623</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>258</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>692</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>263</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Subtract">
+		<DisplayName>Subtract 4</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input 1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Input2">
+			<DisplayName>Input 2</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Output">
+			<DisplayName>Output</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Subtract 3" ParentPort="Output" ChildPort="Input1"/>
+		<Connections ParentDisplayName="Divide" ParentPort="Output" ChildPort="Input2"/>
+		<Connections ParentPort="Output" ChildDisplayName="Multiply 3" ChildPort="Input1"/>
+		<Parents>Subtract 3</Parents>
+		<Parents>Divide</Parents>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>660</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>158</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>692</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>263</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Multiply">
+		<DisplayName>Multiply 3</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input 1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Input2">
+			<DisplayName>Input 2</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Output">
+			<DisplayName>Output</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Subtract 4" ParentPort="Output" ChildPort="Input1"/>
+		<Connections ParentDisplayName="Subtract 2" ParentPort="Output" ChildPort="Input2"/>
+		<Connections ParentPort="Output" ChildDisplayName="Add 3" ChildPort="Input1"/>
+		<Parents>Subtract 4</Parents>
+		<Parents>Subtract 2</Parents>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>763</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>117</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>208</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>319</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="ScalarInput">
+		<DisplayName>Scalar Input 3</DisplayName>
+		<Description></Description>
+		<Port Name="Value">
+			<DisplayName>Value</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>{&quot;datatype&quot;:10,&quot;layers&quot;:[{&quot;layerData&quot;:[&quot;30&quot;]}],&quot;nCols&quot;:1,&quot;nRows&quot;:1,&quot;numlayers&quot;:1,&quot;objectType&quot;:0}
+</StringValue>
+				<Type Namespace="IMAGINE" Name="Scalar"/>
+			</Data>
+		</Port>
+		<Port Name="Scalar">
+			<DisplayName>Scalar</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentPort="Scalar" ChildDisplayName="Add 3" ChildPort="Input2"/>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>660</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>358</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>214</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>338</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Add">
+		<DisplayName>Add 3</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input 1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Input2">
+			<DisplayName>Input 2</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Output">
+			<DisplayName>Output</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Multiply 3" ParentPort="Output" ChildPort="Input1"/>
+		<Connections ParentDisplayName="Scalar Input 3" ParentPort="Scalar" ChildPort="Input2"/>
+		<Connections ParentPort="Output" ChildDisplayName="Raster Output" ChildPort="RasterIn"/>
+		<Parents>Multiply 3</Parents>
+		<Parents>Scalar Input 3</Parents>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>803</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>249</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="RasterOutput">
+		<DisplayName>Raster Output</DisplayName>
+		<Description></Description>
+		<Port Name="RasterIn">
+			<DisplayName>RasterIn</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="FilenameIn">
+			<DisplayName>FilenameIn</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>f:/mustafa_stuff/nastap_internship/fog_datasets_redas/fpi_second_formulla/fpi_second_f32.img</StringValue>
+				<Type Namespace="IMAGINE" Name="File"/>
+			</Data>
+		</Port>
+		<Port Name="PixelType">
+			<DisplayName>PixelType</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>true</Optional>
+			<Data>
+				<StringValue>f32</StringValue>
+				<Type Namespace="IMAGINE" Name="PixelType"/>
+			</Data>
+		</Port>
+		<Port Name="BlockWidth">
+			<DisplayName>BlockWidth</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="BlockHeight">
+			<DisplayName>BlockHeight</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Thematicity">
+			<DisplayName>Thematicity</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Thematicity"/>
+			</Data>
+		</Port>
+		<Port Name="ComputePyramids">
+			<DisplayName>ComputePyramids</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="NoDataValue">
+			<DisplayName>NoDataValue</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="RasterOut">
+			<DisplayName>RasterOut</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="FilenameOut">
+			<DisplayName>FilenameOut</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Add 3" ParentPort="Output" ChildPort="RasterIn"/>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Preview" ChildPort="Input1"/>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Gt" ChildPort="Input1"/>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Criteria" ChildPort="Input1"/>
+		<Parents>Add 3</Parents>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>869</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>331</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Preview">
+		<DisplayName>Preview</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Raster Output" ParentPort="RasterOut" ChildPort="Input1"/>
+		<Parents>Raster Output</Parents>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>927</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>214</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Gt">
+		<DisplayName>Gt</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Input2">
+			<DisplayName>Input2</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="Binary">
+			<DisplayName>Binary</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Raster Output" ParentPort="RasterOut" ChildPort="Input1"/>
+		<Connections ParentDisplayName="Scalar Input 4" ParentPort="Scalar" ChildPort="Input2"/>
+		<Connections ParentPort="Binary" ChildDisplayName="Raster Output 2" ChildPort="RasterIn"/>
+		<Parents>Raster Output</Parents>
+		<Parents>Scalar Input 4</Parents>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>1032</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>439</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="ScalarInput">
+		<DisplayName>Scalar Input 4</DisplayName>
+		<Description></Description>
+		<Port Name="Value">
+			<DisplayName>Value</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>{&quot;datatype&quot;:10,&quot;layers&quot;:[{&quot;layerData&quot;:[&quot;133&quot;]}],&quot;nCols&quot;:1,&quot;nRows&quot;:1,&quot;numlayers&quot;:1,&quot;objectType&quot;:0}
+</StringValue>
+				<Type Namespace="IMAGINE" Name="Scalar"/>
+			</Data>
+		</Port>
+		<Port Name="Scalar">
+			<DisplayName>Scalar</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentPort="Scalar" ChildDisplayName="Gt" ChildPort="Input2"/>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>854</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>441</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>214</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>338</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="RasterOutput">
+		<DisplayName>Raster Output 2</DisplayName>
+		<Description></Description>
+		<Port Name="RasterIn">
+			<DisplayName>RasterIn</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="FilenameIn">
+			<DisplayName>FilenameIn</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>f:/mustafa_stuff/nastap_internship/fog_datasets_redas/fpi_second_formulla/fpi_second_binary_criteria.img</StringValue>
+				<Type Namespace="IMAGINE" Name="File"/>
+			</Data>
+		</Port>
+		<Port Name="PixelType">
+			<DisplayName>PixelType</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="BlockWidth">
+			<DisplayName>BlockWidth</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="BlockHeight">
+			<DisplayName>BlockHeight</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Thematicity">
+			<DisplayName>Thematicity</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Thematicity"/>
+			</Data>
+		</Port>
+		<Port Name="ComputePyramids">
+			<DisplayName>ComputePyramids</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="NoDataValue">
+			<DisplayName>NoDataValue</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="RasterOut">
+			<DisplayName>RasterOut</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="FilenameOut">
+			<DisplayName>FilenameOut</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Gt" ParentPort="Binary" ChildPort="RasterIn"/>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Preview 2" ChildPort="Input1"/>
+		<Parents>Gt</Parents>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>1097</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>353</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Preview">
+		<DisplayName>Preview 2</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Raster Output 2" ParentPort="RasterOut" ChildPort="Input1"/>
+		<Parents>Raster Output 2</Parents>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>1454</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>353</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>764</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>83</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Criteria">
+		<DisplayName>Criteria</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+			<Attribute Name="ExcludedTypes">
+				<Data>
+					<StringValue>{&quot;StringList&quot;:[&quot;IMAGINE.Scalar&quot;,&quot;IMAGINE.Matrix&quot;,&quot;IMAGINE.Table&quot;]}
+</StringValue>
+					<Type Namespace="IMAGINE" Name="StringList"/>
+				</Data>
+			</Attribute>
+		</Port>
+		<Port Name="RasterOut">
+			<DisplayName>RasterOut</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="DataType">
+			<DisplayName>DataType</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>Integer</StringValue>
+				<Type Namespace="IMAGINE" Name="SimpleDataType"/>
+			</Data>
+		</Port>
+		<Port Name="Conditions">
+			<DisplayName>Conditions</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>{&quot;AndOrOr&quot;:[0],&quot;Clauses&quot;:[{&quot;AttributeName&quot;:[&quot;pixel value&quot;],&quot;BandNumber&quot;:[1],&quot;InputName&quot;:[&quot;Input1&quot;],&quot;Relation&quot;:[3],&quot;RightValue&quot;:[&quot;130&quot;]}],&quot;Value&quot;:[1.0000000000000000e+000  ],&quot;ValueIsNODATA&quot;:[false]}
+</StringValue>
+				<Type Namespace="IMAGINE" Name="CriteriaConditionList"/>
+			</Data>
+		</Port>
+		<Port Name="DefaultValue">
+			<DisplayName>DefaultValue</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Raster Output" ParentPort="RasterOut" ChildPort="Input1"/>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Raster Output 3" ChildPort="RasterIn"/>
+		<Parents>Raster Output</Parents>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>1086</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>221</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="RasterOutput">
+		<DisplayName>Raster Output 3</DisplayName>
+		<Description></Description>
+		<Port Name="RasterIn">
+			<DisplayName>RasterIn</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="FilenameIn">
+			<DisplayName>FilenameIn</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+			<Data>
+				<StringValue>f:/mustafa_stuff/nastap_internship/fog_datasets_redas/fpi_second_formulla/fpi_second_criteria8bit.img</StringValue>
+				<Type Namespace="IMAGINE" Name="File"/>
+			</Data>
+		</Port>
+		<Port Name="PixelType">
+			<DisplayName>PixelType</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>true</Optional>
+			<Data>
+				<StringValue>s8</StringValue>
+				<Type Namespace="IMAGINE" Name="PixelType"/>
+			</Data>
+		</Port>
+		<Port Name="BlockWidth">
+			<DisplayName>BlockWidth</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="BlockHeight">
+			<DisplayName>BlockHeight</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="Thematicity">
+			<DisplayName>Thematicity</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>true</Optional>
+			<Data>
+				<StringValue>1</StringValue>
+				<Type Namespace="IMAGINE" Name="Thematicity"/>
+			</Data>
+		</Port>
+		<Port Name="ComputePyramids">
+			<DisplayName>ComputePyramids</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="NoDataValue">
+			<DisplayName>NoDataValue</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>true</Hidden>
+			<Optional>true</Optional>
+		</Port>
+		<Port Name="RasterOut">
+			<DisplayName>RasterOut</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Port Name="FilenameOut">
+			<DisplayName>FilenameOut</DisplayName>
+			<Description></Description>
+			<Input>false</Input>
+			<Output>true</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Criteria" ParentPort="RasterOut" ChildPort="RasterIn"/>
+		<Connections ParentPort="RasterOut" ChildDisplayName="Preview 3" ChildPort="Input1"/>
+		<Parents>Criteria</Parents>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>1215</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>104</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+	</Operator>
+	<Operator Namespace="IMAGINE" Name="Preview">
+		<DisplayName>Preview 3</DisplayName>
+		<Description></Description>
+		<Port Name="Input1">
+			<DisplayName>Input1</DisplayName>
+			<Description></Description>
+			<Input>true</Input>
+			<Output>false</Output>
+			<Hidden>false</Hidden>
+			<Optional>false</Optional>
+		</Port>
+		<Connections ParentDisplayName="Raster Output 3" ParentPort="RasterOut" ChildPort="Input1"/>
+		<Parents>Raster Output 3</Parents>
+		<Attribute Name="FlowControl">
+			<Data>
+				<StringValue>false</StringValue>
+				<Type Namespace="IMAGINE" Name="Bool"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="Orientation">
+			<Data>
+				<StringValue>0</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionX">
+			<Data>
+				<StringValue>1518</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="PositionY">
+			<Data>
+				<StringValue>127</StringValue>
+				<Type Namespace="IMAGINE" Name="Int"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionX">
+			<Data>
+				<StringValue>764</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+		<Attribute Name="ScreenPositionY">
+			<Data>
+				<StringValue>83</StringValue>
+				<Type Namespace="IMAGINE" Name="Double"/>
+			</Data>
+		</Attribute>
+	</Operator>
+</Solution>
