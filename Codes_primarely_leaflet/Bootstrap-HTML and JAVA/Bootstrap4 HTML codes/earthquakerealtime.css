@@ -1,0 +1,65 @@
+body {
+    background-color: black;
+}
+
+.Head {
+    display: block;
+    background-image: url("Gisimage.jpg");
+    border: 14px;
+    width: 100%;
+    padding: 3px;
+    font-style: italic;
+    font-size: 35px;
+    text-align: center;
+    position: relative;
+    background-position: 200px 200px;
+    background-position: center;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.legend {
+    padding: 2px 10px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: scroll;
+}
+
+#legendTitle {
+    text-align: center;
+    margin-bottom: 15px;
+    font-variant: small;
+}
+
+.symbolsContainer {
+    float: left;
+    margin-left: 50px;
+}
+
+.legendValue {
+    position: absolute;
+    right: 8px;
+}
+
+#Map {
+    background-position: center;
+    width: 100%;
+    min-height: 500px;
+    border-width: 14px;
+    margin: auto;
+}
