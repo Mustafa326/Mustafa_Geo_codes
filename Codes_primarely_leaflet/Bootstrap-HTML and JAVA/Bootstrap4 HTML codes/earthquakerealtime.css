@@ -1,10 +1,17 @@
 body {
-    background-color: black;
+    background-image: url('natural_hazards.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-y: auto;
+    min-height: 100vh;
+    margin: 0;
 }
 
 .Head {
     display: block;
-    background-image: url("Gisimage.jpg");
+    background-color: rgba(255, 255, 255, 0.5);
+    /* Add a semi-transparent white background for better readability of the header */
     border: 14px;
     width: 100%;
     padding: 3px;
@@ -12,7 +19,6 @@ body {
     font-size: 35px;
     text-align: center;
     position: relative;
-    background-position: 200px 200px;
     background-position: center;
 }
 
@@ -58,8 +64,21 @@ body {
 
 #Map {
     background-position: center;
-    width: 100%;
+    width: 95%;
     min-height: 500px;
-    border-width: 14px;
     margin: auto;
+}
+
+.watermark {
+    content: "Created by Syed Mustafa Haider";
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 1;
 }
