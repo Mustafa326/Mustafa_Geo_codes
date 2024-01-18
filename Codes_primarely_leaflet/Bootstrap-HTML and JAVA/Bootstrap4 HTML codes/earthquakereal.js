@@ -60,6 +60,41 @@ function getPopupContent(properties) {
 
     return popupContent;
 }
+// Create a function to generate a custom cluster icon for the nasa eonet
+function createCustomClusterIcon(cluster) {
+    var childCount = cluster.getChildCount();
+    var size = 40;
+
+    // Customize the SVG icon as needed
+    var svgIcon = L.divIcon({
+        html: `<div style="width: ${size}px; height: ${size}px;" class="custom-cluster-icon">
+                  <img src="Natural_hazard.svg" alt="Cluster Icon" width="${size}" height="${size}">
+                  <div class="cluster-count">${childCount}</div>
+              </div>`,
+        className: 'custom-cluster',
+        iconSize: [size, size]
+    });
+
+    return svgIcon;
+}
+// Create a function to generate a custom cluster icon for the usgs earthquakes
+function createCustomClusterIcon2(cluster) {
+    var childCount = cluster.getChildCount();
+    var size = 40;
+
+    // Customize the SVG icon as needed
+    var svgIcon = L.divIcon({
+        html: `<div style="width: ${size}px; height: ${size}px;" class="custom-cluster-icon">
+                  <img src="earthquake_cluster.svg" alt="Cluster Icon" width="${size}" height="${size}">
+                  <div class="cluster-count">${childCount}</div>
+              </div>`,
+        className: 'custom-cluster',
+        iconSize: [size, size]
+    });
+
+    return svgIcon;
+}
+
 
 // Using the leaflet realtime for update of usgs earthquake data
 function createRealtimeLayer(url, container) {
@@ -90,7 +125,10 @@ function createRealtimeLayer(url, container) {
 }
 
 // Create feature group for different earthquake layers
-clusterGroup = L.markerClusterGroup().addTo(map);
+var clusterGroup = L.markerClusterGroup({
+    iconCreateFunction: createCustomClusterIcon2
+}).addTo(map);
+//clusterGroup = L.markerClusterGroup().addTo(map);
 subgroup1 = L.featureGroup.subGroup(clusterGroup);
 subgroup2 = L.featureGroup.subGroup(clusterGroup);
 subgroup3 = L.featureGroup.subGroup(clusterGroup);
@@ -195,7 +233,9 @@ $.ajax({
             });
 
             // Create a marker cluster group for EONET icons
-            eonetIconsClusterGroup = L.markerClusterGroup() //.addTo(map);
+            eonetIconsClusterGroup = L.markerClusterGroup({
+                    iconCreateFunction: createCustomClusterIcon
+                }) //.addTo(map);
 
             // Add EONET layer to the marker cluster group
             eonetIconsClusterGroup.addLayer(eonetLayer);
