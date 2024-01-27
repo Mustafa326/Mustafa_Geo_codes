@@ -108,13 +108,20 @@ p {
 #menu {
     background: #fff;
     position: relative;
-    z-index: 1;
+    z-index: 3;
     top: 10px;
     right: 10px;
     border-radius: 3px;
     width: 120px;
     border: 1px solid rgba(0, 0, 0, 0.4);
     font-family: 'Open Sans', sans-serif;
+}
+
+.accordion {
+    position: absolute;
+    z-index: 1000;
+    background-color: #404040;
+    /* Set a higher z-index value */
 }
 
 #menu a {
@@ -144,6 +151,66 @@ p {
 }
 
 #menu a.active:hover {
+    background: #3074a4;
+}
+
+#menu_countries_layer a {
+    font-size: 13px;
+    color: #404040;
+    display: block;
+    margin: 10;
+    padding: 100;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+#menu_countries_layer a:last-child {
+    border: none;
+}
+
+#menu_countries_layer a:hover {
+    background-color: #f8f8f8;
+    color: #404040;
+}
+
+#menu_countries_layer a.active {
+    background-color: #3887be;
+    color: #ffffff;
+}
+
+#menu_countries_layer a.active:hover {
+    background: #3074a4;
+}
+
+#menu_rgb_fog a {
+    font-size: 13px;
+    color: #404040;
+    display: block;
+    margin: 10;
+    padding: 100;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+#menu_rgb_fog a:last-child {
+    border: none;
+}
+
+#menu_rgb_fog a:hover {
+    background-color: #f8f8f8;
+    color: #404040;
+}
+
+#menu_rgb_fog a.active {
+    background-color: #3887be;
+    color: #ffffff;
+}
+
+#menu_rgb_fog a.active:hover {
     background: #3074a4;
 }
 
@@ -187,6 +254,7 @@ display: none;
     width: 95%;
     min-height: 500px;
     margin: auto;
+    z-index: 1;
 }
 
 .watermark {

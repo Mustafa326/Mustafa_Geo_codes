@@ -136,18 +136,19 @@ map.on('idle', () => {
         opacitySlider.max = '1';
         opacitySlider.step = '0.1';
         opacitySlider.value = '0.7';
-        // Add event listener to update layer opacity when slider changes
+
         // Add event listener to update layer opacity when slider changes
         opacitySlider.addEventListener('input', function() {
             const opacityValue = parseFloat(this.value);
-            map.setPaintProperty(id, 'fill-opacity', opacitySlider);
-            console.log(opacityValue)
+            map.setPaintProperty(id, 'fill-opacity', opacityValue);
 
             // Check if the layer is 'rgb_fog'
             if (id === 'rgb_fog') {
-                const rasterOpacity = parseFloat(this.value);
-                map.setPaintProperty(id, 'raster-opacity', rasterOpacity);
-                console.log(rasterOpacity)
+                map.setPaintProperty(id, 'raster-opacity', opacityValue);
+            } else if (id === 'countries_layer') {
+                // Check if the layer is 'countries_layer'
+                map.setPaintProperty(id, 'fill-opacity', opacityValue);
+                // Additional logic for countries_layer, if needed
             }
         });
 
@@ -161,18 +162,10 @@ map.on('idle', () => {
             e.preventDefault();
             e.stopPropagation();
 
-            if (clickedLayer === 'rgb_fog') {
-                // If the clicked layer is rgb_fog, just toggle its visibility
+            if (clickedLayer === 'countries_layer') {
+                // If the clicked layer is countries_layer, handle visibility and legend/info control
                 const visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
-                if (visibility === 'visible') {
-                    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                } else {
-                    map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-                }
-            } else {
-                // For other layers, handle as before (countries_layer)
-                const visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+                map.setLayoutProperty(clickedLayer, 'visibility', visibility === 'visible' ? 'none' : 'visible');
 
                 if (visibility === 'visible') {
                     map.setLayoutProperty(clickedLayer, 'visibility', 'none');
@@ -187,12 +180,17 @@ map.on('idle', () => {
                     PopulationLegendEl.style.display = 'block';
                     document.getElementById('features').style.display = 'block';
                 }
+            } else if (clickedLayer === 'rgb_fog') {
+                // For other layers, handle as before (rgb_fog)
+                const visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+                map.setLayoutProperty(clickedLayer, 'visibility', visibility === 'visible' ? 'none' : 'visible');
             }
         };
 
         // Append the container to the menu
-        const layers = document.getElementById('menu');
-        layers.appendChild(container);
+        const layerMenuId = 'menu_' + id;
+        const layerMenu = document.getElementById(layerMenuId);
+        layerMenu.appendChild(container);
     }
 });
 //adding the controls onto the map
