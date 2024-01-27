@@ -10,29 +10,14 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibXVzdGFmYTA1IiwiYSI6ImNrNm1ocHBzNTBldDIzanJ1O
 
 const map = new mapboxgl.Map({
     container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/satellite-v9', // style URL
+    style: 'mapbox://styles/mapbox/streets-v12', //'mapbox://styles/mapbox/satellite-v9', // style URL
     projection: 'globe',
     center: [longhome, lathome], // starting position
     zoom: zoom // starting zoom
 });
 
 // loading the map 
-map.on('style.load', () => {
-    map.setFog({}); // Set the default atmosphere style
-});
-/*
-function getColor(d) {
-    return d > 1200 ? '#800026' :  
-           d > 670  ? '#BD0026' :
-           d > 380  ? '#E31A1C' :
-           d > 160  ? '#FC4E2A' :
-           d > 100   ? '#FD8D3C' :
-           d > 60   ? '#FEB24C' :
-           d > 30   ? '#FED976' :
-                      '#FFEDA0';
-               
-}
-*/
+
 map.on('load', () => {
     // Add GeoJSON source
     map.addSource('countries_covid', {
@@ -41,13 +26,13 @@ map.on('load', () => {
     });
 
     // Add choropleth layer
+    const countriesLayerId = 'countries_layer';
     map.addLayer({
-        'id': 'countries_layer',
+        'id': countriesLayerId,
         'type': 'fill',
         'source': 'countries_covid',
         'paint': {
             'fill-color': [
-                //property: 'density_20',
                 'interpolate', ['linear'],
                 ['get', 'density_20'],
                 30, '#FED976',
@@ -61,11 +46,31 @@ map.on('load', () => {
             'fill-opacity': 0.7
         }
     });
-
-
+    map.addSource('Eumetsat_Fog', {
+        'type': 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        'tiles': [
+            'https://view.eumetsat.int/geoserver/ows?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=msg_iodc:rgb_fog&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
+        ],
+        'tileSize': 256
+    });
+    map.addLayer({
+        'id': 'rgb_fog',
+        'type': 'raster',
+        'source': 'Eumetsat_Fog',
+        'paint': {},
+        'layout': { 'visibility': 'none' }
+    }, );
+});
+//adding styles onto map
+map.on('style.load', () => {
+    map.setFog({}); // Set the default atmosphere style
 });
 // Add legend that enters map on zoom
 const PopulationLegendEl = document.getElementById('Popultation_density');
+/*
+
 map.on('zoom', () => {
     if (map.getZoom() > zoom) {
         PopulationLegendEl.style.display = 'none';
@@ -73,124 +78,127 @@ map.on('zoom', () => {
         PopulationLegendEl.style.display = 'block';
     }
 });
-
+*/
+// Add info control
+// Add info control
 // Add info control
 map.on('mousemove', (event) => {
-    const features = map.queryRenderedFeatures(event.point, {
+    const countriesFeatures = map.queryRenderedFeatures(event.point, {
         layers: ['countries_layer']
     });
-    document.getElementById('pd').innerHTML = features.length ?
-        `<h3>${features[0].properties.NAME_LONG}</h3><p><strong><em>${features[0].properties.density_20}</strong> people per square km</em></p>` :
-        `<p>Hover over a country!</p>`;
+
+    const fogFeatures = map.queryRenderedFeatures(event.point, {
+        layers: ['rgb_fog']
+    });
+
+    if (countriesFeatures.length > 0) {
+        document.getElementById('pd').innerHTML = `
+            <h3>${countriesFeatures[0].properties.NAME_LONG}</h3>
+            <p><strong><em>${countriesFeatures[0].properties.density_20}</strong> people per square km</em></p>`;
+    } else if (fogFeatures.length > 0) {
+        // Handle information for rgb_fog layer if needed
+        document.getElementById('pd').innerHTML = `
+            <h3>${fogFeatures[0].properties.YOUR_PROPERTY_NAME}</h3>
+            <p>Additional information for rgb_fog layer</p>`;
+    } else {
+        document.getElementById('pd').innerHTML = `<p>Hover over a country!</p>`;
+    }
 });
 
-map.addControl(new mapboxgl.FullscreenControl());
-// Add overlay
-// Create a custom control
-// Create a custom control
-var CustomControl = function() {
-    // Get the existing HTML div
-    var existingDiv = document.getElementById('Popultation_density');
 
-    // Define the onAdd method
-    existingDiv.onAdd = function() {
-        const existingDiv = document.getElementById('Popultation_density');
-        existingDiv.style.display = 'block';
-        return existingDiv;
-    };
 
-    // Define the onRemove method
-    existingDiv.onRemove = function() {
-        const existingDiv = document.getElementById('Popultation_density');
-        existingDiv.style.display = 'none';
-    };
 
-    //return existingDiv;
-};
 
-// Add custom control to the map
-map.addControl(new CustomControl(), 'bottom-right');
-// Create another custom control (CustomControl2)
-var CustomControl2 = function() {
-    // Get the existing HTML div
-    var existingDiv = document.getElementById('features');
-
-    // Define the onAdd method
-    existingDiv.onAdd = function() {
-        const existingDiv = document.getElementById('features');
-        existingDiv.style.display = 'block';
-        return existingDiv;
-    };
-
-    // Define the onRemove method
-    existingDiv.onRemove = function() {
-        const existingDiv = document.getElementById('features');
-        existingDiv.style.display = 'none';
-    };
-
-    //return existingDiv;
-};
-
-// Add custom controls to the map
-map.addControl(new CustomControl2(), 'top-left');
-// adding layer controll
-// adding layer control
-// Track whether custom controls are added
-let isCustomControlAdded = false;
-let isCustomControl2Added = false;
-
-// adding layer control
+// Toggleable layer control
 map.on('idle', () => {
-    const toggleableLayerIds = ['countries_layer'];
+    const toggleableLayerIds = ['countries_layer', 'rgb_fog'];
 
     for (const id of toggleableLayerIds) {
         if (document.getElementById(id)) {
             continue;
         }
 
+        // Create a container div for each layer
+        const container = document.createElement('div');
+        container.className = 'layer-container';
+
+        // Create a link for the layer
         const link = document.createElement('a');
         link.id = id;
         link.href = '#';
         link.textContent = id;
         link.className = 'active';
 
+        // Create an opacity slider
+        const opacitySlider = document.createElement('input');
+        opacitySlider.type = 'range';
+        opacitySlider.min = '0';
+        opacitySlider.max = '1';
+        opacitySlider.step = '0.1';
+        opacitySlider.value = '0.7';
+        // Add event listener to update layer opacity when slider changes
+        // Add event listener to update layer opacity when slider changes
+        opacitySlider.addEventListener('input', function() {
+            const opacityValue = parseFloat(this.value);
+            map.setPaintProperty(id, 'fill-opacity', opacitySlider);
+            console.log(opacityValue)
+
+            // Check if the layer is 'rgb_fog'
+            if (id === 'rgb_fog') {
+                const rasterOpacity = parseFloat(this.value);
+                map.setPaintProperty(id, 'raster-opacity', rasterOpacity);
+                console.log(rasterOpacity)
+            }
+        });
+
+        // Append link and slider to the container
+        container.appendChild(link);
+        container.appendChild(opacitySlider);
+
+        // Add click event to the link
         link.onclick = function(e) {
             const clickedLayer = this.textContent;
             e.preventDefault();
             e.stopPropagation();
 
-            const visibility = map.getLayoutProperty(
-                clickedLayer,
-                'visibility'
-            );
+            if (clickedLayer === 'rgb_fog') {
+                // If the clicked layer is rgb_fog, just toggle its visibility
+                const visibility = map.getLayoutProperty(clickedLayer, 'visibility');
 
-            if (visibility === 'visible') {
-                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                this.className = '';
+                if (visibility === 'visible') {
+                    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                } else {
+                    map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+                }
             } else {
-                this.className = 'active';
-                map.setLayoutProperty(
-                    clickedLayer,
-                    'visibility',
-                    'visible'
-                );
-            }
+                // For other layers, handle as before (countries_layer)
+                const visibility = map.getLayoutProperty(clickedLayer, 'visibility');
 
-            // Remove custom controls if added
-            if (isCustomControlAdded) {
-                map.removeControl(CustomControl);
-                isCustomControlAdded = false;
-            }
-            if (isCustomControl2Added) {
-                map.removeControl(CustomControl2);
-                isCustomControl2Added = false;
+                if (visibility === 'visible') {
+                    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                    this.className = '';
+                    // Remove legend and info control when layer is removed
+                    PopulationLegendEl.style.display = 'none';
+                    document.getElementById('features').style.display = 'none';
+                } else {
+                    this.className = 'active';
+                    map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+                    // Add legend and info control back when layer is added
+                    PopulationLegendEl.style.display = 'block';
+                    document.getElementById('features').style.display = 'block';
+                }
             }
         };
 
+        // Append the container to the menu
         const layers = document.getElementById('menu');
-        layers.appendChild(link);
+        layers.appendChild(container);
     }
 });
+//adding the controls onto the map
+map.addControl(new mapboxgl.FullscreenControl());
+const nav = new mapboxgl.NavigationControl();
+map.addControl(nav, 'top-right');
 
 // Create a new custom control (CustomControl3)
 /*

@@ -15,6 +15,7 @@
 
 
 
+
     <!--GeoJson files link-->
     <!--<script src="output.geojson"></script>-->
 
@@ -30,6 +31,9 @@
     <link rel="stylesheet" href="leaflet.zoomhome.css">
     <!--Css link for the FullScreen-->
     <link rel="stylesheet" href="Control.FullScreen.css">
+    <!--Css link for the layercontrol plugin-->
+    <link rel="stylesheet" href="layerControl.css">
+    <link href="mapbox-gl-opacity.css" rel="stylesheet">
     <!--Css link for the leaflet rain veiwer-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwasil/Leaflet.Rainviewer/leaflet.rainviewer.css" />
     <!--Css link for the timeslider-->
@@ -38,6 +42,10 @@
     <script src="leaflet.zoomhome.min.js"></script>
     <!--Fullscreen java script-->
     <script src="Control.FullScreen.js"></script>
+    <!--mapbox layer control pluggin java script-->
+    <script src="layerControlSimple.js"></script>
+    <script src='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.js'></script>
+    <link href='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.css' rel='stylesheet' />
     <title>Earthquake-maping</title>
 </head>
 
@@ -46,28 +54,32 @@
         <h1>Mapbox_Natural Hazard detection demo</h1>
     </div>
     <br>
-    <nav id="menu"></nav>
+
     <div id="map">
-    </div>
-    <div class="map-overlay" id="features">
-        <h2>Population Density (per squre km)</h2>
-        <div id="pd">
-            <p>Hover over a country!</p>
+        <nav id="menu"></nav>
+
+        <div id="Popultation_density" class="legend">
+            <h4>Population Density</h4>
+            <div><span style="background-color: #800026"></span>1200</div>
+            <div><span style="background-color: #BD0026"></span>670</div>
+            <div><span style="background-color: #E31A1C"></span>380</div>
+            <div><span style="background-color: #FC4E2A"></span>160</div>
+            <div><span style="background-color: #FD8D3C"></span>100</div>
+            <div><span style="background-color: #FEB24C"></span>60</div>
+            <div><span style="background-color: #FED976"></span>30</div>
         </div>
+        <div class="map-overlay" id="features">
+            <h2>Population Density (per squre km)</h2>
+            <div id="pd">
+                <p>Hover over a country!</p>
+            </div>
+        </div>
+
 
     </div>
     <br>
     <br>
-    <div id="Popultation_density" class="legend">
-        <h4>Population Density</h4>
-        <div><span style="background-color: #800026"></span>1200</div>
-        <div><span style="background-color: #BD0026"></span>670</div>
-        <div><span style="background-color: #E31A1C"></span>380</div>
-        <div><span style="background-color: #FC4E2A"></span>160</div>
-        <div><span style="background-color: #FD8D3C"></span>100</div>
-        <div><span style="background-color: #FEB24C"></span>60</div>
-        <div><span style="background-color: #FED976"></span>30</div>
-    </div>
+
     <br>
     <br>
     <div class="watermark">
