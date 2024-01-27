@@ -120,7 +120,6 @@ p {
 .accordion {
     position: absolute;
     z-index: 1000;
-    background-color: #404040;
     /* Set a higher z-index value */
 }
 
