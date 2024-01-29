@@ -1,0 +1,271 @@
+body {
+    background-color: grey;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-y: auto;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.Head {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.5);
+    /* Add a semi-transparent white background for better readability of the header */
+    border: 14px;
+    width: 100%;
+    padding: 3px;
+    font-style: italic;
+    font-size: 35px;
+    text-align: center;
+    position: relative;
+    background-position: center;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.legend {
+    background-color: #fff;
+    border-radius: 3px;
+    bottom: 30px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    padding: 10px;
+    position: absolute;
+    right: 10px;
+    z-index: 1;
+}
+
+.legend h4 {
+    margin: 0 0 10px;
+}
+
+.legend div span {
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    margin-right: 5px;
+    width: 10px;
+}
+
+h2,
+h3 {
+    margin: 10px;
+    font-size: 18px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+p {
+    margin: 10px;
+}
+
+#features {
+    top: 0;
+    height: 150px;
+    margin-top: 20px;
+    width: 250px;
+}
+
+#menu {
+    background: #fff;
+    position: absolute;
+    z-index: 4;
+    top: 10px;
+    right: 10px;
+    border-radius: 3px;
+    width: 120px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    font-family: 'Open Sans', sans-serif;
+}
+
+#menu a {
+    font-size: 13px;
+    color: #404040;
+    display: block;
+    margin: 0;
+    padding: 0;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+#menu {
+    background: #fff;
+    position: relative;
+    z-index: 3;
+    top: 10px;
+    right: 10px;
+    border-radius: 3px;
+    width: 120px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.accordion {
+    position: absolute;
+    z-index: 1000;
+    /* Set a higher z-index value */
+}
+
+#menu a {
+    font-size: 13px;
+    color: #404040;
+    display: block;
+    margin: 10;
+    padding: 100;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+#menu a:last-child {
+    border: none;
+}
+
+#menu a:hover {
+    background-color: #f8f8f8;
+    color: #404040;
+}
+
+#menu a.active {
+    background-color: #3887be;
+    color: #ffffff;
+}
+
+#menu a.active:hover {
+    background: #3074a4;
+}
+
+#menu_countries_layer a {
+    font-size: 13px;
+    color: #404040;
+    display: block;
+    margin: 10;
+    padding: 100;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+#menu_countries_layer a:last-child {
+    border: none;
+}
+
+#menu_countries_layer a:hover {
+    background-color: #f8f8f8;
+    color: #404040;
+}
+
+#menu_countries_layer a.active {
+    background-color: #3887be;
+    color: #ffffff;
+}
+
+#menu_countries_layer a.active:hover {
+    background: #3074a4;
+}
+
+#menu_rgb_fog a {
+    font-size: 13px;
+    color: #404040;
+    display: block;
+    margin: 10;
+    padding: 100;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+#menu_rgb_fog a:last-child {
+    border: none;
+}
+
+#menu_rgb_fog a:hover {
+    background-color: #f8f8f8;
+    color: #404040;
+}
+
+#menu_rgb_fog a.active {
+    background-color: #3887be;
+    color: #ffffff;
+}
+
+#menu_rgb_fog a.active:hover {
+    background: #3074a4;
+}
+
+.map-overlay {
+    position: relative;
+    display: inline-block;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    margin-right: 20px;
+    font-family: Arial, sans-serif;
+    overflow: auto;
+    z-index: 2;
+    border-radius: 3px;
+}
+
+
+/*position: absolute;
+top: 20px;  Adjust as needed 
+right: 20px; Adjust as needed 
+background-color: #fff;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 4px;
+z-index: 2;  Higher z-index to bring it to the front 
+display: none;
+*/
+
+.map-overlay div span {
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    margin-right: 5px;
+    width: 10px;
+}
+
+#map {
+    position: absolute;
+    display: inline-block;
+    background-position: center;
+    width: 95%;
+    min-height: 500px;
+    margin: auto;
+    z-index: 1;
+}
+
+.watermark {
+    content: "Created by Syed Mustafa Haider";
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 1;
+}

@@ -22,7 +22,8 @@ map.on('load', () => {
     // Add GeoJSON source
     map.addSource('countries_covid', {
         type: 'geojson',
-        data: 'covidcorona2019data2.geojson'
+        data: 'static/coviddata.geojson' //need to give path of static folder in django
+
     });
 
     // Add choropleth layer
@@ -59,7 +60,7 @@ map.on('load', () => {
         'id': 'rgb_fog',
         'type': 'raster',
         'source': 'Eumetsat_Fog',
-        'paint': {},
+        'paint': { 'raster-opacity': 0.7 },
         'layout': { 'visibility': 'none' }
     }, );
 });
@@ -80,12 +81,11 @@ map.on('zoom', () => {
 });
 */
 // Add info control
-// Add info control
-// Add info control
 map.on('mousemove', (event) => {
     const countriesFeatures = map.queryRenderedFeatures(event.point, {
         layers: ['countries_layer']
     });
+
     if (countriesFeatures.length > 0) {
         document.getElementById('pd').innerHTML = `
             <h3>${countriesFeatures[0].properties.NAME_LONG}</h3>
@@ -130,8 +130,7 @@ map.on('idle', () => {
         // Add event listener to update layer opacity when slider changes
         opacitySlider.addEventListener('input', function() {
             const opacityValue = parseFloat(this.value);
-            map.setPaintProperty(id, 'fill-opacity', opacityValue);
-
+            //map.setPaintProperty(id, 'fill-opacity', opacityValue);
             // Check if the layer is 'rgb_fog'
             if (id === 'rgb_fog') {
                 map.setPaintProperty(id, 'raster-opacity', opacityValue);
