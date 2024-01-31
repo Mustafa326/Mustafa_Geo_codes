@@ -1,0 +1,55 @@
+body{
+	background-color: lightgrey;
+}
+h1 {
+	padding: 14px;
+	border: 15px;
+	color: white;
+	text-align: center;
+	background-color: black;
+}
+ul{
+	list-style-type:none;
+	text-decoration: none;
+	margin: auto;
+	padding: auto;
+
+}
+a{
+	font-size: 13px;
+	text-decoration: none;
+	padding: 13px
+}
+li {
+	color: white;
+	text-underline-position: none;
+	display: inline-block; 
+	padding: 34px;
+	border: 14px;
+	width:13%;
+	background-color: black;
+	box-sizing: border-box;
+}
+li a:hover {
+background-color: black;
+color:red;
+}
+.container {
+  margin: auto;
+  width: 600px;
+  overflow: auto;
+  }
+
+section{
+	color: white;
+	text-align: center;
+	border: 15px solid orange;
+	border-width: 14px;
+	padding: 40px;
+	background-color: black;
+	box-sizing: border-box;
+	
+}
+#forumn label{
+	display: block;
+}

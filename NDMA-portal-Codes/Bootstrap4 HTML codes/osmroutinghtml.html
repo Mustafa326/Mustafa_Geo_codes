@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OSM ROute</title>
+   <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <!--leafletCss-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+    <!--Css(user) link-->
+    <link rel="stylesheet" type="text/css" href="osmroutingcss.css">
+    <!--LeafletJavascriptlink-->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+    <!--Leaflet-geocoder-CSS links-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
+    
+    <!--Leaflet location control css files-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="L.Control.Locate.min.css"/>
+    
+    <!--Leaflet-routing-machine-CSS links-->
+    <!--<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css">-->
+   <link rel="stylesheet" href="leaflet-routing-machine.css"/>
+   
+    <!--<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>-->
+</head>
+<feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
+    </feature>
+        <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
+    </feature>
+        <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+<body>
+  <p id="demo"></p>
+  <div class=Head>
+     <h1>OSMRouting</h1>
+   </div>
+   <!--Floating selection bar-->
+   <div id="floating-panel">
+    <b>Start: </b>
+    <select id="start" onclick="click()">
+      <option input type="hidden" id ="starting" value="">Your Location </option>
+      <option value="33.52030133232931,73.17574935541629">Ist Tucshop</option>
+      <option value="33.52083517742716,73.17431971492769">Ist New Mess</option>
+      <option value="33.522483036728765,73.17379474639894">Ist Boys Hostel</option>
+      <option value="33.51957235042684,73.17336151884078">Ist Girls Hostel</option>
+      <option value="33.519330845865106,73.17475090311049">Ist Mosque</option>
+      <option value="33.52019847022457,73.17505667493819">Geospatial Research and Educationl Lab</option>
+      <option value="33.519678201765586,73.17631462470546">Ist auditorium</option>
+      <option value="33.519977845010445,73.17575672523036">Ist Library</option>
+      <option value="33.52150000000,73.17687000000">HOD Mechanical/ Avionics Engineering</option>
+      <option value="33.52151800000,73.17651600000">HOD Electrical Engineering</option>
+      <option value="33.51956000000,73.17635500000">Transport Office</option>
+      <option value="33.51971900000,73.17599200000">Dean Office</option>
+      <option value="33.51964100000,73.17572400000">Vice Chancellor Office</option>
+      <option value="33.51996700000,73.17574800000">HOD Aerospace Engineering 1st Floor</option>
+      <option value="33.51968300000,73.17629100000">HOD Materials Engineering 1st Floor</option>
+      <option value="33.51979200000,73.17562500000">Student Affairs 1st Floor</option>
+      <option value="33.51903144637547,73.17704021930695">HBl ATM</option>
+    </select>
+    <b>End: </b>
+    <select id="end" onclick="click()">
+      <option value="33.52083517742716,73.17431971492769">Ist New Mess</option>
+      <option value="33.738045,73.084488">G9</option>
+      <option value="33.675072,73.024593">f6</option>
+      <option value="33.52030133232931,73.17574935541629">Ist Tucshop</option>
+      <option value="33.522483036728765,73.17379474639894">Ist Boys Hostel</option>
+      <option value="33.51957235042684,73.17336151884078">Ist Girls Hostel</option>
+      <option value="33.519330845865106,73.17475090311049">Ist Mosque</option>
+      <option value="33.52019847022457,73.17505667493819">Geospatial Research and Educationl Lab</option>
+      <option value="33.519678201765586,73.17631462470546">Ist auditorium</option>
+      <option value="33.519977845010445,73.17575672523036">Ist Library</option>
+      <option value="33.52150000000,73.17687000000">HOD Mechanical/ Avionics Engineering</option>
+      <option value="33.52151800000,73.17651600000">HOD Electrical Engineering</option>
+      <option value="33.51956000000,73.17635500000">Transport Office</option>
+      <option value="33.51971900000,73.17599200000">Dean Office</option>
+      <option value="33.51964100000,73.17572400000">Vice Chancellor Office</option>
+      <option value="33.51996700000,73.17574800000">HOD Aerospace Engineering 1st Floor</option>
+      <option value="33.51968300000,73.17629100000">HOD Materials Engineering 1st Floor</option>
+      <option value="33.51903144637547,73.17704021930695">HBl ATM</option>
+      <option value="33.51979200000,73.17562500000">Student Affairs 1st Floor</option>
+    </select>
+    </select>
+    </div>
+  <p id="demo"></p>
+  <div id="Map"></div>
+
+               <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- The scripts are jquery for slider2-->
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <!-- Bootstrap Jquery
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <br>
+<!--Leaflet-Geocoder-JavaScript links-->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <!--Leaflet location control java script-->
+    <script src="L.Control.Locate.min.js"></script>
+    <!--Leaflet-Routing machine-Javascriptlink-->
+    <script src="leaflet-routing-machine.js"></script>
+  <script src="osmroutingjs.js"></script>
+</body>
+</html

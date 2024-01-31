@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--leafletCss-->
+    <link rel="stylesheet" type="text/css" href="leaflet.css">
+    <!--Javascriptlink-->
+    <script src="leaflet.js"></script>
+    <!--GeoJson files link-->
+    <script src="pakistan_corona.geojson"></script>
+    <!-- Bootstrap CSS necessary for the home button on map -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    <!--DVF CSS links-->
+    <link rel="stylesheet" type="text/css" href="dvf.css">
+    <!--Css link-->
+    <link rel="stylesheet" type="text/css" href="coronapaknustcss.css">
+    <!--Css link for the home button on the map-->
+    <link rel="stylesheet" href="leaflet.zoomhome.css">
+    <!--Css link for the Search Bar-->
+    <link rel="stylesheet" href="leaflet-search.src.css">
+     <!--Css link for the basemap control-->
+    <link rel="stylesheet" href="L.Control.Basemaps.css">
+    <!--Css link for the Esri search bar-->
+     <link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+    <!--Css link for the FullScreen-->
+    <link rel="stylesheet" href="Control.FullScreen.css">
+    <!-- Bootstrap CSS necessary for the home button on map -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <!--Css link for the timeslider-->
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+    <!--Mapbox javascript link-->
+    <script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
+    <!--Mapbox Css link-->
+    <link href='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.css' rel='stylesheet' />
+    <!--Home button javascript java script-->
+    <script src="leaflet.zoomhome.min.js"></script>
+    <!--Fullscreen java script-->
+    <script src="Control.FullScreen.js"></script>
+    <!--Basemap control java script-->
+    <script src="L.Control.Basemaps-min.js"></script>
+    <!--SearchBar java script-->
+    <script src="leaflet-search.src.js"></script>
+    <!--Esri search bar java script-->
+    <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+    <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
+    <!--timerange java script-->
+    <script src="leaflet.SliderControl.min.js"></script>
+    <script src="SliderControl.js"></script>
+    <!--timeline2 java script-->
+    
+
+    <title>Covid19Pakistan2020-maping</title>
+  </head>
+  <body>
+    <!-- header #1 -->
+<header class="header" id="header1">
+    <div class="center">
+        <div class="caption">
+            <h2 class="title display-3">Covid-19 Map</h2>
+            <p class="text">Coronavirus or Covid-19 is an infectious disease caused by Severe Acute Respiratory Syndrom coronavirus2 (SARS-Cov-2). This virus was first identified in December 2019 in  city Wuhan of the province Hubei of China. The virus is generally transmited through tiny droplets that come out of the human body when a person sneezes or coughs and exhales. This virus spreads through human interaction and hence quarintine is one of the best solution to stop the spread of this virus. </p>
+            <div class="card-body">
+
+               <h5 class="card-title">Created by:</h5>
+               <h6 class="card-subtitle mb-2 text-muted">Syed Mustafa Haider,Saad Ahmed Jamal,Osman ali kakar,Muhammad Ali Awan,Sharukh Khan</h6>
+               <p class="card-text">This web map contains the data for three months March, April and June of the year 2020 of Pakistan.</p>
+               <a  class="btn btn-primary" id="top" onclick="myFunction()">How to use the map?</a>
+            </div> 
+        </div>  
+    </div>
+</header>
+   <hr>
+   <div id="sidebar">
+  <h1>Informations</h1>
+  <div class="container">
+    <div class="center-objs">
+      <div id="new-parent">
+      </div>
+      <div id="tree"></div>
+    </div>
+  </div>
+</div>
+   <div id="Map">
+   </div>
+   <div class="card">
+      <div class="card-header">
+        Note for map usage
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">How to work with timeslider</h5>
+        <p class="card-text">The timeslider in the map by defult shows the data for 30th June overlaping the data of 24th March and hence you have to manualy move the slider to show the data seperately.The range of the timeslider is user defined, the user can see both of the layers (of march and june) overlaped if he moves one end of slider button/control. However if he moves both sides of the slider control then he can view layers seperately .</p>
+        <h5 class="card-title">Fullscreen</h5>
+        <p class="card-text">The fullscreen control is right above the navigation controls in the map. Use it to view the map on fullscreen of your device!</p>
+        <h5 class="card-title">Home-Button</h5>
+        <p class="card-text">The home button is in the navigation controls on the topleft portion of the map right below the fullscreen control. Use it to zoom to the server defined center of the map</p>
+        <h5 class="card-title">search control</h5>
+        <p class="card-text">The pluggin leaflet search control was used, just click the search icon and start searching.</p>
+        <h5 class="card-title">Bar-chart popup</h5>
+        <p class="card-text">Click on the bar chart to veiw further information</p>
+        <p class="card-text bg-light" style="transform: rotate(0);">
+        <a href="https://xvivo.com/medical-illustration-wallpapers/" class="text-decoration-none">Go to the website</a> the header wallpaper was taken from
+        </p>
+        <a href="#top" id="buttonbottom" class="btn btn-primary" onclick="myFunction2()" title="Click to Go to the top">Go to the top</a>
+        <a href="Thematicmapshtml.html"  class="btn btn-primary" onclick="myFunction3()" title="Click to view thematic maps" >Thematic maps</a>
+        <a href="graphicalhtml.html"  class="btn btn-primary" onclick="myFunction4()"  title="Click to view graphs">Graphical analasis</a>
+      </div>
+    </div>
+   <!--<div id="Button1">
+    <button type="button">Click me!!</button>
+   </div>
+ -->
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- The scripts are jquery for slider2-->
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <!-- Bootstrap Jquery
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-dvf/0.3.1/leaflet-dvf.js" integrity="sha256-NjpReWDWm8xLsUgsi6D5o/xxBqoK2Nnqq5YyVGzF8MI=" crossorigin="anonymous"></script>
+    <script src="coronapaknustjs.js"></script>
+  </body>
+</html>

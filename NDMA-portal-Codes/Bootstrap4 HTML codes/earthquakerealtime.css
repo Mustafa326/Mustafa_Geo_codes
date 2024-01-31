@@ -1,0 +1,84 @@
+body {
+    background-image: url('natural_hazards.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-y: auto;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.Head {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.5);
+    /* Add a semi-transparent white background for better readability of the header */
+    border: 14px;
+    width: 100%;
+    padding: 3px;
+    font-style: italic;
+    font-size: 35px;
+    text-align: center;
+    position: relative;
+    background-position: center;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.legend {
+    padding: 2px 10px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: scroll;
+}
+
+#legendTitle {
+    text-align: center;
+    margin-bottom: 15px;
+    font-variant: small;
+}
+
+.symbolsContainer {
+    float: left;
+    margin-left: 50px;
+}
+
+.legendValue {
+    position: absolute;
+    right: 8px;
+}
+
+#Map {
+    background-position: center;
+    width: 100%;
+    min-height: 700px;
+    margin: auto;
+}
+
+.watermark {
+    content: "Created by Syed Mustafa Haider";
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 1;
+}

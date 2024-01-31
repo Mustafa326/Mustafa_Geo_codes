@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaflet Map Example</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+
+  <button id="mainButton3">🌊</button>
+
+  <div id="map2" style="height: 400px; width: 100%;"></div>
+
+  <script>
+    var map = null;
+
+    function createLeafletMap() {
+      console.log('createLeafletMap function called');
+
+      if (map) {
+        console.log('Map is already initialized. Removing existing map.');
+        map.remove();
+        map = null;
+      }
+
+      map = L.map('map2').setView([51.505, -0.09], 13);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+    }
+
+    document.getElementById('mainButton3').addEventListener('click', function() {
+      console.log('Button clicked. Calling createLeafletMap.');
+      createLeafletMap();
+    });
+  </script>
+</body>
+</html>

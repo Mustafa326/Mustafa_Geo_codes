@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--leafletCss-->
+    <link rel="stylesheet" type="text/css" href="leaflet.css">
+    <!--Javascriptlink-->
+    <script src="leaflet.js"></script>
+    <!--DVF CSS links-->
+    <link rel="stylesheet" type="text/css" href="dvf.css">
+    <!--MarkerClusterCSS-->
+    <link rel="stylesheet" type="text/css" href="MarkerCluster.css">
+    <!--<link rel="stylesheet" type="text/css" href="MarkerCluster.Default.css">-->
+    <!-- Linking the Geojson-->
+    <script src="finalgeojson.geojson"></script>
+    <!-- Bootstrap CSS necessary for the home button on map -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--Mapbox javascript link-->
+    <script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
+    <!--Mapbox Css link-->
+    <link href='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.css' rel='stylesheet' />
+    <!--Css Links-->
+    <!--<link rel="stylesheet" type="text/css" href="final_mapcss.css">-->
+    <link rel="stylesheet" type="text/css" href="portal.css.css">
+    <!--Css link for the home button on the map-->
+    <link rel="stylesheet" href="leaflet.zoomhome.css">
+    <!--Css link for the search bar-->
+     <link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+    <!--Css link for the FullScreen-->
+    <link rel="stylesheet" href="Control.FullScreen.css">
+    <!--Css link for the Search Bar-->
+    <link rel="stylesheet" href="leaflet-search.src.css">
+    <!--Css link for the better scale bar-->
+    <link rel="stylesheet" href="L.Control.BetterScale.css">
+    <!--Css link for the timeslider-->
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+    <!--Home button javascript java script-->
+    <script src="leaflet.zoomhome.min.js"></script>
+    <!--search bar java script-->
+    <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+    <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
+    <!--Fullscreen java script-->
+    <script src="Control.FullScreen.js"></script>
+    <!--leaflet marker stack  java script-->
+    <script src="Leaflet.Marker.Stack.js"></script>
+    <!--chart js script-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    <!--leaflet marker cluster  java script-->
+    <script src="leaflet.markercluster-src.js"></script>
+    <script src="leaflet.markercluster.js"></script>
+    <!--SearchBar java script-->
+    <script src="leaflet-search.src.js"></script>
+    <!--BetterScale java script-->
+    <script src="L.Control.BetterScale.js"></script>
+    <!--timeline java script-->
+    <!--<script src="leaflet-timeline-slider.min.js"></script>-->
+    <!--timeline2 java script-->
+    <script src="leaflet.SliderControl.min.js"></script>
+    <script src="SliderControl.js"></script>
+    <title>Portal!</title>
+  </head>
+  <body>
+   </header>
+   <header class="header" id="header1">
+    <div class="center">
+        <div class="caption">
+            <h2 class="title display-3">Geospatial Web Portal</h2>
+            <p class="text">A Geospatial web portal for the integration of socio-economic, biophysical and atmospheric variables namely Precipitation,LST,Population and NDVI for the province Punjab of Pakistan for the years 2010 till 2019 </p>
+            <div class="card-body">
+               <a href="help.html" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Click to go to the help page">How to use the map?</a>
+            </div> 
+        </div>  
+    </div>
+</header>
+  </div>
+  <!-- card body accordian-->
+  <!-- Bootstrap Column Divide-->
+  <div class="container_fluid">
+  <br>
+    <div class="row">
+      <!-- Accordiancoloumn-->
+      <div class="col-lg-3 col-md-3" id="Accordiancolumn">
+        <div class="container1">
+          <div class="accordian" id="Project">
+            <div class="card bg-primary">
+              <div class="card-header" id="AllVariables">
+                <h6 class="mb-0">
+                  <button class="btn btn-link text-white" data-toggle="collapse" data-toggle="tooltip" data-placement="right" title="Click to view the visualization of all marker variables along with choropleth" data-target="#allvariablesTab"><i class="fa fa-plus"></i> All Marker Variables and Choropleth</button>
+                </h6>
+              </div>
+              <div class="collapse" id="allvariablesTab" data-parent="#Project">
+                <div class="card-body">
+                  <div class="table-responsive mx-3">
+                    <div class="container-fluid">
+                      <table class="table bg-white text-dark">
+                        <thead>
+                          <tr>
+                            <th scope ="col"></th>
+                            <th scope="col">Layer name</th>
+                            <th scope="col">Thematic element</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox1" checked>
+                                <label for="checkbox1" class="mr-2 label-table"></label>
+                              </th>
+                              <td>All variables </td>
+                              <td>Choropleth along with proportional svg symbols,barchart and color symbols</td>
+                            </tr>
+                          </tbody>
+                      </table>
+                        <p class="text-white">All of the variables are visualized on map</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card bg-primary ">
+              <div class="card-header" id="Temperature">
+                <h5 class="mb-0">
+                  <button class="btn btn-link text-white" data-toggle="collapse" data-toggle="tooltip" data-placement="right" title="Click to change map to LST layer and to view Information about LST Data" data-target="#TemperatureTab"  ><i class="fa fa-plus"></i> LST</button>
+                </h5>
+              </div>
+              <div class="collapse" id="TemperatureTab" data-parent="#Project">
+                <div class="card-body">
+                  <div class="table-responsive mx-3">
+                    <div class="container-fluid">
+                      <table class="table bg-white text-dark">
+                        <thead>
+                          <tr>
+                            <th scope ="col"></th>
+                            <th scope="col">Layer name</th>
+                            <th scope="col">Thematic element</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox2" >
+                                <label for="checkbox2" class="mr-2 label-table"></label>
+                              </th>
+                              <td>LST </td>
+                              <td>Bar-Chart</td>
+                            </tr>
+                          </tbody>
+                      </table>
+                        <p class="text-white">In simpler terminology LST is the radiative skin temperature of land surface as measured in the direction of the remote sensor. The LST data of the province Punjab of Pakistan was collected/acquired from NASA appeears<a class="nav-link text-dark" href="https://lpdaacsvc.cr.usgs.gov/appeears/">(Click here to visit NASA Appeears)</a> It is in the unit Celsius and it was collected from the year 2010 till 2019</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card bg-primary">
+              <div class="card-header" id="Population">
+                <h6 class="mb-0">
+                  <button class="btn btn-link text-white" data-toggle="collapse" data-toggle="tooltip" data-placement="right" title="Click to change map to Population layers and to view Information about Poulation Data" data-target="#PopulationTab"><i class="fa fa-plus"></i> Population</button>
+                </h6>
+              </div>
+              <div class="collapse" id="PopulationTab" data-parent="#Project">
+                <div class="card-body">
+                  <div class="table-responsive mx-3">
+                    <div class="container-fluid">
+                      <table class="table bg-white text-dark">
+                        <thead>
+                          <tr>
+                            <th scope ="col"></th>
+                            <th scope="col">Layer name</th>
+                            <th scope="col">Thematic element</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox3" >
+                                <label for="checkbox3" class="mr-2 label-table"></label>
+                              </th>
+                              <td>Population density </td>
+                              <td>Choropleth</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox4" >
+                                <label for="checkbox4" class="mr-2 label-table"></label>
+                              </th>
+                              <td>Absolute Population  </td>
+                              <td>Proportional SVG Symbols</td>
+                            </tr>
+                          </tbody>
+                      </table>
+                        <p class="text-white">In general term population is the term utillized to represent the total inhabitants of a place.The data of the Population density of the province Punjab of pakistan was acquired from Nasa Appeears<a class="nav-link text-dark" href="https://lpdaacsvc.cr.usgs.gov/appeears/">(Click here to visit NASA Appeears)</a> However the population density values were changed to absolute population by multiplying the population density values with the area of the particular location. The population is represented by an SVG(Scalable Vector Graphics). The population data was collected for the years 2010,2015 and 2019</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card bg-primary">
+              <div class="card-header" id="Precipitation">
+                <h7 class="mb-0">
+                  <button class="btn btn-link text-white" data-toggle="collapse"data-toggle="tooltip" data-placement="right" title="Click to change map to Precipitation layers and view Information about Precipitation Data"  data-target="#PrecipitationTab" ><i class="fa fa-plus"></i> Precipitation</button>
+                </h7>
+              </div>
+              <div class="collapse" id="PrecipitationTab" data-parent="#Project">
+                <div class="card-body">
+                  <div class="table-responsive mx-3">
+                    <div class="container-fluid">
+                      <table class="table bg-white text-dark">
+                        <thead>
+                          <tr>
+                            <th scope ="col"></th>
+                            <th scope="col">Layer name</th>
+                            <th scope="col">Thematic element</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox5" >
+                                <label for="checkbox5" class="mr-2 label-table"></label>
+                              </th>
+                              <td>Precipitation </td>
+                              <td>Choropleth</td>
+                            </tr>
+                          </tbody>
+                      </table>
+                      <p class="text-white">In general terms precipitation is any form of liquid or solid water particles that fall from the atmosphere and reach the surface of the Earth. For the Gulf Coast area, precipitation includes drizzle, rain, hail, and on rare occasions, snow and sleet. Different seasons and geographic locations see varying amounts of precipitation in amount and intensity.The rew data of the Precipitation(area_averaged total precipitation monthly) of the province Punjab of pakistan was acquired from GIOVANNI<a class="nav-link text-dark" href="https://giovanni.gsfc.nasa.gov//">(Click here to visit GIOVANNI)</a> </p></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card bg-primary">
+              <div class="card-header " id="NDVI">
+                <h7 class="mb-0">
+                  <button  class="btn btn-link text-white" data-toggle="collapse" data-toggle="tooltip" data-placement="right" title="Click to change map To NDVI layers and to view Information about NDVI Data " data-target="#AirTab"><i class="fa fa-plus"></i> NDVI</button>
+                </h7>
+              </div>
+              <div class="collapse" id="AirTab" data-parent="#Project">
+                <div class="card-body">
+                  <div class="table-responsive mx-3">
+                    <div class="container-fluid">
+                      <table class="table bg-white text-dark">
+                        <thead>
+                          <tr>
+                            <th scope ="col"></th>
+                            <th scope="col">Layer name</th>
+                            <th scope="col">Thematic element</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox6" >
+                                <label for="checkbox6" class="mr-2 label-table"></label>
+                              </th>
+                              <td>NDVI </td>
+                              <td>Choropleth</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                <input class="form-check-input w-25 p-3" type="checkbox" id="checkbox7" >
+                                <label for="checkbox7" class="mr-2 label-table"></label>
+                              </th>
+                              <td>NDVI </td>
+                              <td>Color Symbols</td>
+                            </tr>
+                          </tbody>
+                      </table>
+                      <p class="text-white">NDVI, short for “Normalized Differential Vegetation Index,” is used to determine the state of plants' health.An NDVI value of zero means no green vegetation and close to +1 (0.8 - 0.9) indicates the highest possible density of green leaves.The data of the NDVI was acquired from Nasa Appeears<a class="nav-link text-dark" href="https://lpdaacsvc.cr.usgs.gov/appeears/">(Click here to visit NASA Appeears)</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Map Column-->
+      <div class="col-lg-8 col-md-8" id="MapColumn">
+        <div id="Map">
+        </div>
+      </div>
+      <!--<div class="col-lg-4 col-md-4" id="GraphColumn">
+        Graphs
+      </div>-->
+    </div>
+  </div>
+       <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- The scripts are jquery for slider2-->
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <!-- Bootstrap Jquery
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <br>
+      <!--
+      <footer class="page-footer">
+        <div class="Navigation">
+          <asside>
+            <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+              <a class="navbar-brand">
+                Logo Image 
+                <img src="IST_logo.svg" width="80" alt="" class="d-inline-block align-middle mr-2">
+                Logo Text 
+                <span class="text-uppercase font-weight-bold">Ist</span>
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="study.html">Study Area</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="about.html">About</a>
+                  </li>
+                </ul>
+                <span class="navbar-text">
+                  Copyright 2020 &copy; Project 
+                </span>
+              </div>
+            </nav>
+          </asside>
+        </div>
+      </footer>
+      <DVF javascript Link-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-dvf/0.3.1/leaflet-dvf.js" integrity="sha256-NjpReWDWm8xLsUgsi6D5o/xxBqoK2Nnqq5YyVGzF8MI=" crossorigin="anonymous"></script>
+      <!--<script src="final_mapjs.js"></script>-->
+      <script src="portal.js"></script>
+    </body>
+</html>

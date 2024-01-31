@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--leafletCss-->
+    <link rel="stylesheet" type="text/css" href="leaflet.css">
+    <!--Javascriptlink-->
+    <script src="leaflet.js"></script>
+    <script src="spin.js"></script>
+    <!--<script src="countries.geojson"></script>-->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--Css link-->
+    <link rel="stylesheet" type="text/css" href="Geoservers.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
+    <!--Javascript Links-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <!--Css link for the FullScreen
+    <link rel="stylesheet" href="Control.FullScreen.css">
+    -->
+    <!--Css link for the timeslider
+    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+    -->
+    <!--Fullscreen java script
+    <script src="Control.FullScreen.js"></script>
+    -->
+    <!--timeline java script
+    <script src="leaflet-timeline-slider.min.js"></script>
+    -->
+    <!--timeline2 java script
+    <script src="leaflet.SliderControl.min.js"></script>
+    <script src="SliderControl.js"></script>
+    -->
+
+    <title>Geosrver-maping</title>
+  </head>
+  <body>
+    <div class=Head>
+     <h1>My Geoserver map</h1>
+   </div>
+   <br>
+   <br>
+   <div id="Map">
+   </div>
+   <!--For the delete and export feature-->
+   <button type="button"id='delete' class="btn btn-info">Delete Features</button>
+   <button type="button" class="btn btn-info"><a href='#' id='export'>Export Features</a></button>
+   
+   <!-- The WMS as tiff download-->
+   <button type="button" class="btn btn-secondary">
+    <a
+        href="http://localhost:8081/geoserver/ne_110m_admin_0_countries/wms?
+request=GetMap
+&service=WMS
+&version=1.1.0
+&layers=ne_110m_admin_0_countries:Export_Output12
+&bbox=73.6260757446289%2C30.6471366882324%2C74.6960906982422%2C32.5527153015137
+&styles=
+&srs=EPSG%3A4326
+&width=431
+&height=768
+&format=image/geotiff"
+        >Download WMS as tiff</a
+      >
+   </button>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- The scripts are jquery for slider2
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  -->
+    <!-- Bootstrap Jquery-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!---AjaxJquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--Leaflet geoserver plugin-->
+     <script src="https://unpkg.com/geotiff@1.0.0-beta.7/dist/geotiff.bundle.js"></script>
+    <script src="https://unpkg.com/plotty@0.4.4/dist/plotty.min.js"></script>
+    <!--the plugin-->
+    <script src="leaflet-geotiff.js"></script>
+    <script src="leaflet-geotiff-plotty.js"></script>
+    <script src="leaflet-geotiff-vector-arrows.js"></script>
+    <script src="L.Geoserver.js"></script>
+    <script src="Leaflet-WMS.js"></script>
+    <!---RequireJS
+    <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+    <script src="requirejs.js"></script>
+    
+    -->
+    <script src="FileSaver.js"></script>
+    <script src="shp-write.js"></script>
+    <script src="Geoserversja.js"></script>
+  </body>
+</html>

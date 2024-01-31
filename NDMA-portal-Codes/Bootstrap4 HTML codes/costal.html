@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>coastal</title>
+    <link rel="stylesheet" href="costalcss.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+</head>
+
+<body>
+    <header>
+      <!--    <video id="bgVideo" autoplay loop muted playsinline>
+            <source src="markericons/bgvid.mp4" type="video/mp4">
+        </video> -->
+        <div id="top-div">
+            <div id="hello-text">COASTAL HAZARD MONITORING PORTAL</div>
+            <div id="ndma-logo">
+                <img src="markericons/ndma.png" alt="NDMA Icon">
+            </div>
+    </header>
+
+
+
+    <div id="running-text" style="display: flex;">
+        <marquee behavior="scroll" direction="left">
+          This poses a threat to aquatic ecosystems, biodiversity, and the availability
+            of freshwater resources for both human consumption and agriculture. </marquee>
+    </div>
+
+
+
+ <!-- <div id="map"></div> mainButton0 -->
+ <div id="map-container">
+  <div id="map2" class="hidden"></div>
+</div>
+<iframe id="iframe1" src="https://www.globalmangrovewatch.org/country/PAK?bounds=[[55.458311544522985,22.010396573549514],[70.73443829913438,28.55903485079685]]&active=[%22mangrove_net_change%22,%22mangrove_habitat_extent%22]'" class="hidden"></iframe>
+<iframe id="iframe2" src="https://acidification.oceandatalab.com/?date=2022-12-29T11:59:59&timespan=1d&extent=5963311.1727652_2472890.7638388_8311456.681359_3587036.8879684&center=7137383.9270621_3029963.8259036&zoom=7&products=3857_OceanCarbNN-drivers-sst_raster&selection=1&opacity=100&stackLevel=50.06" class="hidden"></iframe>
+ <button id="threebar">☰</button>
+ <button id="mainButton0"> 1</button>
+<button id="mainButton1 ">🌱</button>
+<button id="mainButton2">🌊</button>
+
+<button id="mainButton3">🌊</button>
+
+<div id="mainButton3con" style="display: none;">
+    <button id="layerButton1">1</button>
+    <button id="layerButton2">2</button>
+    <button id="layerButton3">3</button>
+  </div>
+ 
+
+
+   <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.min.js"></script>
+   <link
+     href="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.css"
+     rel="stylesheet"
+   />
+   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+   <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
+   <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
+   <link href="/styles/base.css?t=1702383764" rel="stylesheet" />
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+   <script src="https://cdn.maptiler.com/maptiler-weather/v1.1.0/maptiler-weather.umd.min.js"></script>
+   <script src="costaljs.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,502 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="lt-ie9" lang="en-US"> <![endif]-->
+<!--[if IE 9]>         <html class="lte-ie9" lang="en-US"> <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en-US"> <!--<![endif]-->
+<head>
+<meta charset="UTF-8"/>
+<title>NextGIS | Opensource Geospatial Solutions</title>
+<link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="stylesheet" type="text/css" media="all" href="http://nextgis.com/wp-content/themes/nextgis_clean/css/app.css?20190523" />
+<link rel="pingback" href="http://nextgis.com/xmlrpc.php" />
+<link rel="alternate" hreflang="ru-ru" href="http://nextgis.ru/" />
+<link rel="alternate" hreflang="en-us" href="http://nextgis.com/" />
+
+<!-- All in One SEO Pack 2.3.11.4 by Michael Torbert of Semper Fi Web Design[250,264] -->
+<meta name="description"  content="Why NextGIS? Specializing in open source geographic information systems (GIS), NextGIS provides advanced yet affordable geospatial solutions and ongoing" />
+
+<meta name="keywords"  content="некстгис, nextgis, gis, гис, разработка, development, программное обеспечение, software, qgis, кугис, карты, maps, вебгис, webgis, webmap, веб карта, сервисы, services" />
+
+<link rel="canonical" href="http://nextgis.com/" />
+<!-- /all in one seo pack -->
+<link rel='dns-prefetch' href='//nextgis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="NextGIS &raquo; Feed" href="http://nextgis.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="NextGIS &raquo; Comments Feed" href="http://nextgis.com/comments/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/nextgis.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.7.14"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),!(j.toDataURL().length<3e3)&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,65039,8205,55356,57096),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,55356,57096),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55357,56425,55356,57341,8205,55357,56507),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55357,56425,55356,57341,55357,56507),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='jquery-plugins-slider-style-css'  href='http://nextgis.com/wp-content/plugins/jj-nextgen-jquery-slider/stylesheets/nivo-slider.css?ver=4.7.14' type='text/css' media='all' />
+<link rel='stylesheet' id='cptch_stylesheet-css'  href='http://nextgis.com/wp-content/plugins/captcha/css/front_end_style.css?ver=4.4.5' type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css'  href='http://nextgis.com/wp-includes/css/dashicons.min.css?ver=4.7.14' type='text/css' media='all' />
+<link rel='stylesheet' id='cptch_desktop_style-css'  href='http://nextgis.com/wp-content/plugins/captcha/css/desktop_style.css?ver=4.4.5' type='text/css' media='all' />
+<link rel='stylesheet' id='easingslider-css'  href='http://nextgis.com/wp-content/plugins/easing-slider/assets/css/public.min.css?ver=3.0.8' type='text/css' media='all' />
+<link rel='stylesheet' id='wpml-legacy-dropdown-0-css'  href='//nextgis.com/wp-content/plugins/sitepress-multilingual-cms/templates/language-switchers/legacy-dropdown/style.css?ver=1' type='text/css' media='all' />
+<style id='wpml-legacy-dropdown-0-inline-css' type='text/css'>
+.wpml-ls-statics-shortcode_actions, .wpml-ls-statics-shortcode_actions .wpml-ls-sub-menu, .wpml-ls-statics-shortcode_actions a {border-color:#cdcdcd;}.wpml-ls-statics-shortcode_actions a {color:#444444;background-color:#ffffff;}.wpml-ls-statics-shortcode_actions a:hover,.wpml-ls-statics-shortcode_actions a:focus {color:#000000;background-color:#eeeeee;}.wpml-ls-statics-shortcode_actions .wpml-ls-current-language>a {color:#444444;background-color:#ffffff;}.wpml-ls-statics-shortcode_actions .wpml-ls-current-language:hover>a, .wpml-ls-statics-shortcode_actions .wpml-ls-current-language>a:focus {color:#000000;background-color:#eeeeee;}
+</style>
+<link rel='stylesheet' id='tablepress-default-css'  href='http://nextgis.com/wp-content/plugins/tablepress/css/default.min.css?ver=1.8.1' type='text/css' media='all' />
+<link rel='stylesheet' id='fancybox-css'  href='http://nextgis.com/wp-content/plugins/easy-fancybox/fancybox/jquery.fancybox-1.3.8.min.css?ver=1.5.8.2' type='text/css' media='screen' />
+<script type='text/javascript' src='http://nextgis.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='http://nextgis.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript' src='http://nextgis.com/wp-content/plugins/jj-nextgen-jquery-slider/script/jquery.nivo.slider.pack.js?ver=2.4'></script>
+<script type='text/javascript' src='http://nextgis.com/wp-content/plugins/jj-nextgen-jquery-slider/script/jquery.jj_ngg_shuffle.js?ver=4.7.14'></script>
+<script type='text/javascript' src='http://nextgis.com/wp-content/plugins/jj-nextgen-jquery-slider/script/jjnggutils.js?ver=4.7.14'></script>
+<script type='text/javascript' src='http://nextgis.com/wp-content/plugins/easing-slider/assets/js/public.min.js?ver=3.0.8'></script>
+<script type='text/javascript' src='//nextgis.com/wp-content/plugins/sitepress-multilingual-cms/templates/language-switchers/legacy-dropdown/script.js?ver=1'></script>
+<!-- OG: PLUGIN_VERSION -->
+<meta property="og:image" content="http://nextgis.ru/wp-content/themes/nextgis_clean/img/nextgis_share_img_b.png" /><meta property="og:description" content="Why NextGIS? Specializing in open source geographic information systems (GIS), NextGIS provides advanced yet affordable geospatial solutions and ongoing technical support to companies and organizations that work with spatial data, its representation, and its analysis.   Managed by a group of GIS experts, NextGIS’s services extend beyond software provisions, separating NextGIS from the status quo...." /><meta property="og:type" content="article" /><meta property="og:locale" content="en_us" /><meta property="og:site_name" content="NextGIS" /><meta property="og:title" content="NextGIS" /><meta property="og:url" content="http://nextgis.com/" /><meta property="og:updated_time" content="2015-09-12T20:10:28+00:00" /><meta property="article:published_time" content="2010-10-25T18:12:04+00:00" /><meta property="article:modified_time" content="2015-09-12T20:10:28+00:00" /><meta property="article:author" content="http://nextgis.com/blog/author/admin/" /><meta property="twitter:card" content="summary" /><meta property="twitter:title" content="NextGIS" /><meta property="twitter:description" content="Why NextGIS? Specializing in open source geographic information systems (GIS), NextGIS provides advanced yet affordable geospatial solutions and ongoing technical support to companies and organizations that work with spatial data, its representation, and its analysis.   Managed by a group of GIS..." /><meta property="twitter:image" content="http://nextgis.ru/wp-content/themes/nextgis_clean/img/nextgis_share_img_b.png" /><meta property="twitter:url" content="http://nextgis.com/" /><meta property="profile:username" content="admin" /><!-- /OG -->
+<link rel='https://api.w.org/' href='http://nextgis.ru/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://nextgis.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://nextgis.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.7.14" />
+<link rel='shortlink' href='http://nextgis.ru/' />
+<link rel="alternate" type="application/json+oembed" href="http://nextgis.ru/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fnextgis.com%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://nextgis.ru/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fnextgis.com%2F&#038;format=xml" />
+<meta name="generator" content="WPML ver:3.9.3 stt:1,47;" />
+
+<!-- Start Of Script Generated By cforms v11.3 [Oliver Seidel | www.deliciousdays.com] -->
+<link rel="stylesheet" type="text/css" href="http://nextgis.ru/wp-content/plugins/cforms/styling/fancy_white.css" />
+<script type="text/javascript" src="http://nextgis.ru/wp-content/plugins/cforms/js/cforms.js"></script>
+<!-- End Of Script Generated By cforms -->
+
+<!-- <meta name="NextGEN" version="2.1.77" /> -->
+
+<!-- Easy FancyBox 1.5.8.2 using FancyBox 1.3.8 - RavanH (http://status301.net/wordpress-plugins/easy-fancybox/) -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var fb_timeout = null;
+var fb_opts = { 'overlayShow' : true, 'hideOnOverlayClick' : true, 'showCloseButton' : true, 'margin' : 20, 'centerOnScroll' : true, 'enableEscapeButton' : true, 'autoScale' : true };
+var easy_fancybox_handler = function(){
+	/* iFrame */
+	jQuery('a.fancybox-iframe, area.fancybox-iframe, li.fancybox-iframe a').fancybox( jQuery.extend({}, fb_opts, { 'type' : 'iframe', 'width' : 350, 'height' : 650, 'titleShow' : false, 'titlePosition' : 'float', 'titleFromAlt' : true, 'allowfullscreen' : false }) );
+}
+var easy_fancybox_auto = function(){
+	/* Auto-click */
+	setTimeout(function(){jQuery('#fancybox-auto').trigger('click')},1000);
+}
+/* ]]> */
+</script>
+<style type="text/css">
+#fancybox-content{border-color:#fff}#fancybox-outer{background-color:#fff}
+</style>
+<!--manually added code-->
+<!-- <link rel="stylesheet" id="shutter-css" href="http://nextgis.com/wp-content/themes/nextgis_clean/css/shutter-reloaded.css" type="text/css" media="screen"> -->
+<link rel="stylesheet" id="fancybox-css" href="http://nextgis.com/wp-content/themes/nextgis_clean/css/jquery.fancybox-1.3.5.pack.css" type="text/css" media="screen">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/jquery-migrate.min.js"></script>
+<!-- <script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/jquery.nivo.slider.pack.js"></script>
+<script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/jquery.jj_ngg_shuffle.js"></script>
+<script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/jjnggutils.js"></script> -->
+
+<!-- <link rel="stylesheet" type="text/css" href="http://nextgis.com/wp-content/themes/nextgis_clean/css/slick.css"/>
+<script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/slick.min.js"></script> -->
+<script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/comment-reply.min.js"></script>
+<script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/svg4everybody.min.js"></script>
+
+<!-- Chatra {literal} -->
+    <script>
+        ChatraGroupID = 'gvktdKBhtXg3t4GXp';
+        window.ChatraSetup = {
+            colors: {
+                buttonText: '#0070c5',
+                buttonBg: '#f8fafd'
+            }
+        };
+
+        (function(d, w, c) {
+            w.ChatraID = 'TqbMGvKSEXA4StnLB';
+            var s = d.createElement('script');
+            w[c] = w[c] || function() {
+                (w[c].q = w[c].q || []).push(arguments);
+            };
+            s.async = true;
+            s.src = (d.location.protocol === 'https:' ? 'https:': 'http:')
+            + '//call.chatra.io/chatra.js';
+            if (d.head) d.head.appendChild(s);
+        })(document, window, 'Chatra');
+    </script>
+  <!-- /Chatra {/literal} -->
+<!-- end of manually added code-->
+</head>
+
+<body class="home page-template page-template-firstpage page-template-firstpage-php page page-id-73">
+<div class="layout ">
+	<header class="header clearfix">
+		<div class="header__inner container">
+						<h1 class="logo-title">
+				<img class="logo" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/logo.svg" alt="NextGIS">
+			</h1>
+			
+			<nav class="top-nav">
+				<ul id="menu-top-menu" class="menu"><li id="menu-item-78" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-78"><a href="http://nextgis.com/about/">About</a>
+<ul class="sub-menu">
+	<li id="menu-item-631" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-631"><a href="http://nextgis.com/contact/req/">Company info</a></li>
+	<li id="menu-item-7969" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7969"><a href="http://nextgis.com/blog/">News</a></li>
+</ul>
+</li>
+<li id="menu-item-9533" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-9533"><a href="#">Pricing</a>
+<ul class="sub-menu">
+	<li id="menu-item-9453" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9453"><a href="http://nextgis.com/pricing/">Corporate</a></li>
+	<li id="menu-item-9452" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9452"><a href="http://nextgis.com/pricing-base/">Individuals and small teams</a></li>
+</ul>
+</li>
+<li id="menu-item-93" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-93"><a href="http://nextgis.com/services/">Services</a>
+<ul class="sub-menu">
+	<li id="menu-item-430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-430"><a href="http://nextgis.com/services/gis/">GIS Development</a></li>
+	<li id="menu-item-431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-431"><a href="http://nextgis.com/services/develop/">Software development</a></li>
+	<li id="menu-item-1407" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1407"><a href="http://nextgis.com/services/data-processing/">Data processing</a></li>
+	<li id="menu-item-1223" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1223"><a href="http://nextgis.com/services/training/">Training</a></li>
+	<li id="menu-item-435" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-435"><a href="http://nextgis.com/services/support/">Support</a></li>
+</ul>
+</li>
+<li id="menu-item-3133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3133"><a href="http://nextgis.com/software/">Products</a>
+<ul class="sub-menu">
+	<li id="menu-item-4964" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4964"><a href="http://nextgis.com/nextgis-com/">Cloud GIS — nextgis.com</a></li>
+	<li id="menu-item-8130" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8130"><a href="http://data.nextgis.com">Data</a></li>
+	<li id="menu-item-6553" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6553"><a href="http://nextgis.com/software/">Software</a></li>
+	<li id="menu-item-7455" class="withDivider menu-item menu-item-type-custom menu-item-object-custom menu-item-7455"><a target="_blank" href="http://docs.nextgis.com">Documentation</a></li>
+	<li id="menu-item-7454" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-7454"><a target="_blank" href="https://www.youtube.com/channel/UC0U1GQHn7hbgYkUSnxYaDUQ/videos">Videos</a></li>
+</ul>
+</li>
+<li id="menu-item-95" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-95"><a href="http://nextgis.com/projects/">Projects</a>
+<ul class="sub-menu">
+	<li id="menu-item-3084" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3084"><a href="http://nextgis.com/clients/">Clients</a></li>
+</ul>
+</li>
+<li id="menu-item-77" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-77"><a href="http://nextgis.com/contact/">Contacts</a></li>
+<li class="menu-item--helper"></li></ul>							</nav>
+
+			<div class="header__right">
+								<a class="login-btn btn btn-default" href="https://my.nextgis.com" target="_blank">Log in</a>
+			</div>
+		</div><!-- .container -->
+				<!--div id="site-description">
+			<a href="/ru<!--? echo $currenturl; ?>" class="<!--?php if (strpos($_SERVER['REQUEST_URI'],'/en/') !== false) {echo 'langnoactive';} else {echo 'langactive';}?>">RUS</a>
+			&nbsp;
+			<a href="/en<!? echo $currenturl; ?>" class="<!?php if (strpos($_SERVER['REQUEST_URI'],'/en/') !== false) {echo 'langactive';} else {echo 'langnoactive';}?>">ENG</a>
+		</div-->
+	</header>
+  	<section class="promo">
+		<div class="container">
+			<!-- <style type="text/css">.easingslider-2391 { max-width: 1060px; }.easingslider-2391 .easingslider-image { max-height: 250px; max-width: 1060px; }.easingslider-2391 .easingslider-fade-in, .easingslider-fade-out { -webkit-animation-duration: 1300ms; -moz-animation-duration: 1300ms; animation-duration: 1300ms; }</style><script type="text/javascript">window.EasingSlider2391 = {"width":1060,"height":250,"singleItem":true,"items":1,"itemsDesktop":false,"itemsDesktopSmall":false,"itemsTablet":false,"itemsTabletSmall":false,"itemsMobile":false,"responsive":true,"lazyLoad":true,"autoPlay":3500,"slideSpeed":1300,"navigation":false,"navigationText":["",""],"pagination":false,"autoHeight":false,"mouseDrag":false,"touchDrag":false,"addClassActive":true,"transitionStyle":"fade"};</script><div data-id="2391" class="easingslider easingslider-2391 easingslider-container easingslider-resizing-enabled easingslider-aspect-ratio"><div class="easingslider-slide"><a href="none" target=""><img src="http://nextgis.com/wp-content/plugins/easing-slider/assets/images/placeholder-pixel.png" data-src="http://nextgis.com/wp-content/uploads/2015/05/logger1-1060x250.png" alt="" title="" class="easingslider-image easingslider-lazy" /></a></div><div class="easingslider-slide"><a href="none" target=""><img src="http://nextgis.com/wp-content/plugins/easing-slider/assets/images/placeholder-pixel.png" data-src="http://nextgis.com/wp-content/uploads/2015/05/ugra-1060x250.png" alt="" title="" class="easingslider-image easingslider-lazy" /></a></div><div class="easingslider-slide"><a href="none" target=""><img src="http://nextgis.com/wp-content/plugins/easing-slider/assets/images/placeholder-pixel.png" data-src="http://nextgis.com/wp-content/uploads/2015/05/myway-1060x250.png" alt="" title="" class="easingslider-image easingslider-lazy" /></a></div><div class="easingslider-slide"><a href="none" target=""><img src="http://nextgis.com/wp-content/plugins/easing-slider/assets/images/placeholder-pixel.png" data-src="http://nextgis.com/wp-content/uploads/2015/05/uik-1060x250.png" alt="" title="" class="easingslider-image easingslider-lazy" /></a></div></div> -->
+			<div class="row">
+				<div class="col-xs-5">
+					<h2 class="promo__title h1">Web GIS made easy</h2>
+					<div class="promo__text">
+						Create your GIS in a couple of minutes using a web browser. Upload your geodata. Make an unlimited number of web maps. Share your geodata with friends and colleagues from any part of the world.					</div>
+					<div class="promo__action">
+						<a class="promo__action__btn btn btn-primary btn-bold" href="https://my.nextgis.com/signup/?next=/webgis/" target="_blank">Create Web GIS</a>
+						<a class="promo__action__link" href="/nextgis-com/">Learn more</a>
+					</div>
+				</div>
+				<div class="col-xs-7">
+					<div class="promo-animate">
+			<img class="pa__browser" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/01_browser.png">
+			<img class="pa__map" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/02_map.png">
+			<img class="pa__db" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/04_db.png">
+			<img class="pa__raster" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/03_raster.png">
+			<img class="pa__vector" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/05_vector.png">
+			<div class="pa__db_caption">
+				<img class="pa__db_green" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/10_db_green.png">
+				<img class="pa__db_text" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/11_db_text.png">
+			</div>
+			<div class="pa__raster_caption">
+				<img class="pa__raster_green" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/08_raster_green.png">
+				<img class="pa__raster_text" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/09_raster_text.png">
+			</div>
+			<div class="pa__vector_caption">
+				<img class="pa__vector_green" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/06_vector_green.png">
+				<img class="pa__vector_text" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/07_vector_text.png">
+			</div>
+			<img class="pa__map-point pa__map-point--1" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/13_map_point.png">
+			<img class="pa__map-point pa__map-point--2" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/13_map_point.png">
+			<img class="pa__map-point pa__map-point--3" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/13_map_point.png">
+			<img class="pa__map-point pa__map-point--4" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/13_map_point.png">
+			<img class="pa__map-point pa__map-point--5" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/13_map_point.png">
+			<img class="pa__map-point pa__map-point--6" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/13_map_point.png">
+			<img class="pa__map-point pa__map-point--7" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/13_map_point.png">
+			<div class="pa__open-point">
+				<img class="pa__open-point__base" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/14_map_point_open.png">
+				<img class="pa__open-point__text" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/15_geo_data_text.png">
+			</div>
+			<div class="pa__user pa__woman">
+				<img class="pa__user__line pa__woman__line" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/26_line_03.png">
+				<div class="pa__user__dot pa__woman__dot"></div>
+				<img class="pa__user__pic pa__woman__pic" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/20_woman.png">
+				<div class="pa__user__circle pa__woman__circle"></div>
+				<div class="pa__user__circle-2 pa__woman__circle-2"></div>
+			</div>
+			<div class="pa__user pa__man-close">
+				<img class="pa__user__line pa__man-close__line" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/24_line_02.png">
+				<img class="pa__user__dot pa__man-close__dot" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/28_dot_close.png">
+				<img class="pa__user__pic pa__man-close__pic" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/16_man_close.png">
+				<div class="pa__user__circle pa__man-close__circle"></div>
+				<div class="pa__man-close__overlay"></div>
+				<img class="pa__man-close__lock" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/18_lock_icon.png">
+			</div>
+			<div class="pa__user pa__man">
+				<img class="pa__user__line pa__man__line" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/23_line_01.png">
+				<div class="pa__user__dot pa__man__dot"></div>
+				<img class="pa__user__pic pa__man__pic" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/webgis_animate/19_man.png">
+				<div class="pa__user__circle pa__man__circle"></div>
+				<div class="pa__user__circle-2 pa__man__circle-2"></div>
+			</div>
+		</div>
+						</div>
+			</div>
+		</div>
+	</section>
+	<section class="clients-gallery">
+		<div class="container">
+			
+			<ul class="clients-gallery__list list-inline"><li class="clients-gallery__item clients-gallery__item--text"><a href="clients">Our clients:</a></li> <li class="clients-gallery__item"><a href="clients"><img class="clients-gallery__item__pic" src="/img/clients/new/forbes.png"></a></li> <li class="clients-gallery__item"><a href="clients"><img class="clients-gallery__item__pic" src="/img/clients/new/greenpeace.png"></a></li> <li class="clients-gallery__item"><a href="clients"><img class="clients-gallery__item__pic" src="/img/clients/new/microsoft.png"></a></li> <li class="clients-gallery__item"><a href="clients"><img class="clients-gallery__item__pic" src="/img/clients/new/wwf.png"></a></li> <li class="clients-gallery__item"><a href="clients"><img class="clients-gallery__item__pic" src="/img/clients/new/asiaair.png"></a></li> <li class="clients-gallery__item"><a href="clients"><img class="clients-gallery__item__pic" src="/img/clients/new/undp.png"></a></li> <li class="clients-gallery__item"><a href="clients"><img class="clients-gallery__item__pic" src="/img/clients/new/ibs.png"></a></li> </ul>
+				</div>
+	</section>
+	<section class="products section container">
+			<h2 class="section__title">Our Software</h2>
+			<div class="row">
+				<div class="products__item col-xs-3">
+					<a class="products__link" href="nextgis-web">
+						<div class="products__pic-wrapper">
+							<img class="products__pic products__pic--web" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/ngw_icon.png" alt="NextGIS Web"/>
+							<img class="products__logo" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/ngw_logo_s.png" alt="NextGIS Web"/>
+						</div>
+						<h3 class="products__title">NextGIS Web</h3>
+						<div class="products__text">
+							Server Web GIS for storage, visualization and management of geodata with flexible permissions settings
+						</div>
+					</a>
+				</div>
+				<div class="products__item col-xs-3">
+					<a class="products__link" href="nextgis-qgis">
+						<div class="products__pic-wrapper">
+							<img class="products__pic products__pic--qgis" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/qgis_icon.png" alt="NextGIS QGIS"/>
+							<img class="products__logo" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/qgis_logo_s.png" alt="NextGIS QGIS"/>
+						</div>
+						<h3 class="products__title">NextGIS QGIS</h3>
+						<div class="products__text">
+							Desktop GIS for creation and editing of geodata, map making and spatial analytics
+						</div>
+					</a>
+				</div>
+				<div class="products__item col-xs-3">
+					<a class="products__link" href="nextgis-mobile">
+						<div class="products__pic-wrapper">
+							<img class="products__pic products__pic--mobile" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/ngm_icon.png" alt="NextGIS Mobile"/>
+							<img class="products__logo" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/ngm_logo_s.png" alt="NextGIS Mobile"/>
+						</div>
+						<h3 class="products__title">NextGIS Mobile</h3>
+						<div class="products__text">
+							Mobile GIS for online and offline creation, editing and export of geodata
+						</div>
+					</a>
+				</div><div class="products__item col-xs-3">
+						<a class="products__link" href="http://data.nextgis.com" target="_blank">
+							<div class="products__pic-wrapper">
+								<img class="products__pic products__pic--data" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/ngdata_icon.png" alt="NextGIS Data"/>
+								<img class="products__logo products__logo--data" src="http://nextgis.com/wp-content/themes/nextgis_clean/img/ngdata_logo_s.png" alt="NextGIS Data"/>
+							</div>
+							<h3 class="products__title">NextGIS Data</h3>
+							<div class="products__text">
+								Up-to-date geodata in&nbsp;your favorite format. Convenient layer structure, styles and projects for&nbsp;your&nbsp;GIS.
+							</div>
+						</a>
+					</div>
+			</div>
+			<div class="text-center">
+				<a class="products__btn btn btn-default" href="software">All products</a>
+			</div>
+		</section>
+			<section class="advantages section">
+		<div class="advantages__inner container">			
+			
+		<h2 class="section__title section__title--decorate">What You Get</h2>
+		<div class="row">
+			<div class="advantages__item col-xs-3">
+				<h3 class="advantages__item__title">Competence</h3>
+				<div class="advantages__item__text">
+					We develop geospatial systems for more than 15 years. We actively contribute to QGIS and GDAL projects since 2008. We are world leaders in a number of published QGIS plugins.
+				</div>
+			</div>
+			<div class="advantages__item col-xs-3">
+				<h3 class="advantages__item__title">Customization</h3>
+				<div class="advantages__item__text">
+					We develop and implement wide range of geospatial solutions. They will help you out where the standard products fail.
+				</div>
+			</div>
+			<div class="advantages__item col-xs-3">
+				<h3 class="advantages__item__title">Versatility</h3>
+				<div class="advantages__item__text">
+					We provide fully integrated software platform for geodata management in all environments (web, desktop, mobile).
+				</div>
+			</div>
+			<div class="advantages__item col-xs-3">
+				<h3 class="advantages__item__title">Made by us</h3>
+				<div class="advantages__item__text">
+					<p>
+						We have developed 3 out of 4 basic components of our software  platform ourselves.
+					</p>
+				</div>
+			</div>
+		</div>
+							</div><!-- .container -->
+	</section>
+	<section class="whychoose section">
+		<div class="whychoose__content">
+			<h3 class="whychoose__title">Why Us?</h3>
+			<div class="whychoose__text">
+				We develop our software and work on customer projects using the latest geospatial technologies. We offer affordable but functional geospatial information systems with reliable long-term support.
+			</div>
+			<a class="whychoose__btn btn btn-success" href="contact">Contact Us</a>
+		</div>
+			</section>
+				<section class="latest-news section">
+			<div class="latest-news__inner container">
+				
+		<h2 class="section__title">News</h2>
+		<div class="row">
+		
+		<div class="col-xs-4">
+			<div class="news__item news__item--last">
+				<a class="news__item__link" href="http://nextgis.com/blog/crs-ngw/">
+					<h3 class="news__item__title">Custom coordinate systems in NextGIS Web/nextgis.com</h3><div class="news__item__text">The ability to create and manage custom spatial reference systems (SRS) is an important feature of GIS software. Until today, NextGIS Web and nextgis.com were using only Latitude-Longitude (EPSG: 4326) and Mercator (EPSG: 3857). Recent update makes it possible for &hellip;</div><time  class="news__item__date">16 September 2019</time>
+				</a>
+			</div></div>
+		<div class="col-xs-4">
+			<div class="news__item news__item--last">
+				<a class="news__item__link" href="http://nextgis.com/blog/webmapediting/">
+					<h3 class="news__item__title">Editing features on Web maps</h3><div class="news__item__text">We&#8217;re happy to present a nextgis.com feature we&#8217;ve been working on for a long time &#8211; Web map editing! We have functionality to edit feature attributes editing since the beginning, but now it is possible to edit feature geometries as &hellip;</div><time  class="news__item__date">8 July 2019</time>
+				</a>
+			</div></div>
+		<div class="col-xs-4">
+			<div class="news__item news__item--last">
+				<a class="news__item__link" href="http://nextgis.com/blog/dataexport/">
+					<h3 class="news__item__title">Exporting Web GIS data</h3><div class="news__item__text">Our Web GIS had export functionality since the beginning and was capable to output vector data to CSV (Comma-separated values) and GeoJSON formats without any settings. Today we release new significantly improved export functionality. It is now available for all &hellip;</div><time  class="news__item__date">1 July 2019</time>
+				</a>
+			</div></div></div>			</div>
+		</section><!-- .widget-container -->
+		</div><!-- .layout -->
+<footer class="footer" role="contentinfo">
+	<div class="container">
+		<div class="footer__right pull-right">
+			<div class="footer__contacts">
+									<a href="mailto:info@nextgis.com">info@nextgis.com</a>
+							</div>
+			<ul class="social-links list-inline">
+				<li class="social-links__item">
+					<a class="social-link" href="http://www.facebook.com/pages/NextGIS/141140662637244?sk=wall" target="_blank">
+						<svg role="img" class="social-links__icon facebook-icon">
+					  		<use xlink:href="http://nextgis.com/wp-content/themes/nextgis_clean/svg/svg-symbols.svg#facebook"></use>
+						</svg>
+					</a>
+				</li>
+				<li class="social-links__item">
+									<a class="social-link" href="https://telegram.me/nextgis_talks" target="_blank">
+										<svg role="img" class="social-links__icon telegram-icon">
+					  		<use xlink:href="http://nextgis.com/wp-content/themes/nextgis_clean/svg/svg-symbols.svg#telegram"></use>
+						</svg>
+					</a>
+				</li>
+				<li class="social-links__item">
+					<a class="social-link" href="http://twitter.com/nextgis" target="_blank">
+						<svg role="img" class="social-links__icon twitter-icon">
+					  		<use xlink:href="http://nextgis.com/wp-content/themes/nextgis_clean/svg/svg-symbols.svg#twitter"></use>
+						</svg>
+					</a>
+				</li>
+				<li class="social-links__item">
+					<a class="social-link" href="https://vk.com/nextgis" target="_blank">
+						<svg role="img" class="social-links__icon vkontakte-icon">
+					  		<use xlink:href="http://nextgis.com/wp-content/themes/nextgis_clean/svg/svg-symbols.svg#vkontakte"></use>
+						</svg>
+					</a>
+				</li>
+				<li class="social-links__item">
+					<a class="social-link" href="https://plus.google.com/106080702686527456816/posts" target="_blank">
+						<svg role="img" class="social-links__icon google-plus-icon">
+					  		<use xlink:href="http://nextgis.com/wp-content/themes/nextgis_clean/svg/svg-symbols.svg#google-plus"></use>
+						</svg>
+					</a>
+				</li>
+				<li class="social-links__item">
+					<a class="social-link" href="https://www.youtube.com/channel/UC0U1GQHn7hbgYkUSnxYaDUQ/videos" target="_blank">
+						<svg role="img" class="social-links__icon youtube-icon">
+					  		<use xlink:href="http://nextgis.com/wp-content/themes/nextgis_clean/svg/svg-symbols.svg#youtube"></use>
+						</svg>
+					</a>
+				</li>
+				<li class="social-links__item">
+					<a class="social-link" href="https://github.com/nextgis/" target="_blank">
+						<svg role="img" class="social-links__icon github-icon">
+					  		<use xlink:href="http://nextgis.com/wp-content/themes/nextgis_clean/svg/svg-symbols.svg#github"></use>
+						</svg>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="footer__left">
+			<div class="footer__copyright">
+				© NextGIS 2011 – 2019			</div>
+			<ul id="menu-bottom-menu" class="menu menu--bottom"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-77"><a href="http://nextgis.com/contact/">Contacts</a></li>
+<li class="menu-item--helper"></li></ul>		</div>
+	</div>
+</footer><!-- .footer -->
+<!-- ngg_resource_manager_marker --><script type='text/javascript' src='http://nextgis.com/wp-includes/js/comment-reply.min.js?ver=4.7.14'></script>
+<script type='text/javascript' src='http://nextgis.com/wp-includes/js/wp-embed.min.js?ver=4.7.14'></script>
+<script type='text/javascript' src='http://nextgis.com/wp-content/plugins/easy-fancybox/fancybox/jquery.fancybox-1.3.8.min.js?ver=1.5.8.2'></script>
+<script type='text/javascript' src='http://nextgis.com/wp-content/plugins/easy-fancybox/js/jquery.easing.min.js?ver=1.3.2'></script>
+<script type='text/javascript' src='http://nextgis.com/wp-content/plugins/easy-fancybox/js/jquery.mousewheel.min.js?ver=3.1.12'></script>
+<script type="text/javascript">
+jQuery(document).on('ready post-load', function(){ jQuery('.nofancybox,a.pin-it-button,a[href*="pinterest.com/pin/create/button"]').addClass('nolightbox'); });
+jQuery(document).on('ready post-load',easy_fancybox_handler);
+jQuery(document).on('ready',easy_fancybox_auto);</script>
+<!-- <script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/sitepress.js"></script> -->
+<script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/jquery.fancybox-1.3.5.pack.js"></script>
+<script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/jquery.easing.pack.js"></script>
+<script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/jquery.mousewheel.pack.js"></script>
+<script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/chunk-vendors.js"></script>
+<script type="text/javascript" src="http://nextgis.com/wp-content/themes/nextgis_clean/js/app.js"></script>
+<script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');  ga('create', 'UA-53040981-1', 'auto');  ga('send', 'pageview');</script>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+	(function (d, w, c) {    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter25634717 = new Ya.Metrika({id:25634717,
+			webvisor:true,
+			clickmap:true,
+			trackLinks:true,
+			accurateTrackBounce:true});
+		} catch(e) { }
+	});
+	var n = d.getElementsByTagName("script")[0],
+	s = d.createElement("script"),
+	f = function () { n.parentNode.insertBefore(s, n); };
+	s.type = "text/javascript";
+	s.async = true;
+	s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+	} else { f(); }})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/25634717" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+</body>
+</html>

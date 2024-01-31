@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title> - Navbar Pure CSS</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+    <link rel="stylesheet" href="./style.css">
+
+
+
+    <meta charset="UTF-8">
+    <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- Add this to your index.html -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Linking the Geojson-->
+    <script src="plasticwaste_geojson.geojson"></script>
+    <script src="1m_rise.geojson"></script>
+    <script src="2m_rise.geojson"></script>
+    <script src="5m_rise.geojson"></script>
+    <script src="10m_rise.geojson"></script>
+    <script src="distBound.geojson"></script>
+    <!-- Awesome Markers CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+    <!-- Awesome Markers JavaScript -->
+    <script src="https://unpkg.com/leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+    <script src="https://unpkg.com/georaster-layer-for-leaflet/dist/georaster-layer-for-leaflet.min.js"></script>
+    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+
+
+
+
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <div id="nav-bar">
+        <input id="nav-toggle" type="checkbox" />
+        <div id="nav-header"><a id="nav-title" href="" target="_blank">COASTAL HAZARD MONITORING PORTAL
+    <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+    <hr/>
+  </div>
+  <div id="nav-content">
+    <div class="nav-button about-waste-btn"><i class=""></i><span>About</span></div>
+    <hr/>
+    <div class="nav-button landcover-waste-btn" ><i class=""></i><span>Landcover</span></div>
+    <hr/>
+    <div class="nav-button"><i class=""></i><span>Mangroves</span></div>
+    <hr/>
+    <div class="nav-button"><i class=""></i><span>Costal Acidification</span></div>
+    <hr/>
+    <!--<div class="nav-button plastic-waste-btn"><i id="plasticWasteIcon"></i><span>PlasticWaste</span></div>-->
+    <div class="nav-button" id="plasticWasteToggle">
+      <i class=""></i>
+      <span>PlasticWaste</span>
+      <br>
+      <br>
+      <div class="sub-buttons-wrapper">
+          <div class="sub-buttons" id="plasticWasteDropdown">
+              <!-- Dropdown content goes here -->
+              <div class="nav-button" id="plasticwaste"><i class=""></i><span>Plastic Waste Generation</span></div>
+              <div class="nav-button" id="MissmanagedPW"><i class=""></i><span>Missmanaged PW</span></div>
+              <div class="nav-button" id="MissmanagedPWocean"><i class=""></i><span>Missmanaged PW (ocean)</span></div>
+              <div class="nav-button" id="PropabilityOFPlastic(ocean)"><i class=""></i><span>Propability OF Plastic (ocean)</span></div>
+              
+          </div>
+      </div>
+  </div>
+    <hr/>
+    <div class="nav-button" id="seaWaterIntrusionToggle" class="moved-down">
+      <i class=""></i>
+      <span>Sea Water Intrusion</span>
+  </div>
+  <div class="sub-button" id="seaWaterIntrusionDropdown">
+      <!-- Dropdown content goes here -->
+      <div class="nav-button" id="Savi15raster"><i class="1s15m"></i><span>Savi15</span></div>
+      <div class="nav-button" id="Savi23"><i class="1s23m"></i><span>Savi23</span></div>
+      <div class="nav-button" id="Reflectance15"><i class="1r15m"></i><span>Reflectance15</span></div>
+      <div class="nav-button" id="Reflectance23"><i class="1r23m"></i><span>Reflectance23</span></div>
+  </div>
+  <hr/>
+  <br>
+    <div class="nav-button" id="seawaterRiseToggle" class="moved-down">
+      <i class=""></i>
+      <span>Seawater rise</span>
+  </div>
+  <div class="sub-buttons" id="seawaterRiseDropdown">
+      <!-- Dropdown content goes here -->
+      <div class="nav-button" id="onemeter"><i class="1m"></i><span>Sea Level Rise 1m</span></div>
+      <div class="nav-button" id="twometer"><i class="1m"></i><span>Sea Level Rise 2m</span></div>
+      <div class="nav-button" id="fivemeter"><i class="1m"></i><span>Sea Level Rise 5m</span></div>
+      <div class="nav-button" id="tenmeter"><i class="1m"></i><span>Sea Level Rise 10m</span></div>
+  </div>
+    <div id="nav-content-highlight"></div>
+  </div>
+  <input id="nav-footer-toggle" type="checkbox"/>
+  <div id="nav-footer">
+    <div id="nav-footer-heading">
+      <div id="nav-footer-avatar"><img src="ndmalogo.png"/></div>
+      <div id="nav-footer-titlebox"><a id="nav-footer-title" href="https://codepen.io/uahnbu/pens/public" target="_blank">NDMA</a><span id="nav-footer-subtitle">NEOC</span></div>
+        <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+    </div>
+    <div id="nav-footer-content">
+    </div>
+    </div>
+    </div>
+    <!-- the main-container div is to show the iframes-->
+    <div id="main-container"></div>
+    <!-- the map div is to show the map-->
+    <div id="map"></div>
+
+    <!-- partial -->
+    <script src="L.Geoserver.js"></script>
+    <script src="Leaflet-WMS.js"></script>
+    <script src="leaflet.wms.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

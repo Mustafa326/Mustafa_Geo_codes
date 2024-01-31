@@ -1,0 +1,64 @@
+body{
+	background-color: black;
+}
+body{
+  background-color: #A9A9A9;
+}
+#header1 {
+  background: #355c7d;
+  background:
+    /* gradient overlay */
+    linear-gradient(
+      to bottom,
+      rgba(203, 53, 107, 0.6), /* #cb356b */
+      rgba(189, 63, 50, 0.5) /* #bd3f32 */
+    ),
+    /* bottom image */
+    url('Gisimage.jpg') no-repeat left top;
+  background-size: cover;  
+  z-index: 0;
+}
+#header1 .caption {
+  text-align: center;
+  color: #fff;
+}
+#header1 .caption .title {
+  margin-bottom: 1.5rem;
+} 
+#header1 .caption .text {
+  margin-bottom: 1.5rem;
+}
+#header1 .caption .action {
+  margin-bottom: 1rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  border-radius: 15px;
+}
+
+#Map{
+  background-position: center;
+  width: 100%;
+  min-height: 500px;
+  border: 15px ;
+  border-width: 14px;
+  margin: auto;
+  }
+.container-fluid {
+  text-align: center;
+  font-style: italic;
+  position: relative;
+}
+.districtLabel{
+  background: rgba(255, 255, 255, 0);
+  border:0;
+  border-radius:0px;
+  box-shadow: 0 0px 0px;
+}
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+    border: none !important;
+}
+
+ 
