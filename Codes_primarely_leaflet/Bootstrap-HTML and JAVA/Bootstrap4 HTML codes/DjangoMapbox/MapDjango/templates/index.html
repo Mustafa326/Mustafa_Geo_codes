@@ -148,7 +148,7 @@
                 <div class="card-header" id="headingThree">
                     <h5 class="mb-0">
                         <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Other layers
+                            Copernicus Emergency Services layers
                         </button>
                     </h5>
                 </div>
@@ -168,7 +168,43 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- Add rows for other layers if needed -->
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_rdri_agri" checked>Add/Remove
+                                                </td>
+                                                <td>Risk of Drough Impact for Agriculture</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="rdri_agri" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_coperc_spi" checked>Add/Remove
+                                                </td>
+                                                <td>Standardized Precipitation Index </td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="coperc_spi" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_sm_anom" checked>Add/Remove
+                                                </td>
+                                                <td>Soil Moisture Anomaly</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="sm_anom" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_fapar_anom" checked>Add/Remove
+                                                </td>
+                                                <td>fAPAR Anomaly</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="fapar_anom" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <!-- Add additional rows if needed -->
                                     </tbody>
                                 </table>
                             </div>
