@@ -11,13 +11,10 @@
     <!--Javascriptlink and mapbox-->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
     <script src='https://unpkg.com/mapbox-gl-supported'></script>
-
-
-
-
     <!--GeoJson files link-->
+    <!-- Linking the Geojson-->
+    <script src="finalgeojson.geojson"></script>
     <!--<script src="output.geojson"></script>-->
-
     <!-- Bootstrap CSS necessary for the home button on map -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
     <!-- Bootstrap CSS -->
@@ -46,21 +43,46 @@
                 <div class="card-header" id="headingOne">
                     <h5 class="mb-0">
                         <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Population Density layer
-                  </button>
+                            Population Density layer
+                        </button>
                     </h5>
                 </div>
-
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
                         <div class="map-overlay" id="features">
-                            <h2>Population Density (per squre km)</h2>
+                            <h2>Population Density (per square km)</h2>
                             <div id="pd">
                                 <p>Hover over a country!</p>
                             </div>
                         </div>
                         <br>
                         <nav id="menu_countries_layer"></nav>
+                        <!-- Table with radio buttons for Population Density layer -->
+                        <div class="table-responsive mx-3">
+                            <div class="container-fluid">
+                                <table class="table bg-white text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Visibility</th>
+                                            <th scope="col">Layer Name</th>
+                                            <th scope="col">Opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_countries_layer" checked>Add/Remove
+                                            </td>
+                                            <td>Countries Layer</td>
+                                            <td>
+                                                <input type="range" class="opacity-slider" data-layer="countries_layer" min="0" max="1" step="0.1" value="0.7">
+                                            </td>
+                                        </tr>
+                                        <!-- Add additional rows if needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,12 +91,56 @@
                     <h5 class="mb-0">
                         <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             RGB Fog layer
-                  </button>
+                        </button>
                     </h5>
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                     <div class="card-body">
                         <nav id="menu_rgb_fog"></nav>
+                        <!-- Table with radio buttons for RGB Fog layer -->
+                        <div class="table-responsive mx-3">
+                            <div class="container-fluid">
+                                <table class="table bg-white text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">On/Off</th>
+                                            <th scope="col">Layer Name</th>
+                                            <th scope="col">Opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_rgb_fog" checked>Add/Remove
+                                            </td>
+                                            <td>RGB Fog Layer</td>
+                                            <td>
+                                                <input type="range" class="opacity-slider" data-layer="rgb_fog" min="0" max="1" step="0.1" value="0.7">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_rgb_dust" checked>Add/Remove
+                                            </td>
+                                            <td>RGB Dust Layer</td>
+                                            <td>
+                                                <input type="range" class="opacity-slider" data-layer="rgb_dust" min="0" max="1" step="0.1" value="0.7">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_rgb_snow" checked>Add/Remove
+                                            </td>
+                                            <td>RGB Snow Layer</td>
+                                            <td>
+                                                <input type="range" class="opacity-slider" data-layer="rgb_snow" min="0" max="1" step="0.1" value="0.7">
+                                            </td>
+                                        </tr>
+                                        <!-- Add additional rows if needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,17 +148,36 @@
                 <div class="card-header" id="headingThree">
                     <h5 class="mb-0">
                         <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    other layers
-                  </button>
+                            Other layers
+                        </button>
                     </h5>
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                     <div class="card-body">
-                        add other layers
+                        <!-- Content for other layers -->
+                        <p>Add other layers</p>
+                        <!-- Table with radio buttons for other layers -->
+                        <div class="table-responsive mx-3">
+                            <div class="container-fluid">
+                                <table class="table bg-white text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Visibility</th>
+                                            <th scope="col">Layer Name</th>
+                                            <th scope="col">Opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Add rows for other layers if needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         <nav id="menu"></nav>
 
         <div id="Popultation_density" class="legend">
