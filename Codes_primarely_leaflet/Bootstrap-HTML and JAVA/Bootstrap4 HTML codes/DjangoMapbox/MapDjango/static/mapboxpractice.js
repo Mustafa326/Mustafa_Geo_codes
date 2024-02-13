@@ -47,6 +47,7 @@ map.on('load', () => {
             'fill-opacity': 0.7
         }
     });
+    //adding RGB FOG Layer
     map.addSource('Eumetsat_Fog', {
         'type': 'raster',
         // use the tiles option to specify a WMS tile source URL
@@ -60,10 +61,46 @@ map.on('load', () => {
         'id': 'rgb_fog',
         'type': 'raster',
         'source': 'Eumetsat_Fog',
-        'paint': { 'raster-opacity': 0.7 },
+        //'paint': { 'raster-opacity': 0.7 },
+        'layout': { 'visibility': 'none' }
+    }, );
+    //adding the RGB Dust layer
+    map.addSource('Eumetsat_Dust', {
+        'type': 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        'tiles': [
+            'https://view.eumetsat.int/geoserver/ows?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=msg_iodc:rgb_dust&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
+        ],
+        'tileSize': 256
+    });
+    map.addLayer({
+        'id': 'rgb_dust',
+        'type': 'raster',
+        'source': 'Eumetsat_Dust',
+        //'paint': { 'raster-opacity': 0.7 },
+        'layout': { 'visibility': 'none' }
+    }, );
+    //adding the RGB snow layer
+    map.addSource('Eumetsat_Snow', {
+        'type': 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        'tiles': [
+            'https://view.eumetsat.int/geoserver/ows?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=msg_iodc:rgb_snow&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
+        ],
+        'tileSize': 256
+    });
+    map.addLayer({
+        'id': 'rgb_snow',
+        'type': 'raster',
+        'source': 'Eumetsat_Snow',
+        //'paint': { 'raster-opacity': 0.7 },
         'layout': { 'visibility': 'none' }
     }, );
 });
+
+
 //adding styles onto map
 map.on('style.load', () => {
     map.setFog({}); // Set the default atmosphere style
@@ -101,36 +138,47 @@ map.on('mousemove', (event) => {
 
 // Toggleable layer control
 map.on('idle', () => {
-    const toggleableLayerIds = ['countries_layer', 'rgb_fog'];
+    const toggleableLayerIds = ['countries_layer', 'rgb_fog', 'rgb_dust', 'rgb_snow'];
 
     for (const id of toggleableLayerIds) {
-        if (document.getElementById(id)) {
+        const visibilityCheckbox = document.getElementById(`checkbox_${id}`);
+        const opacitySlider = document.querySelector(`.opacity-slider[data-layer="${id}"]`);
+
+        if (!visibilityCheckbox || !opacitySlider) {
             continue;
         }
 
-        // Create a container div for each layer
-        const container = document.createElement('div');
-        container.className = 'layer-container';
+        // Get the initial visibility state of the layer
+        const initialVisibility = map.getLayoutProperty(id, 'visibility') || 'none';
 
-        // Create a link for the layer
-        const link = document.createElement('a');
-        link.id = id;
-        link.href = '#';
-        link.textContent = id;
-        link.className = 'active';
+        // Set the checked attribute based on the initial visibility state
+        visibilityCheckbox.checked = initialVisibility === 'visible';
 
-        // Create an opacity slider
-        const opacitySlider = document.createElement('input');
-        opacitySlider.type = 'range';
-        opacitySlider.min = '0';
-        opacitySlider.max = '1';
-        opacitySlider.step = '0.1';
-        opacitySlider.value = '0.7';
 
-        // Add event listener to update layer opacity when slider changes
-        opacitySlider.addEventListener('input', function() {
+        visibilityCheckbox.addEventListener('change', function () {
+            const visibility = this.checked ? 'visible' : 'none';
+
+            // Check if the map and layer exist before setting properties
+            if (map.getLayer(id)) {
+                map.setLayoutProperty(id, 'visibility', visibility);
+
+                if (id === 'countries_layer') {
+                    const features = document.getElementById('features');
+
+                    if (visibility === 'visible') {
+                        PopulationLegendEl.style.display = 'block';
+                        features.style.display = 'block';
+                    } else {
+                        PopulationLegendEl.style.display = 'none';
+                        features.style.display = 'none';
+                    }
+                }
+            }
+        });
+
+        opacitySlider.addEventListener('input', function () {
             const opacityValue = parseFloat(this.value);
-            //map.setPaintProperty(id, 'fill-opacity', opacityValue);
+            // map.setPaintProperty(id, 'fill-opacity', opacityValue);
             // Check if the layer is 'rgb_fog'
             if (id === 'rgb_fog') {
                 map.setPaintProperty(id, 'raster-opacity', opacityValue);
@@ -138,50 +186,19 @@ map.on('idle', () => {
                 // Check if the layer is 'countries_layer'
                 map.setPaintProperty(id, 'fill-opacity', opacityValue);
                 // Additional logic for countries_layer, if needed
+            }else if (id === 'rgb_snow') {
+                // Check if the layer is 'countries_layer'
+                map.setPaintProperty(id, 'raster-opacity', opacityValue);
+                // Additional logic for countries_layer, if needed
+            }else if (id === 'rgb_dust') {
+                // Check if the layer is 'countries_layer'
+                map.setPaintProperty(id, 'raster-opacity', opacityValue);
+                // Additional logic for countries_layer, if needed
             }
         });
-
-        // Append link and slider to the container
-        container.appendChild(link);
-        container.appendChild(opacitySlider);
-
-        // Add click event to the link
-        link.onclick = function(e) {
-            const clickedLayer = this.textContent;
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (clickedLayer === 'countries_layer') {
-                // If the clicked layer is countries_layer, handle visibility and legend/info control
-                const visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-                map.setLayoutProperty(clickedLayer, 'visibility', visibility === 'visible' ? 'none' : 'visible');
-
-                if (visibility === 'visible') {
-                    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                    this.className = '';
-                    // Remove legend and info control when layer is removed
-                    PopulationLegendEl.style.display = 'none';
-                    document.getElementById('features').style.display = 'none';
-                } else {
-                    this.className = 'active';
-                    map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-                    // Add legend and info control back when layer is added
-                    PopulationLegendEl.style.display = 'block';
-                    document.getElementById('features').style.display = 'block';
-                }
-            } else if (clickedLayer === 'rgb_fog') {
-                // For other layers, handle as before (rgb_fog)
-                const visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-                map.setLayoutProperty(clickedLayer, 'visibility', visibility === 'visible' ? 'none' : 'visible');
-            }
-        };
-
-        // Append the container to the menu
-        const layerMenuId = 'menu_' + id;
-        const layerMenu = document.getElementById(layerMenuId);
-        layerMenu.appendChild(container);
     }
 });
+
 //adding the controls onto the map
 map.addControl(new mapboxgl.FullscreenControl());
 const nav = new mapboxgl.NavigationControl();
