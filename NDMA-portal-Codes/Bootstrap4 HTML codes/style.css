@@ -6,7 +6,10 @@
     --navbar-light-primary: #eef3f1;
     --navbar-light-secondary: #f5faff;
 }
-
+#nav-title img {
+    height: 30px; /* Set the height of your logo image */
+    margin-right: 10px; /* Adjust the margin as needed */
+}
 .sub-buttons-wrapper {
     position: absolute;
 }
@@ -74,7 +77,27 @@
     /* Adjust positioning to align with the toggle */
     background-color: var(--navbar-dark-primary);
 }
+#nav-footer-content {
+    padding: 10px;
+}
 
+.running-text-box {
+    background-color: var(--navbar-dark-primary);;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    animation: scrollText 40s linear infinite;
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
 .infoplastic {
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
@@ -182,6 +205,146 @@
     margin-right: 8px;
     opacity: 0.7;
 }
+
+.savi15raster {
+    line-height: 18px;
+    background-color: #e6dede; /* Optional: Add a background color */
+}
+
+
+.savi15raster i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.savi15raster span {
+    font-size: 14px;
+    margin-right: 5px; /* Adjust spacing between color square and label */
+}
+.SalinityIndex15rasterraster {
+    line-height: 18px;
+    background-color: #e6dede; /* Optional: Add a background color */
+}
+
+
+.SalinityIndex15rasterraster i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.SalinityIndex15rasterraster span {
+    font-size: 14px;
+    margin-right: 5px; /* Adjust spacing between color square and label */
+}
+
+.SalinityIndex23rasterraster {
+    line-height: 18px;
+    background-color: #e6dede; /* Optional: Add a background color */
+}
+
+
+.SalinityIndex23rasterraster i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.SalinityIndex23rasterraster span {
+    font-size: 14px;
+    margin-right: 5px; /* Adjust spacing between color square and label */
+}
+.savi23raster {
+    line-height: 18px;
+    color: #555;
+    font-family: Arial, sans-serif; /* Adjust font family as needed */
+    background-color: #e6dede; /* Optional: Add a background color */
+    padding: 10px; /* Optional: Add padding for better aesthetics */
+    border: 1px solid #ccc; /* Optional: Add a border for better separation */
+    border-radius: 5px; /* Optional: Add border radius for rounded corners */
+}
+
+
+.savi23raster i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.savi23raster span {
+    font-size: 14px;
+    margin-right: 5px; /* Adjust spacing between color square and label */
+}
+
+.reflectance15raster {
+    line-height: 18px;
+    color: #555;
+    font-family: Arial, sans-serif; /* Adjust font family as needed */
+    background-color: #e6dede; /* Optional: Add a background color */
+    padding: 10px; /* Optional: Add padding for better aesthetics */
+    border: 1px solid #ccc; /* Optional: Add a border for better separation */
+    border-radius: 5px; /* Optional: Add border radius for rounded corners */
+}
+
+
+.reflectance15raster i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.reflectance15raster span {
+    font-size: 14px;
+    margin-right: 5px; /* Adjust spacing between color square and label */
+}
+
+.reflectance23raster {
+    line-height: 18px;
+    color: #555;
+    font-family: Arial, sans-serif; /* Adjust font family as needed */
+    background-color: #e6dede; /* Optional: Add a background color */
+    padding: 10px; /* Optional: Add padding for better aesthetics */
+    border: 1px solid #ccc; /* Optional: Add a border for better separation */
+    border-radius: 5px; /* Optional: Add border radius for rounded corners */
+}
+
+
+.reflectance23raster i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.reflectance23raster span {
+    font-size: 14px;
+    margin-right: 5px; /* Adjust spacing between color square and label */
+}
+
 
 html,
 body {
@@ -580,14 +743,16 @@ label[for=nav-footer-toggle] {
     cursor: pointer;
     transition: transform 0.2s, opacity 0.2s;
 }
-
+h{
+    background-color: red;
+}
 #nav-footer-content {
     margin: 0 16px 16px 16px;
     border-top: solid 1px var(--navbar-light-secondary);
-    padding: 16px 0;
+    padding: 100px 0;
     color: var(--navbar-light-secondary);
-    font-size: 0.8rem;
-    overflow: auto;
+    font-size: 1rem;
+    overflow: hidden;
 }
 
 #nav-footer-content::-webkit-scrollbar {
