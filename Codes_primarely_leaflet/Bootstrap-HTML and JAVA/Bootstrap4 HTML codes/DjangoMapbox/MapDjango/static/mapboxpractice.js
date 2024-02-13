@@ -98,6 +98,75 @@ map.on('load', () => {
         //'paint': { 'raster-opacity': 0.7 },
         'layout': { 'visibility': 'none' }
     }, );
+    //adding the coprecencius layers for drought
+    map.addSource('Coper_RDrI_Agri', {
+        'type': 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        'tiles': [
+            'https://edo.jrc.ec.europa.eu/gdo/php/wms.php?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=RDrI-Agri&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
+        ],
+        'tileSize': 256
+    });
+    map.addLayer({
+        'id': 'rdri_agri',
+        'type': 'raster',
+        'source': 'Coper_RDrI_Agri',
+        //'paint': { 'raster-opacity': 0.7 },
+        'layout': { 'visibility': 'none' }
+    }, );
+
+    //adding the coprecencius layers for SPI 
+    map.addSource('Coper_SPI', {
+        'type': 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        'tiles': [
+            'https://edo.jrc.ec.europa.eu/gdo/php/wms.php?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=spi&SRS=EPSG:3857&BBOX={bbox-epsg-3857}&WIDTH=256&HEIGHT=256&STYLE=&FORMAT=image/png&TRANSPARENT=TRUE&TIME=2018-05&TIMESCALE=12'
+        ],
+        'tileSize': 256
+    });
+    map.addLayer({
+        'id': 'coperc_spi',
+        'type': 'raster',
+        'source': 'Coper_SPI',
+        //'paint': { 'raster-opacity': 0.7 },
+        'layout': { 'visibility': 'none' }
+    }, );
+    //adding the coprecencius layers for soil moisture anomaly detection
+    map.addSource('Coper_Soil_Moisture_Anomaly', {
+        'type': 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        'tiles': [
+            'https://edo.jrc.ec.europa.eu/gdo/php/wms.php?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=sm_anom&SRS=EPSG:3857&BBOX={bbox-epsg-3857}&WIDTH=256&HEIGHT=256&STYLE=&FORMAT=image/png&TRANSPARENT=TRUE'
+        ],
+        'tileSize': 256
+    });
+    map.addLayer({
+        'id': 'sm_anom',
+        'type': 'raster',
+        'source': 'Coper_Soil_Moisture_Anomaly',
+        //'paint': { 'raster-opacity': 0.7 },
+        'layout': { 'visibility': 'none' }
+    }, );
+    //adding the coprecencius layers for fapar anomaly 
+    map.addSource('Coper_fAPAR_Anomaly', {
+        'type': 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        'tiles': [
+            'https://edo.jrc.ec.europa.eu/gdo/php/wms.php?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=fapar_anom&SRS=EPSG:3857&BBOX={bbox-epsg-3857}&WIDTH=256&HEIGHT=256&STYLE=&FORMAT=image/png&TRANSPARENT=TRUE'
+        ],
+        'tileSize': 256
+    });
+    map.addLayer({
+        'id': 'fapar_anom',
+        'type': 'raster',
+        'source': 'Coper_fAPAR_Anomaly',
+        //'paint': { 'raster-opacity': 0.7 },
+        'layout': { 'visibility': 'none' }
+    }, );
 });
 
 
@@ -138,7 +207,7 @@ map.on('mousemove', (event) => {
 
 // Toggleable layer control
 map.on('idle', () => {
-    const toggleableLayerIds = ['countries_layer', 'rgb_fog', 'rgb_dust', 'rgb_snow'];
+    const toggleableLayerIds = ['countries_layer', 'rgb_fog', 'rgb_dust', 'rgb_snow','rdri_agri','sm_anom','coperc_spi','fapar_anom'];
 
     for (const id of toggleableLayerIds) {
         const visibilityCheckbox = document.getElementById(`checkbox_${id}`);
