@@ -42,7 +42,7 @@ function getColorplasticwaste(d) {
         d > 267234 ? '#FED976' :
         '#FFEDA0';
 }
-// using color fuction to generate style for geojason for missmanaged variable
+// using color fuction to generate style for geojason for plastic waste variable
 function style(feature) {
     return {
         fillColor: getColorplasticwaste(feature.properties.Plastic_Wa),
@@ -108,7 +108,7 @@ function getColorpropability(d) {
         d > 0.22 ? '#FED976' :
         '#FFEDA0';
 }
-//using color fuction to generate style for geojason for missmanaged_1 variable
+//using color fuction to generate style for geojason for propability variable
 function style4(feature) {
     return {
         fillColor: getColorpropability(feature.properties.Probabilit),
@@ -150,7 +150,8 @@ var missmanagedgeojsondata1 = L.geoJson(plasticwaste, {
             });
         }
     }) //.addTo(map);
-    // creating the missmanaged_1 geojason keep in mind that plasticwaste is the variable in which the geojson data is stored in
+
+    // creating the propability geojason keep in mind that plasticwaste is the variable in which the geojson data is stored in
 var propabilitygeojsondata = L.geoJson(plasticwaste, {
         style: style4,
         onEachFeature: function(feature, layer) {
@@ -160,6 +161,7 @@ var propabilitygeojsondata = L.geoJson(plasticwaste, {
             });
         }
     }) //.addTo(map);
+
     //adding the districts to map
 var district = L.geoJSON(district, {
     style: {
@@ -168,25 +170,38 @@ var district = L.geoJSON(district, {
 
         weight: 1, // Border width
     },
-});
-// trying  geotiff via geoserver 
-//Geoserver layers through the use of L.tilelayers
-
-
-var geoserver15 = L.tileLayer.wms("http://localhost:8081/geoserver/NDMA_Rasters/wms", { layers: 'savi15', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
+}); 
+//Geoserver layers through the use of L.tilelayers for the costal portal rasters-------------------------------------------------------------
+var geoserver15 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'savi15', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
 geoserver15.setOpacity(1.0)
 var savi15raster = L.layerGroup([geoserver15])
-var geoserver23 = L.tileLayer.wms("http://localhost:8081/geoserver/NDMA_Rasters/wms", { layers: 'savi23', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
+var geoserver23 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'savi23', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
 geoserver23.setOpacity(1.0)
 var savi23raster = L.layerGroup([geoserver23])
-var geoserverRef15 = L.tileLayer.wms("http://localhost:8081/geoserver/NDMA_Rasters/wms", { layers: 'reflectance15', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
+var geoserverRef15 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'reflectance15', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
 geoserverRef15.setOpacity(1.0)
 var Reflectance15 = L.layerGroup([geoserverRef15])
 
-var geoserverRef23 = L.tileLayer.wms("http://localhost:8081/geoserver/NDMA_Rasters/wms", { layers: 'reflectance23', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
+var geoserverRef23 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'reflectance23', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
 geoserverRef23.setOpacity(1.0)
 var Reflectance23 = L.layerGroup([geoserverRef23])
 
+var geoserverSal15 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'salinity_index15', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
+geoserverSal15.setOpacity(1.0)
+var SalinityIndex15 = L.layerGroup([geoserverSal15])
+
+var geoserverSal23 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'salinity_index23', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
+geoserverSal23.setOpacity(1.0)
+var SalinityIndex23 = L.layerGroup([geoserverSal23])
+var geoservergibslandcover = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?', {
+    layers: 'MODIS_Combined_L3_IGBP_Land_Cover_Type_Annual',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857'
+})//.addTo(map);
+geoservergibslandcover.setOpacity(1.0)
+var landcover = L.layerGroup([geoservergibslandcover])
+// creating layer groups for the plastic waste layers
 var plasticwaste = L.layerGroup([plastic_wastegeojsondata]);
 var missmanaged = L.layerGroup([missmanagedgeojsondata]);
 var missmanaged1 = L.layerGroup([missmanagedgeojsondata1]);
@@ -198,7 +213,9 @@ var overlayMaps = {
     "Savi23": savi23raster,
     "Reflectance15": Reflectance15,
     "Reflectance23": Reflectance23,
-
+    "SalinityIndex15": SalinityIndex15,
+    "SalinityIndex23": SalinityIndex23,
+    "Landcover": landcover 
 };
 L.control.layers(baseMaps, overlayMaps, { position: 'topright', }).addTo(map);
 // function to highlight features for the plastic waste layer
@@ -335,6 +352,26 @@ infopropability.update = function(props) {
         '<b>' + props.NAME_ID + '</b><br />' + props.Probabilit + ' propability' :
         'Hover over a region ');
 };
+
+// Create a legend control for landcover
+var legendLandcover = L.control({ position: 'bottomright' });
+
+legendLandcover.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'infolandcover legendlandcover');
+
+    // Add label for land cover
+    div.innerHTML += '<h4>Land Cover Legend</h4>';
+
+    // Add image from the specified URL
+    div.innerHTML += '<img src="https://gibs.earthdata.nasa.gov/legends/MODIS_IGBP_Land_Cover_Type_H.png?" alt="Land Cover Legend">';
+
+    return div;
+};
+
+// Add the legend control to the map
+//legendLandcover.addTo(map);
+
+
 // adding a legend for the plastic waste layer---------------------------------------------------------------------
 var legendplastic = L.control({ position: 'bottomright' });
 
@@ -414,6 +451,167 @@ legendpropability.onAdd = function(map) {
 
     return div;
 };
+// creating legend for Savi Raster 
+var savi15rasterLegend = L.control({ position: 'bottomright' });
+
+savi15rasterLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'savi15raster'), // Using legendplastic class for styling
+        colorMapEntries = [
+            { color: "#30123b", label: "-0.4556" },
+            { color: "#4686fb", label: "-0.2414" },
+            { color: "#1be5b5", label: "-0.0271" },
+            { color: "#a4fc3c", label: "0.1872" },
+            { color: "#fbb938", label: "0.4015" },
+            { color: "#e3440a", label: "0.6158" },
+            { color: "#7a0403", label: "0.8301" }
+        ];
+
+    // Add label for SAVI raster image legend
+    div.innerHTML += '<h4>SAVI Raster Image 2015</h4>';
+
+    // Loop through color map entries and generate a label with a colored square for each entry
+    for (var i = 0; i < colorMapEntries.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
+            colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
+    }
+
+    return div;
+};
+// creating a legend for savi23 raster
+var savi23rasterLegend = L.control({ position: 'bottomright' });
+savi23rasterLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'savi23raster'), // Using legendplastic class for styling
+    colorMapEntries = [
+        { color: "#30123b", label: "-0.33" },
+        { color: "#4686fb", label: "-0.14" },
+        { color: "#1be5b5", label: "0.05" },
+        { color: "#a4fc3c", label: "0.24" },
+        { color: "#fbb938", label: "0.42" },
+        { color: "#e3440a", label: "0.61" },
+        { color: "#7a0403", label: "0.80" }
+    ];
+
+    // Add label for SAVI raster image legend
+    div.innerHTML += '<h4>SAVI Raster Image 2023</h4>';
+
+    // Loop through color map entries and generate a label with a colored square for each entry
+    for (var i = 0; i < colorMapEntries.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
+            colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
+    }
+
+    return div;
+};
+
+// creating a legend for reflectance15 raster
+var reflectance15rasterLegend = L.control({ position: 'bottomright' });
+reflectance15rasterLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'reflectance15raster'), // Using legendplastic class for styling
+    colorMapEntries = [
+        { color: "#30123b", label: "1" },
+        { color: "#4686fb", label: "2" },
+        { color: "#1be5b5", label: "3" },
+        { color: "#a4fc3c", label: "4" },
+        { color: "#fbb938", label: "4" },
+        { color: "#e3440a", label: "5" },
+        { color: "#7a0403", label: "6" }
+    ];
+
+    // Add label for SAVI raster image legend
+    div.innerHTML += '<h4>Reflectance Raster 2015</h4>';
+
+    // Loop through color map entries and generate a label with a colored square for each entry
+    for (var i = 0; i < colorMapEntries.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
+            colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
+    }
+
+    return div;
+};
+
+// creating a legend for reflectance23 raster
+var reflectance23rasterLegend = L.control({ position: 'bottomright' });
+reflectance23rasterLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'reflectance23raster'), // Using legendplastic class for styling
+    colorMapEntries = [
+        { color: "#30123b", label: "1" },
+        { color: "#4686fb", label: "2" },
+        { color: "#1be5b5", label: "3" },
+        { color: "#a4fc3c", label: "4" },
+        { color: "#fbb938", label: "4" },
+        { color: "#e3440a", label: "5" },
+        { color: "#7a0403", label: "6" }
+    ];
+
+    // Add label for SAVI raster image legend
+    div.innerHTML += '<h4>Reflectance Raster 2023</h4>';
+
+    // Loop through color map entries and generate a label with a colored square for each entry
+    for (var i = 0; i < colorMapEntries.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
+            colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
+    }
+
+    return div;
+};
+
+var SalinityIndex15rasterLegend = L.control({ position: 'bottomright' });
+SalinityIndex15rasterLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'SalinityIndex15rasterraster'), // Using legendplastic class for styling
+    colorMapEntries = [
+        { color: "#30123b", label: "3746.7266" },
+        { color: "#4686fb", label: "16257.1458" },
+        { color: "#1be5b5", label: "28767.5651" },
+        { color: "#a4fc3c", label: "41277.9844" },
+        { color: "#fbb938", label: "53788.4036" },
+        { color: "#e3440a", label: "66298.8229" },
+        { color: "#7a0403", label: "78809.2422" }
+    ];
+
+    // Add label for SAVI raster image legend
+    div.innerHTML += '<h4>Salinity Index 2015 </h4>';
+
+    // Loop through color map entries and generate a label with a colored square for each entry
+    for (var i = 0; i < colorMapEntries.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
+            colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
+    }
+
+    return div;
+}; 
+
+var SalinityIndex23rasterLegend = L.control({ position: 'bottomright' });
+SalinityIndex23rasterLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'SalinityIndex23rasterraster'), // Using legendplastic class for styling
+    colorMapEntries = [
+        { color: "#30123b", label: "4054.2681" },
+        { color: "#4686fb", label: "9716.5593" },
+        { color: "#1be5b5", label: "15378.8506" },
+        { color: "#a4fc3c", label: "21041.1418" },
+        { color: "#fbb938", label: "26703.4331" },
+        { color: "#e3440a", label: "32365.7244" },
+        { color: "#7a0403", label: "38028.0156" }
+    ];
+
+    // Add label for SAVI raster image legend
+    div.innerHTML += '<h4>Salinity Index 2023 </h4>';
+
+    // Loop through color map entries and generate a label with a colored square for each entry
+    for (var i = 0; i < colorMapEntries.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
+            colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
+    }
+
+    return div;
+}; 
+
+//savi15rasterLegend.addTo(map); // Add the legend to the map
 /*
 map.on('overlayadd', function (eventLayer) {
     // Check if the added layer is the plastic waste layer
@@ -543,7 +741,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Add a click event listener to the Accidification button
 document.addEventListener('DOMContentLoaded', function() {
     // Get the Mangroves button element
-    const AcidificationButton = Array.from(document.querySelectorAll('.nav-button')).find(button => button.textContent.trim() === 'Costal Acidification');
+    const AcidificationButton = Array.from(document.querySelectorAll('.nav-button')).find(button => button.textContent.trim() === 'Coastal Acidification');
 
     // Add a click event listener to the Mangroves button
     AcidificationButton.addEventListener('click', function(event) {
@@ -561,6 +759,30 @@ document.addEventListener('DOMContentLoaded', function() {
         iframeAcidification.style.width = '175%';
         iframeAcidification.style.height = 'calc(100vh - 60px)'; // Adjust height to leave space for the navbar
         mainContainer2.appendChild(iframeAcidification);
+    });
+});
+
+// Add a click event listener to the Accidification button
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the Mangroves button element
+    const AcidificationButton = Array.from(document.querySelectorAll('.nav-button')).find(button => button.textContent.trim() === 'Global Fishing');
+
+    // Add a click event listener to the Mangroves button
+    AcidificationButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default behavior of the anchor tag
+
+        // Remove existing content from the main container
+        const mainContainer2 = document.getElementById('main-container');
+        mainContainer2.innerHTML = '';
+        //document.getElementById('map').innerHTML = '';
+
+        // Create and append the iframe for Mangroves
+        var iframefishing = document.createElement('iframe');
+        iframefishing.src = "https://globalfishingwatch.org/map/index?latitude=26.290424718426664&longitude=70.97994004223096&zoom=3.014121880681532&start=2023-11-10T00%3A00%3A00.000Z&end=2024-02-10T00%3A00%3A00.000Z&dvIn[0][id]=basemap-labels&dvIn[0][cfg][vis]=true&dvIn[1][id]=vms&dvIn[1][cfg][vis]=true&dvIn[2][id]=sar&dvIn[2][cfg][vis]=false&dvIn[3][id]=viirs&dvIn[3][cfg][vis]=false&dvIn[4][id]=context-layer-eez&dvIn[4][cfg][vis]=true&timebarVisualisation=heatmap";
+        iframefishing.style.display = 'block';
+        iframefishing.style.width = '175%';
+        iframefishing.style.height = 'calc(100vh - 60px)'; // Adjust height to leave space for the navbar
+        mainContainer2.appendChild(iframefishing);
     });
 });
 document.getElementById('plasticWasteToggle').addEventListener('click', function(event) {
@@ -668,15 +890,7 @@ document.addEventListener('DOMContentLoaded', function() {
 */
 
 document.addEventListener('DOMContentLoaded', function() {
-    const landcoverButton = Array.from(document.querySelectorAll('.nav-button')).find(button => button.textContent.trim() === 'Landcover');
-
-    landcoverButton.addEventListener('click', function(event) {
-        event.preventDefault();
-        window.location.reload();
-    });
-});
-document.addEventListener('DOMContentLoaded', function() {
-    const aboutButton = Array.from(document.querySelectorAll('.nav-button')).find(button => button.textContent.trim() === 'Landcover');
+    const aboutButton = Array.from(document.querySelectorAll('.nav-button')).find(button => button.textContent.trim() === 'About');
 
     aboutButton.addEventListener('click', function(event) {
         event.preventDefault();
@@ -754,9 +968,19 @@ document.getElementById('onemeter').addEventListener('click', function() {
     map.removeControl(infopropability)
     map.removeControl(legendpropability)
     map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
     map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
     map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
     map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
     onemLayer.addTo(map);
 });
 // button trigiering event for twometer layer
@@ -779,9 +1003,19 @@ document.getElementById('twometer').addEventListener('click', function() {
     map.removeControl(infoplastic);
     map.removeControl(legendplastic);
     map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
     map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
     map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
     map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
     twomLayer.addTo(map);
 });
 // button trigiering event for fivemeter layer
@@ -804,9 +1038,19 @@ document.getElementById('fivemeter').addEventListener('click', function() {
     map.removeControl(infoplastic);
     map.removeControl(legendplastic);
     map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
     map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
     map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
     map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
     fivemLayer.addTo(map);
     //geoserver15.addTo(map);
 });
@@ -830,9 +1074,19 @@ document.getElementById('tenmeter').addEventListener('click', function() {
     map.removeControl(infoplastic);
     map.removeControl(legendplastic);
     map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
     map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
     map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
     map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
     tenmLayer.addTo(map);
 });
 //to add the plastic waste button
@@ -853,9 +1107,19 @@ document.getElementById('plasticwaste').addEventListener('click', function() {
     map.removeControl(infopropability)
     map.removeControl(legendpropability)
     map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
     map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
     map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
     map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
     map.addControl(infoplastic)
     map.addControl(legendplastic)
     map.addLayer(plasticwaste);
@@ -878,9 +1142,19 @@ document.getElementById('MissmanagedPW').addEventListener('click', function() {
     map.removeControl(infopropability)
     map.removeControl(legendpropability)
     map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
     map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
     map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
     map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
     map.addControl(infomissmanaged)
     map.addControl(legendmissmanaged)
     map.addLayer(missmanaged);
@@ -904,9 +1178,19 @@ document.getElementById('MissmanagedPWocean').addEventListener('click', function
     map.removeControl(infopropability)
     map.removeControl(legendpropability)
     map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
     map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
     map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
     map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
     map.addControl(infomissmanaged1)
     map.addControl(legendmissmanaged1)
     map.addLayer(missmanaged1);
@@ -929,9 +1213,19 @@ document.getElementById('PropabilityOFPlastic(ocean)').addEventListener('click',
     map.removeControl(infomissmanaged1)
     map.removeLayer(missmanaged1);
     map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
     map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
     map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
     map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
     map.addLayer(propability)
     map.addControl(infopropability)
     map.addControl(legendpropability)
@@ -953,9 +1247,19 @@ document.getElementById('PropabilityOFPlastic(ocean)').addEventListener('click',
     map.removeControl(infomissmanaged1)
     map.removeLayer(missmanaged1);
     map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
     map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
     map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
     map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
     map.addLayer(propability)
     map.addControl(infopropability)
     map.addControl(legendpropability)
@@ -979,9 +1283,21 @@ document.getElementById('Savi15raster').addEventListener('click', function() {
     map.removeLayer(propability)
     map.removeControl(infopropability)
     map.removeControl(legendpropability)
-        //geoserver15.addTo(map)
-    map.addLayer(savi15raster)
     map.removeLayer(savi23raster)
+    map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(savi23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.addLayer(savi15raster)
+    map.addControl(savi15rasterLegend)
+    
 });
 
 document.getElementById('Savi23').addEventListener('click', function() {
@@ -1003,9 +1319,20 @@ document.getElementById('Savi23').addEventListener('click', function() {
     map.removeLayer(propability)
     map.removeControl(infopropability)
     map.removeControl(legendpropability)
-        //geoserver15.addTo(map)
     map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
     map.addLayer(savi23raster)
+    map.addControl(savi23rasterLegend)
 });
 
 document.getElementById('Reflectance15').addEventListener('click', function() {
@@ -1027,10 +1354,20 @@ document.getElementById('Reflectance15').addEventListener('click', function() {
     map.removeLayer(propability)
     map.removeControl(infopropability)
     map.removeControl(legendpropability)
-        //geoserver15.addTo(map)
     map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
     map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(Reflectance15)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
     map.addLayer(Reflectance15)
+    map.addControl(reflectance15rasterLegend)
 });
 
 document.getElementById('Reflectance23').addEventListener('click', function() {
@@ -1052,9 +1389,124 @@ document.getElementById('Reflectance23').addEventListener('click', function() {
     map.removeLayer(propability)
     map.removeControl(infopropability)
     map.removeControl(legendpropability)
-        //geoserver15.addTo(map)
     map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
     map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
     map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
     map.addLayer(Reflectance23)
+    map.addControl(reflectance23rasterLegend)
+});
+
+document.getElementById('SalinityIndex15').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
+    map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
+    map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.addLayer(SalinityIndex15)
+    map.addControl(SalinityIndex15rasterLegend)
+    
+});
+
+document.getElementById('SalinityIndex23').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
+    map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
+    map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.addControl(SalinityIndex23rasterLegend)
+    map.addLayer(SalinityIndex23)
+});
+
+document.getElementById('landcovermodisgibs').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
+    map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
+    map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.addControl(legendLandcover)
+    map.addLayer(landcover)
 });
