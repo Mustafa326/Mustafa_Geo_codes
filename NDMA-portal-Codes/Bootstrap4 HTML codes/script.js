@@ -199,7 +199,40 @@ var geoservergibslandcover = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wm
     transparent: true,
     srs: 'EPSG:3857'
 })//.addTo(map);
-geoservergibslandcover.setOpacity(1.0)
+// adding the NASA GIBS sea salinity global monthly
+var geoservergibssalinityMonthly = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?', {
+    layers: 'SMAP_L3_Sea_Surface_Salinity_REMSS_Monthly',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857'
+})//.addTo(map);
+geoservergibssalinityMonthly.setOpacity(1.0)
+
+// adding the NASA GIBS sea salinity global daily
+var geoservergibssalinityDaily = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?', {
+    layers: 'SMAP_L3_Sea_Surface_Salinity_REMSS_8Day_RunningMean',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857'
+})//.addTo(map);
+geoservergibssalinityDaily .setOpacity(1.0)
+
+// adding the NASA GIBS sea level rise anomalies global
+var geoservergibssealevelriseanomalies = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?', {
+    layers: 'TOPEX-Poseidon_JASON_Sea_Surface_Height_Anomalies_GDR_Cycles',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857'
+})//.addTo(map);
+geoservergibssealevelriseanomalies .setOpacity(1.0)
+// Adding the CMEMS sea level rise anomalies global
+var geoservercmemssealevelriseanomalies = L.tileLayer.wms('https://my.cmems-du.eu/thredds/wms/cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.25deg_P1M-m', {
+    layers: 'sla', // Replace 'dataset-id' with the actual dataset ID or layer name
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857'
+})//.addTo(map);
+geoservercmemssealevelriseanomalies .setOpacity(1.0)
 var landcover = L.layerGroup([geoservergibslandcover])
 // creating layer groups for the plastic waste layers
 var plasticwaste = L.layerGroup([plastic_wastegeojsondata]);
@@ -215,6 +248,10 @@ var overlayMaps = {
     "Reflectance23": Reflectance23,
     "SalinityIndex15": SalinityIndex15,
     "SalinityIndex23": SalinityIndex23,
+    "Global Salinity levels Monthly":geoservergibssalinityMonthly,
+    "Global Salinity levels Daily":geoservergibssalinityDaily,
+    "Global Sea Level Rise Anomalies":geoservergibssealevelriseanomalies,
+    "Global Sea Level Rise":geoservercmemssealevelriseanomalies,
     "Landcover": landcover 
 };
 L.control.layers(baseMaps, overlayMaps, { position: 'topright', }).addTo(map);
@@ -610,7 +647,54 @@ SalinityIndex23rasterLegend.onAdd = function(map) {
 
     return div;
 }; 
+// gibs sea surface salinity legend
+var gibssalinityMonthlyLegend = L.control({ position: 'topright' });
 
+gibssalinityMonthlyLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'gibssalinityMonthly'), // Using a class for styling
+        legendText = 'Legend for GIBS Salinity Monthly';
+
+    // Add label for GIBS Salinity Monthly layer legend
+    div.innerHTML += '<h4>' + legendText + '</h4>';
+
+    // Include any legend details specific to GIBS Salinity Monthly layer
+    // You may use image tag for PNG or other suitable method
+    div.innerHTML += '<img src="Sea_Surface_Salinity_global_legend.png" alt="Legend for GIBS Salinity Monthly">';
+
+    return div;
+};
+// sea level rise anomalies legend
+var gibssealevelriseanomaliesLegend = L.control({ position: 'topright' });
+
+gibssealevelriseanomaliesLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'globalsealevelriseanomaly'), // Using a class for styling
+        legendText = 'Legend for GIBS Sea Level Rise Anomalies';
+
+    // Add label for GIBS Salinity Monthly layer legend
+    div.innerHTML += '<h4>' + legendText + '</h4>';
+
+    // Include any legend details specific to GIBS Salinity Monthly layer
+    // You may use image tag for PNG or other suitable method
+    div.innerHTML += '<img src="sea_level_rise_anomalies_gibs.png" alt="Legend for GIBS Salinity Monthly">';
+
+    return div;
+};
+
+var sealevelrisecmessLegend = L.control({ position: 'topright' });
+
+sealevelrisecmessLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'globalsealevelcmessrisea'), // Using a class for styling
+        legendText = 'Legend for CMESS Sea Level Rise';
+
+    // Add label for GIBS Salinity Monthly layer legend
+    div.innerHTML += '<h4>' + legendText + '</h4>';
+
+    // Include any legend details specific to GIBS Salinity Monthly layer
+    // You may use image tag for PNG or other suitable method
+    div.innerHTML += '<img src="CMES_Sea_level_Rise_legend.png" alt="Legend for GIBS Salinity Monthly">';
+
+    return div;
+};
 //savi15rasterLegend.addTo(map); // Add the legend to the map
 /*
 map.on('overlayadd', function (eventLayer) {
@@ -778,7 +862,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Create and append the iframe for Mangroves
         var iframefishing = document.createElement('iframe');
-        iframefishing.src = "https://globalfishingwatch.org/map/index?latitude=26.290424718426664&longitude=70.97994004223096&zoom=3.014121880681532&start=2023-11-10T00%3A00%3A00.000Z&end=2024-02-10T00%3A00%3A00.000Z&dvIn[0][id]=basemap-labels&dvIn[0][cfg][vis]=true&dvIn[1][id]=vms&dvIn[1][cfg][vis]=true&dvIn[2][id]=sar&dvIn[2][cfg][vis]=false&dvIn[3][id]=viirs&dvIn[3][cfg][vis]=false&dvIn[4][id]=context-layer-eez&dvIn[4][cfg][vis]=true&timebarVisualisation=heatmap";
+        iframefishing.src = "https://globalfishingwatch.org/map/index?latitude=22.067957416742075&longitude=63.65159782519663&zoom=5.602048799804306&start=2023-11-09T00%3A00%3A00.000Z&end=2024-02-09T00%3A00%3A00.000Z&dvIn[0][id]=rfmo-1707988537257&dvIn[0][dvId]=tuna-rfmo-areas&dvIn[0][cfg][clr]=%238E24A9&dvIn[1][id]=~0&dvIn[1][cfg][vis]=false&dvIn[2][id]=oxygen-1707988387199&dvIn[2][dvId]=~1&dvIn[2][cfg][clr]=%2300EEFF&dvIn[2][cfg][colorRamp]=sky&dvIn[2][cfg][breaks][0]=198.942&dvIn[2][cfg][breaks][1]=200.582&dvIn[2][cfg][breaks][2]=201.764&dvIn[2][cfg][breaks][3]=203.313&dvIn[2][cfg][breaks][4]=204.673&dvIn[2][cfg][breaks][5]=205.797&dvIn[2][cfg][breaks][6]=206.639&dvIn[2][cfg][breaks][7]=207.473&dvIn[2][cfg][breaks][8]=209.044&dvIn[2][cfg][breaks][9]=209.054&dvIn[2][cfg][vis]=true&dvIn[2][dsC][0][pms][0][id]=type&dvIn[2][dsC][0][pms][0][val]=~2&dvIn[2][dsC][0][ept]=~3&dvIn[2][dsC][0][dsId]=public-global-oxygen%3Av20231213&dvIn[3][id]=ph-1707988372551&dvIn[3][dvId]=~1&dvIn[3][cfg][clr]=%239CA4FF&dvIn[3][cfg][colorRamp]=lilac&dvIn[3][cfg][intervals][0]=MONTH&dvIn[3][cfg][vis]=true&dvIn[3][cfg][breaks][0]=7.94&dvIn[3][cfg][breaks][1]=7.963&dvIn[3][cfg][breaks][2]=7.98&dvIn[3][cfg][breaks][3]=7.99&dvIn[3][cfg][breaks][4]=8&dvIn[3][cfg][breaks][5]=8.01&dvIn[3][cfg][breaks][6]=8.023&dvIn[3][cfg][breaks][7]=8.037&dvIn[3][cfg][breaks][8]=8.05&dvIn[3][cfg][breaks][9]=8.06&dvIn[3][dsC][0][pms][0][id]=type&dvIn[3][dsC][0][pms][0][val]=~2&dvIn[3][dsC][0][ept]=~3&dvIn[3][dsC][0][dsId]=public-global-ph%3Av20231213&dvIn[4][id]=phosphate-1707987943337&dvIn[4][dvId]=~1&dvIn[4][cfg][clr]=%23FFAA0D&dvIn[4][cfg][colorRamp]=orange&dvIn[4][cfg][vis]=true&dvIn[4][cfg][breaks][0]=0.171&dvIn[4][cfg][breaks][1]=0.22&dvIn[4][cfg][breaks][2]=0.258&dvIn[4][cfg][breaks][3]=0.297&dvIn[4][cfg][breaks][4]=0.327&dvIn[4][cfg][breaks][5]=0.351&dvIn[4][cfg][breaks][6]=0.375&dvIn[4][cfg][breaks][7]=0.402&dvIn[4][cfg][breaks][8]=0.435&dvIn[4][cfg][breaks][9]=0.445&dvIn[4][dsC][0][pms][0][id]=type&dvIn[4][dsC][0][pms][0][val]=~2&dvIn[4][dsC][0][ept]=~3&dvIn[4][dsC][0][dsId]=public-global-phosphate%3Av20231213&dvIn[5][id]=mangroves-1707987936195&dvIn[5][dvId]=gfw-environmental-layer&dvIn[5][cfg][clr]=%23A6FF59&dvIn[5][cfg][vis]=true&dvIn[5][dsC][0][ept]=context-tiles&dvIn[5][dsC][0][dsId]=public-mangroves&dvIn[6][id]=nitrate-1707987931553&dvIn[6][dvId]=~1&dvIn[6][cfg][clr]=%23FF6854&dvIn[6][cfg][colorRamp]=red&dvIn[6][cfg][vis]=true&dvIn[6][cfg][breaks][0]=0.01&dvIn[6][cfg][breaks][1]=0.051&dvIn[6][cfg][breaks][2]=0.108&dvIn[6][cfg][breaks][3]=0.167&dvIn[6][cfg][breaks][4]=0.223&dvIn[6][cfg][breaks][5]=0.283&dvIn[6][cfg][breaks][6]=0.365&dvIn[6][cfg][breaks][7]=0.458&dvIn[6][cfg][breaks][8]=0.543&dvIn[6][cfg][breaks][9]=0.553&dvIn[6][dsC][0][pms][0][id]=type&dvIn[6][dsC][0][pms][0][val]=~2&dvIn[6][dsC][0][ept]=~3&dvIn[6][dsC][0][dsId]=public-global-nitrate%3Av20231213&dvIn[7][id]=vessel-ba069b7b9-9148-2ea6-49c9-2b46893ef3a3&dvIn[7][dvId]=fishing-map-vessel-track&dvIn[7][cfg][track]=public-global-all-tracks%3Av20231026&dvIn[7][cfg][info]=public-global-vessel-identity%3Av20231026&dvIn[7][cfg][events][0]=public-global-fishing-events%3Av20231026&dvIn[7][cfg][events][1]=public-global-port-visits-c2-events%3Av20231026&dvIn[7][cfg][events][2]=public-global-encounters-events%3Av20231026&dvIn[7][cfg][events][3]=public-global-loitering-events%3Av20231026&dvIn[7][cfg][events][4]=public-global-gaps-events%3Av20231026&dvIn[7][cfg][clr]=%23F95E5E&dvIn[8][id]=~4&dvIn[8][cfg][vis]=true&dvIn[9][id]=~5&dvIn[9][cfg][vis]=false&dvIn[9][cfg][clr]=%23AD1457&dvIn[9][cfg][colorRamp]=jazzberry-jam&dvIn[10][id]=sar&dvIn[10][cfg][vis]=false&dvIn[11][id]=viirs&dvIn[11][cfg][vis]=false&dvIn[12][id]=~6&dvIn[12][cfg][vis]=true&dvIn[12][cfg][filters][flag][0]=PAK&dvIn[12][cfg][filters][vessel_type][0]=fishing&dvIn[13][id]=~7&dvIn[13][cfg][vis]=true&dvIn[14][id]=~8&dvIn[14][cfg][vis]=true&dvIn[15][id]=~9&dvIn[15][cfg][vis]=false&dvIn[16][id]=~10&dvIn[16][cfg][vis]=true&dvIn[16][cfg][breaks][0]=1&dvIn[16][cfg][breaks][1]=526.02&dvIn[16][cfg][breaks][2]=1308.85&dvIn[16][cfg][breaks][3]=1859.58&dvIn[16][cfg][breaks][4]=2382.49&dvIn[16][cfg][breaks][5]=2864.74&dvIn[16][cfg][breaks][6]=3211.38&dvIn[16][cfg][breaks][7]=3453.01&dvIn[16][cfg][breaks][8]=3691.81&dvIn[16][cfg][breaks][9]=3691.82&dvIn[17][id]=vms&dvIn[17][deleted]=true&timebarVisualisation=vessel&dvInOr[0]=basemap&dvInOr[1]=~8&dvInOr[2]=vms&dvInOr[3]=~6&dvInOr[4]=viirs&dvInOr[5]=sar&dvInOr[6]=~9&dvInOr[7]=~0&dvInOr[8]=~10&dvInOr[9]=~5&dvInOr[10]=~7&dvInOr[11]=context-layer-mpa&dvInOr[12]=context-layer-protectedseas&dvInOr[13]=context-layer-rfmo&dvInOr[14]=context-layer-high-seas&dvInOr[15]=fixed-sar-infrastructure&dvInOr[16]=~4&sO=advanced&lTD=&fTD=&timebarSelectedEnvId=~10&tk[0]=context-layer-graticules&tk[1]=heatmap-environmental-layer&tk[2]=heatmap&tk[3]=4wings-tiles&tk[4]=basemap-labels&tk[5]=context-layer-fao-areas&tk[6]=presence&tk[7]=context-layer-eez&tk[8]=fishing-ais&tk[9]=encounter-events&tk[10]=bathymetry-workspace";
         iframefishing.style.display = 'block';
         iframefishing.style.width = '175%';
         iframefishing.style.height = 'calc(100vh - 60px)'; // Adjust height to leave space for the navbar
@@ -835,6 +919,9 @@ document.getElementById('plasticWasteDropdown').addEventListener('click', functi
 document.getElementById('seaWaterIntrusionToggle').addEventListener('click', function(event) {
     // Prevent the default behavior
     event.preventDefault();
+    // Remove existing content from the main container and restore the map
+    const mainContainer = document.getElementById('main-container');
+    mainContainer.innerHTML = '';
 
     // Toggle the 'active' class on click
     this.classList.toggle('active');
@@ -901,6 +988,9 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('seawaterRiseToggle').addEventListener('click', function(event) {
     // Prevent the default behavior
     event.preventDefault();
+    // Remove existing content from the main container and restore the map
+    const mainContainer = document.getElementById('main-container');
+    mainContainer.innerHTML = '';
 
     // Toggle the 'active' class on click
     this.classList.toggle('active');
@@ -1509,4 +1599,173 @@ document.getElementById('landcovermodisgibs').addEventListener('click', function
     map.removeLayer(SalinityIndex23)
     map.addControl(legendLandcover)
     map.addLayer(landcover)
+});
+
+document.getElementById('GIBSGlobalSalinityMonthly').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
+    map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
+    map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.addLayer(geoservercmemssealevelriseanomalies)
+    map.addControl(sealevelrisecmessLegend)
+    map.addControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservercmemssealevelriseanomalies)
+    map.removeControl(sealevelrisecmessLegend)
+    map.addLayer(geoservergibssalinityMonthly)
+});
+
+document.getElementById('GIBSGlobalSalinityDaily').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
+    map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
+    map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.addControl(gibssalinityMonthlyLegend)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservercmemssealevelriseanomalies)
+    map.removeControl(sealevelrisecmessLegend)
+    map.addLayer(geoservergibssalinityDaily)
+});
+
+document.getElementById('globalsealevelriseanomaly').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
+    map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
+    map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.addControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservercmemssealevelriseanomalies)
+    map.removeControl(sealevelrisecmessLegend)
+    map.addLayer(geoservergibssealevelriseanomalies)
+});
+
+document.getElementById('globalsealevelcmessrisea').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
+    map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
+    map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.addLayer(geoservercmemssealevelriseanomalies)
+    map.addControl(sealevelrisecmessLegend)
 });
