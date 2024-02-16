@@ -13,7 +13,47 @@
 .sub-buttons-wrapper {
     position: absolute;
 }
+#seasurfacetemperatureToggle.active+#seasurfacetemperatureDropdown {
+    display: flex;
+}
 
+#seasurfacetemperatureDropdown {
+    display: none;
+    flex-direction: column;
+    /* Adjust the direction to column for sub-buttons */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    gap: 8px;
+    margin-top: 20px;
+    /* Adjust the gap between the main button and sub-buttons */
+}
+
+#seasurfacetemperatureDropdown .nav-button#SeaSurfaceTemperaturemonthlyday,
+#seasurfacetemperatureDropdown .nav-button#SeaSurfaceTemperaturemonthlynight,
+#seasurfacetemperatureDropdown .nav-button#Seasurfacetemperatureanomalies {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    color: var(--navbar-light-secondary);
+}
+
+#seasurfacetemperatureDropdown .nav-button#SeaSurfaceTemperaturemonthlyday,
+#seasurfacetemperatureDropdown .nav-button#SeaSurfaceTemperaturemonthlynight,
+#seasurfacetemperatureDropdown .nav-button#Seasurfacetemperatureanomalies {
+    margin-top: 8px;
+    /* Adjust the gap between the sub-buttons */
+}
+
+#seasurfacetemperatureDropdown .nav-button span {
+    margin-left: 8px;
+    /* Adjust the gap between the icon and text */
+}
+#Globalfishing.moved-down,
+#Globalfishing.moved-down {
+    margin-top: 230px;
+    /* Adjust the margin value accordingly */
+}
 #plasticWasteToggle.active+#plasticWasteDropdown {
     display: flex;
 }
