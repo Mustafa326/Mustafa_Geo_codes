@@ -251,7 +251,7 @@ display: none;
     display: inline-block;
     background-position: center;
     width: 95%;
-    min-height: 500px;
+    min-height: 85%;
     margin: auto;
     z-index: 1;
 }
