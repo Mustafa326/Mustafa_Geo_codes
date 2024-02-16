@@ -133,7 +133,7 @@ map.on('load', () => {
         //'paint': { 'raster-opacity': 0.7 },
         'layout': { 'visibility': 'none' }
     }, );
-    //adding the coprecencius layers for soil moisture anomaly detection
+    //adding the coprecencius layers for soil moisture anomaly detection something wrong with this
     map.addSource('Coper_Soil_Moisture_Anomaly', {
         'type': 'raster',
         // use the tiles option to specify a WMS tile source URL
@@ -164,6 +164,77 @@ map.on('load', () => {
         'id': 'fapar_anom',
         'type': 'raster',
         'source': 'Coper_fAPAR_Anomaly',
+        //'paint': { 'raster-opacity': 0.7 },
+        'layout': { 'visibility': 'none' }
+    }, );
+// adding the Fire data of FIRMS Global Modis 
+    map.addSource('FIRMS_Modis_hotspots', {
+        'type': 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        'tiles': [
+            'https://firms.modaps.eosdis.nasa.gov/mapserver/wms/fires/48615d588cfc60c9fc9b81e90d881e8f/?SERVICE=WMS&REQUEST=GetMap&LAYERS=fires_modis_48&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        'tileSize': 256
+    });
+    map.addLayer({
+        'id': 'fire_hmodis',
+        'type': 'raster',
+        'source': 'FIRMS_Modis_hotspots',
+        //'paint': { 'raster-opacity': 0.7 },
+        'layout': { 'visibility': 'none' }
+    }, );
+
+    // adding the Fire data of FIRMS Global Viirs 
+    map.addSource('FIRMS_Viirs_hotspots', {
+        'type': 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        'tiles': [
+            'https://firms.modaps.eosdis.nasa.gov/mapserver/wms/fires/48615d588cfc60c9fc9b81e90d881e8f/?SERVICE=WMS&REQUEST=GetMap&LAYERS=fires_viirs_48&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        'tileSize': 256
+    });
+    map.addLayer({
+        'id': 'fire_hviirs',
+        'type': 'raster',
+        'source': 'FIRMS_Viirs_hotspots',
+        //'paint': { 'raster-opacity': 0.7 },
+        'layout': { 'visibility': 'none' }
+    }, );
+
+    // adding the GLIMS dataset of Glacier Thickness 
+    map.addSource('GLIMS_glacier_thickness', {
+        'type': 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        'tiles': [
+            'https://glims.org/geoserver/ows?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=GLIMS:glathida_points&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
+        ],
+        'tileSize': 256
+    });
+    map.addLayer({
+        'id': 'gtd',
+        'type': 'raster',
+        'source': 'GLIMS_glacier_thickness',
+        //'paint': { 'raster-opacity': 0.7 },
+        'layout': { 'visibility': 'none' }
+    }, );
+
+    // adding the GLIMS dataset of Glacier Outlines 
+    map.addSource('GLIMS_glacier_outlines', {
+        'type': 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        'tiles': [
+            'https://glims.org/geoserver/ows?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=GLIMS:GLIMS_GLACIERS&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
+        ],
+        'tileSize': 256
+    });
+    map.addLayer({
+        'id': 'ggo',
+        'type': 'raster',
+        'source': 'GLIMS_glacier_outlines',
         //'paint': { 'raster-opacity': 0.7 },
         'layout': { 'visibility': 'none' }
     }, );
@@ -207,7 +278,7 @@ map.on('mousemove', (event) => {
 
 // Toggleable layer control
 map.on('idle', () => {
-    const toggleableLayerIds = ['countries_layer', 'rgb_fog', 'rgb_dust', 'rgb_snow','rdri_agri','sm_anom','coperc_spi','fapar_anom'];
+    const toggleableLayerIds = ['countries_layer', 'rgb_fog', 'rgb_dust', 'rgb_snow','rdri_agri','sm_anom','coperc_spi','fapar_anom','fire_hmodis','fire_hviirs','gtd','ggo'];
 
     for (const id of toggleableLayerIds) {
         const visibilityCheckbox = document.getElementById(`checkbox_${id}`);
@@ -260,6 +331,38 @@ map.on('idle', () => {
                 map.setPaintProperty(id, 'raster-opacity', opacityValue);
                 // Additional logic for countries_layer, if needed
             }else if (id === 'rgb_dust') {
+                // Check if the layer is 'countries_layer'
+                map.setPaintProperty(id, 'raster-opacity', opacityValue);
+                // Additional logic for countries_layer, if needed
+            }else if (id === 'rdri_agri') {
+                // Check if the layer is 'countries_layer'
+                map.setPaintProperty(id, 'raster-opacity', opacityValue);
+                // Additional logic for countries_layer, if needed
+            }else if (id === 'sm_anom') {
+                // Check if the layer is 'countries_layer'
+                map.setPaintProperty(id, 'raster-opacity', opacityValue);
+                // Additional logic for countries_layer, if needed
+            }else if (id === 'coperc_spi') {
+                // Check if the layer is 'countries_layer'
+                map.setPaintProperty(id, 'raster-opacity', opacityValue);
+                // Additional logic for countries_layer, if needed
+            }else if (id === 'fapar_anom') {
+                // Check if the layer is 'countries_layer'
+                map.setPaintProperty(id, 'raster-opacity', opacityValue);
+                // Additional logic for countries_layer, if needed
+            }else if (id === 'fire_hmodis') {
+                // Check if the layer is 'countries_layer'
+                map.setPaintProperty(id, 'raster-opacity', opacityValue);
+                // Additional logic for countries_layer, if needed
+            }else if (id === 'fire_hviirs') {
+                // Check if the layer is 'countries_layer'
+                map.setPaintProperty(id, 'raster-opacity', opacityValue);
+                // Additional logic for countries_layer, if needed
+            }else if (id === 'gtd') {
+                // Check if the layer is 'countries_layer'
+                map.setPaintProperty(id, 'raster-opacity', opacityValue);
+                // Additional logic for countries_layer, if needed
+            }else if (id === 'ggo') {
                 // Check if the layer is 'countries_layer'
                 map.setPaintProperty(id, 'raster-opacity', opacityValue);
                 // Additional logic for countries_layer, if needed
