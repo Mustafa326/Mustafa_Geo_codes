@@ -233,6 +233,33 @@ var geoservercmemssealevelriseanomalies = L.tileLayer.wms('https://my.cmems-du.e
     srs: 'EPSG:3857'
 })//.addTo(map);
 geoservercmemssealevelriseanomalies .setOpacity(1.0)
+
+// adding the NASA GIBS sea surface temperature day global
+var geoservergibsseasurfacetemprature = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?', {
+    layers: 'MODIS_Aqua_L3_SST_Thermal_4km_Day_Monthly',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857'
+})//.addTo(map);
+geoservergibsseasurfacetemprature .setOpacity(1.0)
+
+// adding the NASA GIBS sea surface temperature night global
+var geoservergibsseasurfacetempraturenight = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?', {
+    layers: 'MODIS_Aqua_L3_SST_Thermal_4km_Night_Monthly',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857'
+})//.addTo(map);
+geoservergibsseasurfacetempraturenight .setOpacity(1.0)
+
+// adding the NASA GIBS sea surface temperature anomalies global
+var geoservergibsseasurfacetempratureanomalies = L.tileLayer.wms('https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?', {
+    layers: 'GHRSST_L4_MUR_Sea_Surface_Temperature_Anomalies',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857'
+})//.addTo(map);
+geoservergibsseasurfacetempratureanomalies .setOpacity(1.0)
 var landcover = L.layerGroup([geoservergibslandcover])
 // creating layer groups for the plastic waste layers
 var plasticwaste = L.layerGroup([plastic_wastegeojsondata]);
@@ -252,6 +279,9 @@ var overlayMaps = {
     "Global Salinity levels Daily":geoservergibssalinityDaily,
     "Global Sea Level Rise Anomalies":geoservergibssealevelriseanomalies,
     "Global Sea Level Rise":geoservercmemssealevelriseanomalies,
+    "Global Sea Surface Temperature Day":geoservergibsseasurfacetemprature,
+    "Global Sea Surface Temperature Night":geoservergibsseasurfacetempraturenight,
+    "Global Sea Surface Temperature Anomalies":geoservergibsseasurfacetempratureanomalies,
     "Landcover": landcover 
 };
 L.control.layers(baseMaps, overlayMaps, { position: 'topright', }).addTo(map);
@@ -695,6 +725,38 @@ sealevelrisecmessLegend.onAdd = function(map) {
 
     return div;
 };
+
+var seasurfacetemperaturedayLegend = L.control({ position: 'topright' });
+
+seasurfacetemperaturedayLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'SeaSurfaceTemperaturemonthlyday'), // Using a class for styling
+        legendText = 'Legend for GIBS Sea Surface Temperature';
+
+    // Add label for GIBS Salinity Monthly layer legend
+    div.innerHTML += '<h4>' + legendText + '</h4>';
+
+    // Include any legend details specific to GIBS Salinity Monthly layer
+    // You may use image tag for PNG or other suitable method
+    div.innerHTML += '<img src="Sea_surface_temperature_monthly_day.png" alt="Legend for GIBS Salinity Monthly">';
+
+    return div;
+};
+
+var seasurfacetemperatureanomaliesLegend = L.control({ position: 'topright' });
+
+seasurfacetemperatureanomaliesLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'Seasurfacetemperatureanomalies'), // Using a class for styling
+        legendText = 'Legend for GIBS Sea Surface Temperature';
+
+    // Add label for GIBS Salinity Monthly layer legend
+    div.innerHTML += '<h4>' + legendText + '</h4>';
+
+    // Include any legend details specific to GIBS Salinity Monthly layer
+    // You may use image tag for PNG or other suitable method
+    div.innerHTML += '<img src="Sea_Surface_Temp_anomalies.png" alt="Legend for GIBS Salinity Monthly">';
+
+    return div;
+};
 //savi15rasterLegend.addTo(map); // Add the legend to the map
 /*
 map.on('overlayadd', function (eventLayer) {
@@ -849,7 +911,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Add a click event listener to the Accidification button
 document.addEventListener('DOMContentLoaded', function() {
     // Get the Mangroves button element
-    const AcidificationButton = Array.from(document.querySelectorAll('.nav-button')).find(button => button.textContent.trim() === 'Global Fishing');
+    const AcidificationButton = Array.from(document.querySelectorAll('.nav-button')).find(button => button.textContent.trim() === 'EEz Marine Surveillance');
 
     // Add a click event listener to the Mangroves button
     AcidificationButton.addEventListener('click', function(event) {
@@ -912,6 +974,55 @@ document.getElementById('plasticWasteToggle').addEventListener('click', function
 
 // Preventing the default behavior and stopping event propagation for the PlasticWasteDropdown
 document.getElementById('plasticWasteDropdown').addEventListener('click', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+});
+
+// creating a toggle functionality for sea surface temperature 
+
+document.getElementById('seasurfacetemperatureToggle').addEventListener('click', function(event) {
+    // Prevent the default behavior
+    event.preventDefault();
+
+    // Toggle the 'active' class on click
+    this.classList.toggle('active');
+
+    // Toggle the visibility of the plastic waste buttons
+    var seasurfacetemperatureButtons = document.getElementById('seasurfacetemperatureDropdown');
+    seasurfacetemperatureButtons.style.display = (seasurfacetemperatureButtons.style.display === 'none' || seasurfacetemperatureButtons.style.display === '') ? 'flex' : 'none';
+
+    // Adjust the positions of seawater rise and sea water intrusion
+    var seawaterRiseToggle = document.getElementById('seawaterRiseToggle');
+    var seaWaterIntrusionToggle = document.getElementById('seaWaterIntrusionToggle');
+
+    // Check if the elements exist before accessing their styles
+    if (seawaterRiseToggle && seaWaterIntrusionToggle && plasticWasteToggle) {
+        if (seasurfacetemperatureButtons.style.display === 'flex') {
+            // If PlasticWaste buttons are visible, add a class to move seawater rise and sea water intrusion down
+            // seawaterRiseToggle.classList.add('moved-down');
+            Globalfishing.classList.add('moved-down');
+        } else {
+            // If PlasticWaste buttons are hidden, remove the class to move seawater rise and sea water intrusion back to their original positions
+            // seawaterRiseToggle.classList.remove('moved-down');
+            Globalfishing.classList.remove('moved-down');
+        }
+    }
+
+    // Remove existing content from the main container and restore the map
+    const mainContainer = document.getElementById('main-container');
+    mainContainer.innerHTML = '';
+
+    // Restore the map container styles
+    //const mapContainer = document.getElementById('map');
+    //mapContainer.style.zIndex = '0'; // Set the z-index to 0 or the appropriate value
+
+    // Optionally, you may want to add other styles to reset the map container appearance
+    // mapContainer.style.width = '100%';
+    // mapContainer.style.height = '100vh';
+});
+
+// Preventing the default behavior and stopping event propagation for the PlasticWasteDropdown
+document.getElementById('seasurfacetemperatureDropdown').addEventListener('click', function(event) {
     event.preventDefault();
     event.stopPropagation();
 });
@@ -1598,6 +1709,11 @@ document.getElementById('landcovermodisgibs').addEventListener('click', function
     map.removeControl(SalinityIndex23rasterLegend)
     map.removeLayer(SalinityIndex23)
     map.addControl(legendLandcover)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
     map.addLayer(landcover)
 });
 
@@ -1640,7 +1756,12 @@ document.getElementById('GIBSGlobalSalinityMonthly').addEventListener('click', f
     map.addControl(sealevelrisecmessLegend)
     map.addControl(gibssalinityMonthlyLegend)
     map.removeLayer(geoservercmemssealevelriseanomalies)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
     map.removeControl(sealevelrisecmessLegend)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
     map.addLayer(geoservergibssalinityMonthly)
 });
 
@@ -1683,6 +1804,11 @@ document.getElementById('GIBSGlobalSalinityDaily').addEventListener('click', fun
     map.removeLayer(geoservergibssalinityMonthly)
     map.removeLayer(geoservercmemssealevelriseanomalies)
     map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
     map.addLayer(geoservergibssalinityDaily)
 });
 
@@ -1725,6 +1851,11 @@ document.getElementById('globalsealevelriseanomaly').addEventListener('click', f
     map.addControl(gibssealevelriseanomaliesLegend)
     map.removeLayer(geoservercmemssealevelriseanomalies)
     map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
     map.addLayer(geoservergibssealevelriseanomalies)
 });
 
@@ -1766,6 +1897,154 @@ document.getElementById('globalsealevelcmessrisea').addEventListener('click', fu
     map.removeLayer(geoservergibssalinityDaily)
     map.removeControl(gibssealevelriseanomaliesLegend)
     map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
     map.addLayer(geoservercmemssealevelriseanomalies)
     map.addControl(sealevelrisecmessLegend)
+});
+
+document.getElementById('SeaSurfaceTemperaturemonthlyday').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
+    map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
+    map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(geoservercmemssealevelriseanomalies)
+    map.removeControl(sealevelrisecmessLegend)
+    map.addLayer(geoservergibsseasurfacetemprature)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.addControl(seasurfacetemperaturedayLegend)
+});
+
+document.getElementById('SeaSurfaceTemperaturemonthlynight').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
+    map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
+    map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(geoservercmemssealevelriseanomalies)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.addControl(seasurfacetemperaturedayLegend)
+    map.addLayer(geoservergibsseasurfacetempraturenight)
+    
+});
+
+document.getElementById('Seasurfacetemperatureanomalies').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(savi15raster)
+    map.removeControl(savi15rasterLegend)
+    map.removeLayer(savi23raster)
+    map.removeControl(savi23rasterLegend)
+    map.removeLayer(Reflectance15)
+    map.removeControl(reflectance15rasterLegend)
+    map.removeLayer(Reflectance23)
+    map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex15)
+    map.removeControl(SalinityIndex15rasterLegend)
+    map.removeControl(SalinityIndex23rasterLegend)
+    map.removeLayer(SalinityIndex23)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(geoservercmemssealevelriseanomalies)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.addControl(seasurfacetemperatureanomaliesLegend)
+    map.addLayer(geoservergibsseasurfacetempratureanomalies)
+    
 });
