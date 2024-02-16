@@ -155,7 +155,7 @@
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                     <div class="card-body">
                         <!-- Content for other layers -->
-                        <p>Add other layers</p>
+                        <!--<p>Add other layers</p>-->
                         <!-- Table with radio buttons for other layers -->
                         <div class="table-responsive mx-3">
                             <div class="container-fluid">
@@ -202,6 +202,106 @@
                                                 <td>fAPAR Anomaly</td>
                                                 <td>
                                                     <input type="range" class="opacity-slider" data-layer="fapar_anom" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <!-- Add additional rows if needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-dark">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            NASA FIRMS Global
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <!-- Content for other layers -->
+                        <!--<p>Add other layers</p>-->
+                        <!-- Table with radio buttons for other layers -->
+                        <div class="table-responsive mx-3">
+                            <div class="container-fluid">
+                                <table class="table bg-white text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Visibility</th>
+                                            <th scope="col">Layer Name</th>
+                                            <th scope="col">Opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_fire_hmodis" checked>Add/Remove
+                                                </td>
+                                                <td>FIRE Hotspots Modis</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="fire_hmodis" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_fire_hviirs" checked>Add/Remove
+                                                </td>
+                                                <td>FIRE Hotspots VIIRS</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="fire_hviirs" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <!-- Add additional rows if needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-dark">
+                <div class="card-header" id="headingFive">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            GLIMS Datasets
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <!-- Content for other layers -->
+                        <!--<p>Add other layers</p>-->
+                        <!-- Table with radio buttons for other layers -->
+                        <div class="table-responsive mx-3">
+                            <div class="container-fluid">
+                                <table class="table bg-white text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Visibility</th>
+                                            <th scope="col">Layer Name</th>
+                                            <th scope="col">Opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_gtd" checked>Add/Remove
+                                                </td>
+                                                <td>Glacier Thickness Dataset</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="gtd" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_ggo" checked>Add/Remove
+                                                </td>
+                                                <td>Glims Glacier Outlines</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="ggo" min="0" max="1" step="0.1" value="0.7">
                                                 </td>
                                             </tr>
                                             <!-- Add additional rows if needed -->
