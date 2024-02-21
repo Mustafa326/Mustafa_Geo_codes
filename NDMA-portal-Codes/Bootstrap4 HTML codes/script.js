@@ -14,6 +14,12 @@ const mapboxTileLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles
     accessToken: 'pk.eyJ1IjoibXVzYW1hcmVoYW4iLCJhIjoiY2xwZHcxeG85MTMyMDJycXI5YjNyaGhqNiJ9.6UL1Nyb_K5dKT6H4KuHk_Q' // Replace with your Mapbox access token
 });
 
+const cartodb=new L.TileLayer('http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png', {
+    attribution: 'Map tiles &copy; <a href="https://mapbox.com">MapBox</a>',
+    maxZoom: 18,
+    maxNativeZoom: 20
+  })//.addTo(map);
+
 // Add the Mapbox tile layer to the baseMaps object
 
 // Add the Mapbox tile layer to the map
@@ -23,6 +29,7 @@ mapboxTileLayer.addTo(map).bringToBack();
 const baseMaps = {
     "Esri World Imagery": esriWorldImagery,
     "Mapbox Satellite Streets": mapboxTileLayer,
+    "Cartodb Positron": cartodb
 };
 //Add tiles and zoom buttons
 
@@ -170,7 +177,7 @@ var district = L.geoJSON(district, {
 
         weight: 1, // Border width
     },
-}); 
+}).addTo(map); 
 //Geoserver layers through the use of L.tilelayers for the costal portal rasters-------------------------------------------------------------
 var geoserver15 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'savi15', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
 geoserver15.setOpacity(1.0)
@@ -261,6 +268,56 @@ var geoservergibsseasurfacetempratureanomalies = L.tileLayer.wms('https://gibs.e
 })//.addTo(map);
 geoservergibsseasurfacetempratureanomalies .setOpacity(1.0)
 var landcover = L.layerGroup([geoservergibslandcover])
+// creating the 3d osm buildings layer
+var osmb = new OSMBuildings(map).load('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json');
+
+//********************************************************
+
+function ajax(url, callback) {
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function() {
+    if (req.readyState !== 4) {
+      return;
+    }
+    if (!req.status || req.status < 200 || req.status > 299) {
+      return;
+    }
+
+    callback(JSON.parse(req.responseText));
+  };
+  req.open('GET', url);
+  req.send(null);
+}
+
+function formatJSON(json) {
+  var html = '';
+  for (var key in json) {
+    html += '<em>'+ key +'</em> '+ json[key] +'<br>';
+  }
+  return html;
+}
+
+var popup;
+osmb.click(function(e) {
+  popup = L.popup({ maxHeight:200, autoPanPaddingTopLeft:[50,50] })
+    .setLatLng(L.latLng(e.lat, e.lon))
+    .setContent('<b>OSM ID '+ e.feature +'</b>')
+    .openOn(map);
+  map.flyTo([e.lat, e.lon], 18, {animate: true});
+
+  var url = 'https://data.osmbuildings.org/0.2/uejws863/feature/'+ e.feature +'.json';
+  ajax(url, function(json) {
+    alert(json);
+    var content = '<b>OSM ID '+ e.feature +'</b>';
+    for (var i = 0; i < json.features.length; i++) {
+      content += '<br><em>OSM Part ID</em> '+ json.features[i].id;
+      content += '<br>'+ formatJSON(json.features[i].properties.tags);
+    }
+    popup.setContent(content).openOn(map);
+  });
+});
+osmb.style({ wallColor: 'rgba(0,0,255,170)', roofColor: 'rgba(0,0,255,170)', shadows: 'rgb(0,0,0)' });
+
 // creating layer groups for the plastic waste layers
 var plasticwaste = L.layerGroup([plastic_wastegeojsondata]);
 var missmanaged = L.layerGroup([missmanagedgeojsondata]);
@@ -269,6 +326,7 @@ var propability = L.layerGroup([propabilitygeojsondata]);
 //creating overlays
 var overlayMaps = {
     "District": district,
+    "OSM3D":osmb,
     "Savi15": savi15raster,
     "Savi23": savi23raster,
     "Reflectance15": Reflectance15,
@@ -884,34 +942,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Add a click event listener to the Accidification button
+// Add a click event listener to the EEZ Marine Surveillance 
 document.addEventListener('DOMContentLoaded', function() {
     // Get the Mangroves button element
-    const AcidificationButton = Array.from(document.querySelectorAll('.nav-button')).find(button => button.textContent.trim() === 'Coastal Acidification');
-
-    // Add a click event listener to the Mangroves button
-    AcidificationButton.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default behavior of the anchor tag
-
-        // Remove existing content from the main container
-        const mainContainer2 = document.getElementById('main-container');
-        mainContainer2.innerHTML = '';
-        //document.getElementById('map').innerHTML = '';
-
-        // Create and append the iframe for Mangroves
-        var iframeAcidification = document.createElement('iframe');
-        iframeAcidification.src = "https://acidification.oceandatalab.com/?date=2022-12-29T11:59:59&timespan=1d&extent=5963311.1727652_2472890.7638388_8311456.681359_3587036.8879684&center=7137383.9270621_3029963.8259036&zoom=7&products=3857_OceanCarbNN-drivers-sst_raster&selection=1&opacity=100&stackLevel=50.06";
-        iframeAcidification.style.display = 'block';
-        iframeAcidification.style.width = '175%';
-        iframeAcidification.style.height = 'calc(100vh - 60px)'; // Adjust height to leave space for the navbar
-        mainContainer2.appendChild(iframeAcidification);
-    });
-});
-
-// Add a click event listener to the Accidification button
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the Mangroves button element
-    const AcidificationButton = Array.from(document.querySelectorAll('.nav-button')).find(button => button.textContent.trim() === 'EEz Marine Surveillance');
+    const AcidificationButton = Array.from(document.querySelectorAll('.nav-button')).find(button => button.textContent.trim() === 'EEZ Marine Surveillance');
 
     // Add a click event listener to the Mangroves button
     AcidificationButton.addEventListener('click', function(event) {
@@ -1040,6 +1074,44 @@ document.getElementById('seaWaterIntrusionToggle').addEventListener('click', fun
     // Toggle the visibility of the dropdown menu
     var dropdown = document.getElementById('seaWaterIntrusionDropdown');
     dropdown.style.display = (dropdown.style.display === 'none' || dropdown.style.display === '') ? 'flex' : 'none';
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the Scenario Based Sea Level Rise button element
+    const seaLevelRiseButton = Array.from(document.querySelectorAll('.nav-button')).find(button => button.id === 'scenariosealevelriseanomalies');
+
+    // Add a click event listener to the Scenario Based Sea Level Rise button
+    seaLevelRiseButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default behavior of the anchor tag
+
+        // Remove existing content from the main container
+        const mainContainer = document.getElementById('main-container');
+        mainContainer.innerHTML = '';
+
+        // Create and append the video element for Scenario Based Sea Level Rise
+        var videoElement = document.createElement('video');
+        videoElement.id = 'okVideo';
+        videoElement.autoplay = true;
+        videoElement.loop = true;
+        videoElement.muted = true;
+
+        // Add video source
+        var sourceElement = document.createElement('source');
+        sourceElement.src = 'sea_level_rise_flood_inundation.mp4';
+        sourceElement.type = 'video/mp4';
+
+        // Append source to video element
+        videoElement.appendChild(sourceElement);
+
+        // Apply styling to the video element
+        videoElement.style.width = '100%';  // Adjust the width as needed
+        videoElement.style.height = '100%'; // Adjust the height as needed
+        videoElement.style.objectFit = 'cover'; // Maintain aspect ratio and cover the container
+        videoElement.style.marginTop = '120px'; // Maintain aspect ratio and cover the container
+
+        // Display video element in the main container
+        mainContainer.appendChild(videoElement);
+    });
 });
 //test cases
 /*
