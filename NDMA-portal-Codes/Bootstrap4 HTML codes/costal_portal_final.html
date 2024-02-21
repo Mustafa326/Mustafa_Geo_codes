@@ -22,6 +22,8 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- The OpenStreatMap 3d Buildings-->
+    <script src="https://cdn.osmbuildings.org/classic/0.2.2b/OSMBuildings-Leaflet.js"></script>
     <!-- Linking the Geojson-->
     <script src="plasticwaste_geojson.geojson"></script>
     <script src="1m_rise.geojson"></script>
@@ -44,6 +46,12 @@
 </head>
 
 <body>
+  <div id="top-div">
+    <div id="hello-text">COASTAL HAZARD MONITORING PORTAL</div>
+    <div id="ndma-logo"><a href="index.html">
+            <img src="ndma.png" alt="NDMA Icon"></a>
+    </div>
+</div>
     <!-- partial:index.partial.html -->
     <div id="nav-bar">
         <input id="nav-toggle" type="checkbox" />
@@ -54,7 +62,7 @@
   <div id="nav-content">
     <div class="nav-button about-waste-btn"><i class=""></i><span>About</span></div>
     <hr/>
-    <div class="nav-button landcover-waste-btn" id="landcovermodisgibs"><i class=""></i><span>LandCover</span></div>
+    <div class="nav-button landcover-waste-btn" id="landcovermodisgibs"><i class=""></i><span>Land-Cover</span></div>
     <hr/>
     <div class="nav-button"><i class=""></i><span>Mangroves</span></div>
     <hr/>
@@ -67,13 +75,13 @@
           <div class="sub-buttons" id="seasurfacetemperatureDropdown">
               <!-- Dropdown content goes here -->
               <div class="nav-button" id="SeaSurfaceTemperaturemonthlyday"><i class=""></i><span>S.S.T Monthly Day</span></div>
-              <div class="nav-button" id="SeaSurfaceTemperaturemonthlynight"><i class=""></i><span>S.S.T monthly night</span></div>
+              <div class="nav-button" id="SeaSurfaceTemperaturemonthlynight"><i class=""></i><span>S.S.T Monthly night</span></div>
               <div class="nav-button" id="Seasurfacetemperatureanomalies"><i class=""></i><span>S.S.T Anomalies</span></div>
           </div>
       </div>
   </div>
     <hr/>
-    <div class="nav-button" id="Globalfishing"><i class="moved-down"></i><span>EEz Marine Surveillance</span></div>
+    <div class="nav-button" id="Globalfishing"><i class="moved-down"></i><span>EEZ Marine Surveillance</span></div>
     <hr/>
     <!--<div class="nav-button plastic-waste-btn"><i id="plasticWasteIcon"></i><span>PlasticWaste</span></div>-->
     <div class="nav-button" id="plasticWasteToggle">
@@ -84,10 +92,10 @@
       <div class="sub-buttons-wrapper">
           <div class="sub-buttons" id="plasticWasteDropdown">
               <!-- Dropdown content goes here -->
-              <div class="nav-button" id="plasticwaste"><i class=""></i><span>Plastic Waste Generation</span></div>
-              <div class="nav-button" id="MissmanagedPW"><i class=""></i><span>Missmanaged PW</span></div>
-              <div class="nav-button" id="MissmanagedPWocean"><i class=""></i><span>Missmanaged PW (ocean)</span></div>
-              <div class="nav-button" id="PropabilityOFPlastic(ocean)"><i class=""></i><span>Propability OF Plastic (ocean)</span></div>
+              <div class="nav-button" id="plasticwaste"><i class=""></i><span>Plastic Waste  Generation</span></div>
+              <div class="nav-button" id="MissmanagedPW"><i class=""></i><span>Mismanaged PW</span></div>
+              <div class="nav-button" id="MissmanagedPWocean"><i class=""></i><span>Mismanaged PW (ocean)</span></div>
+              <div class="nav-button" id="PropabilityOFPlastic(ocean)"><i class=""></i><span>Probability of Plastic (ocean)</span></div>
               
           </div>
       </div>
@@ -105,7 +113,7 @@
       <div class="nav-button" id="Reflectance23"><i class="1r23m"></i><span>Reflectance23</span></div>
       <div class="nav-button" id="SalinityIndex15"><i class="1r23m"></i><span>SalinityIndex15</span></div>
       <div class="nav-button" id="SalinityIndex23"><i class="1r23m"></i><span>SalinityIndex23</span></div>
-      <div class="nav-button" id="GIBSGlobalSalinityMonthly"><i class="gibssalinity"></i><span>NASA GIBS Sea surface Salinity Monthly</span></div>
+      <div class="nav-button" id="GIBSGlobalSalinityMonthly"><i class="gibssalinity"></i><span>NASA GIBS Sea Surface Salinity Monthly</span></div>
       <div class="nav-button" id="GIBSGlobalSalinityDaily"><i class="gibssalinitydaily"></i><span>NASA GIBS Sea Surface Salinity Daily</span></div>
   </div>
   <hr/>
@@ -118,6 +126,7 @@
       <!-- Dropdown content goes here -->
       <div class="nav-button" id="globalsealevelcmessrisea"><i class="gslcr"></i><span>CMES Sea Level Rise </span></div>
       <div class="nav-button" id="globalsealevelriseanomaly"><i class="gslra"></i><span>NASA GIBS Sea Level Rise Anomalies</span></div>
+      <div class="nav-button" id="scenariosealevelriseanomalies"><i class="sslra"></i><span>Scenario Based Sea Level Rise</span></div>
       <div class="nav-button" id="onemeter"><i class="1m"></i><span>Sea Level Rise 1m</span></div>
       <div class="nav-button" id="twometer"><i class="1m"></i><span>Sea Level Rise 2m</span></div>
       <div class="nav-button" id="fivemeter"><i class="1m"></i><span>Sea Level Rise 5m</span></div>
