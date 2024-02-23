@@ -6,6 +6,68 @@
     --navbar-light-primary: #eef3f1;
     --navbar-light-secondary: #f5faff;
 }
+#a {
+  text-decoration:none;
+}
+/* Add this CSS to style the custom control */
+.custom-control {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.custom-control:hover {
+    background-color: #f8f8f8;
+}
+#top-div {
+  height: 3.5vw;
+  width: 95%;
+  left:1vw;
+  position: absolute;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+  
+  justify-content: center;
+  /* Add a gradient background */
+  background: linear-gradient(to top, #000222, #002088c4);
+  overflow: hidden;
+  border-radius:.5vw;
+}
+
+#hello-text {
+  font-size: 40px;
+  color: white;
+  font-weight: bold;
+  font-family: Arial;
+  z-index: 3000;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.726);
+  /* Text shadow effect */
+}
+
+#ndma-logo {
+  height: auto;
+  width: auto;
+  position: absolute;
+  z-index: 3000;
+  top: 0;
+  left: 5px;
+  height: 100%;
+}
+
+#ndma-logo img {
+  height: 3.5vw;
+  width: auto;
+  z-index: 3000;
+  /* Maintain aspect ratio */
+}
 #nav-title img {
     height: 30px; /* Set the height of your logo image */
     margin-right: 10px; /* Adjust the margin as needed */
@@ -266,13 +328,13 @@
     font-size: 14px;
     margin-right: 5px; /* Adjust spacing between color square and label */
 }
-.SalinityIndex15rasterraster {
+.SalinityIndex21rasterraster {
     line-height: 18px;
     background-color: #e6dede; /* Optional: Add a background color */
 }
 
 
-.SalinityIndex15rasterraster i {
+.SalinityIndex21rasterraster i {
     width: 18px;
     height: 18px;
     float: left;
@@ -282,18 +344,18 @@
 
 /* Optional: Add hover effect to highlight legend items */
 /* Optional: Customize legend item labels */
-.SalinityIndex15rasterraster span {
+.SalinityIndex21rasterraster span {
     font-size: 14px;
     margin-right: 5px; /* Adjust spacing between color square and label */
 }
 
-.SalinityIndex23rasterraster {
+.SalinityIndex20rasterraster {
     line-height: 18px;
     background-color: #e6dede; /* Optional: Add a background color */
 }
 
 
-.SalinityIndex23rasterraster i {
+.SalinityIndex20rasterraster i {
     width: 18px;
     height: 18px;
     float: left;
@@ -303,7 +365,7 @@
 
 /* Optional: Add hover effect to highlight legend items */
 /* Optional: Customize legend item labels */
-.SalinityIndex23rasterraster span {
+.SalinityIndex20rasterraster span {
     font-size: 14px;
     margin-right: 5px; /* Adjust spacing between color square and label */
 }
@@ -480,7 +542,7 @@ body {
 #nav-bar {
     position: absolute;
     left: 1vw;
-    top: 1vw;
+    top: 4vw;
     height: calc(100% - 2vw);
     background: var(--navbar-dark-primary);
     border-radius: 16px;
