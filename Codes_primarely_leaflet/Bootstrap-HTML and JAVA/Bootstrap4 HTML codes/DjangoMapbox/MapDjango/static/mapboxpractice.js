@@ -121,7 +121,12 @@ function addEONETMarkers() {
       .catch(error => console.error('Error fetching EONET data:', error));
       
   }
-  
+// function to remove markers 
+function removeEONETMarkers() {
+    // Remove all markers with class 'eonet-marker'
+    const eonetMarkers = document.querySelectorAll('.eonet-marker');
+    eonetMarkers.forEach(marker => marker.remove());
+}
   
   
 
@@ -363,8 +368,9 @@ map.on('load', () => {
          id: 'nasa_eonet',
          type: 'symbol',
          source: 'eonet-source',
+         
      });
-    addEONETMarkers();
+    //addEONETMarkers();
     // map.addSource('eonet-source', {
     //     type: 'geojson',
     //     data: 'https://eonet.gsfc.nasa.gov/api/v3/events/geojson'
@@ -501,9 +507,7 @@ function initializeTimeSlider(layer) {
 const eumetsatLayers = ['rgb_fog', 'rgb_dust', 'rgb_snow'];
 const layerData = {};
 const sliders = {};
-
 // creating a map.on for the eonet layers
-
 map.on('idle',async () => {
 //     // Fetch NASA EONET features through API
 // const response = await fetch('https://eonet.gsfc.nasa.gov/api/v3/events/geojson');
@@ -600,6 +604,43 @@ map.on('idle',async () => {
         initializeTimeSlider(layer);
     }
     const toggleableLayerIds = ['countries_layer', 'rgb_fog', 'rgb_dust', 'rgb_snow', 'rdri_agri','fapar_anom', 'fire_hmodis', 'fire_hviirs', 'gtd', 'ggo','nasa_eonet'];
+
+    // Check if the NASA EONET layer is present
+    const hasNasaEonetLayer = toggleableLayerIds.includes('nasa_eonet');
+
+    // If the NASA EONET layer is present, add/remove based on checkbox state
+    if (hasNasaEonetLayer) {
+        const nasaEonetCheckbox = document.getElementById('checkbox_nasa_eonet');
+
+        nasaEonetCheckbox.addEventListener('change', function () {
+            // Check if the checkbox is checked
+            if (this.checked) {
+                // If checked, add the NASA EONET source and layer only if not already added
+                if (!map.getLayer('nasa_eonet') || !map.getSource('eonet-source')) {
+                    map.addSource('eonet-source', {
+                        type: 'geojson',
+                        data: 'https://eonet.gsfc.nasa.gov/api/v3/events/geojson',
+                    });
+
+                    map.addLayer({
+                        id: 'nasa_eonet',
+                        type: 'symbol',
+                        source: 'eonet-source',
+                    });
+
+                    addEONETMarkers();
+                }
+            } else {
+                // If unchecked, remove the NASA EONET layer and source only if they exist
+                if (map.getLayer('nasa_eonet') && map.getSource('eonet-source')) {
+                    map.removeLayer('nasa_eonet');
+                    map.removeSource('eonet-source');
+                    popup.remove(); // Remove the popup if it's open
+                    removeEONETMarkers(); // Remove EONET markers from the map
+                }
+            }
+        });
+    }
 
     // Check if any of the RGB layers are present
     const hasRgbLayers = toggleableLayerIds.some(id => ['rgb_fog', 'rgb_dust', 'rgb_snow'].includes(id));
