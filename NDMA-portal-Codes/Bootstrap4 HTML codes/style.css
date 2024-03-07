@@ -145,7 +145,7 @@
 #plasticWasteDropdown .nav-button#MissmanagedPW,
 #plasticWasteDropdown .nav-button#MissmanagedPWocean,
 #plasticWasteDropdown .nav-button#PropabilityOFPlasticOcean {
-    margin-top: 8px;
+    margin-top: 4px;
     /* Adjust the gap between the sub-buttons */
 }
 
@@ -160,7 +160,7 @@
 
 #seawaterRiseToggle.moved-down,
 #seaWaterIntrusionToggle.moved-down {
-    margin-top: 230px;
+    margin-top: 280px;
     /* Adjust the margin value accordingly */
 }
 
