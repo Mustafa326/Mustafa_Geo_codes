@@ -9,18 +9,21 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-j9)@!+%ow0la8gt!*ohwkyybna2tql10z9yc1zgpxle3&sw51z"
+SECRET_KEY = "django-insecure-w^w07h_=3!-r1q=ez$^u02#hxu!iw8k2*c^fj%aly!14dnyvd5"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.gis',
     "MapDjango"
 ]
 
@@ -75,12 +79,20 @@ WSGI_APPLICATION = "DjangoMapbox.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+   # "default": {
+   #    "ENGINE": "django.db.backends.sqlite3",
+   #     "NAME": BASE_DIR / "db.sqlite3",
+   # }
+    'default': {
+        "ENGINE": 'django.contrib.gis.db.backends.postgis',
+        "NAME": 'Mapdjango',
+        "USER": 'postgres',
+        "PASSWORD": 1459,
+        "HOST": 'localhost',
 
+    },
+}
+GDAL_LIBRARY_PATH = 'D:/anaconda3/envs/Mustafageowork/Library/bin/gdal.dll'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
