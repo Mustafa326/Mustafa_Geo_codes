@@ -111,6 +111,89 @@
     margin-left: 8px;
     /* Adjust the gap between the icon and text */
 }
+
+#MangrovecoverToggle.active+#MangrovecoverDropdown {
+    display: flex;
+}
+
+#MangrovecoverDropdown {
+    display: none;
+    flex-direction: column;
+    /* Adjust the direction to column for sub-buttons */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    gap: 3px;
+    margin-top: 20px;
+    /* Adjust the gap between the main button and sub-buttons */
+}
+
+#MangrovecoverDropdown .nav-button#MangrovecoverWatch,
+#MangrovecoverDropdown .nav-button#Mangrovecoverindus,
+#MangrovecoverDropdown .nav-button#MangrovecoverJiwani,
+#MangrovecoverDropdown .nav-button#MangrovecoverKalmatKhor,
+#MangrovecoverDropdown .nav-button#MangrovecoverKalmatSonmianiKhor {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    color: var(--navbar-light-secondary);
+}
+
+#MangrovecoverDropdown .nav-button#MangrovecoverWatch,
+#MangrovecoverDropdown .nav-button#Mangrovecoverindus,
+#MangrovecoverDropdown .nav-button#MangrovecoverJiwani,
+#MangrovecoverDropdown .nav-button#MangrovecoverKalmatKhor,
+#MangrovecoverDropdown .nav-button#MangrovecoverKalmatSonmianiKhor {
+    margin-top: 4px;
+    /* Adjust the gap between the sub-buttons */
+}
+
+#MangrovecoverDropdown .nav-button span {
+    margin-left: 4px;
+    /* Adjust the gap between the icon and text */
+}
+
+#TsunamiToggle.active+#TsunamiDropdown {
+    display: flex;
+}
+
+#TsunamiDropdown {
+    display: none;
+    flex-direction: column;
+    /* Adjust the direction to column for sub-buttons */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    gap: 5px;
+    margin-top: 40px;
+    /* Adjust the gap between the main button and sub-buttons */
+}
+
+#TsunamiDropdown .nav-button#TsunamiExposurepoppersqkm,
+#TsunamiDropdown .nav-button#TsunamiRunup,
+#TsunamiDropdown .nav-button#Tsunamihazardzonation {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    color: var(--navbar-light-secondary);
+}
+
+#TsunamiDropdown .nav-button#TsunamiExposurepoppersqkm,
+#TsunamiDropdown .nav-button#TsunamiRunup,
+#TsunamiDropdown .nav-button#Tsunamihazardzonation {
+    margin-top: 4px;
+    /* Adjust the gap between the sub-buttons */
+}
+
+#TsunamiDropdown .nav-button span {
+    margin-left: 4px;
+    /* Adjust the gap between the icon and text */
+}
+#seasurfacetemperatureToggle.moved-down,
+#seasurfacetemperatureToggle.moved-down {
+    margin-top: 335px;
+    /* Adjust the margin value accordingly */
+}
 #Globalfishing.moved-down,
 #Globalfishing.moved-down {
     margin-top: 230px;
@@ -645,6 +728,10 @@ label[for=nav-toggle] {
     direction: rtl;
     overflow-x: hidden;
     transition: width 0.2s;
+}
+/* Add this CSS to your existing style.css or in the head of your HTML */
+#nav-footer.moved-down {
+    margin-top: 20px;
 }
 
 #nav-content::-webkit-scrollbar {
