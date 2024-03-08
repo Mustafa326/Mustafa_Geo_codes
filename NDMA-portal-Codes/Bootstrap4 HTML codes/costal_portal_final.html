@@ -69,9 +69,25 @@
     <hr/>
     <div class="nav-button landcover-waste-btn" id="landcovermodisgibs"><i class=""></i><span>Land-Cover</span></div>
     <hr/>
-    <div class="nav-button"><i class=""></i><span>Mangroves</span></div>
+    <div class="nav-button" id="MangrovecoverToggle">
+      <i class=""></i>
+      <span>Mangroves </span>
+      <br>
+      <br>
+      <div class="sub-buttons-wrapper">
+          <div class="sub-buttons" id="MangrovecoverDropdown">
+              <!-- Dropdown content goes here -->
+              <div class="nav-button" id="MangrovecoverWatch"><i class=""></i><span>Mangrove Watch</span></div>
+              <div class="nav-button" id="Mangrovecoverindus"><i class=""></i><span> Indus Delta</span></div>
+              <div class="nav-button" id="MangrovecoverJiwani"><i class=""></i><span>Jiwani</span></div>
+              <div class="nav-button" id="MangrovecoverKalmatKhor"><i class=""></i><span>Kalmat Khor</span></div>
+              <div class="nav-button" id="MangrovecoverKalmatSonmianiKhor"><i class=""></i><span>Sonmiani Khor</span></div>
+              <div class="nav-button" id="MangrovecoverSandspit"><i class=""></i><span>Sandspit</span></div>
+          </div>
+      </div>
+    </div>
     <hr/>
-    <div class="nav-button" id="seasurfacetemperatureToggle">
+    <div class="nav-button" id="seasurfacetemperatureToggle" class="moved-down">
       <i class=""></i>
       <span>Sea Surface Temperature</span>
       <br>
@@ -130,7 +146,6 @@
   </div>
   <div class="sub-buttons" id="seawaterRiseDropdown">
       <!-- Dropdown content goes here -->
-      <div class="nav-button" id="coastalfloodprojection10"><i class="gslcr"></i><span>Coastal Flood Projection 10 year </span></div>
       <div class="nav-button" id="coastalfloodprojection100"><i class="gslcr"></i><span>Coastal Flood Projection 100 year </span></div>
       <div class="nav-button" id="globalsealevelriseanomaly"><i class="gslra"></i><span>NASA GIBS Sea Level Rise Anomalies</span></div>
       <div class="nav-button" id="scenariosealevelriseanomalies"><i class="sslra"></i><span>Scenario Based Sea Level Rise</span></div>
@@ -139,10 +154,27 @@
       <div class="nav-button" id="fivemeter"><i class="1m"></i><span>Sea Level Rise 5m</span></div>
       <div class="nav-button" id="tenmeter"><i class="1m"></i><span>Sea Level Rise 10m</span></div>
   </div>
+<hr/>
+  <div class="nav-button" id="TsunamiToggle" class="moved-down">
+    <i class=""></i>
+    <span>Tsunami</span>
+    <br>
+    <br>
+    <div class="sub-buttons-wrapper">
+        <div class="sub-buttons" id="TsunamiDropdown">
+            <!-- Dropdown content goes here -->
+            <div class="nav-button" id="TsunamiExposurepoppersqkm"><i class=""></i><span>Tsunami Exposure per sqkm</span></div>
+            <div class="nav-button" id="TsunamiFrequency"><i class=""></i><span>Tsunami Frequency</span></div>
+            <div class="nav-button" id="Tsunamihazardprojection"><i class=""></i><span>Tsunami Projection 100 year return</span></div>
+        </div>
+    </div>
+</div>
+<hr/>
+  
     <div id="nav-content-highlight"></div>
   </div>
   <input id="nav-footer-toggle" type="checkbox"/>
-  <div id="nav-footer">
+  <div id="nav-footer" class="moved-down">
     <div id="nav-footer-heading">
       <div id="nav-footer-avatar"><img src="ndmalogo.png"/></div>
       <div id="nav-footer-titlebox"><a id="nav-footer-title"target="_blank">NDMA</a><span id="nav-footer-subtitle">NEOC</span></div>
