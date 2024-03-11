@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Co</title>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.4/css/tether.min.css'>
+     <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Demo CSS -->
+	<link rel="stylesheet" href="newcoastalportalcss.css">
+    <!-- Add this to your index.html -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Leaflet-3d -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-3d/dist/leaflet-3d.css" />
+    <!-- Leaflet 3d scripts -->
+    <script src="https://unpkg.com/leaflet-3d/dist/leaflet-3d.js"></script>
+    <!-- The OpenStreatMap 3d Buildings-->
+    <script src="https://cdn.osmbuildings.org/classic/0.2.2b/OSMBuildings-Leaflet.js"></script>
+    <!-- Linking the Geojson-->
+    <script src="Pakistan_rivers.geojson"></script>
+    <script src="plasticwaste_geojson.geojson"></script>
+    <script src="1m_rise.geojson"></script>
+    <script src="2m_rise.geojson"></script>
+    <script src="5m_rise.geojson"></script>
+    <script src="10m_rise.geojson"></script>
+    <script src="distBound.geojson"></script>
+    <!-- Awesome Markers CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+    <!-- Awesome Markers JavaScript -->
+    <script src="https://unpkg.com/leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+    <script src="https://unpkg.com/georaster-layer-for-leaflet/dist/georaster-layer-for-leaflet.min.js"></script>
+    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+	
+  
+  </head>
+  <body>
+    <div id="top-div">
+        <div id="hello-text">COASTAL HAZARD MONITORING PORTAL</div>
+        <div id="ndma-logo"><a href="index.html">
+                <img src="ndma.png" alt="NDMA Icon"></a>
+        </div>
+    </div>
+<div id="wrapper">
+   <div class="overlay"></div>
+    
+        <!-- Sidebar -->
+    <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
+     <ul class="nav sidebar-nav">
+       <div class="sidebar-header">
+       <div class="sidebar-brand">
+         <a href="#">Coastal Hazard Monitoring Portal</a></div></div>
+       <li><a href="#about">About</a></li>
+       <li><a href="#events">LandCover</a></li>
+       <!--creating drop down for Mangroves--->
+       <li class="dropdown">
+        <a href="#works" class="dropdown-toggle"  data-toggle="dropdown">Mangroves <span class="caret"></span></a>
+      <ul class="dropdown-menu animated fadeInLeft" role="menu">
+       <li><a href="#MangroveWatch">Mangrove Watch</a></li>
+       <li><a href="#IndusDelta">Indus Delta</a></li>
+       <li><a href="#Jiwani">Jiwani</a></li>
+       <li><a href="#KalmatKhor">KalmatKhor</a></li>
+       <li><a href="#SonmianiKhor">SonmianiKhor</a></li>
+       <li><a href="#SandSpit">Sandspit</a></li>
+       </ul>
+       </li>
+       <!--creating drop down for Sea Surface Temperature--->
+       <li class="dropdown">
+       <a href="#works" class="dropdown-toggle"  data-toggle="dropdown">Sea Surface Temperature <span class="caret"></span></a>
+     <ul class="dropdown-menu animated fadeInLeft" role="menu">
+      <li><a href="#pictures">S.S.T Monthly Day</a></li>
+      <li><a href="#videos">S.S.T Monthly Night</a></li>
+      <li><a href="#books">S.S.T Anomalies</a></li>
+      </ul>
+      </li>
+      <li><a href="#EEZ">EEZ Marine Surveillance</a></li>
+      <!--creating drop down for Plastic Waste and Detection--->
+      <li class="dropdown">
+        <a href="#PlasticWaste&Detection" class="dropdown-toggle"  data-toggle="dropdown"> Plastic Waste & Detection <span class="caret"></span></a>
+      <ul class="dropdown-menu animated fadeInLeft" role="menu">
+       <li><a href="#MangroveWatch">Plastic Waste Generation</a></li>
+       <li><a href="#IndusDelta">Missmanaged PW</a></li>
+       <li><a href="#Jiwani">Missmanaged PW (Ocean)</a></li>
+       <li><a href="#KalmatKhor">Plastic Debris Detection</a></li>
+       </ul>
+       </li>
+       <!--creating drop down for Sea Water Intrusion--->
+      <li class="dropdown">
+        <a href="#works" class="dropdown-toggle"  data-toggle="dropdown"> Sea Water Rise <span class="caret"></span></a>
+      <ul class="dropdown-menu animated fadeInLeft" role="menu">
+       <li><a href="#CoastalFloodProjection50year">Coastal Flood Projection 50 year</a></li>
+       <li><a href="#NASAGIBSSeaLevelRiseAnomalies">NASA GIBS Sea Level Rise Anomalies</a></li>
+       <li><a href="#ScenarioBasedSeaLevelRise">Scenario Based Sea Level Rise</a></li>
+       <li><a href="#SeaLevelRise1m">Sea Level Rise 1m</a></li>
+       <li><a href="#SeaLevelRise2m">Sea Level Rise 2m</a></li>
+       <!--<li><a href="#SeaLevelRise5m">Sea Level Rise 5m</a></li>--->
+       <li><a href="#SeaLevelRise10m">Sea Level Rise 10m</a></li>
+       </ul>
+       </li>
+       <!--creating drop down for Sea Water Rise--->
+      <li class="dropdown">
+        <a href="#works" class="dropdown-toggle"  data-toggle="dropdown"> Sea Water Intrusion <span class="caret"></span></a>
+      <ul class="dropdown-menu animated fadeInLeft" role="menu">
+       <li><a href="#Savi15">Savi15</a></li>
+       <li><a href="#Savi23">Savi23</a></li>
+       <li><a href="#Reflectance15">Reflectance15</a></li>
+       <li><a href="#Reflectance23">Reflectance23</a></li>
+       <li><a href="#SalinityIndex2020">Salinity Index 2020</a></li>
+       <li><a href="#SalinityIndex2021">Salinity Index 2021</a></li>
+       <li><a href="#NASAGIBSSeaSurfaceSalinityMonthly">NASA GIBS Sea Surface Salinity Monthly</a></li>
+       <li><a href="#NASAGIBSSeaSurfaceSalinityDaily">NASA GIBS Sea Surface Salinity Daily</a></li>
+       </ul>
+       </li>
+       <!--creating drop down for Tsunami--->
+      <li class="dropdown">
+        <a href="#works" class="dropdown-toggle"  data-toggle="dropdown"> Tsunami <span class="caret"></span></a>
+      <ul class="dropdown-menu animated fadeInLeft" role="menu">
+       <li><a href="#TsunamiExposurepersqkm">Tsunami Exposure per sqkm</a></li>
+       <li><a href="#TsunamiFrequency">Tsunami Frequency</a></li>
+       <li><a href="#TsunamiProjection100yearreturn">Tsunami Projection 100 year return</a></li>       
+       </ul>
+       </li>
+      <li><a href="#followme">Follow me</a></li>
+      </ul>
+  </nav>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+    			<span class="hamb-middle"></span>
+				<span class="hamb-bottom"></span>
+            </button>
+            <div class="container-fluid">
+                <div class="row">
+                  <div class="col-lg-8 col-lg-offset-2">
+                    <!-- the main-container div is to show the iframes-->
+                    <div id="main-container"></div>
+                    <!-- Leaflet Map Container -->
+                    <div id="map"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Add this div at the bottom of your body -->
+            <div class="running-text-box">
+                <h1>What does this portal represent?</h1>
+                <p>Pakistan's coastal hazard monitoring is a comprehensive initiative aimed at assessing and mitigating potential risks along its coastal areas. With a diverse coastline along the Arabian Sea, stretching over 1,000 kilometers, the country faces various hazards such as cyclones, storm surges, and sea-level rise. The monitoring system integrates advanced technologies, satellite imagery, and on-ground observations to track and analyze coastal dynamics.</p>
+            </div>
+            <!-- /#page-content-wrapper -->
+          </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+<!-- partial -->
+    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.4/js/tether.min.js'></script>
+    <script  src="Newcoastalportaljs.js"></script>
+  </body>
+</html>
