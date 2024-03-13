@@ -16,10 +16,15 @@ html { height: 100%;}
     margin-top: 50px; /* Adjust as needed */
     margin-bottom: 50px; /* Adjust as needed */
     margin-left: 150px; /* Adjust as needed */
+    border: 3px solid #000; /* Add a 3px width solid border with a black color */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add a shadow with x-offset, y-offset, blur radius, and color */
   }
 /*-------------------------------*/
 /*           Wrappers            */
 /*-------------------------------*/
+.hidden {
+  display: none;
+}
 #top-div {
     height: 4.2vw;
     width: 95%;
@@ -68,6 +73,343 @@ html { height: 100%;}
 .running-text-box h, .running-text-box p {
     white-space: nowrap;
     animation: scrollText 40s linear infinite;
+}
+.infoplastic {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.infoplastic h4 {
+  margin: 0 0 5px;
+  color: #777;
+}
+
+.infomissmanaged {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.infomissmanaged h4 {
+  margin: 0 0 5px;
+  color: #777;
+}
+
+.infomissmanaged1 {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.infomissmanaged1 h4 {
+  margin: 0 0 5px;
+  color: #777;
+}
+
+.infopropability {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.infopropability h4 {
+  margin: 0 0 5px;
+  color: #777;
+}
+
+.legendplastic {
+  line-height: 18px;
+  color: #555;
+}
+
+.legendplastic i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.legendmissmanaged {
+  line-height: 18px;
+  color: #555;
+}
+
+.legendmissmanaged i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.legendmissmanaged1 {
+  line-height: 18px;
+  color: #555;
+}
+
+.legendmissmanaged1 i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.legendpropability {
+  line-height: 18px;
+  color: #555;
+}
+
+.legendpropability i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.savi15raster {
+  line-height: 18px;
+  background-color: #e6dede; /* Optional: Add a background color */
+}
+
+
+.savi15raster i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.savi15raster span {
+  font-size: 14px;
+  margin-right: 5px; /* Adjust spacing between color square and label */
+}
+.SalinityIndex21rasterraster {
+  line-height: 18px;
+  background-color: #e6dede; /* Optional: Add a background color */
+}
+
+
+.SalinityIndex21rasterraster i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.SalinityIndex21rasterraster span {
+  font-size: 14px;
+  margin-right: 5px; /* Adjust spacing between color square and label */
+}
+
+.SalinityIndex20rasterraster {
+  line-height: 18px;
+  background-color: #e6dede; /* Optional: Add a background color */
+}
+
+
+.SalinityIndex20rasterraster i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.SalinityIndex20rasterraster span {
+  font-size: 14px;
+  margin-right: 5px; /* Adjust spacing between color square and label */
+}
+.savi23raster {
+  line-height: 18px;
+  color: #555;
+  font-family: Arial, sans-serif; /* Adjust font family as needed */
+  background-color: #e6dede; /* Optional: Add a background color */
+  padding: 10px; /* Optional: Add padding for better aesthetics */
+  border: 1px solid #ccc; /* Optional: Add a border for better separation */
+  border-radius: 5px; /* Optional: Add border radius for rounded corners */
+}
+
+
+.savi23raster i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.savi23raster span {
+  font-size: 14px;
+  margin-right: 5px; /* Adjust spacing between color square and label */
+}
+
+.reflectance15raster {
+  line-height: 18px;
+  color: #555;
+  font-family: Arial, sans-serif; /* Adjust font family as needed */
+  background-color: #e6dede; /* Optional: Add a background color */
+  padding: 10px; /* Optional: Add padding for better aesthetics */
+  border: 1px solid #ccc; /* Optional: Add a border for better separation */
+  border-radius: 5px; /* Optional: Add border radius for rounded corners */
+}
+
+
+.reflectance15raster i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.reflectance15raster span {
+  font-size: 14px;
+  margin-right: 5px; /* Adjust spacing between color square and label */
+}
+
+.reflectance23raster {
+  line-height: 18px;
+  color: #555;
+  font-family: Arial, sans-serif; /* Adjust font family as needed */
+  background-color: #e6dede; /* Optional: Add a background color */
+  padding: 10px; /* Optional: Add padding for better aesthetics */
+  border: 1px solid #ccc; /* Optional: Add a border for better separation */
+  border-radius: 5px; /* Optional: Add border radius for rounded corners */
+}
+
+
+.reflectance23raster i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.reflectance23raster span {
+  font-size: 14px;
+  margin-right: 5px; /* Adjust spacing between color square and label */
+}
+.globalsealevelriseanomaly h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.coastalfloodprojection100 h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.TropicalCyclonesMortalityRisk h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.TropicalCyclone50yearPeriodReturn h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.TropicalCyclonePopulationexposureperyear h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.PlasticLitterDensity h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.TsunamiExposurepoppersqkm h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.TsunamiFrequency h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.Tsunamihazardprojection h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.SeaSurfaceTemperaturemonthlyday h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.Seasurfacetemperatureanomalies h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.Mangrovecoverindus h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.SalinityIndex21rasterraster h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.SalinityIndex20rasterraster h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.gibssalinityMonthly h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+/* Add this CSS to style the custom control */
+.custom-control {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.5;
+  font-size: 16px;
+  padding: 5px;
+}
+
+.custom-control:hover {
+  background-color: #f8f8f8;
 }
   #hello-text {
     font-size: 40px;
@@ -335,7 +677,7 @@ a[href*="#followme"]::before {
 
 .hamburger {
   position: fixed;
-  top: 20px;  
+  top: 80px;  
   z-index: 999;
   display: block;
   width: 32px;
@@ -464,6 +806,6 @@ a[href*="#followme"]::before {
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-right: -1000px;
+    margin-right: -960px;
     margin-left: -15px;
 }
