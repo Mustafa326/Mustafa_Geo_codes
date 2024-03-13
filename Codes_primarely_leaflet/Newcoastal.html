@@ -30,6 +30,7 @@
     <!-- Linking the Geojson-->
     <script src="Pakistan_rivers.geojson"></script>
     <script src="plasticwaste_geojson.geojson"></script>
+    <script src="MarineMicroplasticConcentrations_leaflet.geojson"></script>
     <script src="1m_rise.geojson"></script>
     <script src="2m_rise.geojson"></script>
     <script src="5m_rise.geojson"></script>
@@ -61,27 +62,27 @@
        <div class="sidebar-header">
        <div class="sidebar-brand">
          <a href="#">Coastal Hazard Monitoring Portal</a></div></div>
-       <li><a href="#about">About</a></li>
-       <li><a href="#events">LandCover</a></li>
+       <li><a href="#about"id="About">About</a></li>
+       <li><a href="#LandCover"id="LandCover">LandCover</a></li>
        <!--creating drop down for Mangroves--->
        <li class="dropdown">
-        <a href="#works" class="dropdown-toggle"  data-toggle="dropdown">Mangroves <span class="caret"></span></a>
+        <a href="#Mangroves" class="dropdown-toggle"  data-toggle="dropdown">Mangroves <span class="caret"></span></a>
       <ul class="dropdown-menu animated fadeInLeft" role="menu">
-       <li><a href="#MangroveWatch">Mangrove Watch</a></li>
-       <li><a href="#IndusDelta">Indus Delta</a></li>
-       <li><a href="#Jiwani">Jiwani</a></li>
-       <li><a href="#KalmatKhor">KalmatKhor</a></li>
-       <li><a href="#SonmianiKhor">SonmianiKhor</a></li>
-       <li><a href="#SandSpit">Sandspit</a></li>
+       <li><a href="#MW"id="MangroveWatch">Mangrove Watch</a></li>
+       <li><a href="#IndusDelta"id="IndusDelta">Indus Delta</a></li>
+       <li><a href="#Jiwani"id="Jiwani">Jiwani</a></li>
+       <li><a href="#KalmatKhor"id="KalmatKhor">KalmatKhor</a></li>
+       <li><a href="#SonmianiKhor"id="SonmianiKhor">SonmianiKhor</a></li>
+       <li><a href="#SandSpit"id="SandSpit">Sandspit</a></li>
        </ul>
        </li>
        <!--creating drop down for Sea Surface Temperature--->
        <li class="dropdown">
-       <a href="#works" class="dropdown-toggle"  data-toggle="dropdown">Sea Surface Temperature <span class="caret"></span></a>
+       <a href="#SeaSurfaceTemperature" class="dropdown-toggle"  data-toggle="dropdown">Sea Surface Temperature <span class="caret"></span></a>
      <ul class="dropdown-menu animated fadeInLeft" role="menu">
-      <li><a href="#pictures">S.S.T Monthly Day</a></li>
-      <li><a href="#videos">S.S.T Monthly Night</a></li>
-      <li><a href="#books">S.S.T Anomalies</a></li>
+      <li><a href="#SSTDay"id="SSTMonthlyDay">S.S.T Monthly Day</a></li>
+      <li><a href="#SSTNight"id="SSTMonthlyNight">S.S.T Monthly Night</a></li>
+      <li><a href="#SSTAnomalies"id="SSTAnomalies">S.S.T Anomalies</a></li>
       </ul>
       </li>
       <li><a href="#EEZ">EEZ Marine Surveillance</a></li>
@@ -89,46 +90,56 @@
       <li class="dropdown">
         <a href="#PlasticWaste&Detection" class="dropdown-toggle"  data-toggle="dropdown"> Plastic Waste & Detection <span class="caret"></span></a>
       <ul class="dropdown-menu animated fadeInLeft" role="menu">
-       <li><a href="#MangroveWatch">Plastic Waste Generation</a></li>
-       <li><a href="#IndusDelta">Missmanaged PW</a></li>
-       <li><a href="#Jiwani">Missmanaged PW (Ocean)</a></li>
-       <li><a href="#KalmatKhor">Plastic Debris Detection</a></li>
+       <li><a href="#PWG" id="PlasticWasteGeneration">Plastic Waste Generation</a></li>
+       <li><a href="#MPW"id="MissmanagedPW">Missmanaged PW</a></li>
+       <li><a href="#MPWO"id="MissmanagedPWOcean">Missmanaged PW (Ocean)</a></li>
+       <li><a href="#POPO"id="ProbabilityofPlasticocean">Probability of Plastic (ocean)</a></li>
+       <li><a href="#PDD"id="PlasticDebrisDetection">Plastic Debris Detection</a></li>
+       <li><a href="#MMPC"id="MarineMicroPlasticConcentration">Marine Micro Plastic Concentration (2022-2024) </a></li>
+       <li><a href="#PLD"id="PlasticLitterDensity">Plastic Litter Density per net normalized per sq km </a></li>
        </ul>
        </li>
        <!--creating drop down for Sea Water Intrusion--->
       <li class="dropdown">
-        <a href="#works" class="dropdown-toggle"  data-toggle="dropdown"> Sea Water Rise <span class="caret"></span></a>
+        <a href="#SeaWaterRise" class="dropdown-toggle"  data-toggle="dropdown"> Sea Water Rise <span class="caret"></span></a>
       <ul class="dropdown-menu animated fadeInLeft" role="menu">
-       <li><a href="#CoastalFloodProjection50year">Coastal Flood Projection 50 year</a></li>
-       <li><a href="#NASAGIBSSeaLevelRiseAnomalies">NASA GIBS Sea Level Rise Anomalies</a></li>
-       <li><a href="#ScenarioBasedSeaLevelRise">Scenario Based Sea Level Rise</a></li>
-       <li><a href="#SeaLevelRise1m">Sea Level Rise 1m</a></li>
-       <li><a href="#SeaLevelRise2m">Sea Level Rise 2m</a></li>
-       <!--<li><a href="#SeaLevelRise5m">Sea Level Rise 5m</a></li>--->
-       <li><a href="#SeaLevelRise10m">Sea Level Rise 10m</a></li>
+       <li><a href="#CoastalFloodProjection50year"id="CoastalFloodProjection50year">Coastal Flood Projection 50 year</a></li>
+       <li><a href="#NASAGIBSSeaLevelRiseAnomalies"id="NASAGIBSSeaLevelRiseAnomalies">NASA GIBS Sea Level Rise Anomalies</a></li>
+       <li><a href="#ScenarioBasedSeaLevelRise"id="ScenarioBasedSeaLevelRise">Scenario Based Sea Level Rise</a></li>
+       <li><a href="#SeaLevelRise1m"id="SeaLevelRise1m">Sea Level Rise 1m</a></li>
+       <li><a href="#SeaLevelRise2m"id="SeaLevelRise2m">Sea Level Rise 2m</a></li>
+       <li><a href="#SeaLevelRise5m"id="SeaLevelRise5m">Sea Level Rise 5m</a></li>
+       <li><a href="#SeaLevelRise10m"id="SeaLevelRise10m">Sea Level Rise 10m</a></li>
        </ul>
        </li>
        <!--creating drop down for Sea Water Rise--->
       <li class="dropdown">
-        <a href="#works" class="dropdown-toggle"  data-toggle="dropdown"> Sea Water Intrusion <span class="caret"></span></a>
+        <a href="#SeaWaterIntrusion" class="dropdown-toggle"  data-toggle="dropdown"> Sea Water Intrusion <span class="caret"></span></a>
       <ul class="dropdown-menu animated fadeInLeft" role="menu">
-       <li><a href="#Savi15">Savi15</a></li>
-       <li><a href="#Savi23">Savi23</a></li>
-       <li><a href="#Reflectance15">Reflectance15</a></li>
-       <li><a href="#Reflectance23">Reflectance23</a></li>
-       <li><a href="#SalinityIndex2020">Salinity Index 2020</a></li>
-       <li><a href="#SalinityIndex2021">Salinity Index 2021</a></li>
-       <li><a href="#NASAGIBSSeaSurfaceSalinityMonthly">NASA GIBS Sea Surface Salinity Monthly</a></li>
-       <li><a href="#NASAGIBSSeaSurfaceSalinityDaily">NASA GIBS Sea Surface Salinity Daily</a></li>
+       <li><a href="#SalinityIndex2020"id="SalinityIndex2020">Salinity Index 2020</a></li>
+       <li><a href="#SalinityIndex2021"id="SalinityIndex2021">Salinity Index 2021</a></li>
+       <li><a href="#SalinityIndex2021"id="SalineWaterBoundry">Salinity Water Intrusion 2021</a></li>
+       <li><a href="#NASAGIBSSeaSurfaceSalinityMonthly"id="NASAGIBSSeaSurfaceSalinityMonthly">NASA GIBS Sea Surface Salinity Monthly</a></li>
+       <li><a href="#NASAGIBSSeaSurfaceSalinityDaily"id="NASAGIBSSeaSurfaceSalinityDaily">NASA GIBS Sea Surface Salinity Daily</a></li>
        </ul>
        </li>
        <!--creating drop down for Tsunami--->
       <li class="dropdown">
-        <a href="#works" class="dropdown-toggle"  data-toggle="dropdown"> Tsunami <span class="caret"></span></a>
+        <a href="#Tsunami" class="dropdown-toggle"  data-toggle="dropdown"> Tsunami <span class="caret"></span></a>
       <ul class="dropdown-menu animated fadeInLeft" role="menu">
-       <li><a href="#TsunamiExposurepersqkm">Tsunami Exposure per sqkm</a></li>
-       <li><a href="#TsunamiFrequency">Tsunami Frequency</a></li>
-       <li><a href="#TsunamiProjection100yearreturn">Tsunami Projection 100 year return</a></li>       
+       <li><a href="#TsunamiExposurepersqkm"id="TsunamiExposurepersqkm">Tsunami Exposure per sqkm</a></li>
+       <li><a href="#TsunamiFrequency"id="TsunamiFrequency">Tsunami Frequency</a></li>
+       <li><a href="#TsunamiProjection100yearreturn"id="TsunamiProjection100yearreturn">Tsunami Projection 100 year return</a></li>       
+       </ul>
+       </li>
+       <!--creating drop down for Cyclone--->
+      <li class="dropdown">
+        <a href="#Cyclone" class="dropdown-toggle"  data-toggle="dropdown"> Cyclone <span class="caret"></span></a>
+      <ul class="dropdown-menu animated fadeInLeft" role="menu">
+       <li><a href="#TropicalCycloneWind25yearPeriodReturn"id="TropicalCycloneWind25yearPeriodReturn">Tropical Cyclone Wind 25 year Period Return</a></li>
+       <li><a href="#TropicalCyclone50yearPeriodReturn"id="TropicalCyclone50yearPeriodReturn">Tropical Cyclone  50 year Period Return</a></li>
+       <li><a href="#TropicalCyclonePopulationexposureperyear"id="TropicalCyclonePopulationexposureperyear">Tropical Cyclone Population exposure per year</a></li>
+       <li><a href="#TropicalCyclonesMortalityRisk"id="TropicalCyclonesMortalityRisk">Tropical Cyclones Mortality Risk</a></li>         
        </ul>
        </li>
       <li><a href="#followme">Follow me</a></li>
@@ -154,16 +165,17 @@
                 </div>
               </div>
             </div>
-            <!-- Add this div at the bottom of your body -->
-            <div class="running-text-box">
-                <h1>What does this portal represent?</h1>
-                <p>Pakistan's coastal hazard monitoring is a comprehensive initiative aimed at assessing and mitigating potential risks along its coastal areas. With a diverse coastline along the Arabian Sea, stretching over 1,000 kilometers, the country faces various hazards such as cyclones, storm surges, and sea-level rise. The monitoring system integrates advanced technologies, satellite imagery, and on-ground observations to track and analyze coastal dynamics.</p>
-            </div>
+            
             <!-- /#page-content-wrapper -->
           </div>
         <!-- /#page-content-wrapper -->
 
     </div>
+    <!-- Add this div at the bottom of your body -->
+    <div class="running-text-box">
+      <h1>What does this portal represent ?</h1>
+      <p>Pakistan's coastal hazard monitoring is a comprehensive initiative aimed at assessing and mitigating potential risks along its coastal areas. With a diverse coastline along the Arabian Sea, stretching over 1,000 kilometers, the country faces various hazards such as cyclones, storm surges, and sea-level rise. The monitoring system integrates advanced technologies, satellite imagery, and on-ground observations to track and analyze coastal dynamics.</p>
+  </div>
     <!-- /#wrapper -->
 <!-- partial -->
     <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
