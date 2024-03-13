@@ -1,31 +1,35 @@
+// functionality for the navbar
 $(document).ready(function () {
     var trigger = $('.hamburger'),
         overlay = $('.overlay'),
-       isClosed = false;
-  
-      trigger.click(function () {
-        hamburger_cross();      
-      });
-  
-      function hamburger_cross() {
-  
-        if (isClosed == true) {          
-          overlay.hide();
-          trigger.removeClass('is-open');
-          trigger.addClass('is-closed');
-          isClosed = false;
-        } else {   
-          overlay.show();
-          trigger.removeClass('is-closed');
-          trigger.addClass('is-open');
-          isClosed = true;
+        isClosed = false,
+        runningTextBox = $('.running-text-box');
+
+    trigger.click(function () {
+        hamburger_cross();
+    });
+
+    function hamburger_cross() {
+        if (isClosed == true) {
+            overlay.hide();
+            trigger.removeClass('is-open');
+            trigger.addClass('is-closed');
+            isClosed = false;
+            runningTextBox.show(); // Show running text when sidebar is untoggled
+        } else {
+            overlay.show();
+            trigger.removeClass('is-closed');
+            trigger.addClass('is-open');
+            isClosed = true;
+            runningTextBox.hide(); // Hide running text when sidebar is toggled
         }
     }
-    
+
     $('[data-toggle="offcanvas"]').click(function () {
-          $('#wrapper').toggleClass('toggled');
-    });  
-  });
+        $('#wrapper').toggleClass('toggled');
+    });
+});
+
 
   // Replace with your actual map initialization code
   var map = L.map('map').setView([30.3753, 69.3451], 4.5);
@@ -212,20 +216,20 @@ var pakrivers = L.geoJSON(rivers, {
         weight: 1, // Border width
     },
 }).addTo(map); 
-//Geoserver layers through the use of L.tilelayers for the costal portal rasters-------------------------------------------------------------
-var geoserver15 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'savi15', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
-geoserver15.setOpacity(1.0)
-var savi15raster = L.layerGroup([geoserver15])
-var geoserver23 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'savi23', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
-geoserver23.setOpacity(1.0)
-var savi23raster = L.layerGroup([geoserver23])
-var geoserverRef15 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'reflectance15', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
-geoserverRef15.setOpacity(1.0)
-var Reflectance15 = L.layerGroup([geoserverRef15])
+// //Geoserver layers through the use of L.tilelayers for the costal portal rasters-------------------------------------------------------------
+// var geoserver15 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'savi15', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
+// geoserver15.setOpacity(1.0)
+// var savi15raster = L.layerGroup([geoserver15])
+// var geoserver23 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'savi23', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
+// geoserver23.setOpacity(1.0)
+// var savi23raster = L.layerGroup([geoserver23])
+// var geoserverRef15 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'reflectance15', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
+// geoserverRef15.setOpacity(1.0)
+// var Reflectance15 = L.layerGroup([geoserverRef15])
 
-var geoserverRef23 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'reflectance23', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
-geoserverRef23.setOpacity(1.0)
-var Reflectance23 = L.layerGroup([geoserverRef23])
+// var geoserverRef23 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'reflectance23', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
+// geoserverRef23.setOpacity(1.0)
+// var Reflectance23 = L.layerGroup([geoserverRef23])
 
 var geoserverSal21 = L.tileLayer.wms("http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms", { layers: 'Mosaic21-Salinity', format: 'image/png', transparent: true, srs: 'EPSG:3857' }) //.addTo(map)
 geoserverSal21.setOpacity(1.0)
@@ -380,6 +384,133 @@ var geoservertsunamiprojection100 = L.tileLayer.wms('https://www.geonode-gfdrrla
 })//.addTo(map);
 geoservertsunamiprojection100  .setOpacity(1.0)
 
+// creating a microplastic litter layer
+var geoservermicroplasticlitter = L.tileLayer.wms('https://sextant.ifremer.fr/services/wms/emodnet_chemistry2?', {
+    layers: 'mlf_density_nb_km2_other',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857',
+})//.addTo(map);
+geoservermicroplasticlitter .setOpacity(1.0)
+
+// creating a Cyclone combination with mangrove cover layer
+var geoserverCyclonemortalityrisk = L.tileLayer.wms('https://datacore.unepgrid.ch/geoserver/ows?', {
+    layers: 'wesr_risk:cy_risk',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857',
+})//.addTo(map);
+geoservermicroplasticlitter .setOpacity(1.0)
+
+// creating a Tropical Cyclone Wind 25 year Period Return layer
+var geoservermicroplasticlitter = L.tileLayer.wms('https://sextant.ifremer.fr/services/wms/emodnet_chemistry2?', {
+    layers: 'mlf_density_nb_km2_other',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857',
+})//.addTo(map);
+geoservermicroplasticlitter .setOpacity(1.0)
+
+// creating a Tropical Cyclone  50 year Period Return layer
+var geoserverTropicalCyclone50 = L.tileLayer.wms('https://datacore.unepgrid.ch/geoserver/ows?', {
+    layers: 'wesr_risk:cy_hazard_50_yrp',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857',
+})//.addTo(map);
+geoserverTropicalCyclone50 .setOpacity(1.0)
+
+// creating a Tropical Cyclone Population exposure per year layer
+var geoservermicroplasticlitter = L.tileLayer.wms('https://sextant.ifremer.fr/services/wms/emodnet_chemistry2?', {
+    layers: 'mlf_density_nb_km2_other',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857',
+})//.addTo(map);
+geoservermicroplasticlitter .setOpacity(1.0)
+
+// creating a Tropical Cyclone Population exposure per year layer
+var geoserverCyclonePopulationexposure = L.tileLayer.wms('https://datacore.unepgrid.ch/geoserver/ows?', {
+    layers: 'wesr_risk:cy_physexp',
+    format: 'image/png',
+    transparent: true,
+    srs: 'EPSG:3857',
+})//.addTo(map);
+geoservermicroplasticlitter .setOpacity(1.0)
+
+// onemeter layer add
+var onemLayer = L.geoJSON(onem, {
+    style: {
+        fillColor: "#ff4000", // Hollow fill color
+        color: "brown", // Red boundary color
+
+        weight: 1, // Border width
+    },
+});
+// twometer layer add
+var twomLayer = L.geoJSON(twom, {
+    style: {
+        fillColor: "#bf00ff", // Hollow fill color
+        color: "purple", // Red boundary color
+
+        weight: 1, // Border width
+    },
+});
+// fivemeter layer add
+var fivemLayer = L.geoJSON(fivem, {
+    style: {
+        fillColor: "#ff8000", // Hollow fill color
+        color: "orange", // Red boundary color
+
+        weight: 1, // Border width
+    },
+});
+// fivemeter layer add
+var tenmLayer = L.geoJSON(tenm, {
+    style: {
+        fillColor: "#ff0080", // Hollow fill color
+        color: "red", // Red boundary color
+
+        weight: 1, // Border width
+    },
+});
+var LeafIcon = L.Icon.extend({
+    options: {
+        iconSize:     [18, 35],
+    }
+});
+// Create an Icon for layer
+var litterIcon = new LeafIcon({iconUrl: 'marine-debris.svg'})
+// Create the GeoJSON layer with the custom icon
+var microplastic = L.geoJSON(marineplastic, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: litterIcon
+        });
+    },
+    // Other options or styles if needed
+})//.addTo(map); // Assuming 'map' is your Leaflet map object
+
+
+
+//Creating a Vidieo Overlay option for the scenario based sea level rise of karachi 
+var videoUrls = [
+    'sea_level_rise_flood_inundation.mp4'
+];
+var errorOverlayUrl = 'https://cdn-icons-png.flaticon.com/512/110/110686.png';
+var latLngBounds = L.latLngBounds([[24.731864, 66.931458], [24.906367, 67.228088]]);
+
+var videoOverlay = L.videoOverlay(videoUrls, latLngBounds, {
+    opacity: 0.8,
+    errorOverlayUrl: errorOverlayUrl,
+    interactive: true,
+    autoplay: true,
+    muted: true,
+    playsInline: true
+})//.addTo(map);
+
+
+
 // creating the osm building layer
 var osmb = new OSMBuildings(map,{ minZoom: 16,maxZoom: 22,tilt:13,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).load('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json');
 
@@ -490,10 +621,10 @@ var overlayMaps = {
     "District": district,
     "Rivers": pakrivers,
     "OSM3D":osmb,
-    "Savi15": savi15raster,
-    "Savi23": savi23raster,
-    "Reflectance15": Reflectance15,
-    "Reflectance23": Reflectance23,
+    // "Savi15": savi15raster,
+    // "Savi23": savi23raster,
+    // "Reflectance15": Reflectance15,
+    // "Reflectance23": Reflectance23,
     "SalinityIndex21": SalinityIndex21,
     "SalinityIndex21Boundry": SalinityIndex21boundry,
     "SalinityIndex20": SalinityIndex20,
@@ -513,6 +644,12 @@ var overlayMaps = {
     "Tsunami Exposure Model":geoservertsunamiexposure ,
     "Tsunami Frequency ":geoservertsunamifrequency ,
     "Tsunami projection 100 year return ":geoservertsunamiprojection100,
+    "Micro PLastic litter":geoservermicroplasticlitter,
+    "Cyclone With Mangroove":geoserverCyclonemortalityrisk,
+    "Cyclone with 50 year return period":geoserverTropicalCyclone50,
+    "Cyclone Population Exposure":geoserverCyclonePopulationexposure,
+    "Micro Plastic litter Concenteration":microplastic,
+    "Video Overlay Of Sea Level Rise":videoOverlay
 };
 L.control.layers(baseMaps, overlayMaps, { position: 'topright', }).addTo(map);
 // function to highlight features for the plastic waste layer
@@ -752,113 +889,113 @@ legendpropability.onAdd = function(map) {
 
     return div;
 };
-// creating legend for Savi Raster 
-var savi15rasterLegend = L.control({ position: 'bottomright' });
+// // creating legend for Savi Raster 
+// var savi15rasterLegend = L.control({ position: 'bottomright' });
 
-savi15rasterLegend.onAdd = function(map) {
-    var div = L.DomUtil.create('div', 'savi15raster'), // Using legendplastic class for styling
-        colorMapEntries = [
-            { color: "#30123b", label: "-0.4556" },
-            { color: "#4686fb", label: "-0.2414" },
-            { color: "#1be5b5", label: "-0.0271" },
-            { color: "#a4fc3c", label: "0.1872" },
-            { color: "#fbb938", label: "0.4015" },
-            { color: "#e3440a", label: "0.6158" },
-            { color: "#7a0403", label: "0.8301" }
-        ];
+// savi15rasterLegend.onAdd = function(map) {
+//     var div = L.DomUtil.create('div', 'savi15raster'), // Using legendplastic class for styling
+//         colorMapEntries = [
+//             { color: "#30123b", label: "-0.4556" },
+//             { color: "#4686fb", label: "-0.2414" },
+//             { color: "#1be5b5", label: "-0.0271" },
+//             { color: "#a4fc3c", label: "0.1872" },
+//             { color: "#fbb938", label: "0.4015" },
+//             { color: "#e3440a", label: "0.6158" },
+//             { color: "#7a0403", label: "0.8301" }
+//         ];
 
-    // Add label for SAVI raster image legend
-    div.innerHTML += '<h4>SAVI Raster Image 2015</h4>';
+//     // Add label for SAVI raster image legend
+//     div.innerHTML += '<h4>SAVI Raster Image 2015</h4>';
 
-    // Loop through color map entries and generate a label with a colored square for each entry
-    for (var i = 0; i < colorMapEntries.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
-            colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
-    }
+//     // Loop through color map entries and generate a label with a colored square for each entry
+//     for (var i = 0; i < colorMapEntries.length; i++) {
+//         div.innerHTML +=
+//             '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
+//             colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
+//     }
 
-    return div;
-};
-// creating a legend for savi23 raster
-var savi23rasterLegend = L.control({ position: 'bottomright' });
-savi23rasterLegend.onAdd = function(map) {
-    var div = L.DomUtil.create('div', 'savi23raster'), // Using legendplastic class for styling
-    colorMapEntries = [
-        { color: "#30123b", label: "-0.33" },
-        { color: "#4686fb", label: "-0.14" },
-        { color: "#1be5b5", label: "0.05" },
-        { color: "#a4fc3c", label: "0.24" },
-        { color: "#fbb938", label: "0.42" },
-        { color: "#e3440a", label: "0.61" },
-        { color: "#7a0403", label: "0.80" }
-    ];
+//     return div;
+// };
+// // creating a legend for savi23 raster
+// var savi23rasterLegend = L.control({ position: 'bottomright' });
+// savi23rasterLegend.onAdd = function(map) {
+//     var div = L.DomUtil.create('div', 'savi23raster'), // Using legendplastic class for styling
+//     colorMapEntries = [
+//         { color: "#30123b", label: "-0.33" },
+//         { color: "#4686fb", label: "-0.14" },
+//         { color: "#1be5b5", label: "0.05" },
+//         { color: "#a4fc3c", label: "0.24" },
+//         { color: "#fbb938", label: "0.42" },
+//         { color: "#e3440a", label: "0.61" },
+//         { color: "#7a0403", label: "0.80" }
+//     ];
 
-    // Add label for SAVI raster image legend
-    div.innerHTML += '<h4>SAVI Raster Image 2023</h4>';
+//     // Add label for SAVI raster image legend
+//     div.innerHTML += '<h4>SAVI Raster Image 2023</h4>';
 
-    // Loop through color map entries and generate a label with a colored square for each entry
-    for (var i = 0; i < colorMapEntries.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
-            colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
-    }
+//     // Loop through color map entries and generate a label with a colored square for each entry
+//     for (var i = 0; i < colorMapEntries.length; i++) {
+//         div.innerHTML +=
+//             '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
+//             colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
+//     }
 
-    return div;
-};
+//     return div;
+// };
 
 // creating a legend for reflectance15 raster
-var reflectance15rasterLegend = L.control({ position: 'bottomright' });
-reflectance15rasterLegend.onAdd = function(map) {
-    var div = L.DomUtil.create('div', 'reflectance15raster'), // Using legendplastic class for styling
-    colorMapEntries = [
-        { color: "#30123b", label: "1" },
-        { color: "#4686fb", label: "2" },
-        { color: "#1be5b5", label: "3" },
-        { color: "#a4fc3c", label: "4" },
-        { color: "#fbb938", label: "4" },
-        { color: "#e3440a", label: "5" },
-        { color: "#7a0403", label: "6" }
-    ];
+// var reflectance15rasterLegend = L.control({ position: 'bottomright' });
+// reflectance15rasterLegend.onAdd = function(map) {
+//     var div = L.DomUtil.create('div', 'reflectance15raster'), // Using legendplastic class for styling
+//     colorMapEntries = [
+//         { color: "#30123b", label: "1" },
+//         { color: "#4686fb", label: "2" },
+//         { color: "#1be5b5", label: "3" },
+//         { color: "#a4fc3c", label: "4" },
+//         { color: "#fbb938", label: "4" },
+//         { color: "#e3440a", label: "5" },
+//         { color: "#7a0403", label: "6" }
+//     ];
 
-    // Add label for SAVI raster image legend
-    div.innerHTML += '<h4>Reflectance Raster 2015</h4>';
+//     // Add label for SAVI raster image legend
+//     div.innerHTML += '<h4>Reflectance Raster 2015</h4>';
 
-    // Loop through color map entries and generate a label with a colored square for each entry
-    for (var i = 0; i < colorMapEntries.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
-            colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
-    }
+//     // Loop through color map entries and generate a label with a colored square for each entry
+//     for (var i = 0; i < colorMapEntries.length; i++) {
+//         div.innerHTML +=
+//             '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
+//             colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
+//     }
 
-    return div;
-};
+//     return div;
+// };
 
-// creating a legend for reflectance23 raster
-var reflectance23rasterLegend = L.control({ position: 'bottomright' });
-reflectance23rasterLegend.onAdd = function(map) {
-    var div = L.DomUtil.create('div', 'reflectance23raster'), // Using legendplastic class for styling
-    colorMapEntries = [
-        { color: "#30123b", label: "1" },
-        { color: "#4686fb", label: "2" },
-        { color: "#1be5b5", label: "3" },
-        { color: "#a4fc3c", label: "4" },
-        { color: "#fbb938", label: "4" },
-        { color: "#e3440a", label: "5" },
-        { color: "#7a0403", label: "6" }
-    ];
+// // creating a legend for reflectance23 raster
+// var reflectance23rasterLegend = L.control({ position: 'bottomright' });
+// reflectance23rasterLegend.onAdd = function(map) {
+//     var div = L.DomUtil.create('div', 'reflectance23raster'), // Using legendplastic class for styling
+//     colorMapEntries = [
+//         { color: "#30123b", label: "1" },
+//         { color: "#4686fb", label: "2" },
+//         { color: "#1be5b5", label: "3" },
+//         { color: "#a4fc3c", label: "4" },
+//         { color: "#fbb938", label: "4" },
+//         { color: "#e3440a", label: "5" },
+//         { color: "#7a0403", label: "6" }
+//     ];
 
-    // Add label for SAVI raster image legend
-    div.innerHTML += '<h4>Reflectance Raster 2023</h4>';
+//     // Add label for SAVI raster image legend
+//     div.innerHTML += '<h4>Reflectance Raster 2023</h4>';
 
-    // Loop through color map entries and generate a label with a colored square for each entry
-    for (var i = 0; i < colorMapEntries.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
-            colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
-    }
+//     // Loop through color map entries and generate a label with a colored square for each entry
+//     for (var i = 0; i < colorMapEntries.length; i++) {
+//         div.innerHTML +=
+//             '<i style="background:' + colorMapEntries[i].color + '"></i> ' +
+//             colorMapEntries[i].label + (colorMapEntries[i + 1] ? '&ndash;' + colorMapEntries[i + 1].label + '<br>' : '+');
+//     }
 
-    return div;
-};
+//     return div;
+// };
 
 var SalinityIndex21rasterLegend = L.control({ position: 'bottomright' });
 SalinityIndex21rasterLegend.onAdd = function(map) {
@@ -973,6 +1110,71 @@ sealevelrisecmessLegend.onAdd = function(map) {
     // Include any legend details specific to GIBS Salinity Monthly layer
     // You may use image tag for PNG or other suitable method
     div.innerHTML += '<img src="https://www.geonode-gfdrrlab.org/geoserver/ows?service=WMS&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=hazard%3Ass_muis_rp0100m&style=MUIS_SS" alt="Legend for GIBS Salinity Monthly">';
+
+    return div;
+};
+
+
+var cyclonemortalityriskLegend = L.control({ position: 'topright' });
+
+cyclonemortalityriskLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'TropicalCyclonesMortalityRisk'), // Using a class for styling
+        legendText = 'Tropical Cyclones Mortality Risk Legend';
+
+    // Add label for GIBS Salinity Monthly layer legend
+    div.innerHTML += '<h4>' + legendText + '</h4>';
+
+    // Include any legend details specific to GIBS Salinity Monthly layer
+    // You may use image tag for PNG or other suitable method
+    div.innerHTML += '<img src="https://datacore.unepgrid.ch/geoserver/ows?service=WMS&version=1.3.0&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=wesr_risk%3Acy_risk" alt="Legend for GIBS Salinity Monthly">';
+
+    return div;
+};
+
+var cyclone50yearrepreatLegend = L.control({ position: 'topright' });
+
+cyclone50yearrepreatLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'TropicalCyclone50yearPeriodReturn'), // Using a class for styling
+        legendText = 'Tropical Cyclone 50 year Period Return';
+
+    // Add label for GIBS Salinity Monthly layer legend
+    div.innerHTML += '<h4>' + legendText + '</h4>';
+
+    // Include any legend details specific to GIBS Salinity Monthly layer
+    // You may use image tag for PNG or other suitable method
+    div.innerHTML += '<img src="https://datacore.unepgrid.ch/geoserver/ows?service=WMS&version=1.3.0&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=wesr_risk%3Acy_hazard_50_yrp" alt="Legend for GIBS Salinity Monthly">';
+
+    return div;
+};
+
+var CyclonesPopulationExposureLegend = L.control({ position: 'topright' });
+
+CyclonesPopulationExposureLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'TropicalCyclonePopulationexposureperyear'), // Using a class for styling
+        legendText = 'Tropical Cyclone Population Exposureper Year';
+
+    // Add label for GIBS Salinity Monthly layer legend
+    div.innerHTML += '<h4>' + legendText + '</h4>';
+
+    // Include any legend details specific to GIBS Salinity Monthly layer
+    // You may use image tag for PNG or other suitable method
+    div.innerHTML += '<img src="https://datacore.unepgrid.ch/geoserver/ows?service=WMS&version=1.3.0&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=wesr_risk%3Acy_physexp" alt="Legend for GIBS Salinity Monthly">';
+
+    return div;
+};
+
+var PlasticwastedensityLegend = L.control({ position: 'topright' });
+
+PlasticwastedensityLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'PlasticLitterDensity'), // Using a class for styling
+        legendText = 'Plastic Waste Litter Density Legend';
+
+    // Add label for GIBS Salinity Monthly layer legend
+    div.innerHTML += '<h4>' + legendText + '</h4>';
+
+    // Include any legend details specific to GIBS Salinity Monthly layer
+    // You may use image tag for PNG or other suitable method
+    div.innerHTML += '<img src="microlitter.png" alt="Legend for GIBS Salinity Monthly">';
 
     return div;
 };
@@ -1156,41 +1358,129 @@ map.on('overlayremove', function (eventLayer) {
 //----------------------------------------toggel other nav buttons----------------------------------------//
 // Add a click event listener to the EEZ Marine Surveillance 
 document.addEventListener('DOMContentLoaded', function () {
-    // Function to find the list item containing specific text
-    function findListItemByText(text) {
-        const listItems = document.querySelectorAll('.nav.sidebar-nav > li');
-        for (let i = 0; i < listItems.length; i++) {
-            if (listItems[i].textContent.trim() === text) {
-                return listItems[i];
-            }
-        }
-        return null; // Return null if not found
-    }
+    // Get the map container
+    var mapContainer = document.getElementById('map');
 
-    // Get the EEZ Marine Surveillance list item element
-    const EezMarineSurveillanceListItem = findListItemByText('EEZ Marine Surveillance');
+    // Get the main container
+    var mainContainer = document.getElementById('main-container');
 
-    // Add a click event listener to the EEZ Marine Surveillance list item
-    if (EezMarineSurveillanceListItem) {
-        EezMarineSurveillanceListItem.addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent the default behavior of the anchor tag
+    // Get the EEZ Marine Surveillance list item
+    var eezListItem = document.querySelector('li a[href="#EEZ"]');
 
-            // Remove existing content from the main container
-            const mainContainer = document.getElementById('main-container');
-            mainContainer.innerHTML = '';
-            // Create and append the iframe for EEZ Marine Surveillance
-            var iframeEezMarineSurveillance = document.createElement('iframe');
-            // Set the source URL for the iframe
-            iframeEezMarineSurveillance.src = "https://globalfishingwatch.org/map/index?latitude=22.067957416742075&longitude=63.65159782519663&zoom=5.602048799804306&start=2023-11-09T00%3A00%3A00.000Z&end=2024-02-09T00%3A00%3A00.000Z&dvIn[0][id]=rfmo-1707988537257&dvIn[0][dvId]=tuna-rfmo-areas&dvIn[0][cfg][clr]=%238E24A9&dvIn[1][id]=~0&dvIn[1][cfg][vis]=false&dvIn[2][id]=oxygen-1707988387199&dvIn[2][dvId]=~1&dvIn[2][cfg][clr]=%2300EEFF&dvIn[2][cfg][colorRamp]=sky&dvIn[2][cfg][breaks][0]=198.942&dvIn[2][cfg][breaks][1]=200.582&dvIn[2][cfg][breaks][2]=201.764&dvIn[2][cfg][breaks][3]=203.313&dvIn[2][cfg][breaks][4]=204.673&dvIn[2][cfg][breaks][5]=205.797&dvIn[2][cfg][breaks][6]=206.639&dvIn[2][cfg][breaks][7]=207.473&dvIn[2][cfg][breaks][8]=209.044&dvIn[2][cfg][breaks][9]=209.054&dvIn[2][cfg][vis]=true&dvIn[2][dsC][0][pms][0][id]=type&dvIn[2][dsC][0][pms][0][val]=~2&dvIn[2][dsC][0][ept]=~3&dvIn[2][dsC][0][dsId]=public-global-oxygen%3Av20231213&dvIn[3][id]=ph-1707988372551&dvIn[3][dvId]=~1&dvIn[3][cfg][clr]=%239CA4FF&dvIn[3][cfg][colorRamp]=lilac&dvIn[3][cfg][intervals][0]=MONTH&dvIn[3][cfg][vis]=true&dvIn[3][cfg][breaks][0]=7.94&dvIn[3][cfg][breaks][1]=7.963&dvIn[3][cfg][breaks][2]=7.98&dvIn[3][cfg][breaks][3]=7.99&dvIn[3][cfg][breaks][4]=8&dvIn[3][cfg][breaks][5]=8.01&dvIn[3][cfg][breaks][6]=8.023&dvIn[3][cfg][breaks][7]=8.037&dvIn[3][cfg][breaks][8]=8.05&dvIn[3][cfg][breaks][9]=8.06&dvIn[3][dsC][0][pms][0][id]=type&dvIn[3][dsC][0][pms][0][val]=~2&dvIn[3][dsC][0][ept]=~3&dvIn[3][dsC][0][dsId]=public-global-ph%3Av20231213&dvIn[4][id]=phosphate-1707987943337&dvIn[4][dvId]=~1&dvIn[4][cfg][clr]=%23FFAA0D&dvIn[4][cfg][colorRamp]=orange&dvIn[4][cfg][vis]=true&dvIn[4][cfg][breaks][0]=0.171&dvIn[4][cfg][breaks][1]=0.22&dvIn[4][cfg][breaks][2]=0.258&dvIn[4][cfg][breaks][3]=0.297&dvIn[4][cfg][breaks][4]=0.327&dvIn[4][cfg][breaks][5]=0.351&dvIn[4][cfg][breaks][6]=0.375&dvIn[4][cfg][breaks][7]=0.402&dvIn[4][cfg][breaks][8]=0.435&dvIn[4][cfg][breaks][9]=0.445&dvIn[4][dsC][0][pms][0][id]=type&dvIn[4][dsC][0][pms][0][val]=~2&dvIn[4][dsC][0][ept]=~3&dvIn[4][dsC][0][dsId]=public-global-phosphate%3Av20231213&dvIn[5][id]=mangroves-1707987936195&dvIn[5][dvId]=gfw-environmental-layer&dvIn[5][cfg][clr]=%23A6FF59&dvIn[5][cfg][vis]=true&dvIn[5][dsC][0][ept]=context-tiles&dvIn[5][dsC][0][dsId]=public-mangroves&dvIn[6][id]=nitrate-1707987931553&dvIn[6][dvId]=~1&dvIn[6][cfg][clr]=%23FF6854&dvIn[6][cfg][colorRamp]=red&dvIn[6][cfg][vis]=true&dvIn[6][cfg][breaks][0]=0.01&dvIn[6][cfg][breaks][1]=0.051&dvIn[6][cfg][breaks][2]=0.108&dvIn[6][cfg][breaks][3]=0.167&dvIn[6][cfg][breaks][4]=0.223&dvIn[6][cfg][breaks][5]=0.283&dvIn[6][cfg][breaks][6]=0.365&dvIn[6][cfg][breaks][7]=0.458&dvIn[6][cfg][breaks][8]=0.543&dvIn[6][cfg][breaks][9]=0.553&dvIn[6][dsC][0][pms][0][id]=type&dvIn[6][dsC][0][pms][0][val]=~2&dvIn[6][dsC][0][ept]=~3&dvIn[6][dsC][0][dsId]=public-global-nitrate%3Av20231213&dvIn[7][id]=vessel-ba069b7b9-9148-2ea6-49c9-2b46893ef3a3&dvIn[7][dvId]=fishing-map-vessel-track&dvIn[7][cfg][track]=public-global-all-tracks%3Av20231026&dvIn[7][cfg][info]=public-global-vessel-identity%3Av20231026&dvIn[7][cfg][events][0]=public-global-fishing-events%3Av20231026&dvIn[7][cfg][events][1]=public-global-port-visits-c2-events%3Av20231026&dvIn[7][cfg][events][2]=public-global-encounters-events%3Av20231026&dvIn[7][cfg][events][3]=public-global-loitering-events%3Av20231026&dvIn[7][cfg][events][4]=public-global-gaps-events%3Av20231026&dvIn[7][cfg][clr]=%23F95E5E&dvIn[8][id]=~4&dvIn[8][cfg][vis]=true&dvIn[9][id]=~5&dvIn[9][cfg][vis]=false&dvIn[9][cfg][clr]=%23AD1457&dvIn[9][cfg][colorRamp]=jazzberry-jam&dvIn[10][id]=sar&dvIn[10][cfg][vis]=false&dvIn[11][id]=viirs&dvIn[11][cfg][vis]=false&dvIn[12][id]=~6&dvIn[12][cfg][vis]=true&dvIn[12][cfg][filters][flag][0]=PAK&dvIn[12][cfg][filters][vessel_type][0]=fishing&dvIn[13][id]=~7&dvIn[13][cfg][vis]=true&dvIn[14][id]=~8&dvIn[14][cfg][vis]=true&dvIn[15][id]=~9&dvIn[15][cfg][vis]=false&dvIn[16][id]=~10&dvIn[16][cfg][vis]=true&dvIn[16][cfg][breaks][0]=1&dvIn[16][cfg][breaks][1]=526.02&dvIn[16][cfg][breaks][2]=1308.85&dvIn[16][cfg][breaks][3]=1859.58&dvIn[16][cfg][breaks][4]=2382.49&dvIn[16][cfg][breaks][5]=2864.74&dvIn[16][cfg][breaks][6]=3211.38&dvIn[16][cfg][breaks][7]=3453.01&dvIn[16][cfg][breaks][8]=3691.81&dvIn[16][cfg][breaks][9]=3691.82&dvIn[17][id]=vms&dvIn[17][deleted]=true&timebarVisualisation=vessel&dvInOr[0]=basemap&dvInOr[1]=~8&dvInOr[2]=vms&dvInOr[3]=~6&dvInOr[4]=viirs&dvInOr[5]=sar&dvInOr[6]=~9&dvInOr[7]=~0&dvInOr[8]=~10&dvInOr[9]=~5&dvInOr[10]=~7&dvInOr[11]=context-layer-mpa&dvInOr[12]=context-layer-protectedseas&dvInOr[13]=context-layer-rfmo&dvInOr[14]=context-layer-high-seas&dvInOr[15]=fixed-sar-infrastructure&dvInOr[16]=~4&sO=advanced&lTD=&fTD=&timebarSelectedEnvId=~10&tk[0]=context-layer-graticules&tk[1]=heatmap-environmental-layer&tk[2]=heatmap&tk[3]=4wings-tiles&tk[4]=basemap-labels&tk[5]=context-layer-fao-areas&tk[6]=presence&tk[7]=context-layer-eez&tk[8]=fishing-ais&tk[9]=encounter-events&tk[10]=bathymetry-workspace";
-            iframeEezMarineSurveillance.style.display = 'block';
-            iframeEezMarineSurveillance.style.width = '100%'; // Adjust width as needed
-            iframeEezMarineSurveillance.style.height = 'calc(100vh - 60px)'; // Adjust height to leave space for the navbar
-            mainContainer.appendChild(iframeEezMarineSurveillance);
-        });
-    }
+    // Add click event listener to the EEZ Marine Surveillance list item
+    eezListItem.addEventListener('click', function () {
+        // Hide the map container
+        var iframeEezMarineSurveillance = document.createElement('iframe');
+        // Set the source URL for the iframe
+        iframeEezMarineSurveillance.src = "https://globalfishingwatch.org/map/index?latitude=22.067957416742075&longitude=63.65159782519663&zoom=5.602048799804306&start=2023-11-09T00%3A00%3A00.000Z&end=2024-02-09T00%3A00%3A00.000Z&dvIn[0][id]=rfmo-1707988537257&dvIn[0][dvId]=tuna-rfmo-areas&dvIn[0][cfg][clr]=%238E24A9&dvIn[1][id]=~0&dvIn[1][cfg][vis]=false&dvIn[2][id]=oxygen-1707988387199&dvIn[2][dvId]=~1&dvIn[2][cfg][clr]=%2300EEFF&dvIn[2][cfg][colorRamp]=sky&dvIn[2][cfg][breaks][0]=198.942&dvIn[2][cfg][breaks][1]=200.582&dvIn[2][cfg][breaks][2]=201.764&dvIn[2][cfg][breaks][3]=203.313&dvIn[2][cfg][breaks][4]=204.673&dvIn[2][cfg][breaks][5]=205.797&dvIn[2][cfg][breaks][6]=206.639&dvIn[2][cfg][breaks][7]=207.473&dvIn[2][cfg][breaks][8]=209.044&dvIn[2][cfg][breaks][9]=209.054&dvIn[2][cfg][vis]=true&dvIn[2][dsC][0][pms][0][id]=type&dvIn[2][dsC][0][pms][0][val]=~2&dvIn[2][dsC][0][ept]=~3&dvIn[2][dsC][0][dsId]=public-global-oxygen%3Av20231213&dvIn[3][id]=ph-1707988372551&dvIn[3][dvId]=~1&dvIn[3][cfg][clr]=%239CA4FF&dvIn[3][cfg][colorRamp]=lilac&dvIn[3][cfg][intervals][0]=MONTH&dvIn[3][cfg][vis]=true&dvIn[3][cfg][breaks][0]=7.94&dvIn[3][cfg][breaks][1]=7.963&dvIn[3][cfg][breaks][2]=7.98&dvIn[3][cfg][breaks][3]=7.99&dvIn[3][cfg][breaks][4]=8&dvIn[3][cfg][breaks][5]=8.01&dvIn[3][cfg][breaks][6]=8.023&dvIn[3][cfg][breaks][7]=8.037&dvIn[3][cfg][breaks][8]=8.05&dvIn[3][cfg][breaks][9]=8.06&dvIn[3][dsC][0][pms][0][id]=type&dvIn[3][dsC][0][pms][0][val]=~2&dvIn[3][dsC][0][ept]=~3&dvIn[3][dsC][0][dsId]=public-global-ph%3Av20231213&dvIn[4][id]=phosphate-1707987943337&dvIn[4][dvId]=~1&dvIn[4][cfg][clr]=%23FFAA0D&dvIn[4][cfg][colorRamp]=orange&dvIn[4][cfg][vis]=true&dvIn[4][cfg][breaks][0]=0.171&dvIn[4][cfg][breaks][1]=0.22&dvIn[4][cfg][breaks][2]=0.258&dvIn[4][cfg][breaks][3]=0.297&dvIn[4][cfg][breaks][4]=0.327&dvIn[4][cfg][breaks][5]=0.351&dvIn[4][cfg][breaks][6]=0.375&dvIn[4][cfg][breaks][7]=0.402&dvIn[4][cfg][breaks][8]=0.435&dvIn[4][cfg][breaks][9]=0.445&dvIn[4][dsC][0][pms][0][id]=type&dvIn[4][dsC][0][pms][0][val]=~2&dvIn[4][dsC][0][ept]=~3&dvIn[4][dsC][0][dsId]=public-global-phosphate%3Av20231213&dvIn[5][id]=mangroves-1707987936195&dvIn[5][dvId]=gfw-environmental-layer&dvIn[5][cfg][clr]=%23A6FF59&dvIn[5][cfg][vis]=true&dvIn[5][dsC][0][ept]=context-tiles&dvIn[5][dsC][0][dsId]=public-mangroves&dvIn[6][id]=nitrate-1707987931553&dvIn[6][dvId]=~1&dvIn[6][cfg][clr]=%23FF6854&dvIn[6][cfg][colorRamp]=red&dvIn[6][cfg][vis]=true&dvIn[6][cfg][breaks][0]=0.01&dvIn[6][cfg][breaks][1]=0.051&dvIn[6][cfg][breaks][2]=0.108&dvIn[6][cfg][breaks][3]=0.167&dvIn[6][cfg][breaks][4]=0.223&dvIn[6][cfg][breaks][5]=0.283&dvIn[6][cfg][breaks][6]=0.365&dvIn[6][cfg][breaks][7]=0.458&dvIn[6][cfg][breaks][8]=0.543&dvIn[6][cfg][breaks][9]=0.553&dvIn[6][dsC][0][pms][0][id]=type&dvIn[6][dsC][0][pms][0][val]=~2&dvIn[6][dsC][0][ept]=~3&dvIn[6][dsC][0][dsId]=public-global-nitrate%3Av20231213&dvIn[7][id]=vessel-ba069b7b9-9148-2ea6-49c9-2b46893ef3a3&dvIn[7][dvId]=fishing-map-vessel-track&dvIn[7][cfg][track]=public-global-all-tracks%3Av20231026&dvIn[7][cfg][info]=public-global-vessel-identity%3Av20231026&dvIn[7][cfg][events][0]=public-global-fishing-events%3Av20231026&dvIn[7][cfg][events][1]=public-global-port-visits-c2-events%3Av20231026&dvIn[7][cfg][events][2]=public-global-encounters-events%3Av20231026&dvIn[7][cfg][events][3]=public-global-loitering-events%3Av20231026&dvIn[7][cfg][events][4]=public-global-gaps-events%3Av20231026&dvIn[7][cfg][clr]=%23F95E5E&dvIn[8][id]=~4&dvIn[8][cfg][vis]=true&dvIn[9][id]=~5&dvIn[9][cfg][vis]=false&dvIn[9][cfg][clr]=%23AD1457&dvIn[9][cfg][colorRamp]=jazzberry-jam&dvIn[10][id]=sar&dvIn[10][cfg][vis]=false&dvIn[11][id]=viirs&dvIn[11][cfg][vis]=false&dvIn[12][id]=~6&dvIn[12][cfg][vis]=true&dvIn[12][cfg][filters][flag][0]=PAK&dvIn[12][cfg][filters][vessel_type][0]=fishing&dvIn[13][id]=~7&dvIn[13][cfg][vis]=true&dvIn[14][id]=~8&dvIn[14][cfg][vis]=true&dvIn[15][id]=~9&dvIn[15][cfg][vis]=false&dvIn[16][id]=~10&dvIn[16][cfg][vis]=true&dvIn[16][cfg][breaks][0]=1&dvIn[16][cfg][breaks][1]=526.02&dvIn[16][cfg][breaks][2]=1308.85&dvIn[16][cfg][breaks][3]=1859.58&dvIn[16][cfg][breaks][4]=2382.49&dvIn[16][cfg][breaks][5]=2864.74&dvIn[16][cfg][breaks][6]=3211.38&dvIn[16][cfg][breaks][7]=3453.01&dvIn[16][cfg][breaks][8]=3691.81&dvIn[16][cfg][breaks][9]=3691.82&dvIn[17][id]=vms&dvIn[17][deleted]=true&timebarVisualisation=vessel&dvInOr[0]=basemap&dvInOr[1]=~8&dvInOr[2]=vms&dvInOr[3]=~6&dvInOr[4]=viirs&dvInOr[5]=sar&dvInOr[6]=~9&dvInOr[7]=~0&dvInOr[8]=~10&dvInOr[9]=~5&dvInOr[10]=~7&dvInOr[11]=context-layer-mpa&dvInOr[12]=context-layer-protectedseas&dvInOr[13]=context-layer-rfmo&dvInOr[14]=context-layer-high-seas&dvInOr[15]=fixed-sar-infrastructure&dvInOr[16]=~4&sO=advanced&lTD=&fTD=&timebarSelectedEnvId=~10&tk[0]=context-layer-graticules&tk[1]=heatmap-environmental-layer&tk[2]=heatmap&tk[3]=4wings-tiles&tk[4]=basemap-labels&tk[5]=context-layer-fao-areas&tk[6]=presence&tk[7]=context-layer-eez&tk[8]=fishing-ais&tk[9]=encounter-events&tk[10]=bathymetry-workspace";
+        iframeEezMarineSurveillance.style.display = 'block';
+        iframeEezMarineSurveillance.style.width = '100%'; // Adjust width as needed
+        iframeEezMarineSurveillance.style.height = 'calc(100vh - 60px)'; // Adjust height to leave space for the navbar
+        mainContainer.appendChild(iframeEezMarineSurveillance);
+
+    });
 });
 
+// Add a click event listener to the Mangrove Watch 
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the map container
+    var mapContainer = document.getElementById('map');
+
+    // Get the main container
+    var mainContainer = document.getElementById('main-container');
+
+    // Get the EEZ Marine Surveillance list item
+    var Mangrovewatch = document.querySelector('li a[href="#MW"]');
+
+    // Add click event listener to the EEZ Marine Surveillance list item
+    Mangrovewatch.addEventListener('click', function () {
+        event.preventDefault();
+        event.stopPropagation();
+        // Hide the map container
+        var iframeMangroveWatch = document.createElement('iframe');
+        // Set the source URL for the iframe
+        iframeMangroveWatch.src = "https://www.globalmangrovewatch.org/country/PAK?bounds=[[55.458311544522985,22.010396573549514],[70.73443829913438,28.55903485079685]]&active=[%22mangrove_net_change%22,%22mangrove_habitat_extent%22]";
+        iframeMangroveWatch.style.display = 'block';
+        iframeMangroveWatch.style.width = '100%'; // Adjust width as needed
+        iframeMangroveWatch.style.height = 'calc(100vh - 60px)'; // Adjust height to leave space for the navbar
+        mainContainer.appendChild(iframeMangroveWatch);
+
+    });
+});
+//Add a click event listener to the Plastic Waste Detection button
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the main container
+    var mainContainer = document.getElementById('main-container');
+
+    // Get the Plastic Waste & Detection dropdown link
+    var plasticWasteDropdown = document.querySelector('a[href="#PlasticWaste&Detection"]');
+
+    // Add click event listener to the Plastic Waste & Detection dropdown link
+    plasticWasteDropdown.addEventListener('click', function () {
+        // Remove the main container from the page
+        mainContainer.innerHTML = '';
+    });
+});
+
+//Add a click event listener to the Sea Water Rise button
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the main container
+    var mainContainer = document.getElementById('main-container');
+
+    // Get the Sea Water Rise dropdown link
+    var plasticWasteDropdown = document.querySelector('a[href="#SeaWaterRise"]');
+
+    // Add click event listener to the Sea Water Rise dropdown link
+    plasticWasteDropdown.addEventListener('click', function () {
+        // Remove the main container from the page
+        mainContainer.innerHTML = '';
+    });
+});
+//Add a click event listener to the Sea Water Intrusion button
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the main container
+    var mainContainer = document.getElementById('main-container');
+
+    // Get the Sea Water Intrusion dropdown link
+    var plasticWasteDropdown = document.querySelector('a[href="#SeaWaterIntrusion"]');
+
+    // Add click event listener to the Sea Water Intrusion dropdown link
+    plasticWasteDropdown.addEventListener('click', function () {
+        // Remove the main container from the page
+        mainContainer.innerHTML = '';
+    });
+});
+//Add a click event listener to the Tsunami button
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the main container
+    var mainContainer = document.getElementById('main-container');
+
+    // Get the Tsunami dropdown link
+    var plasticWasteDropdown = document.querySelector('a[href="#Tsunami"]');
+
+    // Add click event listener to the Tsunami dropdown link
+    plasticWasteDropdown.addEventListener('click', function () {
+        // Remove the main container from the page
+        mainContainer.innerHTML = '';
+    });
+});
+
+//Add a click event listener to the Mangroves button
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the main container
+    var mainContainer = document.getElementById('main-container');
+
+    // Get the Mangroves  dropdown link
+    var plasticWasteDropdown = document.querySelector('a[href="#Mangroves"]');
+
+    // Add click event listener to the Mangroves  dropdown link
+    plasticWasteDropdown.addEventListener('click', function () {
+        // Remove the main container from the page
+        mainContainer.innerHTML = '';
+    });
+});
 // Add a click event listener to the Plastic Waste Button 
+/*
 document.addEventListener('DOMContentLoaded', function () {
     // Function to find the list item containing specific text
     function findListItemByText(text) {
@@ -1216,4 +1506,2265 @@ document.addEventListener('DOMContentLoaded', function () {
             mainContainer.innerHTML = '';
         });
     }
+});
+*/
+
+
+
+//An event listner for the  seal level rise 1m layer
+document.getElementById('SeaLevelRise1m').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste);
+    map.removeControl(infoplastic);
+    map.removeControl(legendplastic);
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeLayer(missmanaged1);
+    map.removeControl(infomissmanaged1);
+    map.removeControl(legendmissmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeLayer(microplastic)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeLayer(videoOverlay)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    onemLayer.addTo(map);
+});
+
+//An event listner for the  seal level rise 2m layer
+document.getElementById('SeaLevelRise2m').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeLayer(missmanaged1);
+    map.removeControl(infomissmanaged1);
+    map.removeControl(legendmissmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(plasticwaste);
+    map.removeControl(infoplastic);
+    map.removeControl(legendplastic);
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeLayer(microplastic)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    twomLayer.addTo(map);
+});
+//An event listner for the  seal level rise 5m layer
+document.getElementById('SeaLevelRise5m').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeLayer(missmanaged1);
+    map.removeControl(infomissmanaged1);
+    map.removeControl(legendmissmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(plasticwaste);
+    map.removeControl(infoplastic);
+    map.removeControl(legendplastic);
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeLayer(videoOverlay)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(microplastic)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeControl(MangrovecoverLegend)
+    fivemLayer.addTo(map);
+    //geoserver15.addTo(map);
+});
+//An event listner for the  seal level rise 10m layer
+document.getElementById('SeaLevelRise10m').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeLayer(missmanaged1);
+    map.removeControl(infomissmanaged1);
+    map.removeControl(legendmissmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    map.removeLayer(plasticwaste);
+    map.removeControl(infoplastic);
+    map.removeControl(legendplastic);
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(microplastic)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(landcover)
+    tenmLayer.addTo(map);
+});
+//An event listner for the  plasticwaste layer
+document.getElementById('PlasticWasteGeneration').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeLayer(missmanaged1);
+    map.removeControl(infomissmanaged1);
+    map.removeControl(legendmissmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.addControl(infoplastic)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeLayer(microplastic)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.addControl(legendplastic)
+    map.addLayer(plasticwaste);
+});
+//An event listner for the  plasticwaste Mismanaged  layer
+document.getElementById('MissmanagedPW').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged1);
+    map.removeControl(infomissmanaged1);
+    map.removeControl(legendmissmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(videoOverlay)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeLayer(microplastic)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.addControl(infomissmanaged)
+    map.addControl(legendmissmanaged)
+    map.addLayer(missmanaged);
+
+});
+//An event listner for the  plasticwaste Mismanaged ocean  layer
+document.getElementById('MissmanagedPWOcean').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(microplastic)
+    map.addControl(infomissmanaged1)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.addControl(legendmissmanaged1)
+    map.addLayer(missmanaged1);
+});
+//An event listner for the  propability of plastic ocean  layer
+document.getElementById('ProbabilityofPlasticocean').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeLayer(videoOverlay)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(microplastic)
+    map.addLayer(propability)
+    map.addControl(infopropability)
+    map.addControl(legendpropability)
+});
+//An event listner for the  propability of SalinityIndex21  layer
+document.getElementById('SalinityIndex2021').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(microplastic)
+    map.addLayer(SalinityIndex21)
+    map.addControl(SalinityIndex21rasterLegend)
+    
+});
+//An event listner for the  propability of SalineWaterBoundry  layer
+document.getElementById('SalineWaterBoundry').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeLayer(SalinityIndex21)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeLayer(microplastic)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeControl(MangrovecoverLegend)
+    map.addLayer(SalinityIndex21boundry)
+    
+});
+//An event listner for the  propability of SalinityIndex20  layer
+document.getElementById('SalinityIndex2020').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(videoOverlay)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(microplastic)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.addControl(SalinityIndex20rasterLegend)
+    map.addLayer(SalinityIndex20)
+});
+//An event listner for the  propability of landcovermodisgibs  layer
+document.getElementById('LandCover').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.addControl(legendLandcover)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(microplastic)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(videoOverlay)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeControl(MangrovecoverLegend)
+    map.addLayer(landcover)
+});
+//An event listner for the  propability of GIBSGlobalSalinityMonthly  layer
+document.getElementById('NASAGIBSSeaSurfaceSalinityMonthly').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.addControl(sealevelrisecmessLegend)
+    map.addControl(gibssalinityMonthlyLegend)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(microplastic)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeLayer(videoOverlay)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeControl(MangrovecoverLegend)
+    map.addLayer(geoservergibssalinityMonthly)
+});
+//An event listner for the  propability of GIBSGlobalSalinityDaily  layer
+document.getElementById('NASAGIBSSeaSurfaceSalinityDaily').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.addControl(gibssalinityMonthlyLegend)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeLayer(videoOverlay)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(microplastic)
+    map.removeControl(TsunamiExposureLegend)
+    map.addLayer(geoservergibssalinityDaily)
+});
+//An event listner for the  propability of globalsealevelriseanomaly  layer
+document.getElementById('NASAGIBSSeaLevelRiseAnomalies').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.addControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(microplastic)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.addLayer(geoservergibssealevelriseanomalies)
+});
+//An event listner for the  propability of coastalfloodprojection100  layer
+document.getElementById('CoastalFloodProjection50year').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(microplastic)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.addLayer(coastalfloodprojection100)
+    map.addControl(sealevelrisecmessLegend)
+});
+
+//An event listner for the  propability of SeaSurfaceTemperaturemonthlyday  layer
+document.getElementById('SSTMonthlyDay').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.addLayer(geoservergibsseasurfacetemprature)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(microplastic)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeLayer(videoOverlay)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.addControl(seasurfacetemperaturedayLegend)
+});
+//An event listner for the  propability of SeaSurfaceTemperaturemonthlynight  layer
+document.getElementById('SSTMonthlyNight').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(microplastic)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.addControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.addLayer(geoservergibsseasurfacetempraturenight)
+    
+});
+//An event listner for the  propability of Seasurfacetemperatureanomalies  layer
+document.getElementById('SSTAnomalies').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeControl(MangrovecoverLegend)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeLayer(videoOverlay)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(microplastic)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.addControl(seasurfacetemperatureanomaliesLegend)
+    map.addLayer(geoservergibsseasurfacetempratureanomalies)
+    
+});
+//An event listner for the  propability of Mangrovecoverindus  layer
+document.getElementById('IndusDelta').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopPropagation();
+    map.setView([24.8607, 67.0011], 8);
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.addLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(microplastic)
+    map.addControl(MangrovecoverLegend)
+    
+});
+//An event listner for the  propability of MangrovecoverJiwani  layer
+document.getElementById('Jiwani').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.setView([25.0538, 61.7707], 8);
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.addLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeLayer(videoOverlay)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeLayer(microplastic)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.addControl(MangrovecoverLegend)
+    
+});
+//An event listner for the  propability of MangrovecoverKalmatKhor  layer
+document.getElementById('KalmatKhor').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.setView([25.4211, 64.0769], 8);
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(microplastic)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.addLayer(geoservermangroveKalmatKhor)
+    map.addControl(MangrovecoverLegend)
+    
+});
+//An event listner for the  propability of MangrovecoverKalmatSonmianiKhor  layer
+document.getElementById('SonmianiKhor').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.setView([25.1667,  66.5000], 8);
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeLayer(videoOverlay)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(microplastic)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.addLayer(geoservermangroveSonmianiKhor)
+    map.addControl(MangrovecoverLegend)
+});
+//An event listner for the  propability of MangrovecoverSandspit  layer
+document.getElementById('SandSpit').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.setView([24.8404, 66.9098], 8);
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeLayer(videoOverlay)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(microplastic)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.addLayer(geoservermangroveSandspit)
+    map.addControl(MangrovecoverLegend)
+});
+//An event listner for the  propability of TsunamiExposurepoppersqkm  layer
+document.getElementById('TsunamiExposurepersqkm').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeLayer(microplastic)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.addLayer(geoservertsunamiexposure)
+    map.addControl(TsunamiExposureLegend)
+});
+//An event listner for the  propability of TsunamiFrequency  layer
+document.getElementById('TsunamiFrequency').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(microplastic)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeLayer(videoOverlay)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.addLayer(geoservertsunamifrequency)
+    map.addControl(TsunamiFrequencyLegend)
+});
+
+//An event listner for the  propability of Tsunamihazardprojection  layer
+document.getElementById('TsunamiProjection100yearreturn').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(microplastic)
+    map.addLayer(geoservertsunamiprojection100)
+    map.addControl(TsunamiProjectionLegend)
+    
+});
+
+//An event listner for the  propability of PlasticLitterDensity  layer
+document.getElementById('PlasticLitterDensity').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeLayer(videoOverlay)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.addLayer(geoservermicroplasticlitter)
+    map.removeLayer(microplastic)
+    map.addControl(PlasticwastedensityLegend)
+});
+
+//An event listner for the  Tropical Cyclones Mortality Risk  layer
+document.getElementById('TropicalCyclonesMortalityRisk').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.addLayer(geoserverCyclonemortalityrisk)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(microplastic)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.addControl(cyclonemortalityriskLegend)
+});
+
+//An event listner for the  propability of Tropical Cyclone 50 year Period Return  layer
+document.getElementById('TropicalCyclone50yearPeriodReturn').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.addLayer(geoserverTropicalCyclone50)
+    map.removeLayer(geoserverCyclonePopulationexposure)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(microplastic)
+    map.addControl(cyclone50yearrepreatLegend)
+});
+
+//An event listner for the  propability of Tropical Cyclone 50 year Period Return  layer
+document.getElementById('TropicalCyclonePopulationexposureperyear').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.addLayer(geoserverCyclonePopulationexposure)
+    map.removeLayer(videoOverlay)
+    map.removeLayer(microplastic)
+    map.addControl(CyclonesPopulationExposureLegend)
+});
+
+
+//An event listner for the  propability of Marine Micro Plastic Concentration (2022-2024)   layer
+document.getElementById('MarineMicroPlasticConcentration').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(videoOverlay)
+    map.addLayer(microplastic)
+});
+
+
+//An event listner for the  Scenario Based Sea Level Rise  layer
+document.getElementById('ScenarioBasedSeaLevelRise').addEventListener('click', function() {
+    // Add the GeoJSON layer to the map
+    event.preventDefault();
+    event.stopPropagation();
+    map.setView([24.8404, 66.9098], 10);
+    // Set the map view to the specified latitude, longitude, and zoom level
+    map.removeLayer(onemLayer)
+    map.removeLayer(twomLayer)
+    map.removeLayer(fivemLayer)
+    map.removeLayer(tenmLayer)
+    map.removeLayer(plasticwaste)
+    map.removeControl(legendplastic)
+    map.removeControl(infoplastic)
+    map.removeLayer(missmanaged);
+    map.removeControl(infomissmanaged);
+    map.removeControl(legendmissmanaged);
+    map.removeControl(legendmissmanaged1)
+    map.removeControl(infomissmanaged1)
+    map.removeLayer(missmanaged1);
+    map.removeLayer(propability)
+    map.removeControl(infopropability)
+    map.removeControl(legendpropability)
+    // map.removeLayer(savi15raster)
+    // map.removeControl(savi15rasterLegend)
+    // map.removeLayer(savi23raster)
+    // map.removeControl(savi23rasterLegend)
+    // map.removeLayer(Reflectance15)
+    // map.removeControl(reflectance15rasterLegend)
+    // map.removeLayer(Reflectance23)
+    // map.removeControl(reflectance23rasterLegend)
+    map.removeLayer(SalinityIndex21)
+    map.removeLayer(SalinityIndex21boundry)
+    map.removeControl(SalinityIndex21rasterLegend)
+    map.removeControl(SalinityIndex20rasterLegend)
+    map.removeLayer(SalinityIndex20)
+    map.removeControl(legendLandcover)
+    map.removeLayer(landcover)
+    map.removeControl(gibssalinityMonthlyLegend)
+    map.removeLayer(geoservergibssalinityMonthly)
+    map.removeLayer(geoservergibssalinityDaily)
+    map.removeControl(gibssealevelriseanomaliesLegend)
+    map.removeLayer(geoservergibssealevelriseanomalies)
+    map.removeLayer(coastalfloodprojection100)
+    map.removeControl(sealevelrisecmessLegend)
+    map.removeLayer(geoservergibsseasurfacetemprature)
+    map.removeControl(seasurfacetemperaturedayLegend)
+    map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(seasurfacetemperatureanomaliesLegend)
+    map.removeLayer(geoservergibsseasurfacetempratureanomalies)
+    map.removeLayer(geoservermangroveindusdelta)
+    map.removeLayer(geoservermangroveJiwani)
+    map.removeLayer(geoservermangroveKalmatKhor)
+    map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeLayer(geoservermangroveSandspit)
+    map.removeControl(MangrovecoverLegend)
+    map.removeLayer(geoservertsunamiexposure)
+    map.removeControl(TsunamiExposureLegend)
+    map.removeLayer(geoservertsunamifrequency)
+    map.removeControl(TsunamiFrequencyLegend)
+    map.removeLayer(geoservertsunamiprojection100)
+    map.removeControl(TsunamiProjectionLegend)
+    map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(PlasticwastedensityLegend)
+    map.removeLayer(geoserverCyclonemortalityrisk)
+    map.removeControl(cyclonemortalityriskLegend)
+    map.removeLayer(geoserverTropicalCyclone50)
+    map.removeControl(cyclone50yearrepreatLegend)
+    map.removeControl(CyclonesPopulationExposureLegend)
+    map.removeLayer(microplastic)
+    map.addLayer(videoOverlay)
+    
 });
