@@ -16,11 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.urls import re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from MapDjango.views import FinalShapefileTileView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('finalshapefiletiles/<int:z>/<int:x>/<int:y>', FinalShapefileTileView.as_view(), name="finalshapefiletiles"),
     path('', include('MapDjango.urls')),
 ]
 if settings.DEBUG:
