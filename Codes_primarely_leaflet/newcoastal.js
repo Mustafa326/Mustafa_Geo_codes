@@ -436,7 +436,7 @@ var geoserverCyclonePopulationexposure = L.tileLayer.wms('https://datacore.unepg
     transparent: true,
     srs: 'EPSG:3857',
 })//.addTo(map);
-geoservermicroplasticlitter .setOpacity(1.0)
+geoserverCyclonePopulationexposure .setOpacity(1.0)
 
 // onemeter layer add
 var onemLayer = L.geoJSON(onem, {
@@ -479,19 +479,60 @@ var LeafIcon = L.Icon.extend({
         iconSize:     [18, 35],
     }
 });
-// Create an Icon for layer
-var litterIcon = new LeafIcon({iconUrl: 'marine-debris.svg'})
-// Create the GeoJSON layer with the custom icon
-var microplastic = L.geoJSON(marineplastic, {
-    pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, {
-            icon: litterIcon
-        });
-    },
-    // Other options or styles if needed
-})//.addTo(map); // Assuming 'map' is your Leaflet map object
+// // Create an Icon for layer
+// var litterIcon = new LeafIcon({iconUrl: 'marine-debris.svg'})
+// // Create the GeoJSON layer with the custom icon
+// var microplastic = L.geoJSON(coastallitter, {
+//     pointToLayer: function (feature, latlng) {
+//         return L.marker(latlng, {
+//             icon: litterIcon
+//         });
+//     },
+//     // Other options or styles if needed
+// })//.addTo(map); // Assuming 'map' is your Leaflet map object
 
+// Define thresholds for thematic styling based on maximum, minimum, and mean 'mpw' values.
+var maxMpw = 5685870000;
+var minMpw = 0;
+var meanMpw = 1383029.785233205;
 
+var highThreshold = meanMpw * 2;
+var mediumThreshold = meanMpw / 2;
+
+// Function to style each feature in the GeoJSON layer
+function styleFeature(feature) {
+  // Get 'mpw' value from feature properties
+  var mpwValue = feature.properties.mpw;
+
+  // Calculate point size based on the square root of 'mpw' divided by 2000, and add 1
+  var size = Math.sqrt(mpwValue) / 2000 + 1;
+
+  // Thematic color scheme based on 'mpw' values
+  var color;
+  if (mpwValue >= highThreshold) {
+    color = 'red';
+  } else if (mpwValue >= mediumThreshold) {
+    color = 'yellow';
+  } else {
+    color = 'green';
+  }
+
+  // Return the styled circle marker
+  return L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
+    radius: size,
+    fillColor: color,
+    color: '#000',
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.4
+  });
+}
+
+// Create the GeoJSON layer with the custom icon and apply styling to features
+var microplastic = L.geoJSON(coastallitter, {
+  pointToLayer: styleFeature,
+  // Other options or styles if needed
+});
 
 //Creating a Vidieo Overlay option for the scenario based sea level rise of karachi 
 var videoUrls = [
@@ -830,6 +871,22 @@ legendplastic.onAdd = function(map) {
     return div;
 };
 
+//Legend for thematic color scheme
+var legendmicroplastic = L.control({ position: 'topright' });
+
+legendmicroplastic.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'MarineMicroPlasticConcentration'), // Using a class for styling
+        legendText = 'Legend For Marine Plastic Emission';
+
+    // Add label for GIBS Salinity Monthly layer legend
+    div.innerHTML += '<h4>' + legendText + '</h4>';
+
+    // Include any legend details specific to GIBS Salinity Monthly layer
+    // You may use image tag for PNG or other suitable method
+    div.innerHTML += '<img src="Marinelitteremissions.png" alt="Legend for Mangrove Cover">';
+
+    return div;
+};
 //legendplastic.addTo(map);
 //infoplastic.addTo(map);
 // adding a legend for the missmanaged  layer
@@ -1562,6 +1619,7 @@ document.getElementById('SeaLevelRise1m').addEventListener('click', function() {
     map.removeControl(TsunamiProjectionLegend)
     map.removeLayer(geoserverCyclonePopulationexposure)
     map.removeLayer(microplastic)
+    map.removeLayer(legendmicroplastic)
     map.removeLayer(coastalfloodprojection100)
     map.removeControl(CyclonesPopulationExposureLegend)
     map.removeLayer(geoservermicroplasticlitter)
@@ -1619,6 +1677,7 @@ document.getElementById('SeaLevelRise2m').addEventListener('click', function() {
     map.removeControl(MangrovecoverLegend)
     map.removeLayer(geoservertsunamifrequency)
     map.removeLayer(microplastic)
+    map.removeLayer(legendmicroplastic)
     map.removeControl(TsunamiFrequencyLegend)
     map.removeLayer(geoservertsunamiprojection100)
     map.removeControl(TsunamiProjectionLegend)
@@ -1680,6 +1739,7 @@ document.getElementById('SeaLevelRise5m').addEventListener('click', function() {
     map.removeLayer(geoserverCyclonePopulationexposure)
     map.removeControl(CyclonesPopulationExposureLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(geoservertsunamiprojection100)
     map.removeControl(TsunamiProjectionLegend)
     map.removeLayer(geoserverCyclonemortalityrisk)
@@ -1742,6 +1802,7 @@ document.getElementById('SeaLevelRise10m').addEventListener('click', function() 
     map.removeLayer(geoserverTropicalCyclone50)
     map.removeControl(cyclone50yearrepreatLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeControl(TsunamiProjectionLegend)
     map.removeLayer(coastalfloodprojection100)
     map.removeLayer(geoservermicroplasticlitter)
@@ -1808,6 +1869,7 @@ document.getElementById('PlasticWasteGeneration').addEventListener('click', func
     map.addControl(infoplastic)
     map.removeLayer(coastalfloodprojection100)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(geoservermicroplasticlitter)
     map.removeControl(PlasticwastedensityLegend)
     map.addControl(legendplastic)
@@ -1860,6 +1922,7 @@ document.getElementById('MissmanagedPW').addEventListener('click', function() {
     map.removeLayer(geoservertsunamiprojection100)
     map.removeControl(TsunamiProjectionLegend)
     map.removeLayer(geoservermicroplasticlitter)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(geoserverTropicalCyclone50)
     map.removeControl(cyclone50yearrepreatLegend)
     map.removeControl(PlasticwastedensityLegend)
@@ -1928,6 +1991,7 @@ document.getElementById('MissmanagedPWOcean').addEventListener('click', function
     map.removeControl(cyclonemortalityriskLegend)
     map.removeControl(TsunamiExposureLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.addControl(infomissmanaged1)
     map.removeLayer(geoserverTropicalCyclone50)
     map.removeControl(cyclone50yearrepreatLegend)
@@ -1990,6 +2054,7 @@ document.getElementById('ProbabilityofPlasticocean').addEventListener('click', f
     map.removeLayer(geoservermicroplasticlitter)
     map.removeControl(PlasticwastedensityLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.addLayer(propability)
     map.addControl(infopropability)
     map.addControl(legendpropability)
@@ -2051,6 +2116,7 @@ document.getElementById('SalinityIndex2021').addEventListener('click', function(
     map.removeControl(cyclone50yearrepreatLegend)
     map.removeControl(MangrovecoverLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.addLayer(SalinityIndex21)
     map.addControl(SalinityIndex21rasterLegend)
     
@@ -2107,6 +2173,7 @@ document.getElementById('SalineWaterBoundry').addEventListener('click', function
     map.removeLayer(geoservertsunamiexposure)
     map.removeLayer(geoserverCyclonemortalityrisk)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(coastalfloodprojection100)
     map.removeControl(cyclonemortalityriskLegend)
     map.removeLayer(geoservermicroplasticlitter)
@@ -2168,6 +2235,7 @@ document.getElementById('SalinityIndex2020').addEventListener('click', function(
     map.removeControl(PlasticwastedensityLegend)
     map.removeControl(TsunamiProjectionLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(coastalfloodprojection100)
     map.removeLayer(geoservertsunamiexposure)
     map.removeLayer(geoserverCyclonemortalityrisk)
@@ -2229,6 +2297,7 @@ document.getElementById('LandCover').addEventListener('click', function() {
     map.removeControl(cyclone50yearrepreatLegend)
     map.removeLayer(geoservertsunamiexposure)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(coastalfloodprojection100)
     map.removeLayer(geoserverCyclonemortalityrisk)
     map.removeLayer(geoserverCyclonePopulationexposure)
@@ -2292,6 +2361,7 @@ document.getElementById('NASAGIBSSeaSurfaceSalinityMonthly').addEventListener('c
     map.removeLayer(geoservermangroveJiwani)
     map.removeLayer(geoservermangroveKalmatKhor)
     map.removeLayer(geoservermangroveSonmianiKhor)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(geoservermangroveSandspit)
     map.removeLayer(geoservertsunamifrequency)
     map.removeLayer(geoserverCyclonePopulationexposure)
@@ -2356,6 +2426,7 @@ document.getElementById('NASAGIBSSeaSurfaceSalinityDaily').addEventListener('cli
     map.removeControl(sealevelrisecmessLegend)
     map.removeLayer(geoservergibsseasurfacetemprature)
     map.removeLayer(geoservergibsseasurfacetempraturenight)
+    map.removeControl(legendmicroplastic)
     map.removeControl(seasurfacetemperaturedayLegend)
     map.removeControl(seasurfacetemperatureanomaliesLegend)
     map.removeLayer(geoservermangroveindusdelta)
@@ -2447,6 +2518,7 @@ document.getElementById('NASAGIBSSeaLevelRiseAnomalies').addEventListener('click
     map.removeControl(cyclone50yearrepreatLegend)
     map.removeLayer(videoOverlay)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(geoserverCyclonemortalityrisk)
     map.removeControl(cyclonemortalityriskLegend)
     map.removeControl(PlasticwastedensityLegend)
@@ -2516,6 +2588,7 @@ document.getElementById('CoastalFloodProjection50year').addEventListener('click'
     map.removeLayer(geoserverTropicalCyclone50)
     map.removeLayer(videoOverlay)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeControl(cyclone50yearrepreatLegend)
     map.removeControl(TsunamiProjectionLegend)
     map.removeLayer(geoservertsunamiexposure)
@@ -2585,6 +2658,7 @@ document.getElementById('SSTMonthlyDay').addEventListener('click', function() {
     map.removeLayer(geoservermicroplasticlitter)
     map.removeControl(PlasticwastedensityLegend)
     map.removeControl(TsunamiProjectionLegend)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(geoservertsunamiexposure)
     map.removeLayer(microplastic)
     map.removeLayer(geoserverCyclonePopulationexposure)
@@ -2661,6 +2735,7 @@ document.getElementById('SSTMonthlyNight').addEventListener('click', function() 
     map.removeControl(MangrovecoverLegend)
     map.removeLayer(geoserverTropicalCyclone50)
     map.removeLayer(videoOverlay)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(microplastic)
     map.removeControl(cyclone50yearrepreatLegend)
     map.addControl(seasurfacetemperaturedayLegend)
@@ -2736,6 +2811,7 @@ document.getElementById('SSTAnomalies').addEventListener('click', function() {
     map.removeLayer(videoOverlay)
     map.removeControl(cyclonemortalityriskLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(geoserverTropicalCyclone50)
     map.removeControl(cyclone50yearrepreatLegend)
     map.addControl(seasurfacetemperatureanomaliesLegend)
@@ -2813,6 +2889,7 @@ document.getElementById('IndusDelta').addEventListener('click', function() {
     map.removeLayer(geoserverCyclonemortalityrisk)
     map.removeControl(cyclonemortalityriskLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.addControl(MangrovecoverLegend)
     
 });
@@ -2886,6 +2963,7 @@ document.getElementById('Jiwani').addEventListener('click', function() {
     map.removeControl(cyclone50yearrepreatLegend)
     map.removeLayer(geoserverCyclonemortalityrisk)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeControl(cyclonemortalityriskLegend)
     map.addControl(MangrovecoverLegend)
     
@@ -2956,6 +3034,7 @@ document.getElementById('KalmatKhor').addEventListener('click', function() {
     map.removeLayer(geoserverCyclonePopulationexposure)
     map.removeControl(CyclonesPopulationExposureLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(geoserverCyclonemortalityrisk)
     map.removeControl(cyclonemortalityriskLegend)
     map.removeLayer(geoserverTropicalCyclone50)
@@ -3027,6 +3106,7 @@ document.getElementById('SonmianiKhor').addEventListener('click', function() {
     map.removeLayer(geoservermicroplasticlitter)
     map.removeControl(PlasticwastedensityLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(geoserverCyclonemortalityrisk)
     map.removeControl(cyclonemortalityriskLegend)
     map.removeLayer(geoserverCyclonePopulationexposure)
@@ -3101,6 +3181,7 @@ document.getElementById('SandSpit').addEventListener('click', function() {
     map.removeControl(PlasticwastedensityLegend)
     map.removeControl(TsunamiExposureLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(geoserverCyclonePopulationexposure)
     map.removeControl(CyclonesPopulationExposureLegend)
     map.removeLayer(geoserverTropicalCyclone50)
@@ -3171,6 +3252,7 @@ document.getElementById('TsunamiExposurepersqkm').addEventListener('click', func
     map.removeControl(MangrovecoverLegend)
     map.removeLayer(geoserverCyclonePopulationexposure)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeControl(CyclonesPopulationExposureLegend)
     map.removeLayer(geoservermicroplasticlitter)
     map.removeControl(PlasticwastedensityLegend)
@@ -3244,6 +3326,7 @@ document.getElementById('TsunamiFrequency').addEventListener('click', function()
     map.removeLayer(geoservermicroplasticlitter)
     map.removeControl(PlasticwastedensityLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeLayer(geoserverCyclonemortalityrisk)
     map.removeLayer(videoOverlay)
     map.removeControl(cyclonemortalityriskLegend)
@@ -3324,6 +3407,7 @@ document.getElementById('TsunamiProjection100yearreturn').addEventListener('clic
     map.removeLayer(geoserverCyclonePopulationexposure)
     map.removeControl(CyclonesPopulationExposureLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.addLayer(geoservertsunamiprojection100)
     map.addControl(TsunamiProjectionLegend)
     
@@ -3399,6 +3483,7 @@ document.getElementById('PlasticLitterDensity').addEventListener('click', functi
     map.removeControl(cyclone50yearrepreatLegend)
     map.addLayer(geoservermicroplasticlitter)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.addControl(PlasticwastedensityLegend)
 });
 
@@ -3470,6 +3555,7 @@ document.getElementById('TropicalCyclonesMortalityRisk').addEventListener('click
     map.removeLayer(geoserverCyclonePopulationexposure)
     map.removeLayer(videoOverlay)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.removeControl(CyclonesPopulationExposureLegend)
     map.removeControl(cyclone50yearrepreatLegend)
     map.addControl(cyclonemortalityriskLegend)
@@ -3545,6 +3631,7 @@ document.getElementById('TropicalCyclone50yearPeriodReturn').addEventListener('c
     map.removeControl(CyclonesPopulationExposureLegend)
     map.removeLayer(videoOverlay)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.addControl(cyclone50yearrepreatLegend)
 });
 
@@ -3618,6 +3705,7 @@ document.getElementById('TropicalCyclonePopulationexposureperyear').addEventList
     map.addLayer(geoserverCyclonePopulationexposure)
     map.removeLayer(videoOverlay)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.addControl(CyclonesPopulationExposureLegend)
 });
 
@@ -3692,6 +3780,7 @@ document.getElementById('MarineMicroPlasticConcentration').addEventListener('cli
     map.removeControl(CyclonesPopulationExposureLegend)
     map.removeLayer(videoOverlay)
     map.addLayer(microplastic)
+    map.addControl(legendmicroplastic)
 });
 
 
@@ -3765,6 +3854,7 @@ document.getElementById('ScenarioBasedSeaLevelRise').addEventListener('click', f
     map.removeControl(cyclone50yearrepreatLegend)
     map.removeControl(CyclonesPopulationExposureLegend)
     map.removeLayer(microplastic)
+    map.removeControl(legendmicroplastic)
     map.addLayer(videoOverlay)
     
 });
