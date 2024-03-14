@@ -15,7 +15,7 @@ class FinalShapefile(models.Model):
     geom = models.MultiPolygonField(srid=4326, blank=True, null=True)
     shape_leng = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
     shape_area = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-    gid = models.IntegerField(blank=True, null=True)
+    gid = models.IntegerField(primary_key=True)
     pop_2010 = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
     pop_2015 = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
     pop_2020 = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
@@ -89,4 +89,5 @@ class FinalShapefile(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'final_shapefile'
+        db_table = 'finalshapefile' #this is the name of the database
+        
