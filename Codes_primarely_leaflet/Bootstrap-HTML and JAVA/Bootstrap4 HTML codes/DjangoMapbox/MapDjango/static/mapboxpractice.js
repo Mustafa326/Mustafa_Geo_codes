@@ -161,7 +161,8 @@ map.on('load', () => {
                 1200, '#800026'
             ],
             'fill-opacity': 0.7
-        }
+        },
+        //'layout': { 'visibility': 'none' }
     });
     //adding RGB FOG Layer
     map.addSource('Eumetsat_Fog', {
@@ -370,6 +371,28 @@ map.on('load', () => {
          source: 'eonet-source',
          
      });
+
+     map.addSource('finalshapefiletilelayersource', {
+        type: 'vector',
+        // url: 'http://127.0.0.1:8000/finalshapefiletilelayer/{z}/{x}/{y}.pbf',
+        tiles: ['http://127.0.0.1:8000/finalshapefiletiles/{z}/{x}/{y}']
+      });
+      
+      // Add a new layer for the vector tiles
+      map.addLayer({
+        id: 'pgsqlshapeone',
+        type: 'fill',
+        source: 'finalshapefiletilelayersource',
+        'source-layer': "finalshapefile",
+        paint: {
+          'fill-color': '#0080ff',
+          'fill-opacity': 0.7
+        },
+        'layout': { 'visibility': 'none' }
+        
+      });
+     // Make an asynchronous request to fetch GeoJSON data
+    
     //addEONETMarkers();
     // map.addSource('eonet-source', {
     //     type: 'geojson',
@@ -603,7 +626,7 @@ map.on('idle',async () => {
         layerData[layer].push(imageUrl);
         initializeTimeSlider(layer);
     }
-    const toggleableLayerIds = ['countries_layer', 'rgb_fog', 'rgb_dust', 'rgb_snow', 'rdri_agri','fapar_anom', 'fire_hmodis', 'fire_hviirs', 'gtd', 'ggo','nasa_eonet'];
+    const toggleableLayerIds = ['countries_layer', 'rgb_fog', 'rgb_dust', 'rgb_snow', 'rdri_agri','fapar_anom', 'fire_hmodis', 'fire_hviirs', 'gtd', 'ggo','nasa_eonet','pgsqlshapeone'];
 
     // Check if the NASA EONET layer is present
     const hasNasaEonetLayer = toggleableLayerIds.includes('nasa_eonet');
