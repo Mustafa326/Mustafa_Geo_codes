@@ -16,8 +16,9 @@ html { height: 100%;}
     margin-top: 50px; /* Adjust as needed */
     margin-bottom: 50px; /* Adjust as needed */
     margin-left: 150px; /* Adjust as needed */
-    border: 3px solid #000; /* Add a 3px width solid border with a black color */
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add a shadow with x-offset, y-offset, blur radius, and color */
+    border: 5px solid #000; /* Increase border thickness to 5px */
+    border-radius: 10px; /* Rounded corners with a radius of 10px */
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.8); /* Increase shadow values for denser shadow */
   }
 /*-------------------------------*/
 /*           Wrappers            */
@@ -326,6 +327,11 @@ html { height: 100%;}
   background-color: white;
 }
 .coastalfloodprojection100 h4 {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+}
+.MarineMicroPlasticConcentration h4 {
   color: black;
   font-weight: bold;
   background-color: white;
