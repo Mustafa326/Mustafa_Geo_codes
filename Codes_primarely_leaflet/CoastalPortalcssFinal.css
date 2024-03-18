@@ -1,0 +1,485 @@
+#map {
+    position: absolute;
+    top: 15%;
+    left: 0.5px;
+    width: 55%;
+    height: 75%;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 7px solid rgb(10, 10, 10);
+    z-index: 1; /* Set a lower z-index for the map */
+}
+
+  body {
+    background: url('previewcoastal.gif') no-repeat center center fixed;
+    background-size: cover;
+    background-color: #CFD8DC; /* Fallback color if the GIF is not available or fully loaded */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds height */
+    overflow-x: auto; /* Enable horizontal scrolling if content exceeds height */
+}
+
+.badge {
+    background-color: var(--ndma-dark-blue);
+    color: white;
+    padding: 1px 4px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+  .menu-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .menu-text {
+    font-size: 20px;
+    font-weight: bolder;
+    margin-left: 5px;
+    color: white;
+  }
+    #video-background {
+      position: fixed; /* Fixed position */
+      top: 0;
+      left: 0;
+      z-index: -1; /* Behind everything */
+  }
+  
+  /* #top-div {
+    height: 4.2vw;
+    width: 95%;
+    left:5vw;
+    position: absolute;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    z-index: 3;
+    
+    justify-content: center;
+    background: linear-gradient(to top, #000222, #002088c4);
+    overflow: hidden;
+    border-radius:.5vw;
+    margin-left: 70px;
+  } */
+  #hello-text {
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+    font-family: Arial;
+    z-index: 3000;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.726);
+    /* Text shadow effect */
+  }
+  
+  #ndma-logo {
+    height: auto;
+    width: auto;
+    position: absolute;
+    z-index: 3000;
+    top: 0;
+    left: 5px;
+    height: 100%;
+  }
+  
+  #ndma-logo img {
+    height: 3.5vw;
+    width: auto;
+    z-index: 3000;
+    /* Maintain aspect ratio */
+  }
+  #nav-title img {
+      height: 30px; /* Set the height of your logo image */
+      margin-right: 10px; /* Adjust the margin as needed */
+  }
+  #video-container-right {
+    position: absolute;
+    top: 15%;
+    right: 70px;
+    width: 700px;
+    height: 525px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 7px solid rgb(0, 0, 0);
+  }
+  #text-container {
+    position: absolute;
+    top: 60%;
+    right: 70px;
+    width: 700px;
+    height: 400px;
+   
+    border-radius: 20px;
+    overflow: hidden;
+    border: 7px solid rgb(0, 0, 0);
+    
+  }
+  #background-video1 {
+    position: absolute; /* Position video absolute */
+    top: 0;
+    left: 0;
+    width: 100%; /* Set width to fill the container */
+    height: 100%; /* Set height to fill the container */
+    object-fit: cover; /* Maintain aspect ratio and cover container */
+    z-index: -1; /* Move video behind other content */
+  }
+  #moving-text {
+    color: white; /* Set text color to white */
+    font-weight: bold; /* Make text bold */
+    position: absolute;
+    /* Add black outline to text */
+    text-shadow: -1px -1px 0 black,  
+                  1px -1px 0 black,
+                 -1px  1px 0 black,
+                  1px  1px 0 black;
+    /* Adjust the animation duration according to the content's height */
+    animation: move-up 20s linear infinite;
+  }
+  
+  
+  @keyframes move-up {
+    0% {
+      /* Start animation from behind the GIF container */
+      transform: translateY(100%);
+    }
+    /* Stop animation when reaching the top of the GIF container */
+    90% {
+      transform: translateY(-100%);
+    }
+    100% {
+      /* Keep text fixed when reaching the top of the GIF container */
+      transform: translateY(-100%);
+    }
+  }
+  
+  #moving-text ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #moving-text li {
+    margin-bottom: 10px;
+  }
+  
+  .gif-container {
+    background-color: rgb(255, 255, 255);
+    width: 600px;
+    /* Add margin-top to create space for the moving text */
+    margin-bottom: 0px; /* Adjust as needed */
+  }
+  /* Additional CSS styles for layout */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  #row-container {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Align row container in the middle horizontally */
+    align-items: center; /* Align row container in the middle vertically */
+  }
+  #bottom-div {
+    flex-shrink: 0;
+    background-color: lightgray;
+    padding: 10px;
+    text-align: center;
+    overflow: hidden; /* Ensure contents don't overflow */
+    position: fixed;
+    width: 100%;
+  }
+  #top-div{
+    padding: 10px;
+    text-align: center;
+    flex-shrink: 0;
+    background: linear-gradient(to top, #000222, #002088c4);
+    overflow: hidden; /* Ensure contents don't overflow */
+    width: 100%;
+    position: fixed;
+
+  }
+  #bottom-div {
+    text-align: center;
+  }
+  /* Additional styles for accordion, map, and main container */
+  .accordion{
+    background: #fff;
+    position: absolute;
+    z-index: 4;
+    top: 10px;
+    font-family: 'Open Sans', sans-serif;
+    width: 400px; /* Adjust as needed */
+    overflow-y: auto; /* Add scrollbar if needed */
+    background: linear-gradient(to top, #000222, #002088c4);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    overflow-y: scroll;
+  }
+  .accordion-button {
+    background: linear-gradient(to top, #000222, #002088c4);
+    color: white;
+  }
+  .accordion-button:hover {
+    background: linear-gradient(to top, #000222, #001966c4);
+  }
+  .accordion-header .accordion-button {
+    color: white; /* Set the color of the accordion button heading text to white */
+  }
+  .accordion-body {
+    background: linear-gradient(to top, #000222, #002088c4);
+    color: white;
+  }
+  .accordion-button::after {
+    color: white !important; /* Set the color of the accordion arrow to white */
+  }
+  .accordion-item {
+    margin-bottom: 10px;
+  }
+
+  .accordion-scroll {
+    max-height: 300px; /* Set max height for accordion */
+    overflow-y: auto; /* Add vertical scroll bar */
+  }
+  #main-container {
+    margin-left: 1790px;
+    top: 15%;
+    width: 75%; /* You can adjust this width as needed */
+    height: 75%; /* You can adjust this height as needed */
+    border-radius: 10px;
+    border: 5px solid rgb(10, 10, 10);
+    background: url('previewcoastal.gif') no-repeat center center fixed;
+    background-size: cover;
+    background-color: #f0f0f0;
+    position: absolute; /* Make sure the position is absolute */
+    overflow: hidden; /* Ensure contents don't overflow */
+}
+  
+  /* 
+  #text-container {
+    position: absolute;
+    top: 60%;
+    right: 50px;
+    width: 600px;
+    height: 400px;
+    background-color: #000000;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 7px solid rgb(0, 0, 0);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #text-container .box {
+    transform-style: preserve-3d;
+    animation: animate 7s ease-in-out infinite alternate;
+  }
+  
+  #text-container .box span {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.5) 90%,
+      transparent
+    );
+    text-transform: uppercase;
+    line-height: 0.76em;
+    position: absolute;
+    color: white;
+    font-size: 3.5em;
+    white-space: nowrap;
+    font-weight: bold;
+    padding: 0px 10px;
+    transform-style: preserve-3d;
+    text-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, -50%) rotateX(calc(var(--i) * 22.5deg)) translateZ(109px);
+  }
+  
+  #text-container .box span i:nth-child(1) {
+    color: #5c5fc4; /* $primary-color */
+  /* }
+  
+  #text-container .box span i:nth-child(2) {
+    color: #c4c15c; /* $second-color */
+  /* }
+  
+  @keyframes animate {
+    0% {
+      transform: perspective(500px) rotateX(0deg) rotate(5deg);
+    }
+    100% {
+      transform: perspective(50px) rotateX(360deg) rotate(5deg);
+    }
+  } */
+   
+  /* Custom styles for the accordion */
+  .accordion-item {
+    
+    margin-bottom: 15px; /* Adjust the spacing between accordion items */
+  }
+  
+  /* Style the accordion button */
+  .accordion-button {
+    background-color: #f0f0f0; /* Set the background color */
+    color: #000000; /* Set the text color */
+    border: none; /* Remove the default border */
+    padding: 15px 25px; /* Add padding */
+    text-align: left; /* Align text to the left */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Choose a modern font */
+    font-size: 25px; /* Set font size */
+    font-weight: 500; /* Set font weight */
+    text-shadow: -1px -1px 0 rgb(212, 96, 0);
+   
+  }
+  
+  /* Style the active (expanded) accordion button */
+  .accordion-button[aria-expanded="true"] {
+    background-color: #ddd; /* Change the background color when active */
+  }
+  
+  /* Style the accordion body */
+  .accordion-body {
+    
+    background-color: #f9f9f9; /* Set the background color */
+    padding: 15px 25px; /* Add padding */
+    border-top: 1px solid #ddd; /* Add top border */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Choose a modern font */
+    font-size: 20px; /* Set font size */
+    font-weight: bolder;
+    line-height: 1.6; /* Set line height for better readability */
+  }
+  
+  
+  
+    .sub-accordion-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .sub-accordion-button:hover {
+      background-color: #0056b3;
+    }
+    
+   
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+  }
+  
+  .legend-color {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      border-radius: 50%;
+  }
+  
+  .legend-label {
+      font-size: 14px;
+  }
+  
+  
+    #punjabContainer {
+      position: fixed; /* or absolute */
+      z-index: 1000;
+      width: 1940px;
+      height: auto;
+      top: 65px;
+      left: 0;
+      display: none;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    #punjabContainer video {
+      width: 100%;
+      height: 100%;
+    }
+    
+  #punjabContainer img {
+    position: absolute;
+    top: 65%;
+    right: 24px; /* Adjust the left position as needed */
+    z-index: 100000; /* Ensure it appears above the video */
+    width: 240px; /* Adjust the width as needed */
+    height: 200px; /* Adjust the height as needed */
+  }
+  
+  
+    /* Style for the popup content */
+    .popup-content {
+      background-color: black; /* Set background color to black */
+      color: white; /* Set text color to white */
+      border-radius: 10px; /* Add rounded corners */
+      padding: 10px; /* Add padding */
+    }
+  
+    /* Style for the popup images */
+    .popup-image {
+      display: block;
+      margin-bottom: 10px;
+    }
+  
+    @keyframes blink {
+      50% {
+        fill-color: red;
+      }
+    }
+    
+    .blinkRed {
+      animation: blink 1s infinite;
+    }
+    
+    #bottom-div {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5%;
+      background: blue;
+      color: rgba(255, 255, 255, 0.986);
+      font-size: 20px;
+      text-align: center;
+      line-height: 1.5;
+      overflow: hidden;
+  }
+  
+  #moving-text1 {
+    white-space: nowrap;
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+    text-shadow: -1px -1px 0 black,  
+                  1px -1px 0 black,
+                 -1px  1px 0 black,
+                  1px  1px 0 black;
+    animation: moveText 50s linear infinite; /* Adjust animation duration as needed */
+  }
+  
+  .bold-slide {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  @keyframes moveText {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+  }
