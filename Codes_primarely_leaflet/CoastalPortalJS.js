@@ -1,25 +1,46 @@
-
-var bounds = [[60.872, 23.634], [77.837, 36.962]  ];
-  mapboxgl.accessToken =
+function openFullscreen(containerId) {
+    var elem = document.getElementById(containerId);
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+    var iframeContainer = document.getElementById('iframe-container');
+    var iframe = document.getElementById('main-iframe');
+    if (iframe && iframeContainer.requestFullscreen) {
+        iframeContainer.requestFullscreen();
+    } else if (iframe && iframeContainer.webkitRequestFullscreen) { /* Safari */
+        iframeContainer.webkitRequestFullscreen();
+    } else if (iframe && iframeContainer.msRequestFullscreen) { /* IE11 */
+        iframeContainer.msRequestFullscreen();
+    }
+}
+var bounds = [
+    [60.872, 23.634],
+    [77.837, 36.962]
+];
+mapboxgl.accessToken =
     "pk.eyJ1IjoibXVzYW1hcmVoYW4iLCJhIjoiY2xwZHcxeG85MTMyMDJycXI5YjNyaGhqNiJ9.6UL1Nyb_K5dKT6H4KuHk_Q";
-  const initialCoordinate = [-45.447303, 30.753574];
-  const targetCoordinate = [70.447303, 30.753574];
-  const map = new mapboxgl.Map({
+const initialCoordinate = [-45.447303, 30.753574];
+const targetCoordinate = [70.447303, 30.753574];
+const map = new mapboxgl.Map({
     container: "map",
     zoom: 0,
     center: initialCoordinate,
     pitch: 0,
     bearing: 0,
     style: "mapbox://styles/mapbox/streets-v12",
-  });
-  // Define the adjusted coordinates based on the bounding box
+});
+// Define the adjusted coordinates based on the bounding box
 const southwest = [21.739091, 57.216797];
 const northeast = [37.090240, 78.793945];
 
 
-  setTimeout(() => {
+setTimeout(() => {
     map.flyTo({ center: targetCoordinate, zoom: 5, speed: 0.6 });
-  }, 1000);
+}, 1000);
 // Define thresholds for thematic styling based on maximum, minimum, and mean 'mpw' values.
 var maxMpw = 5685870000;
 var minMpw = 0;
@@ -30,49 +51,49 @@ var mediumThreshold = meanMpw / 2;
 
 // Function to style each feature in the GeoJSON layer
 function styleFeature(feature) {
-  // Get 'mpw' value from feature properties
-  var mpwValue = feature.properties.mpw;
+    // Get 'mpw' value from feature properties
+    var mpwValue = feature.properties.mpw;
 
-  // Calculate point size based on the square root of 'mpw' divided by 2000, and add 1
-  var size = Math.sqrt(mpwValue) / 2000 + 1;
+    // Calculate point size based on the square root of 'mpw' divided by 2000, and add 1
+    var size = Math.sqrt(mpwValue) / 2000 + 1;
 
-  // Thematic color scheme based on 'mpw' values
-  var color;
-  if (mpwValue >= highThreshold) {
-    color = 'red';
-  } else if (mpwValue >= mediumThreshold) {
-    color = 'yellow';
-  } else {
-    color = 'green';
-  }
-
-  // Return the styled circle properties
-  return {
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates: feature.geometry.coordinates
-    },
-    properties: {
-      size: size,
-      color: color
+    // Thematic color scheme based on 'mpw' values
+    var color;
+    if (mpwValue >= highThreshold) {
+        color = 'red';
+    } else if (mpwValue >= mediumThreshold) {
+        color = 'yellow';
+    } else {
+        color = 'green';
     }
-  };
+
+    // Return the styled circle properties
+    return {
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: feature.geometry.coordinates
+        },
+        properties: {
+            size: size,
+            color: color
+        }
+    };
 }
 
 // Create the GeoJSON data with styled features
 var styledFeatures = {
-  type: 'FeatureCollection',
-  features: coastallitter.features.map(styleFeature)
+    type: 'FeatureCollection',
+    features: coastallitter.features.map(styleFeature)
 };
 
-  map.on('load', () => {
+map.on('load', () => {
     //adding the District data set
     map.addSource('pakdistricts', {
         type: 'geojson',
         data: district
-      });
-      map.addLayer({
+    });
+    map.addLayer({
         'id': 'pakdistricts-layer',
         'type': 'fill',
         'source': 'pakdistricts',
@@ -86,16 +107,16 @@ var styledFeatures = {
     map.addSource('pakrivers', {
         type: 'geojson',
         data: rivers
-      });
-      map.addLayer({
+    });
+    map.addLayer({
         'id': 'pakrivers-layer',
         'type': 'line',
         'source': 'pakrivers',
         'paint': {
-          'line-color': 'blue', // Blue line color
-          'line-width': 1 // Line width
+            'line-color': 'blue', // Blue line color
+            'line-width': 1 // Line width
         }
-      });
+    });
     // Add GeoJSON source from Plastic Waste Geojson
     map.addSource('Plastic_Waste_Generation', {
         type: 'geojson',
@@ -110,7 +131,7 @@ var styledFeatures = {
             'fill-color': [
                 'interpolate', ['linear'],
                 ['get', 'Plastic_Wa'],
-                267234 , '#FED976',
+                267234, '#FED976',
                 1022683, '#FEB24C',
                 2031675, '#FD8D3C',
                 3919268, '#FC4E2A',
@@ -152,7 +173,7 @@ var styledFeatures = {
             'fill-color': [
                 'interpolate', ['linear'],
                 ['get', 'Mismanag_1'],
-                1465 , '#FED976',
+                1465, '#FED976',
                 5237, '#FEB24C',
                 14329, '#FD8D3C',
                 37799, '#FC4E2A',
@@ -174,7 +195,7 @@ var styledFeatures = {
             'fill-color': [
                 'interpolate', ['linear'],
                 ['get', 'Probabilit'],
-                0.22 , '#FED976',
+                0.22, '#FED976',
                 0.63, '#FEB24C',
                 1.27, '#FD8D3C',
                 2.71, '#FC4E2A',
@@ -189,22 +210,22 @@ var styledFeatures = {
     map.addSource('marinelitterconcentration', {
         type: 'geojson',
         data: styledFeatures
-      });
-      
-      map.addLayer({
+    });
+
+    map.addLayer({
         id: 'marinemicroemicnoc',
         type: 'circle',
         source: 'marinelitterconcentration',
         paint: {
-          'circle-radius': ['get', 'size'],
-          'circle-color': ['get', 'color'],
-          'circle-opacity': 0.4,
-          'circle-stroke-color': '#000',
-          'circle-stroke-width': 1
+            'circle-radius': ['get', 'size'],
+            'circle-color': ['get', 'color'],
+            'circle-opacity': 0.4,
+            'circle-stroke-color': '#000',
+            'circle-stroke-width': 1
         },
         'layout': { 'visibility': 'none' }
-      });
-      // Define the video source
+    });
+    // Define the video source
     map.addSource('video-overlay', {
         type: 'video',
         urls: [
@@ -359,15 +380,15 @@ map.on('style.load', () => {
     map.setFog({}); // Set the default atmosphere style
 });
 // creating the toggle layer functionalities 
-map.on('idle', async () => {
-    const toggleableLayerIds = ['mindusdelta', 'mjiwani', 'msandspit', 'mkalmatkhor', 'msonmianikhor','sstmonthday','sstmonthnight','sstanomalies','plasticwgeneration','misplasticwaste','misplasticwasteocean','propplasticocean','marinemicroemicnoc','marineplastictracker']; // IDs of layers with checkboxes and sliders
+map.on('idle', async() => {
+    const toggleableLayerIds = ['mindusdelta', 'mjiwani', 'msandspit', 'mkalmatkhor', 'msonmianikhor', 'sstmonthday', 'sstmonthnight', 'sstanomalies', 'plasticwgeneration', 'misplasticwaste', 'misplasticwasteocean', 'propplasticocean', 'marinemicroemicnoc', 'marineplastictracker']; // IDs of layers with checkboxes and sliders
 
     const layerZoomLocations = {
         mindusdelta: [24.8607, 67.0011], // Example values for mindusdelta
         mjiwani: [25.0538, 61.7707], // Example values for mjiwani
         msandspit: [24.8404, 66.9098], // Example values for msandspit
         mkalmatkhor: [25.4211, 64.0769], // Example values for mkalmatkhor
-        msonmianikhor: [25.1667,  66.5000] // Example values for msonmianikhor
+        msonmianikhor: [25.1667, 66.5000] // Example values for msonmianikhor
     };
 
     for (const id of toggleableLayerIds) {
@@ -379,7 +400,7 @@ map.on('idle', async () => {
         }
 
         // Add event listener for checkbox change
-        visibilityCheckbox.addEventListener('change', function () {
+        visibilityCheckbox.addEventListener('change', function() {
             const visibility = this.checked ? 'visible' : 'none';
 
             if (map.getLayer(id)) {
@@ -396,7 +417,7 @@ map.on('idle', async () => {
         });
 
         // Add event listener for slider input
-        opacitySlider.addEventListener('input', function () {
+        opacitySlider.addEventListener('input', function() {
             const opacityValue = parseFloat(this.value) / 100; // Convert range [0-100] to [0-1]
 
             if (map.getLayer(id)) {
@@ -405,12 +426,12 @@ map.on('idle', async () => {
         });
     }
 });
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const mangroveWatchCheckbox = document.querySelector('input[data-layername="mwatch"]');
     const mainContainer = document.getElementById('main-container');
     let iframeEezMarineSurveillance; // Declare iframe variable outside event listener
 
-    mangroveWatchCheckbox.addEventListener('change', function () {
+    mangroveWatchCheckbox.addEventListener('change', function() {
         if (this.checked) {
             // If checkbox is checked, show the iframe
             iframeEezMarineSurveillance = document.createElement('iframe');
@@ -430,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 // Add info control for plastic waste generation
 map.on('mousemove', (event) => {
-    let layers = ['plasticwgeneration', 'misplasticwaste','misplasticwasteocean','propplasticocean']; // Add more layers as needed
+    let layers = ['plasticwgeneration', 'misplasticwaste', 'misplasticwasteocean', 'propplasticocean']; // Add more layers as needed
 
     let visibleLayer = null;
     for (let layer of layers) {
@@ -459,11 +480,11 @@ map.on('mousemove', (event) => {
                 propertyName = 'Mismanaged';
                 unit = 'Metric/tonne';
                 infoControlId = 'pdmisplasticwastenon';
-            }else if (visibleLayer === 'misplasticwasteocean') {
+            } else if (visibleLayer === 'misplasticwasteocean') {
                 propertyName = 'Mismanag_1';
                 unit = 'tonne/year';
                 infoControlId = 'pdmismanagedpwo';
-            }else if (visibleLayer === 'propplasticocean') {
+            } else if (visibleLayer === 'propplasticocean') {
                 propertyName = 'Probabilit';
                 unit = 'percent propability';
                 infoControlId = 'pdpropability';
