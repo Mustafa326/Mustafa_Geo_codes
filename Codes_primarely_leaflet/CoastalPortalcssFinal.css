@@ -182,15 +182,6 @@
     justify-content: center; /* Align row container in the middle horizontally */
     align-items: center; /* Align row container in the middle vertically */
   }
-  #bottom-div {
-    flex-shrink: 0;
-    background-color: lightgray;
-    padding: 10px;
-    text-align: center;
-    overflow: hidden; /* Ensure contents don't overflow */
-    position: fixed;
-    width: 100%;
-  }
   #top-div{
     padding: 10px;
     text-align: center;
@@ -201,9 +192,40 @@
     position: fixed;
 
   }
-  #bottom-div {
-    text-align: center;
+  .map-overlay {
+    bottom: 0;
+    right: 0;
+    margin-right: 20px;
+    font-family: Arial, sans-serif;
+    overflow: auto;
+    border-radius: 3px;
+    background: linear-gradient(to top, #000222, #002088c4);
   }
+  
+  #features {
+    top: 0;
+    height: 170px;
+    margin-top: 20px;
+  }
+
+  #features_mismanagedpw {
+    top: 0;
+    height: 170px;
+    margin-top: 20px;
+  }
+
+  #features_misplasticwasteocean {
+    top: 0;
+    height: 170px;
+    margin-top: 20px;
+  }
+
+  #features_propplasticocean {
+    top: 0;
+    height: 170px;
+    margin-top: 20px;
+  }
+    
   /* Additional styles for accordion, map, and main container */
   .accordion{
     background: #fff;
@@ -443,7 +465,9 @@
     }
     
     #bottom-div {
-      position: absolute;
+    overflow: hidden; /* Ensure contents don't overflow */
+    width: 100%;
+    position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
@@ -453,7 +477,6 @@
       font-size: 20px;
       text-align: center;
       line-height: 1.5;
-      overflow: hidden;
   }
   
   #moving-text1 {
