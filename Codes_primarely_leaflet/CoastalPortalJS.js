@@ -12,47 +12,219 @@ var bounds = [[60.872, 23.634], [77.837, 36.962]  ];
     bearing: 0,
     style: "mapbox://styles/mapbox/streets-v12",
   });
-  map.addControl(new mapboxgl.NavigationControl({
-    showZoom: false,
-    showCompass: false
-  }));
-  
-  map.addControl(new mapboxgl.ScaleControl());
-  
+  // Define the adjusted coordinates based on the bounding box
+const southwest = [21.739091, 57.216797];
+const northeast = [37.090240, 78.793945];
+
+
   setTimeout(() => {
     map.flyTo({ center: targetCoordinate, zoom: 5, speed: 0.6 });
   }, 1000);
+// Define thresholds for thematic styling based on maximum, minimum, and mean 'mpw' values.
+var maxMpw = 5685870000;
+var minMpw = 0;
+var meanMpw = 1383029.785233205;
+
+var highThreshold = meanMpw * 2;
+var mediumThreshold = meanMpw / 2;
+
+// Function to style each feature in the GeoJSON layer
+function styleFeature(feature) {
+  // Get 'mpw' value from feature properties
+  var mpwValue = feature.properties.mpw;
+
+  // Calculate point size based on the square root of 'mpw' divided by 2000, and add 1
+  var size = Math.sqrt(mpwValue) / 2000 + 1;
+
+  // Thematic color scheme based on 'mpw' values
+  var color;
+  if (mpwValue >= highThreshold) {
+    color = 'red';
+  } else if (mpwValue >= mediumThreshold) {
+    color = 'yellow';
+  } else {
+    color = 'green';
+  }
+
+  // Return the styled circle properties
+  return {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: feature.geometry.coordinates
+    },
+    properties: {
+      size: size,
+      color: color
+    }
+  };
+}
+
+// Create the GeoJSON data with styled features
+var styledFeatures = {
+  type: 'FeatureCollection',
+  features: coastallitter.features.map(styleFeature)
+};
 
   map.on('load', () => {
-    // Add GeoJSON source
-    // map.addSource('countries_covid', {
-    //     type: 'geojson',
-    //     data: 'static/coviddata.geojson' //need to give path of static folder in django
+    //adding the District data set
+    map.addSource('pakdistricts', {
+        type: 'geojson',
+        data: district
+      });
+      map.addLayer({
+        'id': 'pakdistricts-layer',
+        'type': 'fill',
+        'source': 'pakdistricts',
+        'paint': {
+            'fill-color': 'transparent', // Transparent fill color
+            'fill-outline-color': 'black', // Black outline color
+            'fill-opacity': 0.5, // Adjust transparency if needed
+        }
+    });
+    //adding the rivers data set
+    map.addSource('pakrivers', {
+        type: 'geojson',
+        data: rivers
+      });
+      map.addLayer({
+        'id': 'pakrivers-layer',
+        'type': 'line',
+        'source': 'pakrivers',
+        'paint': {
+          'line-color': 'blue', // Blue line color
+          'line-width': 1 // Line width
+        }
+      });
+    // Add GeoJSON source from Plastic Waste Geojson
+    map.addSource('Plastic_Waste_Generation', {
+        type: 'geojson',
+        data: plasticwaste
+    });
+    // Add choropleth layer for plastic waste generation
+    map.addLayer({
+        'id': 'plasticwgeneration',
+        'type': 'fill',
+        'source': 'Plastic_Waste_Generation',
+        'paint': {
+            'fill-color': [
+                'interpolate', ['linear'],
+                ['get', 'Plastic_Wa'],
+                267234 , '#FED976',
+                1022683, '#FEB24C',
+                2031675, '#FD8D3C',
+                3919268, '#FC4E2A',
+                7993489, '#E31A1C',
+                14476561, '#BD0026',
+                59079741, '#800026'
+            ],
+            'fill-opacity': 0.7
+        },
+        'layout': { 'visibility': 'none' }
+    });
+    // Add choropleth layer for Missmanaged PW
+    map.addLayer({
+        'id': 'misplasticwaste',
+        'type': 'fill',
+        'source': 'Plastic_Waste_Generation',
+        'paint': {
+            'fill-color': [
+                'interpolate', ['linear'],
+                ['get', 'Mismanaged'],
+                73139, '#FED976',
+                247495, '#FEB24C',
+                520002, '#FD8D3C',
+                1021990, '#FC4E2A',
+                1948950, '#E31A1C',
+                4942514, '#BD0026',
+                12994100, '#800026'
+            ],
+            'fill-opacity': 0.7
+        },
+        'layout': { 'visibility': 'none' }
+    });
+    // Add choropleth layer for Missmanaged PW Ocean
+    map.addLayer({
+        'id': 'misplasticwasteocean',
+        'type': 'fill',
+        'source': 'Plastic_Waste_Generation',
+        'paint': {
+            'fill-color': [
+                'interpolate', ['linear'],
+                ['get', 'Mismanag_1'],
+                1465 , '#FED976',
+                5237, '#FEB24C',
+                14329, '#FD8D3C',
+                37799, '#FC4E2A',
+                73098, '#E31A1C',
+                126513, '#BD0026',
+                356371, '#800026'
+            ],
+            'fill-opacity': 0.7
+        },
+        'layout': { 'visibility': 'none' }
+    });
 
-    // });
+    // Add choropleth layer for propability of plastic  Ocean
+    map.addLayer({
+        'id': 'propplasticocean',
+        'type': 'fill',
+        'source': 'Plastic_Waste_Generation',
+        'paint': {
+            'fill-color': [
+                'interpolate', ['linear'],
+                ['get', 'Probabilit'],
+                0.22 , '#FED976',
+                0.63, '#FEB24C',
+                1.27, '#FD8D3C',
+                2.71, '#FC4E2A',
+                5.05, '#E31A1C',
+                7.92, '#BD0026',
+                13.74, '#800026'
+            ],
+            'fill-opacity': 0.7
+        },
+        'layout': { 'visibility': 'none' }
+    });
+    map.addSource('marinelitterconcentration', {
+        type: 'geojson',
+        data: styledFeatures
+      });
+      
+      map.addLayer({
+        id: 'marinemicroemicnoc',
+        type: 'circle',
+        source: 'marinelitterconcentration',
+        paint: {
+          'circle-radius': ['get', 'size'],
+          'circle-color': ['get', 'color'],
+          'circle-opacity': 0.4,
+          'circle-stroke-color': '#000',
+          'circle-stroke-width': 1
+        },
+        'layout': { 'visibility': 'none' }
+      });
+      // Define the video source
+    map.addSource('video-overlay', {
+        type: 'video',
+        urls: [
+            'Plastic_Waste_trackingfinal.mp4',
+        ],
+        coordinates: [
+            [-122.51596391201019, 37.56238816766053],
+            [-122.51467645168304, 37.56410183312965],
+            [-122.51309394836426, 37.563391708549425],
+            [-122.51423120498657, 37.56161849366671]
+        ]
+    });
 
-    // Add choropleth layer
-    // const countriesLayerId = 'countries_layer';
-    // map.addLayer({
-    //     'id': countriesLayerId,
-    //     'type': 'fill',
-    //     'source': 'countries_covid',
-    //     'paint': {
-    //         'fill-color': [
-    //             'interpolate', ['linear'],
-    //             ['get', 'density_20'],
-    //             30, '#FED976',
-    //             60, '#FEB24C',
-    //             100, '#FD8D3C',
-    //             160, '#FC4E2A',
-    //             380, '#E31A1C',
-    //             670, '#BD0026',
-    //             1200, '#800026'
-    //         ],
-    //         'fill-opacity': 0.7
-    //     },
-    //     //'layout': { 'visibility': 'none' }
-    // });
+    // Add the video layer
+    map.addLayer({
+        id: 'video-overlay',
+        type: 'raster',
+        source: 'video-overlay'
+    });
+
     //the mangrove-cover-indusdelta layer
     map.addSource('Mangrove_Cover_indusdelta', {
         type: 'raster',
@@ -136,6 +308,51 @@ var bounds = [[60.872, 23.634], [77.837, 36.962]  ];
         //'paint': { 'raster-opacity': 0.7 },
         layout: { visibility: 'none' }
     }, );
+    //adding the Sea Surface Temperature Monthly Day Layer
+    map.addSource('seasurfacetemp_sstmonthday', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=MODIS_Aqua_L3_SST_Thermal_4km_Day_Monthly&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'sstmonthday',
+        type: 'raster',
+        source: 'seasurfacetemp_sstmonthday',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the Sea Surface Temperature Monthly Night Layer
+    map.addSource('seasurfacetemp_sstmonthnight', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=MODIS_Aqua_L3_SST_Thermal_4km_Night_Monthly&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'sstmonthnight',
+        type: 'raster',
+        source: 'seasurfacetemp_sstmonthnight',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the Sea Surface Temperature Anomalies Layer
+    map.addSource('seasurfacetemp_sstanomalies', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=GHRSST_L4_MUR_Sea_Surface_Temperature_Anomalies&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'sstanomalies',
+        type: 'raster',
+        source: 'seasurfacetemp_sstanomalies',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
 });
 //adding styles onto map
 map.on('style.load', () => {
@@ -143,7 +360,7 @@ map.on('style.load', () => {
 });
 // creating the toggle layer functionalities 
 map.on('idle', async () => {
-    const toggleableLayerIds = ['mindusdelta', 'mjiwani', 'msandspit', 'mkalmatkhor', 'msonmianikhor']; // IDs of layers with checkboxes and sliders
+    const toggleableLayerIds = ['mindusdelta', 'mjiwani', 'msandspit', 'mkalmatkhor', 'msonmianikhor','sstmonthday','sstmonthnight','sstanomalies','plasticwgeneration','misplasticwaste','misplasticwasteocean','propplasticocean','marinemicroemicnoc','marineplastictracker']; // IDs of layers with checkboxes and sliders
 
     const layerZoomLocations = {
         mindusdelta: [24.8607, 67.0011], // Example values for mindusdelta
@@ -211,4 +428,69 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+// Add info control for plastic waste generation
+map.on('mousemove', (event) => {
+    let layers = ['plasticwgeneration', 'misplasticwaste','misplasticwasteocean','propplasticocean']; // Add more layers as needed
 
+    let visibleLayer = null;
+    for (let layer of layers) {
+        if (map.getLayoutProperty(layer, 'visibility') === 'visible') {
+            visibleLayer = layer;
+            break;
+        }
+    }
+
+    if (visibleLayer) {
+        const features = map.queryRenderedFeatures(event.point, {
+            layers: [visibleLayer]
+        });
+
+        if (features.length > 0) {
+            console.log(features[0].properties); // Log properties to inspect
+
+            let propertyName;
+            let unit;
+            let infoControlId;
+            if (visibleLayer === 'plasticwgeneration') {
+                propertyName = 'Plastic_Wa';
+                unit = 'tonne';
+                infoControlId = 'pdplasticgeneration';
+            } else if (visibleLayer === 'misplasticwaste') {
+                propertyName = 'Mismanaged';
+                unit = 'Metric/tonne';
+                infoControlId = 'pdmisplasticwastenon';
+            }else if (visibleLayer === 'misplasticwasteocean') {
+                propertyName = 'Mismanag_1';
+                unit = 'tonne/year';
+                infoControlId = 'pdmismanagedpwo';
+            }else if (visibleLayer === 'propplasticocean') {
+                propertyName = 'Probabilit';
+                unit = 'percent propability';
+                infoControlId = 'pdpropability';
+            }
+
+            document.getElementById(infoControlId).innerHTML = `
+                <h3>${features[0].properties.NAME_EN}</h3>
+                <p><strong><em>${features[0].properties[propertyName]}</strong> ${unit}</em></p>`;
+        } else {
+            // Reset info control if no features found
+            resetInfoControl();
+        }
+    } else {
+        // Reset info control if no layer is visible
+        resetInfoControl();
+    }
+});
+
+function resetInfoControl() {
+    document.getElementById('pdplasticgeneration').innerHTML = `<p>Hover over a region!</p>`;
+    document.getElementById('pdmisplasticwastenon').innerHTML = `<p>Hover over a region!</p>`;
+    document.getElementById('pdmismanagedpwo').innerHTML = `<p>Hover over a region!</p>`;
+    document.getElementById('pdpropability').innerHTML = `<p>Hover over a region!</p>`;
+    // Add more reset lines for other layers if needed
+}
+//adding the controls onto the map
+map.addControl(new mapboxgl.FullscreenControl());
+const nav = new mapboxgl.NavigationControl();
+map.addControl(nav, 'top-right');
+map.addControl(new mapboxgl.ScaleControl());
