@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>COASTAL HAZARD MONITORING PORTAL</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+      <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+      <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+      <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+      <!--GeoJson files link-->
+      <!-- Linking the Geojson-->
+      <script src="Pakistan_rivers.geojson"></script>
+      <script src="plasticwaste_geojson.geojson"></script>
+      <script src="MarineMicroplasticConcentrations_leaflet.geojson"></script>
+      <script src="River_Plastic_Emissions.geojson"></script>
+      <script src="1m_rise.geojson"></script>
+      <script src="2m_rise.geojson"></script>
+      <script src="5m_rise.geojson"></script>
+      <script src="10m_rise.geojson"></script>
+      <script src="distBound.geojson"></script>
+      <link rel="stylesheet" type="text/css" href="coastal_portalcssfinal.css" />
+   </head>
+   <body>
+      <div id="container">
+      <!-- Top Div -->
+      <div id="top-div">
+         <div id="hello-text">COASTAL HAZARD MONITORING PORTAL</div>
+         <div id="ndma-logo">
+            <a href="index.html">
+            <img src="ndma.png" alt="NDMA Icon">
+            </a>
+         </div>
+      </div>
+      <!-- Row Container -->
+      <div id="row-container">
+      <!-- Second Row: Map -->
+      <div id="map-container">
+         <div id="map">
+            <!-- First Row: Accordion -->
+            <div id="accordion-container">
+               <div class="accordion overflow-auto" id="accordionExample">
+                  <div class="accordion-item">
+                     <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Mangrove
+                        </button>
+                     </h2>
+                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body accordion-scroll">
+                           <details id="Mangrove-Cover-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-groups-title">
+                                 Mangrove Cover
+                              </summary>
+                              <p id="Mangrove-Cover-accordian-p-tag">
+                                 <!--Mangrove Cover Watch-->
+                              <details id="mangrove-mwatch-accordian" class="emhvras-home-side-bar-accordian">
+                                 <summary class="layer-title">
+                                    Mangrove Cover Watch
+                                    <input class="layers-checkbox" type="checkbox" data-layergroup="mwatch" data-layertype="layer" data-layername="mwatch" data-layerlegend="false" data-istempo="true" />
+                                 </summary>
+                                 <p id="Mangrove-Cover-mwatch-accordian-p-tag" class="layer-p-tag">
+                                    <span class="layer-description">
+                                    <b>Layer Description:</b><br> Represents the mangrove watch with the statistics.
+                                    </span><br>
+                              </details>
+                              </p>
+                              <p id="Mangrove-Cover-accordian-p-tag">
+                                 <!--Mangrove Cover Indus Delta-->
+                              <details id="mangrove-mindusdelta-accordian" class="emhvras-home-side-bar-accordian">
+                                 <summary class="layer-title">
+                                    Mangrove Cover Indus Delta
+                                    <input class="layers-checkbox" type="checkbox" data-layergroup="mangroves" data-layertype="layer" data-layername="mindusdelta" data-layerlegend="false" data-istempo="true" />
+                                 </summary>
+                                 <p id="Mangrove-Cover-mindusdelta-accordian-p-tag" class="layer-p-tag">
+                                 <div class="layer-opacity-slider-div">
+                                    <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
+                                    <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="mindusdelta" />
+                                 </div>
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> Represents the Mangrove Cover of Indus delta coastline of the year 2022
+                                 </span><br>
+                                 <img src="Mangrove_cover_legend.png" width="45%" />
+                              </details>
+                              </p>
+                              <p id="Mangrove-Cover-accordian-p-tag">
+                                 <!--Mangrove Cover Jiwani-->
+                              <details id="mangrove-mjiwani-accordian" class="emhvras-home-side-bar-accordian">
+                                 <summary class="layer-title">
+                                    Mangrove Cover Jiwani
+                                    <input class="layers-checkbox" type="checkbox" data-layergroup="mangrove" data-layertype="layer" data-layername="mjiwani" data-layerlegend="false" data-istempo="true" />
+                                 </summary>
+                                 <p id="Mangrove-Cover-mjiwani-accordian-p-tag" class="layer-p-tag">
+                                 <div class="layer-opacity-slider-div">
+                                    <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
+                                    <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="mjiwani" />
+                                 </div>
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> Represents the Mangrove Cover of Jiwani coastline of the year 2022
+                                 </span><br>
+                                 <img src="Mangrove_cover_legend.png" width="45%" />
+                              </details>
+                              </p>
+                              <p id="Mangrove-Cover-accordian-p-tag">
+                                 <!--Mangrove Cover Sandspit-->
+                              <details id="mangrove-msandspit-accordian" class="emhvras-home-side-bar-accordian">
+                                 <summary class="layer-title">
+                                    Mangrove Sandspit
+                                    <input class="layers-checkbox" type="checkbox" data-layergroup="mangrove" data-layertype="layer" data-layername="msandspit" data-layerlegend="false" data-istempo="true" />
+                                 </summary>
+                                 <p id="Mangrove-Cover-msandspit-accordian-p-tag" class="layer-p-tag">
+                                 <div class="layer-opacity-slider-div">
+                                    <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
+                                    <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="msandspit" />
+                                 </div>
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> Represents the Mangrove Cover of Sandspit coastline of the year 2022
+                                 </span><br>
+                                 <img src="Mangrove_cover_legend.png" width="45%" />
+                              </details>
+                              </p>
+                              <p id="Mangrove-Cover-accordian-p-tag">
+                                 <!--Mangrove Cover Indus Kalmat Khor-->
+                              <details id="mangrove-mkalmatkhor-accordian" class="emhvras-home-side-bar-accordian">
+                                 <summary class="layer-title">
+                                    Mangrove Cover Kalmat Khor
+                                    <input class="layers-checkbox" type="checkbox" data-layergroup="mangrove" data-layertype="layer" data-layername="mkalmatkhor" data-layerlegend="false" data-istempo="true" />
+                                 </summary>
+                                 <p id="Mangrove-Cover-mkalmatkhor-accordian-p-tag" class="layer-p-tag">
+                                 <div class="layer-opacity-slider-div">
+                                    <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
+                                    <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="mkalmatkhor" />
+                                 </div>
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> Represents the Mangrove Cover of Kalmat Khor coastline of the year 2022
+                                 </span><br>
+                                 <img src="Mangrove_cover_legend.png" width="45%" />
+                              </details>
+                              </p>
+                              <p id="Mangrove-Cover-accordian-p-tag">
+                                 <!--Mangrove Cover Indus Sonmiani Khor-->
+                              <details id="mangrove-msonmianikhor-accordian" class="emhvras-home-side-bar-accordian">
+                                 <summary class="layer-title">
+                                    Mangrove Cover Sonmiani Khor
+                                    <input class="layers-checkbox" type="checkbox" data-layergroup="mangrove" data-layertype="layer" data-layername="msonmianikhor" data-layerlegend="false" data-istempo="true" />
+                                 </summary>
+                                 <p id="Mangrove-Cover-msonmianikhor-accordian-p-tag" class="layer-p-tag">
+                                 <div class="layer-opacity-slider-div">
+                                    <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
+                                    <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="msonmianikhor" />
+                                 </div>
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> Represents the Mangrove Cover of Sonmiani Khor coastline of the year 2022
+                                 </span><br>
+                                 <img src="Mangrove_cover_legend.png" width="45%" />
+                              </details>
+                              </p>
+                           </details>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="accordion-item">
+                     <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Sea Surface Temperature
+                        </button>
+                     </h2>
+                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body accordion-scroll">
+                           <details id="SeaSurface-Temperature-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-groups-title">
+                              S.S.T Layers
+                           </summary>
+                           <p id="SeaSurface-Temperature-accordian-p-tag">
+                              <!--S.S.T Monthly Day-->
+                           <details id="seasurfacetemp-sstmonthday-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 S.S.T Monthly Day
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="seasurfacetemp" data-layertype="layer" data-layername="sstmonthday" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="seasurfacetemp-sstmonthday-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-seasurfacetemp">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="sstmonthday" />
+                              </div>
+                              <p id="SeaSurface-Temperature-sstmonthday-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> Sea Surface Temperature (SST) is a measure of the temperature of the water at the ocean's surface.This layer refers to the temperature of the top layer of the ocean during daylight hours. 
+                                 </span><br>
+                                 <img src="Sea_surface_temperature_monthly_day.png" width="95%" />
+                           </details>
+                           </p>
+                           <p id="SeaSurface-Temperature-accordian-p-tag">
+                              <!-- S.S.T Monthly Night-->
+                           <details id="seasurfacetemp-sstmonthnight-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 S.S.T Monthly Night
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="seasurfacetemp" data-layertype="layer" data-layername="sstmonthnight" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="seasurfacetemp-sstmonthnight-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-seasurfacetemp">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="sstmonthnight" />
+                              </div>
+                              <p id="SeaSurface-Temperature-sstmonthnight-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> Sea Surface Temperature (SST) is a measure of the temperature of the water at the ocean's surface.This layer refers to the temperature of the top layer of the ocean during nightlight hours. 
+                                 </span><br>
+                                 <img src="Sea_surface_temperature_monthly_day.png" width="95%" />
+                           </details>
+                           </p>
+                           <p id="SeaSurface-Temperature-accordian-p-tag">
+                              <!--S.S.T Anomalies-->
+                           <details id="seasurfacetemp-sstanomalies-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 S.S.T Anomalies
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="seasurfacetemp" data-layertype="layer" data-layername="sstanomalies" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="seasurfacetemp-sstanomalies-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-seasurfacetemp">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="sstanomalies" />
+                              </div>
+                              <p id="SeaSurface-Temperature-sstanomalies-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> Sea Surface Temperature (SST) anomalies refer to the difference between the observed sea surface temperature at a specific location and time and the long-term average temperature for that same location and time of year.
+                                 </span><br>
+                                 <img src="Sea_Surface_Temp_anomalies.png" width="95%" />
+                           </details>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Sea Level Rise
+                       </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                       <div class="accordion-body accordion-scroll">
+                          <details id="EEZ-Marine-Surveillance-accordian" class="emhvras-home-side-bar-accordian">
+                          <summary class="layer-groups-title">
+                            Sea Level Rise Layers
+                          </summary>
+                          <p id="Sea-Water-Rise-accordian-p-tag">
+                            <!--Sea Level Rise 1 Meter-->
+                         <details id="seawaterrise-swronemeter-accordian" class="emhvras-home-side-bar-accordian">
+                            <summary class="layer-title">
+                               Sea Level Rise 1 Meter
+                               <input class="layers-checkbox" type="checkbox" data-layergroup="seawaterrise" data-layertype="layer" data-layername="swronemeter" data-layerlegend="false" data-istempo="true" />
+                            </summary>
+                            <p id="seawaterrise-swronemeter-accordian-p-tag" class="layer-p-tag">
+                            <div class="layer-opacity-slider-div">
+                               <label>Layer opacity: <span id="layer-opacity-slider-value-label-seawaterrise">100%</span></label>
+                               <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="swronemeter" />
+                            </div>
+                            <p id="Sea-Water-Rise-swronemeter-accordian-p-tag" class="layer-p-tag">
+                               <span class="layer-description">
+                               <b>Layer Description:</b><br> Represents the Scenario of 1m rise of sea level
+                               </span><br>
+                         </details>
+                         </p>
+                         <p id="Sea-Water-Rise-accordian-p-tag">
+                          <!--Sea Level Rise 2 Meter-->
+                       <details id="seawaterrise-swrtwometer-accordian" class="emhvras-home-side-bar-accordian">
+                          <summary class="layer-title">
+                             Sea Level Rise 2 Meter
+                             <input class="layers-checkbox" type="checkbox" data-layergroup="seawaterrise" data-layertype="layer" data-layername="swrtwometer" data-layerlegend="false" data-istempo="true" />
+                          </summary>
+                          <p id="seawaterrise-swrtwometer-accordian-p-tag" class="layer-p-tag">
+                          <div class="layer-opacity-slider-div">
+                             <label>Layer opacity: <span id="layer-opacity-slider-value-label-seawaterrise">100%</span></label>
+                             <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="swrtwometer" />
+                          </div>
+                          <p id="Sea-Water-Rise-swrtwometer-accordian-p-tag" class="layer-p-tag">
+                             <span class="layer-description">
+                             <b>Layer Description:</b><br> Represents the Scenario of 2m rise of sea level
+                             </span><br>
+                       </details>
+                       </p>
+                       <p id="Sea-Water-Rise-accordian-p-tag">
+                        <!--Sea Level Rise 5 Meter-->
+                     <details id="seawaterrise-swrfivemeter-accordian" class="emhvras-home-side-bar-accordian">
+                        <summary class="layer-title">
+                           Sea Level Rise 5 Meter
+                           <input class="layers-checkbox" type="checkbox" data-layergroup="seawaterrise" data-layertype="layer" data-layername="swrfivemeter" data-layerlegend="false" data-istempo="true" />
+                        </summary>
+                        <p id="seawaterrise-swrfivemeter-accordian-p-tag" class="layer-p-tag">
+                        <div class="layer-opacity-slider-div">
+                           <label>Layer opacity: <span id="layer-opacity-slider-value-label-seawaterrise">100%</span></label>
+                           <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="swrfivemeter" />
+                        </div>
+                        <p id="Sea-Water-Rise-swrfivemeter-accordian-p-tag" class="layer-p-tag">
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> Represents the Scenario of 5m rise of sea level
+                           </span><br>
+                     </details>
+                     </p>
+                     <p id="Sea-Water-Rise-accordian-p-tag">
+                      <!--Sea Level Rise 10 Meter-->
+                   <details id="seawaterrise-swrtenmeter-accordian" class="emhvras-home-side-bar-accordian">
+                      <summary class="layer-title">
+                         Sea Level Rise 10 Meter
+                         <input class="layers-checkbox" type="checkbox" data-layergroup="seawaterrise" data-layertype="layer" data-layername="swrtenmeter" data-layerlegend="false" data-istempo="true" />
+                      </summary>
+                      <p id="seawaterrise-swrtenmeter-accordian-p-tag" class="layer-p-tag">
+                      <div class="layer-opacity-slider-div">
+                         <label>Layer opacity: <span id="layer-opacity-slider-value-label-seawaterrise">100%</span></label>
+                         <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="swrtenmeter" />
+                      </div>
+                      <p id="Sea-Water-Rise-swrtenmeter-accordian-p-tag" class="layer-p-tag">
+                         <span class="layer-description">
+                         <b>Layer Description:</b><br> Represents the Scenario of 10m rise of sea level
+                         </span><br>
+                   </details>
+                   </p>
+                   <p id="CoastalFloodProjection-accordian-p-tag">
+                     <!--Coastal Flood Projection 50 Years-->
+                  <details id="CoastalFloodProjection-coastalflood-accordian" class="emhvras-home-side-bar-accordian">
+                     <summary class="layer-title">
+                        Coastal Flood Projection 50 Years
+                        <input class="layers-checkbox" type="checkbox" data-layergroup="coastalfloodprojection" data-layertype="layer" data-layername="coastalflood" data-layerlegend="false" data-istempo="true" />
+                     </summary>
+                     <p id="coastalfloodprojection-coastalflood-accordian-p-tag" class="layer-p-tag">
+                     <div class="layer-opacity-slider-div">
+                        <label>Layer opacity: <span id="layer-opacity-slider-value-label-coastalfloodprojection">100%</span></label>
+                        <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="coastalflood" />
+                     </div>
+                     <p id="CoastalFloodProjection-coastalflood-accordian-p-tag" class="layer-p-tag">
+                        <span class="layer-description">
+                        <b>Layer Description:</b><br> The SS-GLOBAL-MUIS-2 dataset presents a significant advancement in the understanding of coastal flood events worldwide. Compiled by Muis et al., this dataset offers the first global reanalysis of storm surges and extreme sea levels based on hydrodynamic modeling techniques.The dataset, known as the Global Tide and Surge Reanalysis (GTSR) dataset, covers the entirety of the world's coastline and provides comprehensive time series data on tides, surges, and estimates of extreme sea levels.
+                        </span><br>
+                        <img src="https://www.geonode-gfdrrlab.org/geoserver/ows?service=WMS&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=hazard%3Ass_muis_rp0100m&style=MUIS_SS" width="45%" />
+                  </details>
+                  </p>
+
+                  <p id="Sea-Level-Rise-Anaomalies-accordian-p-tag">
+                     <!--Sea Level Rise Anaomalies-->
+                  <details id="SeaLevelRiseAnaomalies-sealevelriseanomalies-accordian" class="emhvras-home-side-bar-accordian">
+                     <summary class="layer-title">
+                        Sea Level Rise Anaomalies
+                        <input class="layers-checkbox" type="checkbox" data-layergroup="sealevelriseanaomalies" data-layertype="layer" data-layername="sealevelriseanomalies" data-layerlegend="false" data-istempo="true" />
+                     </summary>
+                     <p id="sealevelriseanaomalies-sealevelriseanomalies-accordian-p-tag" class="layer-p-tag">
+                     <div class="layer-opacity-slider-div">
+                        <label>Layer opacity: <span id="layer-opacity-slider-value-label-sealevelriseanaomalies">100%</span></label>
+                        <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="sealevelriseanomalies" />
+                     </div>
+                     <p id="SeaLevelRiseAnaomalies-sealevelriseanomalies-accordian-p-tag" class="layer-p-tag">
+                        <span class="layer-description">
+                        <b>Layer Description:</b><br> The SS-GLOBAL-MUIS-2 dataset presents a significant advancement in the understanding of coastal flood events worldwide. Compiled by Muis et al., this dataset offers the first global reanalysis of storm surges and extreme sea levels based on hydrodynamic modeling techniques.The dataset, known as the Global Tide and Surge Reanalysis (GTSR) dataset, covers the entirety of the world's coastline and provides comprehensive time series data on tides, surges, and estimates of extreme sea levels.
+                        </span><br>
+                        <img src="Sealevelriseanomalieslegend.png" width="85%" />
+                  </details>
+                  </p>
+                       </div>
+                    </div>
+                 </div>
+                 <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingFour">
+                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                      Sea Water Intrusion
+                     </button>
+                  </h2>
+                  <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                     <div class="accordion-body accordion-scroll">
+                        <details id="Sea-Water-Intrusion-accordian" class="emhvras-home-side-bar-accordian">
+                        <summary class="layer-groups-title">
+                          Sea Water Intrusion Layers
+                        </summary>
+                        <p id="Salinity-Index-2020-accordian-p-tag">
+                          <!--Salinity Index 2020-->
+                       <details id="Salinity-Index-2020-salinity2020-accordian" class="emhvras-home-side-bar-accordian">
+                          <summary class="layer-title">
+                           Salinity Index 2020
+                             <input class="layers-checkbox" type="checkbox" data-layergroup="salinity-index" data-layertype="layer" data-layername="salinity2020" data-layerlegend="false" data-istempo="true" />
+                          </summary>
+                          <p id="salinity-index-2020-salinity2020-accordian-p-tag" class="layer-p-tag">
+                          <div class="layer-opacity-slider-div">
+                             <label>Layer opacity: <span id="layer-opacity-slider-value-label-salinity-index">100%</span></label>
+                             <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="salinity2020" />
+                          </div>
+                          <p id="salinity-index-2020-salinity2020-accordian-p-tag" class="layer-p-tag">
+                             <span class="layer-description">
+                             <b>Layer Description:</b><br> Raster representing the salinity index calculated through the collection of satellite data of the coast of Pakistan
+                             </span><br>
+                             <img src="Salinityindex2020.png" width="85%" />
+                       </details>
+                       </p>
+                       <p id="Sea-Water-Intrusion-accordian-p-tag">
+                        <!--Salinity Index 2021-->
+                     <details id="Salinity-Index-2021-salinity2021-accordian" class="emhvras-home-side-bar-accordian">
+                        <summary class="layer-title">
+                           Salinity Index 2021
+                           <input class="layers-checkbox" type="checkbox" data-layergroup="salinity-index" data-layertype="layer" data-layername="salinity2021" data-layerlegend="false" data-istempo="true" />
+                        </summary>
+                        <p id="salinity-index-2021-salinity2021-accordian-p-tag" class="layer-p-tag">
+                        <div class="layer-opacity-slider-div">
+                           <label>Layer opacity: <span id="layer-opacity-slider-value-label-salinity-index">100%</span></label>
+                           <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="salinity2021" />
+                        </div>
+                        <p id="salinity-index-2021-salinity2021-accordian-p-tag" class="layer-p-tag">
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> Raster representing the salinity index calculated through the collection of satellite data of the coast of Pakistan
+                           </span><br>
+                           <img src="SalinityIndex2021.png" width="85%" />
+                     </details>
+                     </p>
+                     <p id="Sea-Surface-Salinity-Monthly-accordian-p-tag">
+                      <!--Sea surface Salinity Monthly-->
+                   <details id="SeaSurfaceSalinityMonthly-seasalmonthly-accordian" class="emhvras-home-side-bar-accordian">
+                      <summary class="layer-title">
+                        Sea Surface Salinity Monthly
+                         <input class="layers-checkbox" type="checkbox" data-layergroup="seasurfacesalinitymonthly" data-layertype="layer" data-layername="seasalmonthly" data-layerlegend="false" data-istempo="true" />
+                      </summary>
+                      <p id="seasurfacesalinitymonthly-seasalmonthly-accordian-p-tag" class="layer-p-tag">
+                      <div class="layer-opacity-slider-div">
+                         <label>Layer opacity: <span id="layer-opacity-slider-value-label-seasurfacesalinitymonthly">100%</span></label>
+                         <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="seasalmonthly" />
+                      </div>
+                      <p id="seasurfacesalinitymonthly-seasalmonthly-accordian-p-tag" class="layer-p-tag">
+                         <span class="layer-description">
+                         <b>Layer Description:</b><br> This product provides information about the salinity of the sea surface on a monthly basis and utilizes data from the Soil Moisture Active Passive (SMAP) mission's radiometer instrument. Salinity in the context of this layer refers to the concentration of salt in the top layer of the ocean. Measuring sea surface salinity is important for understanding variations in salt content, which can influence ocean circulation, water density, and contribute to our knowledge of the Earth's water cycle.
+                         </span><br>
+                         <img src="Sea_Surface_Salinity_global_legend.png" width="65%" />
+                   </details>
+                   </p>
+                   <p id="Sea-Surface-Salinity-Daily-accordian-p-tag">
+                    <!--Sea surface Salinity Daily-->
+                 <details id="Sea-Surface-Salinity-Daily-seasaldaily-accordian" class="emhvras-home-side-bar-accordian">
+                    <summary class="layer-title">
+                     Sea surface Salinity Daily
+                       <input class="layers-checkbox" type="checkbox" data-layergroup="seasurfacesalinitydaily" data-layertype="layer" data-layername="seasaldaily" data-layerlegend="false" data-istempo="true" />
+                    </summary>
+                    <p id="seasurfacesalinitydaily-seasaldaily-accordian-p-tag" class="layer-p-tag">
+                    <div class="layer-opacity-slider-div">
+                       <label>Layer opacity: <span id="layer-opacity-slider-value-label-seasurfacesalinitydaily">100%</span></label>
+                       <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="seasaldaily" />
+                    </div>
+                    <p id="Sea-Surface-Salinity-Daily-seasaldaily-accordian-p-tag" class="layer-p-tag">
+                       <span class="layer-description">
+                       <b>Layer Description:</b><br> This product provides information about the salinity of the sea surface, calculated as an 8-day running mean. It utilizes data from the Soil Moisture Active Passive (SMAP) The 8-day running mean indicates that the dataset presents averaged salinity values over consecutive 8-day periods, helping to smooth out short-term variations and provide a more consistent representation of sea surface salinity trends. 
+                       </span><br>
+                       <img src="Sea_Surface_Salinity_global_legend.png" width="65%" />
+                 </details>
+                 </p>
+                 <p id="Saline-Water-Intrusion-accordian-p-tag">
+                   <!--Saline Water Intrusion -->
+                <details id="SalineWaterIntrusion-salinewater-accordian" class="emhvras-home-side-bar-accordian">
+                   <summary class="layer-title">
+                      Saline Water Intrusion 
+                      <input class="layers-checkbox" type="checkbox" data-layergroup="SalineWaterIntrusion" data-layertype="layer" data-layername="salinewater" data-layerlegend="false" data-istempo="true" />
+                   </summary>
+                   <p id="salineWaterintrusion-salinewater-accordian-p-tag" class="layer-p-tag">
+                   <div class="layer-opacity-slider-div">
+                      <label>Layer opacity: <span id="layer-opacity-slider-value-label-SalineWaterIntrusion">100%</span></label>
+                      <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="salinewater" />
+                   </div>
+                   <p id="SalineWaterIntrusion-salinewater-accordian-p-tag" class="layer-p-tag">
+                      <span class="layer-description">
+                      <b>Layer Description:</b><br> Data Representing the intrusion of the saline water along the coast of pakistan
+                      </span><br>
+                </details>
+                </p>
+                     </div>
+                  </div>
+               </div>
+                  <div class="accordion-item">
+                     <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Plastic Waste & Detection
+                        </button>
+                     </h2>
+                     <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                        <div class="accordion-body accordion-scroll">
+                           <details id="Plastic-Waste-Detection-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-groups-title">
+                              Plastic Waste Layers
+                           </summary>
+                           <p id="Plastic-Waste-Detection-accordian-p-tag">
+                              <!--Plastic Waste Generation-->
+                           <details id="Plastic-Waste-Detection-plasticwgeneration-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 Plastic Waste Generation
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="plasticwgeneration" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="plasticwaste-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-plasticwaste">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="plasticwgeneration" />
+                              </div>
+                              <p id="plasticwaste-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
+                              <div class="overlay-option">
+                                 <label>Information Bar:</label>
+                                 <div class='map-overlay' id='features'>
+                                    <h2>Plastic Waste Generation</h2>
+                                    <div id='pdplasticgeneration'>
+                                       <p>Hover over a region!</p>
+                                    </div>
+                                 </div>
+                              </div>
+                              <p id="Plastic-Waste-Detection-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> Plastic waste generation per person, measured in kilograms per person per day. This measures total plastic waste generation prior to management and therefore does not represent the quantity of plastic at risk of polluting waterways, rivers and the ocean environment. The Primary Unit for representations is tones                                      
+                                 </span><br>
+                                 <img src="Plastic_Waste_Generation.png" width="95%" />
+                           </details>
+                           </p>
+                           <p id="Plastic-Waste-Detection-accordian-p-tag">
+                              <!-- Mismanaged Plastic Waste-->
+                           <details id="plasticwaste-misplasticwaste-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 Mismanaged Plastic Waste
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="misplasticwaste" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="plasticwaste-misplasticwaste-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-plasticwaste">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="misplasticwaste" />
+                              </div>
+                              <p id="plasticwaste-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
+                              <div class="overlay-option">
+                                 <label>Information Bar:</label>
+                                 <div class='map-overlay' id='features_mismanagedpw'>
+                                    <h2>Mismanaged Plastic Waste</h2>
+                                    <div id='pdmisplasticwastenon'>
+                                       <p>Hover over a region!</p>
+                                    </div>
+                                 </div>
+                              </div>
+                              <p id="Plastic-Waste-Detection-misplasticwaste-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> Mismanaged plastic waste includes materials burned in open pits, dumped into seas or open waters, or disposed of in unsanitary landfills and dumpsites.
+                                 </span><br>
+                                 <img src="mismanagedpw.png" width="95%" />
+                           </details>
+                           </p>
+                           <p id="Plastic-Waste-Detection-accordian-p-tag">
+                              <!-- Mismanaged Plastic Waste Ocean-->
+                           <details id="plasticwaste-misplasticwasteocean-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 Mismanaged Plastic Waste (Ocean)
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="misplasticwasteocean" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="plasticwaste-misplasticwasteocean-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-plasticwaste">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="misplasticwasteocean" />
+                              </div>
+                              <p id="plasticwaste-misplasticwasteocean-accordian-p-tag" class="layer-p-tag">
+                              <div class="overlay-option">
+                                 <label>Information Bar:</label>
+                                 <div class='map-overlay' id='features_misplasticwasteocean'>
+                                    <h2>Mismanaged Plastic Waste (Ocean)</h2>
+                                    <div id='pdmismanagedpwo'>
+                                       <p>Hover over a region!</p>
+                                    </div>
+                                 </div>
+                              </div>
+                              <p id="Plastic-Waste-Detection-misplasticwasteocean-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> This is an annual estimate of plastic emissions. A country's total does not include waste that is exported overseas, which may be at higher risk of entering the ocean.  
+                                 </span><br>
+                                 <img src="mismanagedPWOcean.png" width="95%" />
+                           </details>
+                           </p>
+                           <p id="Plastic-Waste-Detection-accordian-p-tag">
+                              <!-- Propability Of Plastic (Ocean)-->
+                           <details id="plasticwaste-propplasticocean-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 Propability Of Plastic (Ocean)
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="propplasticocean" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="plasticwaste-propplasticocean-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-plasticwaste">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="propplasticocean" />
+                              </div>
+                              <p id="plasticwaste-propplasticocean-accordian-p-tag" class="layer-p-tag">
+                              <div class="overlay-option">
+                                 <label>Information Bar:</label>
+                                 <div class='map-overlay' id='features_propplasticocean'>
+                                    <h2>Propability Of Plastic (Ocean)</h2>
+                                    <div id='pdpropability'>
+                                       <p>Hover over a region!</p>
+                                    </div>
+                                 </div>
+                              </div>
+                              <p id="Plastic-Waste-Detection-propplasticocean-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> Mismanaged plastic waste includes materials burned in open pits, dumped into seas or open waters, or disposed of in unsanitary landfills and dumpsites. A country's total does not include waste that is exported overseas, which may be at higher risk of entering the ocean.                              
+                                 </span><br>
+                                 <img src="mismanagedPWOcean.png" width="95%" />
+                           </details>
+                           </p>
+                           <p id="Plastic-Waste-Detection-EEZ-Marine-Surveillance-accordian-p-tag">
+                            <!--S.S.T Monthly Day-->
+                         <details id="plasticwaste-eezmarinesurveillance-marinesurveillance-accordian" class="emhvras-home-side-bar-accordian">
+                            <summary class="layer-title">
+                             Marine Surveillance
+                               <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="marinesurveillance" data-layerlegend="false" data-istempo="true" />
+                            </summary>
+                            <p id="plasticwaste-eezmarinesurveillance-marinesurveillance-accordian-p-tag" class="layer-p-tag">
+                            <p id="Plastic-Waste-Detection-EEZ-Marine-Surveillance-marinesurveillance-accordian-p-tag" class="layer-p-tag">
+                               <span class="layer-description">
+                               <b>Layer Description:</b><br> Represents the Marine Surveillance data 
+                               </span><br>
+                         </details>
+                           </p>
+                           <p id="Marine-Litter-concentration-coast-accordian-p-tag">
+                              <!-- Marine Micro Plastic Emission Concentration (2020-2024)-->
+                           <details id="marinelitterconcentration-marinemicroemicnoc-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 Marine Micro-Plastic Emission Concentration (2020-2024)
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="marinelitterconcentration" data-layertype="layer" data-layername="marinemicroemicnoc" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="marinelitterconcentration-marinemicroemicnoc-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-marinelitterconcentration">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="marinemicroemicnoc" />
+                              </div>
+                              <p id="Marine-Litter-concentration-coast-marinemicroemicnoc-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> This layer provides insights into the extent of plastic pollution across various watersheds and countries worldwide. Utilizing data on mismanaged plastic waste production (MPW) per country, population density, topographic elevation, and the presence of artificial barriers, the layer offers a comprehensive understanding of the sources and distribution of plastic pollution.By combining data on waste generation per capita, population density, and water flow per river catchment area, researchers calculated MPW rates for each area.
+                                 </span><br>
+                                 <img src="Marinelitteremissions.png" width="95%" height="75%" />
+                           </details>
+                           </p>
+                           
+                        </div>
+                     </div>
+                  </div>
+                  <div class="accordion-item">
+                     <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        Cyclone
+                        </button>
+                     </h2>
+                     <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                        <div class="accordion-body accordion-scroll">
+                           <details id="Plastic-Waste-Detection-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-groups-title">
+                              Cyclone Layers
+                           </summary>
+                           <p id="Cyclone-Layers-accordian-p-tag">
+                              <!--Tropical Cyclone  50 year Period Return-->
+                           <details id="Cyclone-Layers-tcyclone50-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 Tropical Cyclone 50 year Return Period 
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="cyclonelayers" data-layertype="layer" data-layername="tcyclone50" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="cyclonelayers-tcyclone50-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-cyclonelayers">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="tcyclone50" />
+                              </div>
+                              <p id="Cyclone-Layers-Detection-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> The tropical cyclone wind map indicates the mean value of wind velocity for a return period of 50 years. The tropical cyclone events used for the elaboration of this map consider climate change based on models representative concentration pathways (RCP) scenarios. The map has global coverage and a resolution of 6' (~11.1 kilometers at the equator).
+                                 </span><br>
+                                 <img src="TropicalCyclone50.png" width="75%" />
+                           </details>
+                           </p>
+                           <p id="Cyclone-Layers-accordian-p-tag">
+                              <!--Tropycal Cyclone Population Exposure Per Year -->
+                           <details id="TropicalCyclonePopulation-tcyclonepopulation-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 Tropical Cyclone Population Exposure Per Year 
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="TropicalCyclonePopulation" data-layertype="layer" data-layername="tcyclonepopulation" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="tropicalcyclonepopulation-tcyclonepopulation-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-TropicalCyclonePopulation">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="tcyclonepopulation" />
+                              </div>
+                              <p id="TropicalCyclonePopulation-tcyclonepopulation-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> This dataset includes an estimation of the annual physical exposition to tropical cyclones of Saffir-Simpson category 5 it determines the susceptible coastal zones of cyclones based on various factors 
+                                 </span><br>
+                                 <img src="TropicalCyclonepopulation.png" width="75%" />
+                           </details>
+                           </p>
+                           <p id="Cyclone-Layers-accordian-p-tag">
+                              <!--Tropical Cyclones Mortality Risk -->
+                           <details id="TropicalCyclonesMortality-tcyclonemortality-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 Tropical Cyclones Mortality Risk
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="TropicalCyclonesMortality" data-layertype="layer" data-layername="tcyclonemortality" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="tropicalcyclonesmortality-tcyclonemortality-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-TropicalCyclonesMortality">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="tcyclonemortality" />
+                              </div>
+                              <p id="TropicalCyclonesMortality-tcyclonemortality-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> This layer represents a dataset that includes an estimate of the global risk induced by tropical cyclone hazard. Unit is estimated risk index from 1 (low) to 5 (extreme). This product was designed by UNEP/GRID-Geneva for the Global Assessment Report on Risk Reduction (GAR). It was modelled using global data.
+                                 </span><br>
+                                 <img src="TropycalCyclonemorality.png" width="75%" />
+                           </details>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Third Row: Main Container -->
+      <div id="main-container">
+         <!-- Content of the main container (iframes) goes here -->
+         <div class="fullscreen-button-container">
+            <button class="fullscreen-button" onclick="openFullscreen('main-container');">Full Screen</button>
+         </div>
+      </div>
+      <div id="video-container">
+         <video autoplay muted loop id="myVideo">
+            <source src="sea_level_rise_flood_inundation.mp4" type="video/mp4">
+         </video>
+      </div>
+      <!-- Bottom Div -->
+      <div id="bottom-div">
+         <div id="moving-text1">
+            <span class="bold-slide">COASTAL HAZARD MONITORING 🌊 :-</span> Pakistan's coastal hazard monitoring is a comprehensive initiative aimed at assessing and mitigating potential risks along its coastal areas. With a diverse coastline
+            along the Arabian Sea, stretching over 1,000 kilometers, the country faces various hazards such as cyclones, storm surges, and sea-level rise. The monitoring system integrates advanced technologies, satellite imagery, and on-ground
+            observations to track and analyze coastal dynamics.
+         </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.min.js"></script>
+      <link href="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.css" rel="stylesheet" />
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+      <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
+      <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
+      <script src="https://cdn.maptiler.com/maptiler-weather/v1.1.0/maptiler-weather.umd.min.js"></script>
+      <script src="coastalportaljsfinal.js"></script>
+   </body>
+</html>

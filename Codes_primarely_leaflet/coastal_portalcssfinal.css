@@ -1,0 +1,998 @@
+#map {
+  position: absolute;
+  top: 15%;
+  left: 0.5px;
+  width: 55%;
+  height: 75%;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 7px solid rgb(10, 10, 10);
+  z-index: 1;
+  /* Set a lower z-index for the map */
+}
+
+/* SlideShow container */
+#slideShowContainer {
+  position: absolute;
+  top: 10%;
+  left: 0.5px;
+  width: 100%;
+  height: 84%;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 7px solid rgb(10, 10, 10);
+}
+
+/* Divs for icons */
+#mangrove, #seawaterrise, #plastic, #Seawaterintrusion, #cyclone {
+  position: absolute;
+  width: 14%;
+  height: 18%;
+  border-radius: 30%;
+  overflow: hidden;
+  background-size: cover;
+}
+
+/* Mangrove icon */
+#mangrove {
+  background: url('mangrovesgif.gif') no-repeat center center fixed; /* Adjust the path to your icon */
+  animation: rotateIcon 12s infinite linear;
+}
+
+/* seawaterrise icon */
+#seawaterrise {
+  top: 139px;
+  left: 202px;
+  background: url('sealevelrisegif.gif') no-repeat center center fixed;
+  animation: rotateIcon 12s infinite linear;
+}
+
+/* Plastic icon */
+#plastic {
+  top: 322px;
+  left: 411px;
+  background: url('plasticwastegif.gif') no-repeat center center fixed;
+  animation: rotateIcon 12s infinite linear;
+}
+
+/* Sea Water Intrusion icon */
+#Seawaterintrusion {
+  top: 458px;
+  left: 623px;
+  background: url('seawaterintrusiongif.gif') no-repeat center center fixed;
+  animation: rotateIcon 12s infinite linear;
+}
+
+/* Cyclone icon */
+#cyclone {
+  top: 607px;
+  left: 800px;
+  background: url('cyclonegif.gif') no-repeat center center fixed;
+  animation: rotateIcon 12s infinite linear;
+}
+
+/* Icon rotation animation */
+@keyframes rotateIcon {
+  from {
+      transform: rotateY(0deg);
+  }
+  to {
+      transform: rotateY(360deg);
+  }
+}
+
+#mangrove .button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  display: inline-block;
+  height: 52px;
+  width: 40px;
+  background: url('mangrove-svgrepo-com.svg') no-repeat top left;
+  background-size: contain;
+}
+
+#mangrove .button .credits {
+  display: none; /* Hide text initially */
+}
+
+#mangrove .button:hover .credits {
+  display: inline-block; /* Show text on hover */
+}
+
+#cyclone .button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  display: inline-block;
+  height: 52px;
+  width: 40px;
+  background: url('cyclone-svgrepo-com.svg') no-repeat top left;
+  background-size: contain;
+}
+
+#cyclone .button .credits {
+  display: none; /* Hide text initially */
+}
+
+#cyclone .button:hover .credits {
+  display: inline-block; /* Show text on hover */
+}
+
+#plastic .button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  display: inline-block;
+  height: 52px;
+  width: 40px;
+  background: url('marine-debris.svg') no-repeat top left;
+  background-size: contain;
+}
+
+#plastic .button .credits {
+  display: none; /* Hide text initially */
+}
+
+#plastic .button:hover .credits {
+  display: inline-block; /* Show text on hover */
+}
+
+
+#seawaterrise .button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  display: inline-block;
+  height: 52px;
+  width: 40px;
+  background: url('Seawaterrie.svg') no-repeat top left;
+  background-size: contain;
+}
+
+#seawaterrise .button .credits {
+  display: none; /* Hide text initially */
+}
+
+#seawaterrise .button:hover .credits {
+  display: inline-block; /* Show text on hover */
+}
+
+
+body {
+  background: url('Coastal_Portalbackgroundgif.gif') no-repeat center center fixed;
+  background-size: cover;
+  background-color: #CFD8DC;
+  /* Fallback color if the GIF is not available or fully loaded */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* Disable scrolling */
+}
+
+.badge {
+  background-color: var(--ndma-dark-blue);
+  color: white;
+  padding: 1px 4px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.menu-container {
+  display: flex;
+  align-items: center;
+}
+
+.menu-text {
+  font-size: 20px;
+  font-weight: bolder;
+  margin-left: 5px;
+  color: white;
+}
+
+#video-background {
+  position: fixed;
+  /* Fixed position */
+  top: 0;
+  left: 0;
+  z-index: -1;
+  /* Behind everything */
+}
+
+
+
+
+#hello-text {
+  font-size: 40px;
+  color: white;
+  font-weight: bold;
+  font-family: Arial;
+  z-index: 3000;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.726);
+  /* Text shadow effect */
+}
+
+#ndma-logo {
+  height: auto;
+  width: auto;
+  position: absolute;
+  z-index: 3000;
+  top: 0;
+  left: 5px;
+  height: 100%;
+}
+
+#ndma-logo img {
+  height: 3.5vw;
+  width: auto;
+  z-index: 3000;
+  /* Maintain aspect ratio */
+}
+
+#nav-title img {
+  height: 30px;
+  /* Set the height of your logo image */
+  margin-right: 10px;
+  /* Adjust the margin as needed */
+}
+
+#text-container {
+  position: absolute;
+  top: 60%;
+  right: 70px;
+  width: 700px;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 7px solid rgb(0, 0, 0);
+}
+
+#background-video1 {
+  position: absolute;
+  /* Position video absolute */
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* Set width to fill the container */
+  height: 100%;
+  /* Set height to fill the container */
+  object-fit: cover;
+  /* Maintain aspect ratio and cover container */
+  z-index: -1;
+  /* Move video behind other content */
+}
+
+#moving-text {
+  color: white;
+  /* Set text color to white */
+  font-weight: bold;
+  /* Make text bold */
+  position: absolute;
+  /* Add black outline to text */
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  /* Adjust the animation duration according to the content's height */
+  animation: move-up 20s linear infinite;
+}
+
+@keyframes move-up {
+  0% {
+      /* Start animation from behind the GIF container */
+      transform: translateY(100%);
+  }
+  /* Stop animation when reaching the top of the GIF container */
+  90% {
+      transform: translateY(-100%);
+  }
+  100% {
+      /* Keep text fixed when reaching the top of the GIF container */
+      transform: translateY(-100%);
+  }
+}
+
+#moving-text ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#moving-text li {
+  margin-bottom: 10px;
+}
+
+.gif-container {
+  background-color: rgb(255, 255, 255);
+  width: 600px;
+  /* Add margin-top to create space for the moving text */
+  margin-bottom: 0px;
+  /* Adjust as needed */
+}
+
+
+/* Additional CSS styles for layout */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#row-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  /* Align row container in the middle horizontally */
+  align-items: center;
+  /* Align row container in the middle vertically */
+}
+
+#top-div {
+  padding: 10px;
+  text-align: center;
+  flex-shrink: 0;
+  background: linear-gradient(to top, #000222, #002088c4);
+  overflow: hidden;
+  /* Ensure contents don't overflow */
+  width: 100%;
+  position: fixed;
+}
+
+.map-overlay {
+  bottom: 0;
+  right: 0;
+  margin-right: 20px;
+  font-family: Arial, sans-serif;
+  overflow: auto;
+  border-radius: 3px;
+  background: linear-gradient(to top, #000222, #002088c4);
+}
+
+#features {
+  top: 0;
+  height: 170px;
+  margin-top: 20px;
+}
+
+#features_mismanagedpw {
+  top: 0;
+  height: 170px;
+  margin-top: 20px;
+}
+
+#features_misplasticwasteocean {
+  top: 0;
+  height: 170px;
+  margin-top: 20px;
+}
+
+#features_propplasticocean {
+  top: 0;
+  height: 170px;
+  margin-top: 20px;
+}
+
+
+/* Additional styles for accordion, map, and main container */
+
+.accordion {
+  background: #fff;
+  position: absolute;
+  z-index: 4;
+  top: 10px;
+  font-family: 'Open Sans', sans-serif;
+  width: 400px;
+  /* Adjust as needed */
+  overflow-y: auto;
+  /* Add scrollbar if needed */
+  background: linear-gradient(to top, #000222, #002088c4);
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+.accordion-button {
+  background: linear-gradient(to top, #000222, #002088c4);
+  color: white;
+}
+
+.accordion-button:hover {
+  background: linear-gradient(to top, #000222, #001966c4);
+}
+
+.accordion-header .accordion-button {
+  color: white;
+  /* Set the color of the accordion button heading text to white */
+}
+
+.accordion-body {
+  background: linear-gradient(to top, #000222, #002088c4);
+  color: white;
+}
+
+.accordion-button::after {
+  color: white !important;
+  /* Set the color of the accordion arrow to white */
+}
+
+.accordion-item {
+  margin-bottom: 10px;
+}
+
+.accordion-scroll {
+  max-height: 300px;
+  /* Set max height for accordion */
+  overflow-y: auto;
+  /* Add vertical scroll bar */
+}
+
+#main-container {
+  position: absolute;
+  top: 12%;
+  left: 60%;
+  /* Adjust according to the desired gap */
+  width: 35%;
+  /* Adjust according to the desired width */
+  height: 45%;
+  background: url('Plastic_Waste_trackingfinal_gif.gif') no-repeat center center ;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-size: cover; /* This ensures that the background covers the entire container */
+}
+
+#main-container-mangroves {
+  position: absolute;
+  top: 12%;
+  left: 60%;
+  /* Adjust according to the desired gap */
+  width: 35%;
+  /* Adjust according to the desired width */
+  height: 45%;
+  background: url('mangrovesgif.gif') no-repeat center center ;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-size: cover; /* This ensures that the background covers the entire container */
+}
+
+
+
+#main-container-SeaSurfaceTemperature {
+  position: absolute;
+  top: 12%;
+  left: 60%;
+  /* Adjust according to the desired gap */
+  width: 35%;
+  /* Adjust according to the desired width */
+  height: 45%;
+  background: url('Seasurfacetemptimegifr.gif') no-repeat center center ;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-size: cover; /* This ensures that the background covers the entire container */
+}
+#main-container-sealevelriseanomalies {
+  position: absolute;
+  top: 12%;
+  left: 60%;
+  /* Adjust according to the desired gap */
+  width: 35%;
+  /* Adjust according to the desired width */
+  height: 45%;
+  background: url('sealevelrisegif.gif') no-repeat center center ;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-size: cover; /* This ensures that the background covers the entire container */
+}
+#main-container-PlasticWaste {
+  position: absolute;
+  top: 12%;
+  left: 60%;
+  /* Adjust according to the desired gap */
+  width: 35%;
+  /* Adjust according to the desired width */
+  height: 45%;
+  background: url('Plastic_Waste_trackingfinal_gif.gif') no-repeat center center ;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-size: cover; /* This ensures that the background covers the entire container */
+}
+
+#main-containerseawaterintrusion {
+  position: absolute;
+  top: 12%;
+  left: 60%;
+  /* Adjust according to the desired gap */
+  width: 35%;
+  /* Adjust according to the desired width */
+  height: 45%;
+  background: url('Sea_Water_Intrusionpredictiongif.gif') no-repeat center center ;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-size: cover; /* This ensures that the background covers the entire container */
+}
+
+#main-containercyclone {
+  position: absolute;
+  top: 12%;
+  left: 60%;
+  /* Adjust according to the desired gap */
+  width: 35%;
+  /* Adjust according to the desired width */
+  height: 45%;
+  background: url('giphy.gif') no-repeat center center ;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-size: cover; /* This ensures that the background covers the entire container */
+}
+
+#video-container {
+  margin-top: 480px;
+  margin-left: 1050px;
+  position: absolute;
+  width: 35%;
+  height: 320px;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-color: #f0f0f0;
+}
+#myVideo {
+  /* override other styles to make responsive */
+  width: 100%    !important;
+  height: 100%    !important;
+  object-fit: cover; /* Ensures the video completely covers the container */
+}
+
+#video-container-mangroves {
+  margin-top: 480px;
+  margin-left: 1050px;
+  position: absolute;
+  width: 35%;
+  height: 320px;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-color: #f0f0f0;
+}
+#myVideo-mangroves {
+  /* override other styles to make responsive */
+  width: 100%    !important;
+  height: 100%    !important;
+  object-fit: cover; /* Ensures the video completely covers the container */
+}
+
+#video-container-SeaSurfaceTemperature {
+  margin-top: 480px;
+  margin-left: 1050px;
+  position: absolute;
+  width: 35%;
+  height: 320px;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-color: #f0f0f0;
+}
+#myVideo-SeaSurfaceTemperature {
+  /* override other styles to make responsive */
+  width: 100%    !important;
+  height: 100%    !important;
+  object-fit: cover; /* Ensures the video completely covers the container */
+}
+
+#video-container-PlasticWaste {
+  margin-top: 480px;
+  margin-left: 1050px;
+  position: absolute;
+  width: 35%;
+  height: 320px;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-color: #f0f0f0;
+}
+#myVideo-PlasticWaste {
+ /* override other styles to make responsive */
+ width: 100%    !important;
+ height: 100%    !important;
+  object-fit: cover; /* Ensures the video completely covers the container */
+}
+
+#video-container-sealevelriseanomalies {
+  margin-top: 480px;
+  margin-left: 1050px;
+  position: absolute;
+  width: 35%;
+  height: 320px;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-color: #f0f0f0;
+}
+#myVideo-sealevelriseanomalies {
+ /* override other styles to make responsive */
+ width: 100%    !important;
+ height: 100%    !important;
+  object-fit: cover; /* Ensures the video completely covers the container */
+}
+
+#video-containerseawaterintrusion {
+  margin-top: 480px;
+  margin-left: 1050px;
+  position: absolute;
+  width: 35%;
+  height: 320px;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-color: #f0f0f0;
+}
+#myVideoseawaterintrusion {
+  /* override other styles to make responsive */
+  width: 100%    !important;
+  height: 100%    !important;
+  object-fit: cover; /* Ensures the video completely covers the container */
+}
+
+#video-containercyclone {
+  margin-top: 480px;
+  margin-left: 1050px;
+  position: absolute;
+  width: 35%;
+  height: 320px;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-color: #f0f0f0;
+}
+#myVideocyclone {
+  /* override other styles to make responsive */
+  width: 100%    !important;
+  height: 100%    !important;
+  object-fit: cover; /* Ensures the video completely covers the container */
+}
+/* Styles for base map switcher */
+.mapboxgl-style-list
+{
+    display: none;
+}
+
+.mapboxgl-ctrl-group .mapboxgl-style-list button
+{
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: block;
+    font-size: 14px;
+    padding: 8px 8px 6px;
+    text-align: right;
+    width: 100%;
+    height: auto;
+}
+
+.mapboxgl-style-list button.active
+{
+    font-weight: bold;
+}
+
+.mapboxgl-style-list button:hover
+{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mapboxgl-style-list button + button
+{
+    border-top: 1px solid #ddd;
+}
+
+.mapboxgl-style-switcher
+{ 
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNTQuODQ5cHgiIGhlaWdodD0iNTQuODQ5cHgiIHZpZXdCb3g9IjAgMCA1NC44NDkgNTQuODQ5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1NC44NDkgNTQuODQ5OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+PGc+PGc+PHBhdGggZD0iTTU0LjQ5NywzOS42MTRsLTEwLjM2My00LjQ5bC0xNC45MTcsNS45NjhjLTAuNTM3LDAuMjE0LTEuMTY1LDAuMzE5LTEuNzkzLDAuMzE5Yy0wLjYyNywwLTEuMjU0LTAuMTA0LTEuNzktMC4zMThsLTE0LjkyMS01Ljk2OEwwLjM1MSwzOS42MTRjLTAuNDcyLDAuMjAzLTAuNDY3LDAuNTI0LDAuMDEsMC43MTZMMjYuNTYsNTAuODFjMC40NzcsMC4xOTEsMS4yNTEsMC4xOTEsMS43MjksMEw1NC40ODgsNDAuMzNDNTQuOTY0LDQwLjEzOSw1NC45NjksMzkuODE3LDU0LjQ5NywzOS42MTR6Ii8+PHBhdGggZD0iTTU0LjQ5NywyNy41MTJsLTEwLjM2NC00LjQ5MWwtMTQuOTE2LDUuOTY2Yy0wLjUzNiwwLjIxNS0xLjE2NSwwLjMyMS0xLjc5MiwwLjMyMWMtMC42MjgsMC0xLjI1Ni0wLjEwNi0xLjc5My0wLjMyMWwtMTQuOTE4LTUuOTY2TDAuMzUxLDI3LjUxMmMtMC40NzIsMC4yMDMtMC40NjcsMC41MjMsMC4wMSwwLjcxNkwyNi41NiwzOC43MDZjMC40NzcsMC4xOSwxLjI1MSwwLjE5LDEuNzI5LDBsMjYuMTk5LTEwLjQ3OUM1NC45NjQsMjguMDM2LDU0Ljk2OSwyNy43MTYsNTQuNDk3LDI3LjUxMnoiLz48cGF0aCBkPSJNMC4zNjEsMTYuMTI1bDEzLjY2Miw1LjQ2NWwxMi41MzcsNS4wMTVjMC40NzcsMC4xOTEsMS4yNTEsMC4xOTEsMS43MjksMGwxMi41NDEtNS4wMTZsMTMuNjU4LTUuNDYzYzAuNDc3LTAuMTkxLDAuNDgtMC41MTEsMC4wMS0wLjcxNkwyOC4yNzcsNC4wNDhjLTAuNDcxLTAuMjA0LTEuMjM2LTAuMjA0LTEuNzA4LDBMMC4zNTEsMTUuNDFDLTAuMTIxLDE1LjYxNC0wLjExNiwxNS45MzUsMC4zNjEsMTYuMTI1eiIvPjwvZz48L2c+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjwvc3ZnPg==);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 70%;
+}
+.btn {
+  background-color: DodgerBlue; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 12px 16px; /* Some padding */
+  font-size: 16px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+  text-decoration: none; /* Remove default link underline */
+  background: url(homeicon.svg) no-repeat top left;
+    background-size: contain;
+    cursor: pointer;
+    display: inline-block;
+    height: 52px;
+    width: 40px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+/* Add these styles to your existing CSS file */
+
+.fullscreen-button-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  /* Ensure the button appears above other content */
+}
+
+.fullscreen-button {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+/* 
+#text-container {
+  position: absolute;
+  top: 60%;
+  right: 50px;
+  width: 600px;
+  height: 400px;
+  background-color: #000000;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 7px solid rgb(0, 0, 0);
+  justify-content: center;
+  align-items: center;
+}
+
+#text-container .box {
+  transform-style: preserve-3d;
+  animation: animate 7s ease-in-out infinite alternate;
+}
+
+#text-container .box span {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.5) 90%,
+    transparent
+  );
+  text-transform: uppercase;
+  line-height: 0.76em;
+  position: absolute;
+  color: white;
+  font-size: 3.5em;
+  white-space: nowrap;
+  font-weight: bold;
+  padding: 0px 10px;
+  transform-style: preserve-3d;
+  text-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, -50%) rotateX(calc(var(--i) * 22.5deg)) translateZ(109px);
+}
+
+#text-container .box span i:nth-child(1) {
+  color: #5c5fc4; /* $primary-color */
+
+
+/* }
+
+#text-container .box span i:nth-child(2) {
+  color: #c4c15c; /* $second-color */
+
+
+/* }
+
+@keyframes animate {
+  0% {
+    transform: perspective(500px) rotateX(0deg) rotate(5deg);
+  }
+  100% {
+    transform: perspective(50px) rotateX(360deg) rotate(5deg);
+  }
+} */
+
+
+/* Custom styles for the accordion */
+
+.accordion-item {
+  margin-bottom: 15px;
+  /* Adjust the spacing between accordion items */
+}
+
+
+/* Style the accordion button */
+
+.accordion-button {
+  background-color: #f0f0f0;
+  /* Set the background color */
+  color: #000000;
+  /* Set the text color */
+  border: none;
+  /* Remove the default border */
+  padding: 15px 25px;
+  /* Add padding */
+  text-align: left;
+  /* Align text to the left */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Choose a modern font */
+  font-size: 25px;
+  /* Set font size */
+  font-weight: 500;
+  /* Set font weight */
+  text-shadow: -1px -1px 0 rgb(212, 96, 0);
+}
+
+
+/* Style the active (expanded) accordion button */
+
+.accordion-button[aria-expanded="true"] {
+  background-color: #ddd;
+  /* Change the background color when active */
+}
+
+
+/* Style the accordion body */
+
+.accordion-body {
+  background-color: #f9f9f9;
+  /* Set the background color */
+  padding: 15px 25px;
+  /* Add padding */
+  border-top: 1px solid #ddd;
+  /* Add top border */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Choose a modern font */
+  font-size: 20px;
+  /* Set font size */
+  font-weight: bolder;
+  line-height: 1.6;
+  /* Set line height for better readability */
+}
+
+.sub-accordion-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sub-accordion-button:hover {
+  background-color: #0056b3;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.legend-label {
+  font-size: 14px;
+}
+
+#punjabContainer {
+  position: fixed;
+  /* or absolute */
+  z-index: 1000;
+  width: 1940px;
+  height: auto;
+  top: 65px;
+  left: 0;
+  display: none;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#punjabContainer video {
+  width: 100%;
+  height: 100%;
+}
+
+#punjabContainer img {
+  position: absolute;
+  top: 65%;
+  right: 24px;
+  /* Adjust the left position as needed */
+  z-index: 100000;
+  /* Ensure it appears above the video */
+  width: 240px;
+  /* Adjust the width as needed */
+  height: 200px;
+  /* Adjust the height as needed */
+}
+
+
+/* Style for the popup content */
+
+.popup-content {
+  background-color: black;
+  /* Set background color to black */
+  color: white;
+  /* Set text color to white */
+  border-radius: 10px;
+  /* Add rounded corners */
+  padding: 10px;
+  /* Add padding */
+}
+
+
+/* Style for the popup images */
+
+.popup-image {
+  display: block;
+  margin-bottom: 10px;
+}
+
+@keyframes blink {
+  50% {
+      fill-color: red;
+  }
+}
+
+.blinkRed {
+  animation: blink 1s infinite;
+}
+
+#bottom-div {
+  overflow: hidden;
+  /* Ensure contents don't overflow */
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5%;
+  background: blue;
+  color: rgba(255, 255, 255, 0.986);
+  font-size: 20px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+#moving-text1 {
+  white-space: nowrap;
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  animation: moveText 50s linear infinite;
+  /* Adjust animation duration as needed */
+}
+
+.bold-slide {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+@keyframes moveText {
+  from {
+      transform: translateX(100%);
+  }
+  to {
+      transform: translateX(-100%);
+  }
+}

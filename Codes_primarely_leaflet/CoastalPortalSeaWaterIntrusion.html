@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>COASTAL HAZARD MONITORING PORTAL</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+      <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+      <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+      <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+      <!--GeoJson files link-->
+      <!-- Linking the Geojson-->
+      <script src="Pakistan_rivers.geojson"></script>
+      <script src="distBound.geojson"></script>
+      <link rel="stylesheet" type="text/css" href="coastal_portalcssfinal.css" />
+   </head>
+   <body>
+      <div id="container">
+      <!-- Top Div -->
+      <div id="top-div">
+         <div id="hello-text">Coastal Hazard Monitoring Portal</div>
+         <div id="ndma-logo">
+            <a href="CoastalHomePageAni.html">
+                <button class="btn"><i class="fa fa-home"></i> <a class="nav-link text-white" href="CoastalHomePageFinal.html">Home</a></button>
+            </a>
+         </div>
+      </div>
+      <!-- Row Container -->
+      <div id="row-container">
+      <!-- Second Row: Map -->
+      <div id="map-container">
+         <div id="map">
+            <!-- First Row: Accordion -->
+            <div id="accordion-container">
+               <div class="accordion overflow-auto" id="accordionExample">
+                 <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingFour">
+                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                      Sea Water Intrusion
+                     </button>
+                  </h2>
+                  <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                     <div class="accordion-body accordion-scroll">
+                        <details id="Sea-Water-Intrusion-accordian" class="emhvras-home-side-bar-accordian">
+                        <summary class="layer-groups-title">
+                          Sea Water Intrusion Layers
+                        </summary>
+                        <p id="Salinity-Index-2020-accordian-p-tag">
+                          <!--Salinity Index 2020-->
+                       <details id="Salinity-Index-2020-salinity2020-accordian" class="emhvras-home-side-bar-accordian">
+                          <summary class="layer-title">
+                           Salinity Index 2020
+                             <input class="layers-checkbox" type="checkbox" data-layergroup="salinity-index" data-layertype="layer" data-layername="salinity2020" data-layerlegend="false" data-istempo="true" />
+                          </summary>
+                          <p id="salinity-index-2020-salinity2020-accordian-p-tag" class="layer-p-tag">
+                          <div class="layer-opacity-slider-div">
+                             <label>Layer opacity: <span id="layer-opacity-slider-value-label-salinity-index">100%</span></label>
+                             <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="salinity2020" />
+                          </div>
+                          <p id="salinity-index-2020-salinity2020-accordian-p-tag" class="layer-p-tag">
+                             <span class="layer-description">
+                             <b>Layer Description:</b><br> Raster representing the salinity index calculated through the collection of satellite data of the coast of Pakistan
+                             </span><br>
+                             <img src="Salinityindex2020.png" width="85%" />
+                       </details>
+                       </p>
+                       <p id="Sea-Water-Intrusion-accordian-p-tag">
+                        <!--Salinity Index 2021-->
+                     <details id="Salinity-Index-2021-salinity2021-accordian" class="emhvras-home-side-bar-accordian">
+                        <summary class="layer-title">
+                           Salinity Index 2021
+                           <input class="layers-checkbox" type="checkbox" data-layergroup="salinity-index" data-layertype="layer" data-layername="salinity2021" data-layerlegend="false" data-istempo="true" />
+                        </summary>
+                        <p id="salinity-index-2021-salinity2021-accordian-p-tag" class="layer-p-tag">
+                        <div class="layer-opacity-slider-div">
+                           <label>Layer opacity: <span id="layer-opacity-slider-value-label-salinity-index">100%</span></label>
+                           <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="salinity2021" />
+                        </div>
+                        <p id="salinity-index-2021-salinity2021-accordian-p-tag" class="layer-p-tag">
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> Raster representing the salinity index calculated through the collection of satellite data of the coast of Pakistan
+                           </span><br>
+                           <img src="SalinityIndex2021.png" width="85%" />
+                     </details>
+                     </p>
+                     <p id="Sea-Surface-Salinity-Monthly-accordian-p-tag">
+                      <!--Sea surface Salinity Monthly-->
+                   <details id="SeaSurfaceSalinityMonthly-seasalmonthly-accordian" class="emhvras-home-side-bar-accordian">
+                      <summary class="layer-title">
+                        Sea Surface Salinity Monthly
+                         <input class="layers-checkbox" type="checkbox" data-layergroup="seasurfacesalinitymonthly" data-layertype="layer" data-layername="seasalmonthly" data-layerlegend="false" data-istempo="true" />
+                      </summary>
+                      <p id="seasurfacesalinitymonthly-seasalmonthly-accordian-p-tag" class="layer-p-tag">
+                      <div class="layer-opacity-slider-div">
+                         <label>Layer opacity: <span id="layer-opacity-slider-value-label-seasurfacesalinitymonthly">100%</span></label>
+                         <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="seasalmonthly" />
+                      </div>
+                      <p id="seasurfacesalinitymonthly-seasalmonthly-accordian-p-tag" class="layer-p-tag">
+                         <span class="layer-description">
+                         <b>Layer Description:</b><br> This product provides information about the salinity of the sea surface on a monthly basis and utilizes data from the Soil Moisture Active Passive (SMAP) mission's radiometer instrument. Salinity in the context of this layer refers to the concentration of salt in the top layer of the ocean. Measuring sea surface salinity is important for understanding variations in salt content, which can influence ocean circulation, water density, and contribute to our knowledge of the Earth's water cycle.
+                         </span><br>
+                         <img src="Sea_Surface_Salinity_global_legend.png" width="65%" />
+                   </details>
+                   </p>
+                   <p id="Sea-Surface-Salinity-Daily-accordian-p-tag">
+                    <!--Sea surface Salinity Daily-->
+                 <details id="Sea-Surface-Salinity-Daily-seasaldaily-accordian" class="emhvras-home-side-bar-accordian">
+                    <summary class="layer-title">
+                     Sea surface Salinity Daily
+                       <input class="layers-checkbox" type="checkbox" data-layergroup="seasurfacesalinitydaily" data-layertype="layer" data-layername="seasaldaily" data-layerlegend="false" data-istempo="true" />
+                    </summary>
+                    <p id="seasurfacesalinitydaily-seasaldaily-accordian-p-tag" class="layer-p-tag">
+                    <div class="layer-opacity-slider-div">
+                       <label>Layer opacity: <span id="layer-opacity-slider-value-label-seasurfacesalinitydaily">100%</span></label>
+                       <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="seasaldaily" />
+                    </div>
+                    <p id="Sea-Surface-Salinity-Daily-seasaldaily-accordian-p-tag" class="layer-p-tag">
+                       <span class="layer-description">
+                       <b>Layer Description:</b><br> This product provides information about the salinity of the sea surface, calculated as an 8-day running mean. It utilizes data from the Soil Moisture Active Passive (SMAP) The 8-day running mean indicates that the dataset presents averaged salinity values over consecutive 8-day periods, helping to smooth out short-term variations and provide a more consistent representation of sea surface salinity trends. 
+                       </span><br>
+                       <img src="Sea_Surface_Salinity_global_legend.png" width="65%" />
+                 </details>
+                 </p>
+                 <p id="Saline-Water-Intrusion-accordian-p-tag">
+                   <!--Saline Water Intrusion -->
+                <details id="SalineWaterIntrusion-salinewater-accordian" class="emhvras-home-side-bar-accordian">
+                   <summary class="layer-title">
+                      Saline Water Intrusion 
+                      <input class="layers-checkbox" type="checkbox" data-layergroup="SalineWaterIntrusion" data-layertype="layer" data-layername="salinewater" data-layerlegend="false" data-istempo="true" />
+                   </summary>
+                   <p id="salineWaterintrusion-salinewater-accordian-p-tag" class="layer-p-tag">
+                   <div class="layer-opacity-slider-div">
+                      <label>Layer opacity: <span id="layer-opacity-slider-value-label-SalineWaterIntrusion">100%</span></label>
+                      <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="salinewater" />
+                   </div>
+                   <p id="SalineWaterIntrusion-salinewater-accordian-p-tag" class="layer-p-tag">
+                      <span class="layer-description">
+                      <b>Layer Description:</b><br> Data Representing the intrusion of the saline water along the coast of pakistan
+                      </span><br>
+                </details>
+                </p>
+                     </div>
+                  </div>
+               </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Third Row: Main Container -->
+      <div id="main-containerseawaterintrusion">
+         <!-- Content of the main container (iframes) goes here -->
+         <div class="fullscreen-button-container">
+            <button class="fullscreen-button" onclick="openFullscreen('main-containerseawaterintrusion');">Full Screen</button>
+         </div>
+      </div>
+      <div id="video-containerseawaterintrusion">
+         <video autoplay muted loop id="myVideoseawaterintrusion">
+            <source src="What is Seawater Intrusion.mp4" type="video/mp4">
+         </video>
+      </div>
+      <!-- Bottom Div -->
+      <div id="bottom-div">
+         <div id="moving-text1">
+            <span class="bold-slide">Coastal Hazard Monitoring  🌊 :-</span> Pakistan's coastal hazard monitoring is a comprehensive initiative aimed at assessing and mitigating potential risks along its coastal areas. With a diverse coastline
+            along the Arabian Sea, stretching over 1,000 kilometers, the country faces various hazards such as cyclones, storm surges, and sea-level rise. The monitoring system integrates advanced technologies, satellite imagery, and on-ground
+            observations to track and analyze coastal dynamics.
+         </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.min.js"></script>
+      <link href="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.css" rel="stylesheet" />
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+      <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
+      <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
+      <script src="https://cdn.maptiler.com/maptiler-weather/v1.1.0/maptiler-weather.umd.min.js"></script>
+      <script src="CoastalPortalSeaWaterIntrusionJS.js"></script>
+   </body>
+</html>
