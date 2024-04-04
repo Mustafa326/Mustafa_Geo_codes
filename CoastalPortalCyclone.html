@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>COASTAL HAZARD MONITORING PORTAL</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+      <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+      <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+      <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+      <link rel="stylesheet" href="transitions.css"/>
+      <script src="animateTransition.min.js"></script>
+      <!--GeoJson files link-->
+      <!-- Linking the Geojson-->
+      <script src="Pakistan_rivers.geojson"></script>
+      <script src="distBound.geojson"></script>
+      <link rel="stylesheet" type="text/css" href="coastal_portalcssfinal.css" />
+   </head>
+   <body>
+      <div id="container">
+      <!-- Top Div -->
+      <div id="top-div">
+         <div id="hello-text">Coastal Hazard Monitoring Portal</div>
+         <div id="ndma-logo">
+            <!-- Modified Home button -->
+            <button class="btn" onclick="goBack()"><i class="fa fa-home"></i> Home</button>
+         </div>
+      </div>
+      <!-- Row Container -->
+      <div id="row-container">
+      <!-- Second Row: Map -->
+      <div id="map-container">
+         <div id="map">
+            <!-- First Row: Accordion -->
+            <div id="accordion-container">
+               <div class="accordion overflow-auto" id="accordionExample">
+                  <div class="accordion-item">
+                     <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        Cyclone
+                        </button>
+                     </h2>
+                     <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                        <div class="accordion-body accordion-scroll">
+                           <details id="Plastic-Waste-Detection-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-groups-title">
+                              Cyclone Layers
+                           </summary>
+                           <p id="Cyclone-Layers-accordian-p-tag">
+                              <!--Tropical Cyclone  50 year Period Return-->
+                           <details id="Cyclone-Layers-tcyclone50-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 Tropical Cyclone 50 year Return Period 
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="cyclonelayers" data-layertype="layer" data-layername="tcyclone50" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="cyclonelayers-tcyclone50-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-cyclonelayers">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="tcyclone50" />
+                              </div>
+                              <p id="Cyclone-Layers-Detection-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> The tropical cyclone wind map indicates the mean value of wind velocity for a return period of 50 years. The tropical cyclone events used for the elaboration of this map consider climate change based on models representative concentration pathways (RCP) scenarios. The map has global coverage and a resolution of 6' (~11.1 kilometers at the equator).
+                                 </span><br>
+                                 <img src="TropicalCyclone50.png" width="75%" />
+                           </details>
+                           </p>
+                           <p id="Cyclone-Layers-accordian-p-tag">
+                              <!--Tropycal Cyclone Population Exposure Per Year -->
+                           <details id="TropicalCyclonePopulation-tcyclonepopulation-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 Tropical Cyclone Population Exposure Per Year 
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="TropicalCyclonePopulation" data-layertype="layer" data-layername="tcyclonepopulation" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="tropicalcyclonepopulation-tcyclonepopulation-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-TropicalCyclonePopulation">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="tcyclonepopulation" />
+                              </div>
+                              <p id="TropicalCyclonePopulation-tcyclonepopulation-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> This dataset includes an estimation of the annual physical exposition to tropical cyclones of Saffir-Simpson category 5 it determines the susceptible coastal zones of cyclones based on various factors 
+                                 </span><br>
+                                 <img src="TropicalCyclonepopulation.png" width="75%" />
+                           </details>
+                           </p>
+                           <p id="Cyclone-Layers-accordian-p-tag">
+                              <!--Tropical Cyclones Mortality Risk -->
+                           <details id="TropicalCyclonesMortality-tcyclonemortality-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 Tropical Cyclones Mortality Risk
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="TropicalCyclonesMortality" data-layertype="layer" data-layername="tcyclonemortality" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="tropicalcyclonesmortality-tcyclonemortality-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-TropicalCyclonesMortality">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="tcyclonemortality" />
+                              </div>
+                              <p id="TropicalCyclonesMortality-tcyclonemortality-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> This layer represents a dataset that includes an estimate of the global risk induced by tropical cyclone hazard. Unit is estimated risk index from 1 (low) to 5 (extreme). This product was designed by UNEP/GRID-Geneva for the Global Assessment Report on Risk Reduction (GAR). It was modelled using global data.
+                                 </span><br>
+                                 <img src="TropycalCyclonemorality.png" width="45%" />
+                           </details>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Third Row: Main Container -->
+      <div id="main-containercyclone">
+         <!-- Content of the main container (iframes) goes here -->
+         <div class="fullscreen-button-container">
+            <button class="fullscreen-button" onclick="openFullscreen('main-containercyclone');">Full Screen</button>
+         </div>
+      </div>
+      <div id="video-containercyclone">
+         <video autoplay muted loop id="myVideocyclone">
+            <source src="FormationOfATropicalCyclone.mp4" type="video/mp4">
+         </video>
+      </div>
+      <!-- Bottom Div -->
+      <div id="bottom-div">
+         <div id="moving-text1">
+            <span class="bold-slide">Coastal Hazard Monitoring  🌊 :-</span> Pakistan's coastal hazard monitoring is a comprehensive initiative aimed at assessing and mitigating potential risks along its coastal areas. With a diverse coastline
+            along the Arabian Sea, stretching over 1,000 kilometers, the country faces various hazards such as cyclones, storm surges, and sea-level rise. The monitoring system integrates advanced technologies, satellite imagery, and on-ground
+            observations to track and analyze coastal dynamics.
+         </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.min.js"></script>
+      <link href="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.css" rel="stylesheet" />
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+      <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
+      <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
+      <script src="https://cdn.maptiler.com/maptiler-weather/v1.1.0/maptiler-weather.umd.min.js"></script>
+      <script src="CoastalPortalCycloneJS.js"></script>
+   </body>
+</html>

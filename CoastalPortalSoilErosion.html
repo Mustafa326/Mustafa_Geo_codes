@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>COASTAL HAZARD MONITORING PORTAL</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+      <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+      <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+      <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+      <link rel="stylesheet" href="transitions.css"/>
+      <script src="animateTransition.min.js"></script>
+      <!--GeoJson files link-->
+      <!-- Linking the Geojson-->
+      <script src="Pakistan_rivers.geojson"></script>
+      <script src="distBound.geojson"></script>
+      <link rel="stylesheet" type="text/css" href="coastal_portalcssfinal.css" />
+   </head>
+   <body>
+      <div id="container">
+      <!-- Top Div -->
+      <div id="top-div">
+         <div id="hello-text">Coastal Hazard Monitoring Portal</div>
+         <div id="ndma-logo">
+            <!-- Modified Home button -->
+            <button class="btn" onclick="goBack()"><i class="fa fa-home"></i> Home</button>
+         </div>
+      </div>
+      <!-- Row Container -->
+      <div id="row-container">
+      <!-- Second Row: Map -->
+      <div id="map-container">
+         <div id="map">
+            <!-- First Row: Accordion -->
+            <div id="accordion-container">
+               <div class="accordion overflow-auto" id="accordionExample">
+                  <div class="accordion-item">
+                     <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        Soil Erosion
+                        </button>
+                     </h2>
+                     <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                        <div class="accordion-body accordion-scroll">
+                           <details id="Plastic-Waste-Detection-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-groups-title">
+                            Soil Erosion Layers
+                           </summary>
+                           <p id="Soil-Erosion-Layers-accordian-p-tag">
+                              <!--Tropical Cyclone  50 year Period Return-->
+                           <details id="Soil-Erosion-Layers-coastalsoin2018-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                 Coastal Soil Erosion 2018
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="soilerosionlayers" data-layertype="layer" data-layername="coastalsoin2018" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="soilerosionlayers-coastalsoin2018-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-soilerosionlayers">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="coastalsoin2018" />
+                              </div>
+                              <p id="Soil-Erosion-Layers-Detection-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> This data represents the soil erossion of the coastal area of Pakistan for the year 2018 calculated using the  RUSLE Modelling. The model quantifies average annual soil loss (A) using five important factors, notably rainfall erosivity (R), soil erodibility (K), slope length and slope steepness (LS), cover management (C), and support practice (P).
+                                 </span><br>
+                                 <img src="soilerosionlegend.png" width="75%" />
+                           </details>
+                           </p>
+                           <p id="Soil-Erosion-Layers-accordian-p-tag">
+                              <!--Tropycal Cyclone Population Exposure Per Year -->
+                           <details id="SoilErosionLayers-coastalsoil2020-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                Coastal Soil Erosion 2020 
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="SoilErosionLayers" data-layertype="layer" data-layername="coastalsoil2020" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="SoilErosionLayers-coastalsoil2020-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-SoilErosionLayers">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="coastalsoil2020" />
+                              </div>
+                              <p id="SoilErosionLayers-coastalsoil2020-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> This data represents the soil erossion of the coastal area of Pakistan for the year 2020 calculated using the  RUSLE Modelling. The model quantifies average annual soil loss (A) using five important factors, notably rainfall erosivity (R), soil erodibility (K), slope length and slope steepness (LS), cover management (C), and support practice (P).
+                                 </span><br>
+                                 <img src="soilerosionlegend.png" width="75%" />
+                           </details>
+                           </p>
+                           <p id="Soil-Erosion-Layers-accordian-p-tag">
+                              <!--Tropical Cyclones Mortality Risk -->
+                           <details id="SoilErosionLayers-coastalsoil2021-accordian" class="emhvras-home-side-bar-accordian">
+                              <summary class="layer-title">
+                                Coastal Soil Erosion 2021
+                                 <input class="layers-checkbox" type="checkbox" data-layergroup="SoilErosionLayers" data-layertype="layer" data-layername="coastalsoil2021" data-layerlegend="false" data-istempo="true" />
+                              </summary>
+                              <p id="soilerosionlayers-coastalsoil2021-accordian-p-tag" class="layer-p-tag">
+                              <div class="layer-opacity-slider-div">
+                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-SoilErosionLayers">100%</span></label>
+                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="coastalsoil2021" />
+                              </div>
+                              <p id="SoilErosionLayers-coastalsoil2021-accordian-p-tag" class="layer-p-tag">
+                                 <span class="layer-description">
+                                 <b>Layer Description:</b><br> This data represents the soil erossion of the coastal area of Pakistan for the year 2021 calculated using the  RUSLE Modelling. The model quantifies average annual soil loss (A) using five important factors, notably rainfall erosivity (R), soil erodibility (K), slope length and slope steepness (LS), cover management (C), and support practice (P).
+                                 </span><br>
+                                 <img src="soilerosionlegend.png" width="45%" />
+                           </details>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="slider-container">
+                <input id="slider" class="slider" type="range" min="0" max="2" step="1" value="0">
+                <div id="playButton">▶️</div>
+                <div id="layerName" class="layer-name"></div>
+            </div>
+         </div>
+      </div>
+      <!-- Third Row: Main Container -->
+      <div id="main-containerSoilerosion">
+         <!-- Content of the main container (iframes) goes here -->
+         <div class="fullscreen-button-container">
+            <button class="fullscreen-button" onclick="openFullscreen('main-containerSoilerosion');">Full Screen</button>
+         </div>
+      </div>
+      <div id="video-containersoilerosion">
+         <video autoplay muted loop id="myVideosoilerosion">
+            <source src="CoastalSoilLoss.mp4" type="video/mp4">
+         </video>
+      </div>
+      <!-- Bottom Div -->
+      <div id="bottom-div">
+         <div id="moving-text1">
+            <span class="bold-slide">Coastal Hazard Monitoring  🌊 :-</span> Pakistan's coastal hazard monitoring is a comprehensive initiative aimed at assessing and mitigating potential risks along its coastal areas. With a diverse coastline
+            along the Arabian Sea, stretching over 1,000 kilometers, the country faces various hazards such as cyclones, storm surges, and sea-level rise. The monitoring system integrates advanced technologies, satellite imagery, and on-ground
+            observations to track and analyze coastal dynamics.
+         </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.min.js"></script>
+      <link href="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.css" rel="stylesheet" />
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+      <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
+      <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
+      <script src="https://cdn.maptiler.com/maptiler-weather/v1.1.0/maptiler-weather.umd.min.js"></script>
+      <script src="CoastalPortalSoilErosionJS.js"></script>
+   </body>
+</html>
