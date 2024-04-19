@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Forest Fire Monitoring Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+       <meta charset="UTF-8" />
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="front.css" />
+  </head>
+ 
+  <body>
+    <video id="video-background" autoplay loop muted>
+      <source src="forestfire.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+  </video>
+  <!-- Video container in column 3 -->
+  <div class="video-controls">
+    <div class="up-arrow prev" onclick="plusSlides(-1)">&#8593;</div>
+    <div class="down-arrow next" onclick="plusSlides(1)">&#8595;</div>
+  </div>
+  <div id="video-container-right">
+    <div class="slideshow-container">
+      <!-- iframes will be inserted here dynamically -->
+    </div>
+</div>
+<div id="video-container" class="container">
+  <video autoplay muted loop id="background-video1">
+    <source src="" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+ 
+</div>
+
+<div id="advisory-container" class="container">
+ 
+    <img src="Balochistan2022.png" alt="Image 1">
+    <img src="ForestFireSerghali.png" alt="Image 2">
+    <img src="KPK2022fire.png" alt="Image 1">
+    <img src="Margallahillsfirw2022.png" alt="Image 2">
+    <img src="PakistanTemporalFires.png" alt="Image 1">
+  </div>
+</div>
+<div id="bottom-div">
+  
+  <div id="moving-text1">
+      <span class="bold-slide">FOREST FIRE :-</span>
+      Cause: Forest fires can be sparked by lightning, volcanoes, campfires, debris burning, arson, cigarette butts, power lines, or equipment use. Up to 96% of forest fires are human-caused, with accidental activities like campfires and deliberate actions. --------------------------
+      Forest fires devastate ecosystems, destroying plants and animals. They cause property loss, economic damage, and hazardous smoke inhalation, especially for those with respiratory problems.-------------
+      Climate change is expected to lead to more frequent and intense wildfires due to factors like extreme temperatures, drought, and strong winds creating ideal fire conditions. --------------------------
+      Prevention: We can reduce wildfire risk through prescribed burns, public education on fire safety, and improved forest management practices.
+</div>
+</div>
+  </div>
+</div>
+
+
+    <!-- Map container -->
+    <div class="map-container">
+      <div id="map"></div>
+    </div>
+    <div class="circle-container">
+      <!-- Div for image circle 1 container -->
+    <div>
+      <a href=""><img id="img_antr" src="gif"></a>
+    
+  </div>
+  <!-- Div for image circle 2 container -->
+  <div>
+      <a href=""><img id="img_clim" src="gif"></a>
+      
+  </div>
+  
+  <!-- Div for image circle 3 container -->
+  <div>
+      <a href=""><img id="img_soil" src="gif"></a>
+    
+  </div>
+    </div>
+   <!-- Navbar code -->
+   <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark" data-bs-theme="dark">
+    <div class="container-fluid" style="background-color: rgb(247, 115, 54);">
+        <a class="navbar-brand" href="#">
+            <img src="NDMAlogo.png" alt="NDMA Logo" style="height: 75px; width: 75px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#" style="font-weight: bolder; font-family: sans-serif; font-size: 45px;">
+                        National Forest Fire Platform
+                    </a>
+                </li>
+            </ul>
+            <a class="btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                <img src="menu.gif" alt="Menu" width="65" height="55">
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Offcanvas Menu -->
+<div class="offcanvas offcanvas-start custom-bg" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="width: 400px; height: 800px; top: 120px; border-radius: 50px; box-shadow: 0 0 10px rgba(240, 128, 0, 0.774);">
+    <div class="offcanvas-header">
+        <img src="menu.png" alt="Holi Smoke" style="height: 40px; width: auto; margin-left: 10px; filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));">
+        <div class="menu-text">Menu</div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body" style="overflow-y: auto;">
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        GWIS WildFire Layers
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#fireDangerLayers" aria-expanded="true" aria-controls="fireDangerLayers">
+                            Fire Danger Layers
+                        </button>
+                        <div id="fireDangerLayers" class="collapse" aria-labelledby="fireDangerLayers" data-bs-parent="#collapseOne">
+                            <div class="accordion-body">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">Fire Danger Forecast</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault1">Fire Weather Index (FWI)</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault0">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault0">FWI - Initial Spread Index (ISI)</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault5">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault5">Fire Danger Index (MARK-5 FDI)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#fireEmissions" aria-expanded="false" aria-controls="fireEmissions">
+                            Fire Emissions (Last 7 days)
+                        </button>
+                        <div id="fireEmissions" class="collapse" aria-labelledby="fireEmissions" data-bs-parent="#collapseOne">
+                            <div class="accordion-body">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault200">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault100">Black Carbon</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault201">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault101">Methane</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault202">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault102">Carbon Dioxide</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#lightningForecast" aria-expanded="false" aria-controls="lightningForecast">
+                            Lightning Forecast and fuels
+                        </button>
+                        <div id="lightningForecast" class="collapse" aria-labelledby="lightningForecast" data-bs-parent="#collapseOne">
+                            <div class="accordion-body">
+                                <!-- Content for Lightning Forecast and fuels -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Nasa eonet
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <!-- Content for Nasa eonet -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <main>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+     <script src="front.js"></script>
+  </body>
+</html>

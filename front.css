@@ -1,0 +1,321 @@
+#map {
+  position: absolute;
+  top: 9%;
+  right: 4px;
+  width: 46%;
+  height: 65%;
+  border-radius: 24%;
+  overflow: hidden;
+  border: 7px solid rgb(10, 10, 10);
+}
+  
+  
+  .custom-bg {
+    background-color: rgb(253, 173, 0);
+  }
+  .menu-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .menu-text {
+    font-size: 20px;
+    font-weight: bolder;
+    margin-left: 5px;
+    color: rgb(255, 255, 255);
+  }
+    #video-background {
+      position: fixed; /* Fixed position */
+      top: 0;
+      left: 0;
+     
+      z-index: -1; /* Behind everything */
+  }
+  .offcanvas-body {
+    overflow-y: auto;
+}
+body {
+    overflow-x: hidden;
+}
+#bottom-div {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+    background: rgb(243, 146, 0);
+    color: rgba(255, 255, 255, 0.986);
+    font-size: 20px;
+    text-align: center;
+    line-height: 1.5;
+    overflow: hidden;
+  }
+  
+  #moving-text1 {
+  white-space: nowrap;
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  text-shadow: -1px -1px 0 black,  
+                1px -1px 0 black,
+               -1px  1px 0 black,
+                1px  1px 0 black;
+  animation: moveText 50s linear infinite; /* Adjust animation duration as needed */
+  }
+  
+  .bold-slide {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  }
+  
+  @keyframes moveText {
+  from {
+      transform: translateX(100%);
+  }
+  to {
+      transform: translateX(-100%);
+  }
+  }
+  
+  	
+#img_antr {
+	position: absolute;
+	top: 10vw;
+	left: 5vw;
+	height: 9vw;
+	width: 9vw;
+	border-radius: 50%;
+	border: 5px solid rgb(0, 0, 0);
+  }
+  #img_antr:hover {
+	transform: scale(1.7);
+  }
+
+  
+  #img_clim {
+	position: absolute;
+	top: 25vw;
+	left: 5vw;
+	border-radius: 50%;
+	height: 9vw;
+	width: 9vw;
+	border: 5px solid rgb(0, 0, 0);
+  }
+  #img_clim:hover {
+	transform: scale(1.7);
+  }
+
+  
+  #img_soil {
+	position: absolute;
+	top: 40vw;
+	left: 5vw;
+	height: 9vw;
+	border-radius: 50%;
+	width: 9vw;
+	
+	border: 5px solid rgb(0, 0, 0);
+  }
+  #img_soil:hover {
+	transform: scale(1.7);
+	
+  }
+
+
+  
+ 
+  
+  .accordion-item {
+  
+    margin-bottom: 15px; /* Adjust the spacing between accordion items */
+  }
+  
+  /* Style the accordion button */
+  .accordion-button {
+    background-color: #f0f0f0; /* Set the background color */
+    color: #000000; /* Set the text color */
+    border: none; /* Remove the default border */
+    padding: 15px 25px; /* Add padding */
+    text-align: left; /* Align text to the left */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Choose a modern font */
+    font-size: 25px; /* Set font size */
+    font-weight: 500; /* Set font weight */
+    text-shadow: -1px -1px 0 rgb(212, 96, 0);
+   
+  }
+  
+  /* Style the active (expanded) accordion button */
+  .accordion-button[aria-expanded="true"] {
+    background-color: #ddd; /* Change the background color when active */
+  }
+  
+  /* Style the accordion body */
+  .accordion-body {
+    
+    background-color: #f9f9f9; /* Set the background color */
+    padding: 15px 25px; /* Add padding */
+    border-top: 1px solid #ddd; /* Add top border */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Choose a modern font */
+    font-size: 20px; /* Set font size */
+    font-weight: bolder;
+    line-height: 1.6; /* Set line height for better readability */
+  }
+  
+  
+  
+    .sub-accordion-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .sub-accordion-button:hover {
+      background-color: #0056b3;
+    }
+    
+   
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+  }
+  
+  .legend-color {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      border-radius: 50%;
+  }
+  
+  .legend-label {
+      font-size: 14px;
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Adjust z-index as needed */
+}
+
+
+#video-container-right {
+    position: absolute;
+    top: 10%;
+    left: 550px;
+    width: 750px;
+    height: 550px;
+    background: #f9f9f9;
+    border-radius: 0%;
+    overflow: hidden;
+    border: 7px solid rgb(0, 0, 0);
+  }
+  
+  /* CSS to style the video */
+  #video-background-right {
+    position: absolute; /* Set position to absolute */
+   
+    /* Align to the left of the container */
+    width: 100%; /* Set width to 100% to fill the container */
+    height: 100%; /* Set height to 100% to fill the container */
+    object-fit: cover; /* Maintain aspect ratio and cover container */
+  }
+  #video-container {
+    position: absolute;
+    top: 57%;
+    left: 550px;
+    width: 750px;
+    height: 423px;
+    border-radius: 0%;
+    overflow: hidden;
+    border: 7px solid rgb(0, 0, 0);
+}
+
+/* Style to move images upwards */
+#img_antr, #img_clim, #img_soil {
+  margin-top: -120px; /* Adjust the value as needed */
+}
+
+
+
+  .video-controls {
+    position: absolute;
+    top: 29%;
+    left: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .up-arrow, .down-arrow {
+    font-size: 36px;
+    cursor: pointer;
+    background-color: #ecdd00; /* Button-like background color */
+    color: rgb(15, 15, 15);
+    width: 40px; /* Adjust button width as needed */
+    height: 40px; /* Adjust button height as needed */
+    border-radius: 50%; /* Rounded corners for button */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px; /* Adjust spacing between arrows */
+  }
+  
+  .up-arrow:hover, .down-arrow:hover {
+    background-color: #00f8f8; /* Darker background color on hover */
+  }
+
+
+  .slideshow-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    
+  }
+  #advisory-container {
+  position: absolute;
+  top: 75%;
+  left: 1469px;;  
+  width: 42%; /* Adjust the width to accommodate all images */
+  height: 264px;
+  border-radius: 10px;
+  border: 7px solid rgb(10, 10, 10);
+  overflow: hidden; /* Ensure that images outside the container are hidden */
+  display: flex; /* Use flexbox to align images */
+  align-items: center; /* Center the images vertically */
+}
+   
+
+
+#advisory-container img {
+  flex: 0 0 auto; /* Ensure that images maintain their original size */
+  height: 100%; /* Fill the height of the image-container */
+  transition: width 0.3s ease; /* Add transition for smooth resizing */
+  animation: slideImages 20s linear infinite; /* Adjust the animation duration and timing as needed */
+}
+
+@keyframes slideImages {
+  0% { transform: translateX(100%); } /* Start position: move images from the right edge */
+  100% { transform: translateX(-300%); } /* End position: move images to cover 500% of the left side */
+}
+
+
+/* Lines */
+.line {
+  border-left: 2px solid black;
+  height: 100%;
+}
+
+
+
+
+
