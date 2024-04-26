@@ -4,12 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Forest Fire Monitoring Portal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="bootStrap_CSS.css" rel="stylesheet">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
-       <meta charset="UTF-8" />
-        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-        <link rel="stylesheet" type="text/css" href="front.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <!--GeoJson files link-->
+    <!-- Linking the Geojson-->
+    <script src="Pakistan_rivers.geojson"></script>
+    <script src="distBound.geojson"></script>
+    <link rel="stylesheet" type="text/css" href="front.css" />
   </head>
  
   <body>
@@ -36,7 +40,6 @@
 </div>
 
 <div id="advisory-container" class="container">
- 
     <img src="Balochistan2022.png" alt="Image 1">
     <img src="ForestFireSerghali.png" alt="Image 2">
     <img src="KPK2022fire.png" alt="Image 1">
@@ -60,23 +63,48 @@
 
     <!-- Map container -->
     <div class="map-container">
-      <div id="map"></div>
+      <div id="map">
+        <div id="Legend_container" class="legendany">
+            <h4>Legend</h4>
+            <!--
+            <img src="FWIDrought Codelegend.png" id="fwidc" alt="Image 1">
+            <img src="FWI_legend.png" id="fwi" alt="Image 1">
+            <img src="FISI_legend.png" id="fwiisi" alt="Image 2">
+            <img src="Mark5fdi.png" id="fdimark" alt="Image 1">
+            <img src="fwibui.png" id="fdibui" alt="Image 2">
+            <img src="fwiffmc.png" id="fwiffmc" alt="Image 1">
+            <img src="FWIDMClegend.png" id="fwifdmc" alt="Image 1">
+            <img src="fwianomalieslegend.png" id="fwianomaly" alt="Image 2">
+            <img src="FWIRankinglegend.png" id="fwiranking" alt="Image 1">
+            <img src="KBDILegend.png" id="kbdidi" alt="Image 2">
+            <img src="roslegend.png" id="markros" alt="Image 2">
+            <img src="ignitionpropability.png" id="nfdrsic" alt="Image 1">
+            <img src="blackcarbonlegend.png" id="blackcarbon" alt="Image 1">
+            <img src="MethaneEmission.png" id="Methane" alt="Image 1">
+            <img src="carbondioxidelegend.png" id="carbondioxide" alt="Image 1">
+            <img src="carbonmonooxidelegend.png" id="carbonmonooxide" alt="Image 1">
+            <img src="particulatematterlegend.png" id="particulatematter" alt="Image 1">
+            <img src="LightningLegend.png" id="LightningForecast" alt="Image 1">
+            <img src="fuelmaplegend.png" id="Fuelsemission" alt="Image 1">
+            -->
+        </div>
+      </div>
     </div>
     <div class="circle-container">
       <!-- Div for image circle 1 container -->
     <div>
-      <a href=""><img id="img_antr" src="gif"></a>
+      <a href=""><img id="img_antr" src="fireone.gif"></a>
     
   </div>
   <!-- Div for image circle 2 container -->
   <div>
-      <a href=""><img id="img_clim" src="gif"></a>
+      <a href=""><img id="img_clim" src="fire2.gif"></a>
       
   </div>
   
   <!-- Div for image circle 3 container -->
   <div>
-      <a href=""><img id="img_soil" src="gif"></a>
+      <a href=""><img id="img_soil" src="fire3.gif"></a>
     
   </div>
     </div>
@@ -91,10 +119,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav m-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <li class="nav-item" style="display: flex; align-items: center;">
+                    <img src="flametype.gif" alt="Left GIF" style="height: 45px; width: 45px; margin-right: 10px;">
                     <a class="nav-link active" aria-current="page" href="#" style="font-weight: bolder; font-family: sans-serif; font-size: 45px;">
-                        National Forest Fire Platform
+                        National Forest Fire Monitoring Platform
                     </a>
+                    <img src="flametype.gif" alt="Right GIF" style="height: 45px; width: 45px; margin-left: 10px;">
                 </li>
             </ul>
             <a class="btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
@@ -105,7 +135,7 @@
 </nav>
 
 <!-- Offcanvas Menu -->
-<div class="offcanvas offcanvas-start custom-bg" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="width: 400px; height: 800px; top: 120px; border-radius: 50px; box-shadow: 0 0 10px rgba(240, 128, 0, 0.774);">
+<div class="offcanvas offcanvas-start custom-bg" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="width: 400px; height: 800px; top: 120px; border-radius: 50px; box-shadow: 0 0 10px rgba(2, 2, 2, 0.774);">
     <div class="offcanvas-header">
         <img src="menu.png" alt="Holi Smoke" style="height: 40px; width: auto; margin-left: 10px; filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));">
         <div class="menu-text">Menu</div>
@@ -116,59 +146,112 @@
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        GWIS WildFire Layers
+                        <img src="forestfireanimated.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> GWIS WildFire Layers
                     </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#fireDangerLayers" aria-expanded="true" aria-controls="fireDangerLayers">
-                            Fire Danger Layers
+                            <img src="flame.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> Fire Danger Layers (Forcast Layers)
                         </button>
                         <div id="fireDangerLayers" class="collapse" aria-labelledby="fireDangerLayers" data-bs-parent="#collapseOne">
                             <div class="accordion-body">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault">Fire Danger Forecast</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="fwidc">
+                                    <label class="form-check-label" for="fwidc">FWI - Drought Code (DC)</label>
                                 </div>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault1">Fire Weather Index (FWI)</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="fwi">
+                                    <label class="form-check-label" for="fwi">Fire Weather Index (FWI)</label>
                                 </div>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault0">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault0">FWI - Initial Spread Index (ISI)</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="fwiisi">
+                                    <label class="form-check-label" for="fwiisi">FWI - Initial Spread Index (ISI)</label>
                                 </div>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault5">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault5">Fire Danger Index (MARK-5 FDI)</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="fdimark">
+                                    <label class="form-check-label" for="fdimark">Fire Danger Index (MARK-5 FDI)</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="fdibui">
+                                    <label class="form-check-label" for="fdibui">FWI - Build Up Index (BUI)</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="fwiffmc">
+                                    <label class="form-check-label" for="fwiffmc">FWI - Fine Fuel Moisture Code (FFMC)</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="fwifdmc">
+                                    <label class="form-check-label" for="fwifdmc">FWI - Duff Moisture Code (DMC)</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="fwianomaly">
+                                    <label class="form-check-label" for="fwianomaly">FWI - Anomaly</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="fwiranking">
+                                    <label class="form-check-label" for="fwiranking">FWI - Ranking</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="kbdidi">
+                                    <label class="form-check-label" for="kbdidi">KBDI - Keetch-Byron Drought Index</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="markros">
+                                    <label class="form-check-label" for="markros">MARK-5 - Rate of Spread (MARK-5 ROS)</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="nfdrsic">
+                                    <label class="form-check-label" for="nfdrsic">NFDRS - Ignition Probability (NFDRS IC)</label>
                                 </div>
                             </div>
                         </div>
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#fireEmissions" aria-expanded="false" aria-controls="fireEmissions">
-                            Fire Emissions (Last 7 days)
+                            <img src="airpollution.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> Fire Emissions (Last 7 days)
                         </button>
                         <div id="fireEmissions" class="collapse" aria-labelledby="fireEmissions" data-bs-parent="#collapseOne">
                             <div class="accordion-body">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault200">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault100">Black Carbon</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="blackcarbon">
+                                    <label class="form-check-label" for="blackcarbon">Black Carbon</label>
                                 </div>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault201">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault101">Methane</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="Methane">
+                                    <label class="form-check-label" for="Methane">Methane</label>
                                 </div>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault202">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault102">Carbon Dioxide</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="carbondioxide">
+                                    <label class="form-check-label" for="carbondioxide">Carbon Dioxide</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="carbonmonooxide">
+                                    <label class="form-check-label" for="carbonmonooxide">Carbon Monoxide</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="particulatematter">
+                                    <label class="form-check-label" for="particulatematter">Particulate Matter</label>
                                 </div>
                             </div>
                         </div>
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#lightningForecast" aria-expanded="false" aria-controls="lightningForecast">
-                            Lightning Forecast and fuels
+                            <img src="storm.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> Lightning Forecast and fuels
                         </button>
                         <div id="lightningForecast" class="collapse" aria-labelledby="lightningForecast" data-bs-parent="#collapseOne">
                             <div class="accordion-body">
-                                <!-- Content for Lightning Forecast and fuels -->
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="LightningForecast">
+                                    <label class="form-check-label" for="LightningForecast">Lightning Forecast (1 day forecast)</label>
+                                </div>
+                                <br>
+                                <form id="date-form">
+                                    <label for="date-selector">Date:</label>
+                                    <input type="date" id="date-selector" name="date-selector" value="">
+                                    <input type="submit" style="display:none;">
+                                </form>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="Fuelsemission">
+                                    <label class="form-check-label" for="Fuelsemission">Fuels</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -177,12 +260,143 @@
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Nasa eonet
+                        <img src="bonfire.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;">  Nasa eonet
                     </button>
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <!-- Content for Nasa eonet -->
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="nasa_eonet">
+                            <label class="form-check-label" for="nasa_eonet">Wildfire Events</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        <img src="AlertGif.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> Nasa Lance Firms 
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#VIIRSLayers" aria-expanded="true" aria-controls="VIIRSLayers">
+                            <img src="alerticonvirrs.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> VIIRS Layers
+                        </button>
+                        <div id="VIIRSLayers" class="collapse" aria-labelledby="VIIRSLayers" data-bs-parent="#collapseThree">
+                            <div class="accordion-body">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="VIIRSSNN21">
+                                    <label class="form-check-label" for="VIIRSSNN21">VIIRS Layers</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="virsssuomi">
+                                    <label class="form-check-label" for="virsssuomi">VIIRS Suomi-NPP</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="virssnoaa20">
+                                    <label class="form-check-label" for="virssnoaa20">VIIRS NOAA-20</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="virssnoaa21">
+                                    <label class="form-check-label" for="virssnoaa21">VIIRS NOAA-21</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#MODISLayers" aria-expanded="false" aria-controls="MODISLayers">
+                            <img src="FireModis.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> MODIS Layers
+                        </button>
+                        <div id="MODISLayers" class="collapse" aria-labelledby="MODISLayers" data-bs-parent="#collapseThree">
+                            <div class="accordion-body">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="modisaquaterra">
+                                    <label class="form-check-label" for="modisaquaterra">MODIS Aqua & Terra</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="modisaqua">
+                                    <label class="form-check-label" for="modisaqua">MODIS-Aqua</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="modisterra">
+                                    <label class="form-check-label" for="modisterra">MODIS-Terra</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#BurnedAreas" aria-expanded="false" aria-controls="BurnedAreas">
+                            <img src="HouseFires.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> MODIS Burned Area
+                        </button>
+                        <div id="BurnedAreas" class="collapse" aria-labelledby="BurnedAreas" data-bs-parent="#collapseThree">
+                            <div class="accordion-body">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="burnedareaday1">
+                                    <label class="form-check-label" for="burnedareaday1">MODIS & VIIRS NRT 1 day Layer</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                        <img src="LandResourcegif.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> Land Resource Layers
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#NASAGIBBS" aria-expanded="true" aria-controls="NASAGIBBS">
+                            <img src="NASAGIBSgif.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> NASA GIBS
+                        </button>
+                        <div id="NASAGIBBS" class="collapse" aria-labelledby="NASAGIBBS" data-bs-parent="#collapseFour">
+                            <div class="accordion-body">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="lstd">
+                                    <label class="form-check-label" for="lstd">Land Surface Temperature (Day)</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="lstn">
+                                    <label class="form-check-label" for="lstn">Land Surface Temperature (Night)</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="vegitationindex">
+                                    <label class="form-check-label" for="vegitationindex">Vegitation Index</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="fireanomalies">
+                                    <label class="form-check-label" for="fireanomalies">Fires and Thermal Anomalies (Day and Night)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ResourceLayers" aria-expanded="false" aria-controls="ResourceLayers">
+                            <img src="FireModis.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> Resource Layers
+                        </button>
+                        <div id="ResourceLayers" class="collapse" aria-labelledby="ResourceLayers" data-bs-parent="#collapseFour">
+                            <div class="accordion-body">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="protectedareas">
+                                    <label class="form-check-label" for="protectedareas">Protected Areas (IUCN)</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="modisaqua">
+                                    <label class="form-check-label" for="modisaqua">MODIS-Aqua</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="modisterra">
+                                    <label class="form-check-label" for="modisterra">MODIS-Terra</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#BurnedAreas" aria-expanded="false" aria-controls="BurnedAreas">
+                            <img src="HouseFires.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> MODIS Burned Area
+                        </button>
+                        <div id="BurnedAreas" class="collapse" aria-labelledby="BurnedAreas" data-bs-parent="#collapseFour">
+                            <div class="accordion-body">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="burnedareaday1">
+                                    <label class="form-check-label" for="burnedareaday1">MODIS & VIIRS NRT 1 day Layer</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
