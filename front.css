@@ -1,8 +1,8 @@
 #map {
   position: absolute;
-  top: 9%;
-  right: 4px;
-  width: 46%;
+  top: 10%;
+  left: 399px;
+  width: 53%;
   height: 65%;
   border-radius: 4%;
   overflow: hidden;
@@ -51,18 +51,27 @@
 }
 
 .legendany {
-  background-color: #fff;
+  background-color: transparent;
   border-radius: 3px;
-  bottom: 30px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font: 12px / 20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   padding: 10px;
   position: absolute;
-  right: 10px;
+  left: 1000px;
   width: 212px;
-  height: 227px;
+  height: 325px;
   z-index: 1;
-} 
+  top: 325px;
+}
+
+.legendany h4 {
+  background-color: white;
+  font-weight: bold;
+  padding: 8px 10px;
+  margin-top: 0;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 /* Assuming you have a class named 'eonet-marker' for styling */
 .eonet-marker {
   border: none;
@@ -72,7 +81,36 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
+th, td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+strong {
+  font-weight: bold;
+}
+
+tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+button {
+  margin-top: 10px;
+}
 /* Additional styles for a more visually appealing marker, adjust as needed */
 .eonet-marker:hover {
   transform: scale(1.2);
@@ -279,8 +317,8 @@ body {
 
 #video-container-right {
     position: absolute;
-    top: 10%;
-    left: 550px;
+    top: 9%;
+    right: 4px;
     width: 750px;
     height: 550px;
     background: #f9f9f9;
@@ -301,7 +339,7 @@ body {
   #video-container {
     position: absolute;
     top: 57%;
-    left: 550px;
+    right: 4px;
     width: 750px;
     height: 423px;
     border-radius: 0%;
@@ -319,7 +357,7 @@ body {
   .video-controls {
     position: absolute;
     top: 29%;
-    left: 500px;
+    right: 759px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -350,16 +388,16 @@ body {
     
   }
   #advisory-container {
-  position: absolute;
-  top: 75%;
-  left: 1469px;;  
-  width: 42%; /* Adjust the width to accommodate all images */
-  height: 264px;
-  border-radius: 10px;
-  border: 7px solid rgb(10, 10, 10);
-  overflow: hidden; /* Ensure that images outside the container are hidden */
-  display: flex; /* Use flexbox to align images */
-  align-items: center; /* Center the images vertically */
+    position: absolute;
+    top: 75%;
+    left: 397px;
+    width: 53%;
+    height: 191px;
+    border-radius: 10px;
+    border: 7px solid rgb(10, 10, 10);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
 }
    
 
