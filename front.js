@@ -97,6 +97,162 @@ const map = new mapboxgl.Map({
     center: [longhome, lathome], // starting position
     zoom: zoom // starting zoom
 });
+// creating the customn control for the 3d buildings data 
+function addBuildingControl(map) {
+  let buildingsAdded = false;
+
+  class BuildingControl {
+    onAdd(map) {
+      const container = document.createElement("div");
+      container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
+
+      const button = document.createElement("button");
+      button.innerHTML = `<img src="buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+      button.style.backgroundColor = "#ffffff"; // Default background color
+
+      button.addEventListener("click", () => {
+        const targetCoordinates = [67.0103,24.8784]; // Target coordinates to fly to
+
+        if (buildingsAdded) {
+          removeBuildings(map);
+          buildingsAdded = false;
+          button.style.backgroundColor = "#ffffff"; // Un-highlight the icon
+        } else {
+          addBuildings(map);
+          buildingsAdded = true;
+          button.style.backgroundColor = "#007bff"; // Highlight the icon in blue
+          // Fly to the target coordinates when buildings are added
+          map.flyTo({
+            center: targetCoordinates,
+            zoom: 15.5,
+            pitch: 45,
+            bearing: -17.6
+          });
+        }
+      });
+
+      container.appendChild(button);
+      return container;
+    }
+  }
+
+  const buildingControl = new BuildingControl();
+  map.addControl(buildingControl, "top-right");
+}
+
+function addBuildings(map) {
+  // Insert the layer beneath any symbol layer.
+  const layers = map.getStyle().layers;
+  const labelLayerId = layers.find(
+    (layer) => layer.type === "symbol" && layer.layout["text-field"]
+  ).id;
+
+  map.addLayer(
+    {
+      id: "add-3d-buildings",
+      source: "composite",
+      "source-layer": "building",
+      filter: ["==", "extrude", "true"],
+      type: "fill-extrusion",
+      minzoom: 15,
+      paint: {
+        "fill-extrusion-color": "#aaa",
+        "fill-extrusion-height": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          0,
+          15.05,
+          ["get", "height"],
+        ],
+        "fill-extrusion-base": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          0,
+          15.05,
+          ["get", "min_height"],
+        ],
+        "fill-extrusion-opacity": 0.6,
+      },
+    },
+    labelLayerId
+  );
+}
+
+function removeBuildings(map) {
+  map.removeLayer("add-3d-buildings");
+}
+// creating a 3d control for the map in mapbox 
+// creating a customn control for 3D terrrain
+function add3DControl(map) {
+  class ThreeDControl {
+    constructor() {
+      this._button = null;
+      this._is3DActive = false;
+      this._defaultPitch = 0;
+      this._defaultBearing = 0;
+    }
+
+    onAdd(map) {
+      const tooltipText = "For 3D visualization click here";
+
+      const div = document.createElement("div");
+      div.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
+
+      // Create button with tooltip and icon
+      this._button = document.createElement("button");
+      this._button.innerHTML = `<img src="3Dworldicon.svg" alt="threed" style="width: 20px; height: 20px;">`;
+      this._button.title = tooltipText;
+
+      // Add event listener to toggle 3D terrain and adjust pitch and bearing
+      this._button.addEventListener("click", () => {
+        this._is3DActive = !this._is3DActive;
+        if (this._is3DActive) {
+          map.addSource('mapbox-dem', {
+            'type': 'raster-dem',
+            'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+            'tileSize': 512,
+            'maxzoom': 14
+          });
+          map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 3.5 });
+          map.easeTo({
+            pitch: 80,
+            bearing: 41,
+            duration: 1000 // Adjust duration as needed
+          });
+          this._button.classList.add("active");
+          this._button.style.backgroundColor = "#007bff"; // Highlight the icon in blue
+        } else {
+          map.removeSource('mapbox-dem');
+          map.setTerrain(null);
+          map.easeTo({
+            pitch: this._defaultPitch,
+            bearing: this._defaultBearing,
+            duration: 1000 // Adjust duration as needed
+          });
+          this._button.classList.remove("active");
+          this._button.style.backgroundColor = "#ffffff"; // Un-highlight the icon
+        }
+      });
+
+      div.appendChild(this._button);
+
+      return div;
+    }
+  }
+
+  const threeDControl = new ThreeDControl();
+  map.addControl(threeDControl, "top-right");
+  
+  // Store default pitch and bearing values
+  map.once('load', () => {
+    threeDControl._defaultPitch = map.getPitch();
+    threeDControl._defaultBearing = map.getBearing();
+  });
+}
 // creating the functionality to change basemap as leaflet in the mapbox gl js 
 // creating a class for a control of style switcher basemap
 class MapboxStyleSwitcherControl {
@@ -173,162 +329,8 @@ map.addControl(new MapboxStyleSwitcherControl());
 //adding the navigation controls to the mapbox map 
 const nav = new mapboxgl.NavigationControl();
 map.addControl(nav, 'top-right');
-// creating a 3d control for the map in mapbox 
-// creating a customn control for 3D terrrain
-function add3DControl(map) {
-  class ThreeDControl {
-    constructor() {
-      this._button = null;
-      this._is3DActive = false;
-      this._defaultPitch = 0;
-      this._defaultBearing = 0;
-    }
 
-    onAdd(map) {
-      const tooltipText = "For 3D visualization click here";
 
-      const div = document.createElement("div");
-      div.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
-
-      // Create button with tooltip and icon
-      this._button = document.createElement("button");
-      this._button.innerHTML = `<img src="3Dworldicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
-      this._button.title = tooltipText;
-
-      // Add event listener to toggle 3D terrain and adjust pitch and bearing
-      this._button.addEventListener("click", () => {
-        this._is3DActive = !this._is3DActive;
-        if (this._is3DActive) {
-          map.addSource('mapbox-dem', {
-            'type': 'raster-dem',
-            'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-            'tileSize': 512,
-            'maxzoom': 14
-          });
-          map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 3.5 });
-          map.easeTo({
-            pitch: 80,
-            bearing: 41,
-            duration: 1000 // Adjust duration as needed
-          });
-          this._button.classList.add("active");
-          this._button.style.backgroundColor = "#007bff"; // Highlight the icon in blue
-        } else {
-          map.removeSource('mapbox-dem');
-          map.setTerrain(null);
-          map.easeTo({
-            pitch: this._defaultPitch,
-            bearing: this._defaultBearing,
-            duration: 1000 // Adjust duration as needed
-          });
-          this._button.classList.remove("active");
-          this._button.style.backgroundColor = "#ffffff"; // Un-highlight the icon
-        }
-      });
-
-      div.appendChild(this._button);
-
-      return div;
-    }
-  }
-
-  const threeDControl = new ThreeDControl();
-  map.addControl(threeDControl, "top-right");
-  
-  // Store default pitch and bearing values
-  map.once('load', () => {
-    threeDControl._defaultPitch = map.getPitch();
-    threeDControl._defaultBearing = map.getBearing();
-  });
-}
-// creating the customn control for the 3d buildings data 
-function addBuildingControl(map) {
-  let buildingsAdded = false;
-
-  class BuildingControl {
-    onAdd(map) {
-      const container = document.createElement("div");
-      container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
-
-      const button = document.createElement("button");
-      button.innerHTML = `<img src="buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
-      button.style.backgroundColor = "#ffffff"; // Default background color
-
-      button.addEventListener("click", () => {
-        const targetCoordinates = [73.0479,33.6844]; // Target coordinates to fly to
-
-        if (buildingsAdded) {
-          removeBuildings(map);
-          buildingsAdded = false;
-          button.style.backgroundColor = "#ffffff"; // Un-highlight the icon
-        } else {
-          addBuildings(map);
-          buildingsAdded = true;
-          button.style.backgroundColor = "#007bff"; // Highlight the icon in blue
-          // Fly to the target coordinates when buildings are added
-          map.flyTo({
-            center: targetCoordinates,
-            zoom: 15.5,
-            pitch: 45,
-            bearing: -17.6
-          });
-        }
-      });
-
-      container.appendChild(button);
-      return container;
-    }
-  }
-
-  const buildingControl = new BuildingControl();
-  map.addControl(buildingControl, "top-right");
-}
-
-function addBuildings(map) {
-  // Insert the layer beneath any symbol layer.
-  const layers = map.getStyle().layers;
-  const labelLayerId = layers.find(
-    (layer) => layer.type === "symbol" && layer.layout["text-field"]
-  ).id;
-
-  map.addLayer(
-    {
-      id: "add-3d-buildings",
-      source: "composite",
-      "source-layer": "building",
-      filter: ["==", "extrude", "true"],
-      type: "fill-extrusion",
-      minzoom: 15,
-      paint: {
-        "fill-extrusion-color": "#aaa",
-        "fill-extrusion-height": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          15,
-          0,
-          15.05,
-          ["get", "height"],
-        ],
-        "fill-extrusion-base": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          15,
-          0,
-          15.05,
-          ["get", "min_height"],
-        ],
-        "fill-extrusion-opacity": 0.6,
-      },
-    },
-    labelLayerId
-  );
-}
-
-function removeBuildings(map) {
-  map.removeLayer("add-3d-buildings");
-}
 
 // Adjust the addEONETMarkers function to use SVG icons and only display wildfire events
 function addEONETMarkers() {
@@ -414,10 +416,130 @@ function removeEONETMarkers() {
     add3DControl(map);
     
 });
+//adding styles onto map
+map.on('style.load', () => {
+  addAdditionalSourceAndLayer()
+  map.setFog({}); // Set the default atmosphere style
+});
 // adding the necessary layers 
 // creating a function to load the layers even if styles are changed 
 function addAdditionalSourceAndLayer() {
-  // Function to format the selected date
+  // Fetch CSV data
+  fetch('https://firms.modaps.eosdis.nasa.gov/mapserver/wfs/South_Asia/48615d588cfc60c9fc9b81e90d881e8f/?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=ms:fires_modis_24hrs&STARTINDEX=0&COUNT=1000&SRSNAME=urn:ogc:def:crs:EPSG::4326&BBOX=-90,-180,90,180,urn:ogc:def:crs:EPSG::4326&outputformat=csv')
+    .then(response => response.text())
+    .then(csvData => {
+      // Parse CSV data
+      const firesData = csvData.split('\n').slice(1).map(line => {
+        const [wkt, latitude, longitude, brightness, scan, track, acq_date, acq_time, acq_datetime, confidence, brightness_2, frp] = line.split(',');
+        return {
+          wkt,
+          latitude,
+          longitude,
+          brightness,
+          scan,
+          track,
+          acq_date,
+          acq_time,
+          acq_datetime,
+          confidence,
+          brightness_2,
+          frp
+        };
+      });
+
+      // Convert CSV data to GeoJSON format
+      const geojson = {
+        type: "FeatureCollection",
+        features: firesData.map((fire, index) => {
+          const [latitude, longitude] = [parseFloat(fire.latitude), parseFloat(fire.longitude)];
+          return {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [longitude, latitude], // GeoJSON coordinates are [longitude, latitude]
+            },
+            properties: {
+              id: index,
+              wkt: fire.wkt,
+              latitude: fire.latitude,
+              longitude: fire.longitude,
+              brightness: fire.brightness,
+              scan: fire.scan,
+              track: fire.track,
+              acq_date: fire.acq_date,
+              acq_time: fire.acq_time,
+              acq_datetime: fire.acq_datetime,
+              confidence: fire.confidence,
+              brightness_2: fire.brightness_2,
+              frp: fire.frp,
+            }
+          };
+        })
+      };
+
+      // Add GeoJSON data to the map
+      map.addSource("fires", {
+        type: "geojson",
+        data: geojson
+      });
+
+      // Add layer using red circles for fire incidents
+      map.addLayer({
+        id: "fires-layer",
+        type: "circle",
+        source: "fires",
+        paint: {
+          "circle-radius": 6, // Adjust circle radius as needed
+          "circle-color": "#FF0000", // Red color
+          "circle-opacity": 0.8 // Adjust opacity if needed
+        },
+        layout: { visibility: 'none' }
+      });
+
+      // Add click event listener to the fires layer
+      map.on("click", "fires-layer", (e) => {
+        const properties = e.features[0].properties;
+        const popupContent = `
+        <h3>Fire Information</h3>
+          <table>
+            <tr><th>Attribute</th><th>Value</th></tr>
+            <tr><td>WKT</td><td>${properties.wkt}</td></tr>
+            <tr><td>Latitude</td><td>${properties.latitude}</td></tr>
+            <tr><td>Longitude</td><td>${properties.longitude}</td></tr>
+            <tr><td>Brightness</td><td>${properties.brightness}</td></tr>
+            <tr><td>Scan</td><td>${properties.scan}</td></tr>
+            <tr><td>Track</td><td>${properties.track}</td></tr>
+            <tr><td>Acq Date</td><td>${properties.acq_date}</td></tr>
+            <tr><td>Acq Time</td><td>${properties.acq_time}</td></tr>
+            <tr><td>Acq Datetime</td><td>${properties.acq_datetime}</td></tr>
+            <tr><td>Confidence</td><td>${properties.confidence}</td></tr>
+            <tr><td>Brightness_2</td><td>${properties.brightness_2}</td></tr>
+            <tr><td>FRP</td><td>${properties.frp}</td></tr>
+          </table>
+          <button id="close-popup">Close</button>
+        `;
+        const popup = new mapboxgl.Popup()
+          .setLngLat(e.features[0].geometry.coordinates)
+          .setHTML(popupContent)
+          .addTo(map);
+
+        // Close popup when close button is clicked
+        document.getElementById('close-popup').addEventListener('click', () => {
+          popup.remove();
+        });
+      });
+
+      // Change the cursor to a pointer when hovering over the fires layer
+      map.on('mouseenter', 'fires-layer', () => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+
+      // Change it back to the default cursor when it leaves
+      map.on('mouseleave', 'fires-layer', () => {
+        map.getCanvas().style.cursor = '';
+      });
+    });
+  // function for date 
   function formatDate(selectedDate) {
     const dateObj = new Date(selectedDate);
     const year = dateObj.getFullYear();
@@ -1006,6 +1128,52 @@ map.addLayer({
   paint: { 'raster-opacity': 0.7 },
   layout: { visibility: 'none' }
 }, );
+//adding the Protected Area  Layer
+map.addSource('ProtectedAreas(IUCN)', {
+  type: 'raster',
+  tiles: [
+    'https://maps.effis.emergency.copernicus.eu/gwis?SERVICE=WMS&REQUEST=GetMap&LAYERS=wdpa.poly&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=1439&HEIGHT=602&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+  ],
+  tileSize: 256
+});
+map.addLayer({
+  id: 'protectedareas',
+  type: 'raster',
+  source: 'ProtectedAreas(IUCN)',
+  paint: { 'raster-opacity': 0.7 },
+  layout: { visibility: 'none' }
+}, );
+//adding the LULC  Layer
+map.addSource('LULC', {
+  type: 'raster',
+  tiles: [
+    'https://ies-ows.jrc.ec.europa.eu/gwis?SERVICE=WMS&REQUEST=GetMap&LAYERS=esa_cci.c6&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=1439&HEIGHT=602&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+  ],
+  tileSize: 256
+});
+map.addLayer({
+  id: 'landuse',
+  type: 'raster',
+  source: 'LULC',
+  paint: { 'raster-opacity': 0.7 },
+  layout: { visibility: 'none' }
+}, );
+//adding the Setelment  Layer
+map.addSource('Settlement', {
+  type: 'raster',
+  tiles: [
+    'https://ies-ows.jrc.ec.europa.eu/gwis?SERVICE=WMS&REQUEST=GetMap&LAYERS=ghsl&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=1439&HEIGHT=602&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+  ],
+  tileSize: 256
+});
+map.addLayer({
+  id: 'Settelmentslayer',
+  type: 'raster',
+  source: 'Settlement',
+  paint: { 'raster-opacity': 0.7 },
+  layout: { visibility: 'none' }
+}, );
+
 //adding the Lightning Forecast (1 day forecast) Layer
 map.addSource('LightningForecast1dayforecast', {
   type: 'raster',
@@ -1046,6 +1214,7 @@ map.addLayer({
    id: 'nasa_eonet',
    type: 'symbol',
    source: 'eonet-source',
+   layout: { visibility: 'none' }
    
 });
  // Function to update WMS layer with the specified time
@@ -1095,14 +1264,10 @@ document.getElementById('date-selector').addEventListener('change', function (ev
 // Update WMS layer with the initial current time
 updateWMSLayer(currentTime);
 }
-//adding styles onto map
-map.on('style.load', () => {
-  addAdditionalSourceAndLayer()
-  map.setFog({}); // Set the default atmosphere style
-});
+
 // creating the toggle layer functionalities
 map.on('idle', async() => {
-  const toggleableLayerIds = ['fwidc', 'fwi', 'fwiisi', 'fdimark','fdibui','fwiffmc','fwifdmc','fwianomaly','fwiranking','kbdidi','markros','nfdrsic','blackcarbon', 'Methane', 'carbondioxide', 'carbonmonooxide', 'particulatematter','LightningForecast','Fuelsemission','nasa_eonet','VIIRSSNN21','virsssuomi','virssnoaa20','virssnoaa21','modisaquaterra','modisaqua','modisterra','burnedareaday1','lstd','lstn','vegitationindex','fireanomalies']; // IDs of layers with switches in the navbar
+  const toggleableLayerIds = ['fwidc', 'fwi', 'fwiisi', 'fdimark','fdibui','fwiffmc','fwifdmc','fwianomaly','fwiranking','kbdidi','markros','nfdrsic','blackcarbon', 'Methane', 'carbondioxide', 'carbonmonooxide', 'particulatematter','LightningForecast','Fuelsemission','nasa_eonet','VIIRSSNN21','virsssuomi','virssnoaa20','virssnoaa21','modisaquaterra','modisaqua','modisterra','burnedareaday1','lstd','lstn','vegitationindex','fireanomalies','protectedareas','landuse','Settelmentslayer','fires-layer']; // IDs of layers with switches in the navbar
 
   for (const id of toggleableLayerIds) {
       const visibilitySwitch = document.querySelector(`#${id}`);
@@ -1165,7 +1330,7 @@ function toggleLegendImage(layerId, add) {
 }
 
 // Attach event listeners to layer switches in the navbar
-const toggleableLayerIds = ['fwidc', 'fwi', 'fwiisi', 'fdimark', 'fdibui', 'fwiffmc', 'fwifdmc', 'fwianomaly', 'fwiranking', 'kbdidi', 'markros', 'nfdrsic', 'blackcarbon', 'Methane', 'carbondioxide', 'carbonmonooxide', 'particulatematter', 'LightningForecast', 'Fuelsemission','nasa_eonet','VIIRSSNN21','virsssuomi','virssnoaa20','virssnoaa21','modisaquaterra','modisaqua','modisterra','burnedareaday1','lstd','lstn','vegitationindex','fireanomalies'];
+const toggleableLayerIds = ['fwidc', 'fwi', 'fwiisi', 'fdimark', 'fdibui', 'fwiffmc', 'fwifdmc', 'fwianomaly', 'fwiranking', 'kbdidi', 'markros', 'nfdrsic', 'blackcarbon', 'Methane', 'carbondioxide', 'carbonmonooxide', 'particulatematter', 'LightningForecast', 'Fuelsemission','nasa_eonet','VIIRSSNN21','virsssuomi','virssnoaa20','virssnoaa21','modisaquaterra','modisaqua','modisterra','burnedareaday1','lstd','lstn','vegitationindex','fireanomalies','protectedareas','landuse','Settelmentslayer','fires-layer'];
 toggleableLayerIds.forEach(id => {
   const visibilitySwitch = document.getElementById(id);
   if (visibilitySwitch) {
