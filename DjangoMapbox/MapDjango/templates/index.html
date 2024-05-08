@@ -1,0 +1,460 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--leafletCss and Mapbox-->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+    <!--Javascriptlink and mapbox-->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+    <script src='https://unpkg.com/mapbox-gl-supported'></script>
+    <!--GeoJson files link-->
+    <!-- Linking the Geojson-->
+    <script src="finalgeojson.geojson"></script>
+    <!--<script src="output.geojson"></script>-->
+    <!-- Bootstrap CSS necessary for the home button on map -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--Css link include the static tag for css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'mapboxpractice.css' %}">
+    <!--Css link for the home button on the map-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    <!--Css link for the timeslider-->
+    <link rel="stylesheet" href="https://unpkg.com/@tarekraafat/range-slider@3.2.2/dist/css/rSlider.css" />
+   <script src="https://unpkg.com/@tarekraafat/range-slider@3.2.2/dist/js/rSlider.js"></script>
+    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+    <!--Javascript link for the supercluster-->
+    <script src="https://unpkg.com/supercluster@8.0.0/dist/supercluster.min.js"></script>
+    <script src="https://unpkg.com/mapbox-gl-marker-cluster"></script>
+    <script src='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.js'></script>
+    <link href='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.css' rel='stylesheet' />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>DjangoMap</title>
+</head>
+
+<body>
+    <div class=Head>
+        <h1>Mapbox_Django Tutorial</h1>
+    </div>
+    <br>
+
+    <div id="map">
+        <div class="accordion" id="accordionExample">
+            <div class="card bg-dark">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Population Density layer
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <div class="map-overlay" id="features">
+                            <h2>Population Density (per square km)</h2>
+                            <div id="pd">
+                                <p>Hover over a country!</p>
+                            </div>
+                        </div>
+                        <br>
+                        <nav id="menu_countries_layer"></nav>
+                        <!-- Table with radio buttons for Population Density layer -->
+                        <div class="table-responsive mx-3">
+                            <div class="container-fluid">
+                                <table class="table bg-white text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Visibility</th>
+                                            <th scope="col">Layer Name</th>
+                                            <th scope="col">Opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_countries_layer" checked>Add/Remove
+                                            </td>
+                                            <td>Countries Layer</td>
+                                            <td>
+                                                <input type="range" class="opacity-slider" data-layer="countries_layer" min="0" max="1" step="0.1" value="0.7">
+                                            </td>
+                                        </tr>
+                                        <!-- Add additional rows if needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-dark">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            RGB Fog layer
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <nav id="menu_rgb_fog"></nav>
+                        <!-- Table with radio buttons for RGB Fog layer -->
+                        <div class="table-responsive mx-3">
+                            <div class="container-fluid">
+                                <table class="table bg-white text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">On/Off</th>
+                                            <th scope="col">Layer Name</th>
+                                            <th scope="col">Opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_rgb_fog" checked>Add/Remove
+                                            </td>
+                                            <td>RGB Fog Layer</td>
+                                            <td>
+                                                <input type="range" class="opacity-slider" data-layer="rgb_fog" min="0" max="1" step="0.1" value="0.7">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_rgb_dust" checked>Add/Remove
+                                            </td>
+                                            <td>RGB Dust Layer</td>
+                                            <td>
+                                                <input type="range" class="opacity-slider" data-layer="rgb_dust" min="0" max="1" step="0.1" value="0.7">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_rgb_snow" checked>Add/Remove
+                                            </td>
+                                            <td>RGB Snow Layer</td>
+                                            <td>
+                                                <input type="range" class="opacity-slider" data-layer="rgb_snow" min="0" max="1" step="0.1" value="0.7">
+                                            </td>
+                                        </tr>
+                                        <!-- Add additional rows if needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-dark">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Copernicus Emergency Services layers
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <!-- Content for other layers -->
+                        <!--<p>Add other layers</p>-->
+                        <!-- Table with radio buttons for other layers -->
+                        <div class="table-responsive mx-3">
+                            <div class="container-fluid">
+                                <table class="table bg-white text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Visibility</th>
+                                            <th scope="col">Layer Name</th>
+                                            <th scope="col">Opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_rdri_agri" checked>Add/Remove
+                                                </td>
+                                                <td>Risk of Drough Impact for Agriculture</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="rdri_agri" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <!--
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_coperc_spi" checked>Add/Remove
+                                                </td>
+                                                <td>Standardized Precipitation Index </td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="coperc_spi" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_sm_anom" checked>Add/Remove
+                                                </td>
+                                                <td>Soil Moisture Anomaly</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="sm_anom" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            -->
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_fapar_anom" checked>Add/Remove
+                                                </td>
+                                                <td>fAPAR Anomaly</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="fapar_anom" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <!-- Add additional rows if needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-dark">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            NASA FIRMS Global
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <!-- Content for other layers -->
+                        <!--<p>Add other layers</p>-->
+                        <!-- Table with radio buttons for other layers -->
+                        <div class="table-responsive mx-3">
+                            <div class="container-fluid">
+                                <table class="table bg-white text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Visibility</th>
+                                            <th scope="col">Layer Name</th>
+                                            <th scope="col">Opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_fire_hmodis" checked>Add/Remove
+                                                </td>
+                                                <td>FIRE Hotspots Modis</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="fire_hmodis" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_fire_hviirs" checked>Add/Remove
+                                                </td>
+                                                <td>FIRE Hotspots VIIRS</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="fire_hviirs" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <!-- Add additional rows if needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-dark">
+                <div class="card-header" id="headingFive">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            NASA Eonet Events
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <!-- Content for other layers -->
+                        <!--<p>Add other layers</p>-->
+                        <!-- Table with radio buttons for other layers -->
+                        <div class="table-responsive mx-3">
+                            <div class="container-fluid">
+                                <table class="table bg-white text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Visibility</th>
+                                            <th scope="col">Layer Name</th>
+                                            <th scope="col">Opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_nasa_eonet" checked>Add/Remove
+                                                </td>
+                                                <td>Nasa Eonet Events</td>
+                                                <td>These are the nasa eonet event layers that represent realtime natural disasters such as earthquakes,etc</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="nasa_eonet" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <!-- Add additional rows if needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-dark">
+                <div class="card-header" id="headingSix">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            PostgreSQL Connection
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <!-- Content for other layers -->
+                        <!--<p>Add other layers</p>-->
+                        <!-- Table with radio buttons for other layers -->
+                        <div class="table-responsive mx-3">
+                            <div class="container-fluid">
+                                <table class="table bg-white text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Visibility</th>
+                                            <th scope="col">Layer Name</th>
+                                            <th scope="col">Opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_pgsqlshapeone" checked>Add/Remove
+                                                </td>
+                                                <td>Punjab Shapefile</td>
+                                                <td>loading the shapefile without query</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="pgsqlshapeone" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <!-- Add additional rows if needed -->
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_pgsqlshapetwondvi" checked>Add/Remove
+                                                </td>
+                                                <td> Vegitation Shapefile</td>
+                                                <td>loading the shapefile with greatest vegitation</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="pgsqlshapetwondvi" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-dark">
+                <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            GLIMS Datasets
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <!-- Content for other layers -->
+                        <!--<p>Add other layers</p>-->
+                        <!-- Table with radio buttons for other layers -->
+                        <div class="table-responsive mx-3">
+                            <div class="container-fluid">
+                                <table class="table bg-white text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Visibility</th>
+                                            <th scope="col">Layer Name</th>
+                                            <th scope="col">Opacity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_gtd" checked>Add/Remove
+                                                </td>
+                                                <td>Glacier Thickness Dataset</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="gtd" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input class="form-check-input visibility-checkbox" type="checkbox" id="checkbox_ggo" checked>Add/Remove
+                                                </td>
+                                                <td>Glims Glacier Outlines</td>
+                                                <td>
+                                                    <input type="range" class="opacity-slider" data-layer="ggo" min="0" max="1" step="0.1" value="0.7">
+                                                </td>
+                                            </tr>
+                                            <!-- Add additional rows if needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav id="menu"></nav>
+        <div id="Popultation_density" class="legend">
+            <h4>Population Density</h4>
+            <div><span style="background-color: #800026"></span>1200</div>
+            <div><span style="background-color: #BD0026"></span>670</div>
+            <div><span style="background-color: #E31A1C"></span>380</div>
+            <div><span style="background-color: #FC4E2A"></span>160</div>
+            <div><span style="background-color: #FD8D3C"></span>100</div>
+            <div><span style="background-color: #FEB24C"></span>60</div>
+            <div><span style="background-color: #FED976"></span>30</div>
+        </div>
+
+
+    </div>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <div class="watermark">
+        Created by Syed Mustafa Haider
+    </div>
+
+    <!--<div id="Button1">
+    <button type="button">Click me!!</button>
+   </div>
+ -->
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- The scripts are jquery for slider2-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Bootstrap Jquery
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!--Load with static tag-->
+    <script src="{% static 'mapboxpractice.js' %}"></script>
+</body>
+
+</html>
