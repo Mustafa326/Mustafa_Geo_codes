@@ -7,12 +7,20 @@
     <link href="bootStrap_CSS.css" rel="stylesheet">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.js'></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <!--GeoJson files link-->
     <!-- Linking the Geojson-->
     <script src="Pakistan_rivers.geojson"></script>
     <script src="distBound.geojson"></script>
+    <!-- Include FileSaver.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- Mapbox Draw tool pluggin with turf-->
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.css' type='text/css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <!-- Main CSS (frontend)-->
     <link rel="stylesheet" type="text/css" href="front.css" />
   </head>
  
@@ -27,26 +35,51 @@
     <div class="down-arrow next" onclick="plusSlides(1)">&#8595;</div>
   </div>
   <div id="video-container-right">
+    <div class="fullscreen-button-container">
+        <button class="fullscreen-button" onclick="openFullscreen2('video-container-right');" data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
+    </div>
     <div class="slideshow-container">
       <!-- iframes will be inserted here dynamically -->
     </div>
 </div>
+ <!-- Video container in column 3 in below -->
+ <div class="video-controls2">
+    <div class="up-arrow prev2" onclick="plusSlides2(-1)">&#8593;</div>
+    <div class="down-arrow next2" onclick="plusSlides2(1)">&#8595;</div>
+  </div>
 <div id="video-container" class="container">
-  <video autoplay muted loop id="background-video1">
+    <div class="fullscreen-button-container">
+        <button class="fullscreen-button" onclick="openFullscreen2('video-container');" data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
+    </div>
+    <div class="slideshow-container2">
+        <!-- iframes will be inserted here dynamically -->
+      </div>
+      <!--
+    <iframe src="https://gwis.jrc.ec.europa.eu/apps/country.profile/overview/ADM0/PAK" title="GWIS">
+    </iframe>
+     -->
+    <!--
+        <video autoplay muted loop id="background-video1">
     <source src="" type="video/mp4">
     Your browser does not support the video tag.
   </video>
- 
+    -->
 </div>
 
 <div id="advisory-container" class="container">
     <img src="Balochistan2022.png" alt="Image 1">
     <img src="ForestFireSerghali.png" alt="Image 2">
-    <img src="KPK2022fire.png" alt="Image 1">
-    <img src="Margallahillsfirw2022.png" alt="Image 2">
-    <img src="PakistanTemporalFires.png" alt="Image 1">
+    <img src="KPK2022fire.png" alt="Image 3">
+    <img src="Margallahillsfirw2022.png" alt="Image 4">
+    <img src="PakistanTemporalFires.png" alt="Image 5">
+    <img src="forestfireadvisory.png" alt="Image 6">
   </div>
-</div>
+  
+  <!-- Popup -->
+  <div id="image-popup" class="popup">
+    <span class="close-popup">&times;</span>
+    <img id="popup-image" src="" alt="Popup Image">
+  </div>
 <div id="bottom-div">
   
   <div id="moving-text1">
@@ -64,6 +97,9 @@
     <!-- Map container -->
     <div class="map-container">
       <div id="map">
+        <div id="export_container" class="exportbutton">
+            <button id="export"><i class="fas fa-download"></i></button>
+        </div>
         <div id="Legend_container" class="legendany">
             <h4>Legend</h4>
             <!--
@@ -390,14 +426,14 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#BurnedAreas" aria-expanded="false" aria-controls="BurnedAreas">
-                            <img src="HouseFires.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> MODIS Burned Area
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ForestCover" aria-expanded="false" aria-controls="ForestCover">
+                            <img src="trees.gif" alt="Icon" style="height: 35px; width: 35px; margin-right: 10px;"> Forest Cover
                         </button>
-                        <div id="BurnedAreas" class="collapse" aria-labelledby="BurnedAreas" data-bs-parent="#collapseFour">
+                        <div id="ForestCover" class="collapse" aria-labelledby="ForestCover" data-bs-parent="#collapseFour">
                             <div class="accordion-body">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="burnedareaday1">
-                                    <label class="form-check-label" for="burnedareaday1">MODIS & VIIRS NRT 1 day Layer</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="fcover">
+                                    <label class="form-check-label" for="fcover">Forest Cover 2023</label>
                                 </div>
                             </div>
                         </div>
@@ -412,7 +448,6 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-     <script src="front.js"></script>
+    <script src="front.js"></script>
   </body>
 </html>
