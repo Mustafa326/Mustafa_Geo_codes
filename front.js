@@ -1,4 +1,73 @@
-/*
+// function to filter out the fire alerts in south asia wfs based on confidence value entered
+
+document.addEventListener("DOMContentLoaded", function() {
+  var firesLayerCheckbox = document.getElementById("fires-layer");
+  var firesLayerFilterInput;
+
+  firesLayerCheckbox.addEventListener("change", function() {
+    if (this.checked) {
+      firesLayerFilterInput = document.createElement("input");
+      firesLayerFilterInput.type = "number";
+      firesLayerFilterInput.placeholder = "Enter confidence value between 10 to 100";
+      firesLayerFilterInput.addEventListener("input", function() {
+        filterFiresLayer(parseFloat(this.value));
+      });
+
+      var label = document.createElement("label");
+      label.htmlFor = "fires-layer-filter";
+      label.appendChild(document.createTextNode("Confidence Value: "));
+      label.appendChild(firesLayerFilterInput);
+
+      this.parentNode.appendChild(label);
+    } else {
+      if (firesLayerFilterInput && firesLayerFilterInput.parentNode) {
+        firesLayerFilterInput.parentNode.removeChild(firesLayerFilterInput);
+      }
+    }
+  });
+
+  function filterFiresLayer() {
+    var confidence = parseFloat(firesLayerFilterInput.value);
+    // Ensure the confidence value is within the range of 0 to 100
+    confidence = Math.min(Math.max(confidence, 0), 100);
+  
+    // Update the visibility of the fires layer based on the entered confidence value
+    var visibility = confidence >= 0 && confidence <= 100 ? "visible" : "none";
+    map.setLayoutProperty("fires-layer", "visibility", visibility);
+  
+    // Set the filter to show features with confidence values equal to the entered value
+    map.setFilter("fires-layer", ["==", ["get", "confidence"], confidence]);
+  }
+});
+// function for popup for advisories 
+document.addEventListener("DOMContentLoaded", function() {
+  var images = document.querySelectorAll("#advisory-container img");
+  var popup = document.getElementById("image-popup");
+  var popupImage = document.getElementById("popup-image");
+  var closePopup = document.querySelector(".close-popup");
+
+  images.forEach(function(image) {
+    image.addEventListener("click", function() {
+      popupImage.src = this.src;
+      popup.style.display = "block";
+    });
+  });
+
+  closePopup.addEventListener("click", function() {
+    popup.style.display = "none";
+  });
+});
+// fullscreen function
+function openFullscreen2(containerId) {
+  var elem = document.getElementById(containerId);
+  if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+      elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen();
+  }
+}
 // code for the slideshow in video-container4
   let slideIndex = 0; // Start from the first iframe
 
@@ -58,7 +127,66 @@
   
   // Initialize the slideshow when the DOM content is loaded
   document.addEventListener("DOMContentLoaded", initializeSlideshow);
-  */
+
+  //
+  let slideIndex2 = 0; // Define slideIndex
+
+  function plusSlides2(n) {
+    showSlides2(slideIndex2 += n);
+  }
+  
+  function currentSlide2(n) {
+    showSlides2(slideIndex2 = n);
+  }
+  
+  function showSlides2(n) {
+    const iframes2 = document.querySelectorAll(".slideshow-container2 iframe");
+    
+    // Ensure slide index stays within bounds
+    if (n >= iframes2.length) {
+      slideIndex2 = 0; // Loop back to the first iframe
+    }
+    if (n < 0) {
+      slideIndex2 = iframes2.length - 1; // Go to the last iframe
+    }
+    
+    // Hide all iframes
+    iframes2.forEach(iframe2 => {
+      iframe2.style.display = "none";
+    });
+    
+    // Show the current iframe
+    iframes2[slideIndex2].style.display = "block";
+  }
+  
+  // Function to initialize the slideshow
+  function initializeSlideshow2() {
+    const slideshowContainer2 = document.querySelector(".slideshow-container2");
+    const iframes2 = [
+      "https://ourworldindata.org/grapher/cumulative-area-burnt-by-wildfires-by-week?country=~PAK",
+      "https://ourworldindata.org/grapher/annual-area-burnt-by-wildfires?time=earliest..2024&country=PAK~IND~IRN~CHN~AFG",
+      "https://ourworldindata.org/grapher/share-of-the-total-land-area-burnt-by-wildfires-each-year?time=earliest..2024&country=PAK~IND~CHN~IRN~AFG",
+      "https://ourworldindata.org/grapher/annual-area-burnt-per-wildfire?time=2012..2024&country=PAK~IND~IRN~AFG~CHN",
+      "https://ourworldindata.org/grapher/annual-burned-area-by-landcover?country=PAK~IND~CHN~AFG",
+      "https://ourworldindata.org/grapher/annual-carbon-dioxide-emissions?time=earliest..2024&country=PAK~IND~CHN~AFG~IRN",
+      "https://gwis.jrc.ec.europa.eu/apps/country.profile/overview/ADM0/PAK"
+    ];
+    
+    // Insert iframes into the slideshow container
+    iframes2.forEach(src => {
+      const iframe2 = document.createElement("iframe"); // Corrected typo
+      iframe2.src = src;
+      iframe2.width = "100%";
+      iframe2.height = "100%";
+      iframe2.frameBorder = "0";
+      slideshowContainer2.appendChild(iframe2);
+    });
+    
+    // Show the first iframe initially
+    showSlides2(slideIndex2);
+  }
+// Initialize the slideshow when the DOM content is loaded
+document.addEventListener("DOMContentLoaded", initializeSlideshow2);
   // Declaration of variables containing latitude and longitude
 var myLat = 0;
 var myLong = 0;
@@ -253,6 +381,75 @@ function add3DControl(map) {
     threeDControl._defaultBearing = map.getBearing();
   });
 }
+// adding the draw tool control
+// Add Draw control to the map
+// Initialize MapboxDraw with options to position it on the top left
+// Initialize MapboxDraw with options
+// Initialize MapboxDraw with options
+const draw = new MapboxDraw({
+  displayControlsDefault: false,
+  controls: {
+      polygon: true,
+      trash: true
+  },
+  defaultMode: 'draw_polygon'
+});
+map.addControl(draw, 'top-left');
+// Function to extract features within drawn polygon and trigger download
+function extractFeaturesInPolygon() {
+  const data = draw.getAll();
+
+  if (data.features.length === 0) {
+      alert('Please draw a polygon first.');
+      return;
+  }
+
+  // Get features from the map's data source
+  const source = map.getSource('fires');
+  const mapFeatures = source._data.features;
+
+  if (!Array.isArray(mapFeatures)) {
+      alert("No features found in the map's data source.");
+      return;
+  }
+
+  // Get bounding box of the drawn polygon
+  const bbox = turf.bbox(data.features[0]);
+
+  // Filter features within the drawn polygon bounding box
+  const featuresWithinPolygon = mapFeatures.filter(function(feature) {
+      const point = feature.geometry.coordinates;
+      return point[0] >= bbox[0] &&
+             point[1] >= bbox[1] &&
+             point[0] <= bbox[2] &&
+             point[1] <= bbox[3];
+  });
+  console.log('Features of "fires-layer" within drawn polygon:', featuresWithinPolygon);
+
+  if (featuresWithinPolygon.length > 0) {
+      // Create a GeoJSON object containing features within the polygon
+      const geojsonWithinPolygon = {
+          type: 'FeatureCollection',
+          features: featuresWithinPolygon
+      };
+
+      // Convert GeoJSON to string for downloading
+      const geojsonString = JSON.stringify(geojsonWithinPolygon);
+
+      // Create a Blob object containing the GeoJSON string
+      const blob = new Blob([geojsonString], { type: 'text/plain;charset=utf-8' });
+
+      // Trigger download
+      saveAs(blob, 'features_within_polygon.geojson'); // Using FileSaver.js for compatibility
+  } else {
+      alert('No features found within the drawn polygon.');
+  }
+}
+
+// Add click event listener to a button for exporting features within the drawn polygon
+document.getElementById('export').onclick = function(e) {
+  extractFeaturesInPolygon();
+};
 // creating the functionality to change basemap as leaflet in the mapbox gl js 
 // creating a class for a control of style switcher basemap
 class MapboxStyleSwitcherControl {
@@ -425,120 +622,130 @@ map.on('style.load', () => {
 // creating a function to load the layers even if styles are changed 
 function addAdditionalSourceAndLayer() {
   // Fetch CSV data
-  fetch('https://firms.modaps.eosdis.nasa.gov/mapserver/wfs/South_Asia/48615d588cfc60c9fc9b81e90d881e8f/?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=ms:fires_modis_24hrs&STARTINDEX=0&COUNT=1000&SRSNAME=urn:ogc:def:crs:EPSG::4326&BBOX=-90,-180,90,180,urn:ogc:def:crs:EPSG::4326&outputformat=csv')
-    .then(response => response.text())
-    .then(csvData => {
-      // Parse CSV data
-      const firesData = csvData.split('\n').slice(1).map(line => {
+fetch('https://firms.modaps.eosdis.nasa.gov/mapserver/wfs/South_Asia/48615d588cfc60c9fc9b81e90d881e8f/?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=ms:fires_modis_24hrs&STARTINDEX=0&COUNT=1000&SRSNAME=urn:ogc:def:crs:EPSG::4326&BBOX=-90,-180,90,180,urn:ogc:def:crs:EPSG::4326&outputformat=csv')
+.then(response => response.text())
+.then(csvData => {
+    // Parse CSV data
+    const firesData = csvData.split('\n').slice(1).map(line => {
         const [wkt, latitude, longitude, brightness, scan, track, acq_date, acq_time, acq_datetime, confidence, brightness_2, frp] = line.split(',');
         return {
-          wkt,
-          latitude,
-          longitude,
-          brightness,
-          scan,
-          track,
-          acq_date,
-          acq_time,
-          acq_datetime,
-          confidence,
-          brightness_2,
-          frp
+            wkt,
+            latitude,
+            longitude,
+            brightness,
+            scan,
+            track,
+            acq_date,
+            acq_time,
+            acq_datetime,
+            confidence: parseFloat(confidence), // Convert confidence to float
+            brightness_2,
+            frp
         };
-      });
+    });
 
-      // Convert CSV data to GeoJSON format
-      const geojson = {
+    // Convert CSV data to GeoJSON format
+    const geojson = {
         type: "FeatureCollection",
         features: firesData.map((fire, index) => {
-          const [latitude, longitude] = [parseFloat(fire.latitude), parseFloat(fire.longitude)];
-          return {
-            type: "Feature",
-            geometry: {
-              type: "Point",
-              coordinates: [longitude, latitude], // GeoJSON coordinates are [longitude, latitude]
-            },
-            properties: {
-              id: index,
-              wkt: fire.wkt,
-              latitude: fire.latitude,
-              longitude: fire.longitude,
-              brightness: fire.brightness,
-              scan: fire.scan,
-              track: fire.track,
-              acq_date: fire.acq_date,
-              acq_time: fire.acq_time,
-              acq_datetime: fire.acq_datetime,
-              confidence: fire.confidence,
-              brightness_2: fire.brightness_2,
-              frp: fire.frp,
-            }
-          };
+            const [latitude, longitude] = [parseFloat(fire.latitude), parseFloat(fire.longitude)];
+            return {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: [longitude, latitude], // GeoJSON coordinates are [longitude, latitude]
+                },
+                properties: {
+                    id: index,
+                    wkt: fire.wkt,
+                    latitude: fire.latitude,
+                    longitude: fire.longitude,
+                    brightness: fire.brightness,
+                    scan: fire.scan,
+                    track: fire.track,
+                    acq_date: fire.acq_date,
+                    acq_time: fire.acq_time,
+                    acq_datetime: fire.acq_datetime,
+                    confidence: fire.confidence,
+                    brightness_2: fire.brightness_2,
+                    frp: fire.frp,
+                }
+            };
         })
-      };
+    };
 
-      // Add GeoJSON data to the map
-      map.addSource("fires", {
+    // Add GeoJSON data to the map
+    map.addSource("fires", {
         type: "geojson",
         data: geojson
-      });
+    });
 
-      // Add layer using red circles for fire incidents
-      map.addLayer({
+    // Add layer using red circles for fire incidents
+    map.addLayer({
         id: "fires-layer",
         type: "circle",
         source: "fires",
         paint: {
-          "circle-radius": 6, // Adjust circle radius as needed
-          "circle-color": "#FF0000", // Red color
-          "circle-opacity": 0.8 // Adjust opacity if needed
+            "circle-radius": 6, // Adjust circle radius as needed
+            "circle-color": [
+              "interpolate",
+              ["linear"],
+              ["get", "confidence"],
+              0, "#F1EEC6", // Yellow color for confidence 0
+              40, "#FAF285", // Orange color for confidence 40
+              50, "#F8B452", // Orange-red color for confidence 50
+              60, "#F9A937", // Red-orange color for confidence 60
+              70, "#F97656", // Red color for confidence 70
+              80, "#FC3200" // Dark red color for confidence above 80
+          ],
+            "circle-opacity": 0.8 // Adjust opacity if needed
         },
-        layout: { visibility: 'none' }
-      });
+        layout: { visibility: 'none' } // Change visibility to 'visible'
+    });
 
-      // Add click event listener to the fires layer
-      map.on("click", "fires-layer", (e) => {
+    // Add click event listener to the fires layer
+    map.on("click", "fires-layer", (e) => {
         const properties = e.features[0].properties;
         const popupContent = `
-        <h3>Fire Information</h3>
-          <table>
-            <tr><th>Attribute</th><th>Value</th></tr>
-            <tr><td>WKT</td><td>${properties.wkt}</td></tr>
-            <tr><td>Latitude</td><td>${properties.latitude}</td></tr>
-            <tr><td>Longitude</td><td>${properties.longitude}</td></tr>
-            <tr><td>Brightness</td><td>${properties.brightness}</td></tr>
-            <tr><td>Scan</td><td>${properties.scan}</td></tr>
-            <tr><td>Track</td><td>${properties.track}</td></tr>
-            <tr><td>Acq Date</td><td>${properties.acq_date}</td></tr>
-            <tr><td>Acq Time</td><td>${properties.acq_time}</td></tr>
-            <tr><td>Acq Datetime</td><td>${properties.acq_datetime}</td></tr>
-            <tr><td>Confidence</td><td>${properties.confidence}</td></tr>
-            <tr><td>Brightness_2</td><td>${properties.brightness_2}</td></tr>
-            <tr><td>FRP</td><td>${properties.frp}</td></tr>
-          </table>
-          <button id="close-popup">Close</button>
+            <h3>Fire Information</h3>
+            <table>
+                <tr><th>Attribute</th><th>Value</th></tr>
+                <tr><td>WKT</td><td>${properties.wkt}</td></tr>
+                <tr><td>Latitude</td><td>${properties.latitude}</td></tr>
+                <tr><td>Longitude</td><td>${properties.longitude}</td></tr>
+                <tr><td>Brightness</td><td>${properties.brightness}</td></tr>
+                <tr><td>Scan</td><td>${properties.scan}</td></tr>
+                <tr><td>Track</td><td>${properties.track}</td></tr>
+                <tr><td>Acq Date</td><td>${properties.acq_date}</td></tr>
+                <tr><td>Acq Time</td><td>${properties.acq_time}</td></tr>
+                <tr><td>Acq Datetime</td><td>${properties.acq_datetime}</td></tr>
+                <tr><td>Confidence</td><td>${properties.confidence}</td></tr>
+                <tr><td>Brightness_2</td><td>${properties.brightness_2}</td></tr>
+                <tr><td>FRP</td><td>${properties.frp}</td></tr>
+            </table>
+            <button id="close-popup">Close</button>
         `;
         const popup = new mapboxgl.Popup()
-          .setLngLat(e.features[0].geometry.coordinates)
-          .setHTML(popupContent)
-          .addTo(map);
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML(popupContent)
+            .addTo(map);
 
         // Close popup when close button is clicked
         document.getElementById('close-popup').addEventListener('click', () => {
-          popup.remove();
+            popup.remove();
         });
-      });
-
-      // Change the cursor to a pointer when hovering over the fires layer
-      map.on('mouseenter', 'fires-layer', () => {
-        map.getCanvas().style.cursor = 'pointer';
-      });
-
-      // Change it back to the default cursor when it leaves
-      map.on('mouseleave', 'fires-layer', () => {
-        map.getCanvas().style.cursor = '';
-      });
     });
+
+    // Change the cursor to a pointer when hovering over the fires layer
+    map.on('mouseenter', 'fires-layer', () => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to the default cursor when it leaves
+    map.on('mouseleave', 'fires-layer', () => {
+        map.getCanvas().style.cursor = '';
+    });
+});
   // function for date 
   function formatDate(selectedDate) {
     const dateObj = new Date(selectedDate);
@@ -1173,6 +1380,21 @@ map.addLayer({
   paint: { 'raster-opacity': 0.7 },
   layout: { visibility: 'none' }
 }, );
+//adding the forest cover  Layer
+map.addSource('ForestCover', {
+  type: 'raster',
+  tiles: [
+    'https://ies-ows.jrc.ec.europa.eu/iforce/gfc2020/wms.py?SERVICE=WMS&REQUEST=GetMap&LAYERS=gfc2020&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=1439&HEIGHT=602&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+  ],
+  tileSize: 256
+});
+map.addLayer({
+  id: 'fcover',
+  type: 'raster',
+  source: 'ForestCover',
+  paint: { 'raster-opacity': 0.7 },
+  layout: { visibility: 'none' }
+}, );
 
 //adding the Lightning Forecast (1 day forecast) Layer
 map.addSource('LightningForecast1dayforecast', {
@@ -1267,7 +1489,7 @@ updateWMSLayer(currentTime);
 
 // creating the toggle layer functionalities
 map.on('idle', async() => {
-  const toggleableLayerIds = ['fwidc', 'fwi', 'fwiisi', 'fdimark','fdibui','fwiffmc','fwifdmc','fwianomaly','fwiranking','kbdidi','markros','nfdrsic','blackcarbon', 'Methane', 'carbondioxide', 'carbonmonooxide', 'particulatematter','LightningForecast','Fuelsemission','nasa_eonet','VIIRSSNN21','virsssuomi','virssnoaa20','virssnoaa21','modisaquaterra','modisaqua','modisterra','burnedareaday1','lstd','lstn','vegitationindex','fireanomalies','protectedareas','landuse','Settelmentslayer','fires-layer']; // IDs of layers with switches in the navbar
+  const toggleableLayerIds = ['fwidc', 'fwi', 'fwiisi', 'fdimark','fdibui','fwiffmc','fwifdmc','fwianomaly','fwiranking','kbdidi','markros','nfdrsic','blackcarbon', 'Methane', 'carbondioxide', 'carbonmonooxide', 'particulatematter','LightningForecast','Fuelsemission','nasa_eonet','VIIRSSNN21','virsssuomi','virssnoaa20','virssnoaa21','modisaquaterra','modisaqua','modisterra','burnedareaday1','lstd','lstn','vegitationindex','fireanomalies','protectedareas','landuse','Settelmentslayer','fires-layer','fcover']; // IDs of layers with switches in the navbar
 
   for (const id of toggleableLayerIds) {
       const visibilitySwitch = document.querySelector(`#${id}`);
@@ -1330,7 +1552,7 @@ function toggleLegendImage(layerId, add) {
 }
 
 // Attach event listeners to layer switches in the navbar
-const toggleableLayerIds = ['fwidc', 'fwi', 'fwiisi', 'fdimark', 'fdibui', 'fwiffmc', 'fwifdmc', 'fwianomaly', 'fwiranking', 'kbdidi', 'markros', 'nfdrsic', 'blackcarbon', 'Methane', 'carbondioxide', 'carbonmonooxide', 'particulatematter', 'LightningForecast', 'Fuelsemission','nasa_eonet','VIIRSSNN21','virsssuomi','virssnoaa20','virssnoaa21','modisaquaterra','modisaqua','modisterra','burnedareaday1','lstd','lstn','vegitationindex','fireanomalies','protectedareas','landuse','Settelmentslayer','fires-layer'];
+const toggleableLayerIds = ['fwidc', 'fwi', 'fwiisi', 'fdimark', 'fdibui', 'fwiffmc', 'fwifdmc', 'fwianomaly', 'fwiranking', 'kbdidi', 'markros', 'nfdrsic', 'blackcarbon', 'Methane', 'carbondioxide', 'carbonmonooxide', 'particulatematter', 'LightningForecast', 'Fuelsemission','nasa_eonet','VIIRSSNN21','virsssuomi','virssnoaa20','virssnoaa21','modisaquaterra','modisaqua','modisterra','burnedareaday1','lstd','lstn','vegitationindex','fireanomalies','protectedareas','landuse','Settelmentslayer','fires-layer','fcover'];
 toggleableLayerIds.forEach(id => {
   const visibilitySwitch = document.getElementById(id);
   if (visibilitySwitch) {
@@ -1363,6 +1585,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 */
+
+
 // adding the scale control to the map in mapbox
 map.addControl(new mapboxgl.ScaleControl());
   
