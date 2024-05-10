@@ -8,6 +8,23 @@
   overflow: hidden;
   border: 7px solid rgb(10, 10, 10);
 }
+.fullscreen-button-container {
+  position: absolute;
+  top: 25px;
+  right: 10px;
+  z-index: 2;
+  /* Ensure the button appears above other content */
+}
+
+.fullscreen-button {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
  /* Styles for base map switcher */
 .mapboxgl-style-list
 {
@@ -49,7 +66,27 @@
     background-repeat: no-repeat;
     background-size: 70%;
 }
+#export_container {
+  display: inline-block;
+  border-radius: 10px; /* Border radius to make the container round */
+  background-color: white; /* Background color for the container */
+  padding: 5px; /* Add padding for spacing */
+  top: 98px;
+  position: absolute;
+  z-index: 1;
+}
 
+#export {
+  width: 40px; /* Set width and height to make the button square */
+  height: 40px;
+  border-radius: 50%; /* Make the button round */
+  border: none; /* Remove button border */
+  background-color: blue; /* Button background color */
+  color: white; /* Button text color */
+  font-size: 14px; /* Set font size */
+  cursor: pointer; /* Add cursor pointer on hover */
+  z-index: 2;
+}
 .legendany {
   background-color: transparent;
   border-radius: 3px;
@@ -347,6 +384,15 @@ body {
     border: 7px solid rgb(0, 0, 0);
 }
 
+#video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    object-fit: cover; /* Adjust the content to cover the container */
+}
+
 /* Style to move images upwards */
 #img_antr, #img_clim, #img_soil {
   margin-top: -120px; /* Adjust the value as needed */
@@ -387,6 +433,39 @@ body {
     position: relative;
     
   }
+  .video-controls2 {
+    position: absolute;
+    top: 74%;
+    right: 759px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .up-arrow2, .down-arrow2 {
+    font-size: 36px;
+    cursor: pointer;
+    background-color: #ecdd00; /* Button-like background color */
+    color: rgb(15, 15, 15);
+    width: 40px; /* Adjust button width as needed */
+    height: 40px; /* Adjust button height as needed */
+    border-radius: 50%; /* Rounded corners for button */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px; /* Adjust spacing between arrows */
+  }
+  
+  .up-arrow2:hover, .down-arrow2:hover {
+    background-color: #00f8f8; /* Darker background color on hover */
+  }
+
+
+  .slideshow-container2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    
+  }
   #advisory-container {
     position: absolute;
     top: 75%;
@@ -412,6 +491,34 @@ body {
 @keyframes slideImages {
   0% { transform: translateX(100%); } /* Start position: move images from the right edge */
   100% { transform: translateX(-300%); } /* End position: move images to cover 500% of the left side */
+}
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+
+.popup img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.close-popup {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #fff;
+  font-size: 30px;
+  cursor: pointer;
 }
 
 
