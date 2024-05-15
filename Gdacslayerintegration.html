@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>GDACS Events Map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 20px; bottom: 0; width: 50%; }
+        table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+strong {
+  font-weight: bold;
+}
+
+tr {
+  border-bottom: 1px solid #dddddd;
+}
+.checkbox-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+        }
+        .form-check-label {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<div class="checkbox-container">
+    <input class="form-check-input visibility-checkbox" type="checkbox" id="toggle-points" checked>
+    <label class="form-check-label" for="toggle-points">Toggle Points</label>
+    <input class="form-check-input visibility-checkbox" type="checkbox" id="toggle-polygons" checked>
+    <label class="form-check-label" for="toggle-polygons">Toggle Polygons</label>
+</div>
+<style>
+
+</style>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibXVzdGFmYTA1IiwiYSI6ImNrNm1ocHBzNTBldDIzanJ1ODJqc2dzYjMifQ.ppQmulUBSdoPSzVXjT23Dw';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [0, 0],
+        zoom: 1
+    });
+    var data; // Define data in a wider scope
+    var pointLayers = {};
+    var polygonLayers = {};
+
+    fetch('https://www.gdacs.org/gdacsapi/api/events/geteventlist/MAP?')
+    .then(response => response.json())
+    .then(responseData => {
+        data = responseData; // Assign fetched data to the data variable
+        console.log(data.features); // Logging events
+        addGDACMarkers(); // Call addGDACMarkers after fetching data
+        addPolygonLayers(); // Call addPolygonLayers after fetching data
+    });
+
+    // Function to generate popup content
+    function generatePopupContent(properties) {
+        const popupContent = `
+            <h3>Event Information</h3>
+            <table>
+                <tr><th>Attribute</th><th>Value</th></tr>
+                <tr><td>Event Type</td><td>${properties.eventtype}</td></tr>
+                <tr><td>Event ID</td><td>${properties.eventid}</td></tr>
+                <tr><td>Episode ID</td><td>${properties.episodeid}</td></tr>
+                <tr><td>Event Name</td><td>${properties.eventname}</td></tr>
+                <tr><td>Glide</td><td>${properties.glide}</td></tr>
+                <tr><td>Name</td><td>${properties.name}</td></tr>
+                <tr><td>Description</td><td>${properties.description}</td></tr>
+                <tr><td>Alert Level</td><td>${properties.alertlevel}</td></tr>
+                <tr><td>Alert Score</td><td>${properties.alertscore}</td></tr>
+                <tr><td>Episode Alert Level</td><td>${properties.episodealertlevel}</td></tr>
+                <tr><td>Episode Alert Score</td><td>${properties.episodealertscore}</td></tr>
+                <tr><td>Is Temporary</td><td>${properties.istemporary}</td></tr>
+                <tr><td>Is Current</td><td>${properties.iscurrent}</td></tr>
+                <tr><td>Country</td><td>${properties.country}</td></tr>
+                <tr><td>From Date</td><td>${properties.fromdate}</td></tr>
+                <tr><td>To Date</td><td>${properties.todate}</td></tr>
+                <tr><td>Date Modified</td><td>${properties.datemodified}</td></tr>
+            </table>
+            <button id="close-popup">Close</button>
+        `;
+        return popupContent;
+    }
+
+    // Function to add GDAC markers with icons
+    function addGDACMarkers() {
+        data.features.forEach(feature => {
+            var coordinates = feature.geometry.coordinates;
+            var popupContent = generatePopupContent(feature.properties);
+
+            // Check if the icon URL is present in the properties
+            var iconUrl = feature.properties.icon;
+
+            // Create a marker element
+            var el = document.createElement('div');
+            el.id = `gdac-marker-${feature.properties.id}`;
+            el.className = 'marker gdac-marker';
+
+            // If icon URL is present, set the background-image to the icon
+            if (iconUrl) {
+                el.style.backgroundImage = `url(${iconUrl})`;
+            } else {
+                console.warn('Icon URL not found for feature:', feature);
+            }
+
+            // Set the size of the marker
+            el.style.width = '30px';
+            el.style.height = '30px';
+
+            if (feature.geometry.type === 'Point') {
+                var pointLayerId = 'point-layer-' + Math.random().toString(36).substr(2, 9);
+                pointLayers[pointLayerId] = coordinates;
+
+                map.addLayer({
+                    'id': pointLayerId,
+                    'type': 'symbol',
+                    'source': {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [{
+                                'type': 'Feature',
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': coordinates
+                                }
+                            }]
+                        }
+                    },
+                    'layout': {
+                        'icon-image': 'marker-15', // default Mapbox marker
+                        'icon-size': 1.5
+                    }
+                });
+
+                new mapboxgl.Marker(el)
+                    .setLngLat(coordinates)
+                    .setPopup(new mapboxgl.Popup().setHTML(popupContent))
+                    .addTo(map);
+            }
+        });
+    }
+
+    // Function to add polygon layers
+    function addPolygonLayers() {
+        data.features.forEach(feature => {
+            var fillColor;
+            var coordinates = feature.geometry.coordinates;
+            var alertLevel = feature.properties.alertlevel;
+
+            if (alertLevel === 'Red') {
+                fillColor = '#FF0000'; // Red
+            } else if (alertLevel === 'Orange') {
+                fillColor = '#FFA500'; // Orange
+            } else if (alertLevel === 'Green') {
+                fillColor = '#008000'; // Green
+            } else {
+                fillColor = '#000000'; // Default color
+            }
+
+            if (feature.geometry.type === 'MultiPolygon') {
+                var polygonId = 'polygon-' + Math.random().toString(36).substr(2, 9); // Generate unique ID
+                polygonLayers[polygonId] = coordinates;
+
+                map.addLayer({
+                    'id': polygonId,
+                    'type': 'fill',
+                    'source': {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'MultiPolygon',
+                                'coordinates': coordinates
+                            }
+                        }
+                    },
+                    'layout': {},
+                    'paint': {
+                        'fill-color': fillColor,
+                        'fill-opacity': 0.4
+                    }
+                });
+
+                // Add click event listener to each polygon layer
+                map.on('click', polygonId, function (e) {
+                    var popupContent = generatePopupContent(feature.properties);
+                    new mapboxgl.Popup()
+                        .setLngLat(e.lngLat)
+                        .setHTML(`<p>${popupContent}</p>`)
+                        .addTo(map);
+                });
+            }
+        });
+    }
+
+    // Add event listener for removing GDAC markers
+    document.getElementById('toggle-points').addEventListener('change', function() {
+        if (!this.checked) {
+            removeGDACMarkers();
+        } else {
+            addGDACMarkers();
+        }
+    });
+
+    // Function to remove GDAC markers
+    function removeGDACMarkers() {
+        // Remove all markers with class 'gdac-marker'
+        const gdacMarkers = document.querySelectorAll('.gdac-marker');
+        gdacMarkers.forEach(marker => marker.remove());
+
+        // Remove all point layers
+        for (const layerId in pointLayers) {
+            if (map.getLayer(layerId)) {
+                map.removeLayer(layerId);
+            }
+        }
+    }
+
+    // Add event listener for toggle points checkbox
+    document.getElementById('toggle-points').addEventListener('change', function() {
+        const visibility = this.checked ? 'visible' : 'none';
+        for (const layerId in pointLayers) {
+            if (map.getLayer(layerId)) {
+                map.setLayoutProperty(layerId, 'visibility', visibility);
+            }
+        }
+    });
+
+    // Add event listener for toggle polygons checkbox
+    document.getElementById('toggle-polygons').addEventListener('change', function() {
+        const visibility = this.checked ? 'visible' : 'none';
+        for (const layerId in polygonLayers) {
+            if (map.getLayer(layerId)) {
+                map.setLayoutProperty(layerId, 'visibility', visibility);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
