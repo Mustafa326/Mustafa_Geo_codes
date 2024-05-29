@@ -2,6 +2,10 @@
 function goBack() {
     window.history.back();
  }
+ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 function openFullscreen(containerId) {
     var elem = document.getElementById(containerId);
     if (elem.requestFullscreen) {
@@ -79,7 +83,7 @@ function addBuildingControl(map) {
         container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
   
         const button = document.createElement("button");
-        button.innerHTML = `<img src="buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+        button.innerHTML = `<img src="Media/svgIcons/buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
         button.style.backgroundColor = "#ffffff"; // Default background color
   
         button.addEventListener("click", () => {
@@ -157,6 +161,73 @@ function addBuildingControl(map) {
   function removeBuildings(map) {
     map.removeLayer("add-3d-buildings");
   }
+// creating a customn control for 3D terrrain
+function add3DControl(map) {
+    class ThreeDControl {
+      constructor() {
+        this._button = null;
+        this._is3DActive = false;
+        this._defaultPitch = 0;
+        this._defaultBearing = 0;
+      }
+  
+      onAdd(map) {
+        const tooltipText = "For 3D visualization click here";
+  
+        const div = document.createElement("div");
+        div.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
+  
+        // Create button with tooltip and icon
+        this._button = document.createElement("button");
+        this._button.innerHTML = `<img src="Media/svgIcons/3Dworldicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+        this._button.title = tooltipText;
+  
+        // Add event listener to toggle 3D terrain and adjust pitch and bearing
+        this._button.addEventListener("click", () => {
+          this._is3DActive = !this._is3DActive;
+          if (this._is3DActive) {
+            map.addSource('mapbox-dem', {
+              'type': 'raster-dem',
+              'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+              'tileSize': 512,
+              'maxzoom': 14
+            });
+            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 3.5 });
+            map.easeTo({
+              pitch: 80,
+              bearing: 41,
+              duration: 1000 // Adjust duration as needed
+            });
+            this._button.classList.add("active");
+            this._button.style.backgroundColor = "#007bff"; // Highlight the icon in blue
+          } else {
+            map.removeSource('mapbox-dem');
+            map.setTerrain(null);
+            map.easeTo({
+              pitch: this._defaultPitch,
+              bearing: this._defaultBearing,
+              duration: 1000 // Adjust duration as needed
+            });
+            this._button.classList.remove("active");
+            this._button.style.backgroundColor = "#ffffff"; // Un-highlight the icon
+          }
+        });
+  
+        div.appendChild(this._button);
+  
+        return div;
+      }
+    }
+  
+    const threeDControl = new ThreeDControl();
+    map.addControl(threeDControl, "top-right");
+    
+    // Store default pitch and bearing values
+    map.once('load', () => {
+      threeDControl._defaultPitch = map.getPitch();
+      threeDControl._defaultBearing = map.getBearing();
+    });
+  }
 // creating a class for a control of style switcher basemap
 class MapboxStyleSwitcherControl {
     constructor(styles) {
@@ -222,6 +293,171 @@ MapboxStyleSwitcherControl.DEFAULT_STYLES = [
     { title: "Satellite", uri: "mapbox://styles/mapbox/satellite-streets-v12" },
     { title: "Streets", uri: "mapbox://styles/mapbox/streets-v10" }
 ];
+//adding the gdac layers
+var data; // Define data in a wider scope
+var pointLayers = {};
+var polygonLayers = {};
+
+fetch('https://www.gdacs.org/gdacsapi/api/events/geteventlist/MAP?')
+.then(response => response.json())
+.then(responseData => {
+    data = responseData; // Assign fetched data to the data variable
+    console.log(data.features); // Logging events
+    addGDACMarkers(); // Call addGDACMarkers after fetching data
+    addPolygonLayers(); // Call addPolygonLayers after fetching data
+});
+
+// Function to generate popup content
+function generatePopupContent(properties) {
+    const popupContent = `
+        <h3>Event Information</h3>
+        <table>
+            <tr><th>Attribute</th><th>Value</th></tr>
+            <tr><td>Event Type</td><td>${properties.eventtype}</td></tr>
+            <tr><td>Event Name</td><td>${properties.eventname}</td></tr>
+            <tr><td>Description</td><td>${properties.description}</td></tr>
+            <tr><td>Alert Level</td><td>${properties.alertlevel}</td></tr>
+            <tr><td>Alert Score</td><td>${properties.alertscore}</td></tr>
+            <tr><td>Severity</td><td>${properties.severitydata.severity} ${properties.severitydata.severityunit}</td></tr>
+            <tr><td>Severity Text</td><td>${properties.severitydata.severitytext}</td></tr>
+            <tr><td>Country</td><td>${properties.country}</td></tr>
+            <tr><td>From Date</td><td>${properties.fromdate}</td></tr>
+            <tr><td>To Date</td><td>${properties.todate}</td></tr>
+        </table>
+        <button id="close-popup">Close</button>
+    `;
+    return popupContent;
+}
+
+// Function to add GDAC markers with icons
+function addGDACMarkers() {
+    data.features.forEach(feature => {
+        // Check for event type TC or FL
+        if (feature.properties.eventtype === 'TC' || feature.properties.eventtype === 'FL') {
+            var coordinates = feature.geometry.coordinates;
+            var popupContent = generatePopupContent(feature.properties);
+
+            // Check if the icon URL is present in the properties
+            var iconUrl = feature.properties.icon;
+
+            // Create a marker element
+            var el = document.createElement('div');
+            el.id = `gdac-marker-${feature.properties.id}`;
+            el.className = 'marker gdac-marker';
+
+            // If icon URL is present, set the background-image to the icon
+            if (iconUrl) {
+                el.style.backgroundImage = `url(${iconUrl})`;
+            } else {
+                console.warn('Icon URL not found for feature:', feature);
+            }
+
+            // Set the size of the marker
+            el.style.width = '30px';
+            el.style.height = '30px';
+
+            if (feature.geometry.type === 'Point') {
+                var pointLayerId = 'point-layer-' + Math.random().toString(36).substr(2, 9);
+                pointLayers[pointLayerId] = coordinates;
+
+                map.addLayer({
+                    'id': pointLayerId,
+                    'type': 'symbol',
+                    'source': {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [{
+                                'type': 'Feature',
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': coordinates
+                                }
+                            }]
+                        }
+                    },
+                    'layout': {
+                        'icon-image': 'marker-15', // default Mapbox marker
+                        'icon-size': 1.5
+                    }
+                });
+
+                new mapboxgl.Marker(el)
+                    .setLngLat(coordinates)
+                    .setPopup(new mapboxgl.Popup().setHTML(popupContent))
+                    .addTo(map);
+            }
+        }
+    });
+}
+
+// Function to add polygon layers
+function addPolygonLayers() {
+    data.features.forEach(feature => {
+        // Check for event type TC or FL
+        if (feature.properties.eventtype === 'TC' || feature.properties.eventtype === 'FL') {
+            var fillColor;
+            var coordinates = feature.geometry.coordinates;
+            var alertLevel = feature.properties.alertlevel;
+
+            if (alertLevel === 'Red') {
+                fillColor = '#FF0000'; // Red
+            } else if (alertLevel === 'Orange') {
+                fillColor = '#FFA500'; // Orange
+            } else if (alertLevel === 'Green') {
+                fillColor = '#008000'; // Green
+            } else {
+                fillColor = '#000000'; // Default color
+            }
+
+            if (feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon') {
+                var polygonId = 'polygon-' + Math.random().toString(36).substr(2, 9); // Generate unique ID
+                polygonLayers[polygonId] = coordinates;
+
+                map.addLayer({
+                    'id': polygonId,
+                    'type': 'fill',
+                    'source': {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'Feature',
+                            'geometry': feature.geometry
+                        }
+                    },
+                    'layout': {},
+                    'paint': {
+                        'fill-color': fillColor,
+                        'fill-opacity': 0.4
+                    }
+                });
+
+                // Add click event listener to each polygon layer
+                map.on('click', polygonId, function (e) {
+                    var popupContent = generatePopupContent(feature.properties);
+                    new mapboxgl.Popup()
+                        .setLngLat(e.lngLat)
+                        .setHTML(`<p>${popupContent}</p>`)
+                        .addTo(map);
+                });
+            }
+        }
+    });
+}
+
+ // Function to remove GDAC markers
+function removeGDACMarkers() {
+    // Remove all markers with class 'gdac-marker'
+    const gdacMarkers = document.querySelectorAll('.gdac-marker');
+    gdacMarkers.forEach(marker => marker.remove());
+
+    // Remove all point layers
+    for (const layerId in pointLayers) {
+        if (map.getLayer(layerId)) {
+            map.removeLayer(layerId);
+        }
+    }
+}
+  
 // creating a function to load the layers even if styles are changed 
 function addAdditionalSourceAndLayer() {
     //adding the District data set
@@ -254,82 +490,6 @@ function addAdditionalSourceAndLayer() {
         }
     });
     // Add GeoJSON source from Plastic Waste Geojson
-    //the mangrove-cover-indusdelta layer
-    map.addSource('Mangrove_Cover_indusdelta', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Indus2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'mindusdelta',
-        type: 'raster',
-        source: 'Mangrove_Cover_indusdelta',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-    map.addSource('Mangrove_Cover_sandspit', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Sandspit2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'msandspit',
-        type: 'raster',
-        source: 'Mangrove_Cover_sandspit',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-    map.addSource('Mangrove_Cover_Jiwani', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=jiwani2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'mjiwani',
-        type: 'raster',
-        source: 'Mangrove_Cover_Jiwani',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-    // adding the Mangrove_Cover_kalmatkhor
-    map.addSource('Mangrove_Cover_kalmatkhor', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Kalmat2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'mkalmatkhor',
-        type: 'raster',
-        source: 'Mangrove_Cover_kalmatkhor',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-    //adding the Mangrove_Cover_sonmianikhor layer
-    map.addSource('Mangrove_Cover_sonmianikhor', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Sonmiani2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
     //adding the Tropycal Cyclone Layer
     map.addSource('cyclonelayers', {
         type: 'raster',
@@ -350,7 +510,7 @@ function addAdditionalSourceAndLayer() {
     map.addSource('tropicalcyclonepopulation', {
         type: 'raster',
         tiles: [
-            'https://gis2.ngi.no/arcgistemp/services/EPOS/TsunamiRunupAndExposure/MapServer/WMSServer?service=WMS&request=GetMap&layers=1&version=1.3.0&format=image/png&transparent=true&width=256&height=256&crs=EPSG:3857&bbox={bbox-epsg-3857}'
+            'https://datacore.unepgrid.ch/geoserver/ows?service=WMS&request=GetMap&layers=wesr_risk:cy_physexp&version=1.3.0&format=image/png&transparent=true&width=256&height=256&crs=EPSG:3857&bbox={bbox-epsg-3857}'
         ],
         tileSize: 256
     });
@@ -377,7 +537,6 @@ function addAdditionalSourceAndLayer() {
         //'paint': { 'raster-opacity': 0.7 },
         layout: { visibility: 'none' }
     }, );
-
 }
 /* Adding the layers through map.onload which is not needed if basemap switcher tool is used
 map.on('load', () => {
@@ -538,8 +697,9 @@ map.on('load', () => {
 */
 // creating a map on load for customn controls 
 map.on('load',() => {
-    addHomeButton(map)
+    addHomeButton(map);
     addBuildingControl(map);
+    add3DControl(map);
 
 });
 
@@ -551,24 +711,9 @@ map.on('style.load', () => {
 });
 // creating the toggle layer functionalities 
 map.on('idle', async() => {
-    const toggleableLayerIds = ['mindusdelta', 'mjiwani', 'msandspit', 'mkalmatkhor', 'msonmianikhor','tcyclone50','tcyclonepopulation','tcyclonemortality']; // IDs of layers with checkboxes and sliders
+    const toggleableLayerIds = ['tcyclone50','tcyclonepopulation','tcyclonemortality','nasa_eonet']; // IDs of layers with checkboxes and sliders
+    // Check if the NASA EONET layer is present
 
-    const layerZoomLocations = {
-        mindusdelta: [24.8607, 67.0011], // Example values for mindusdelta
-        mjiwani: [25.0538, 61.7707], // Example values for mjiwani
-        msandspit: [24.8404, 66.9098], // Example values for msandspit
-        mkalmatkhor: [25.4211, 64.0769], // Example values for mkalmatkhor
-        msonmianikhor: [25.1667, 66.5000], // Example values for msonmianikhor
-        swronemeter: [24.8404, 66.9098], // Example values for swronemeter
-        swrtwometer: [24.8404, 66.9098], // Example values for swrtwometer
-        swrfivemeter: [24.8404, 66.9098], // Example values for swrfivemeter
-        swrtenmeter: [24.8404, 66.9098],
-        salinity2020:[24.860966,66.990501],
-        salinity2021:[24.860966,66.990501],
-        salinewater:[24.860966,66.990501]
-
-        // Example values for msandspit
-    };
 
     for (const id of toggleableLayerIds) {
         const visibilityCheckbox = document.querySelector(`input[data-layername="${id}"]`);
@@ -585,16 +730,34 @@ map.on('idle', async() => {
             if (map.getLayer(id)) {
                 map.setLayoutProperty(id, 'visibility', visibility);
                 if (visibility === 'visible') {
-                    const [lat, lng] = layerZoomLocations[id];
-                    map.flyTo({
-                        center: [lng, lat],
-                        zoom: 10, // Adjust the zoom level as needed
-                        essential: true // This animation is considered essential with respect to prefers-reduced-motion media query
-                    });
                 }
             }
+            // Check if the layer is 'nasa_eonet' and perform actions accordingly
+        // Check if the layer is 'nasa_eonet' and perform actions accordingly
+        if (id === 'nasa_eonet') {
+            if (visibility === 'visible') {
+                addEONETMarkers(); // Call the function to add NASA EONET markers
+            } else {
+                removeEONETMarkers(); // Call the function to remove NASA EONET markers
+            }
+        }
         });
+        // Add event listener for removing GDAC markers
+    document.getElementById('checkbox_gdacalert').addEventListener('change', function() {
+        const visibility = this.checked ? 'visible' : 'none';
+        for (const layerId in polygonLayers) {
+            if (map.getLayer(layerId)) {
+                map.setLayoutProperty(layerId, 'visibility', visibility);
+            }
+        }
+        if (!this.checked) {
+            removeGDACMarkers();
+        } else {
+            addGDACMarkers();
+        }
+    });
 
+        
         // Add event listener for slider input
         opacitySlider.addEventListener('input', function() {
             const opacityValue = parseFloat(this.value) / 100; // Convert range [0-100] to [0-1]

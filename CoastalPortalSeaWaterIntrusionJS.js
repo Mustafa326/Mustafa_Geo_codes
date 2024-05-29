@@ -2,6 +2,10 @@
 function goBack() {
     window.history.back();
  }
+ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 function openFullscreen(containerId) {
     var elem = document.getElementById(containerId);
     if (elem.requestFullscreen) {
@@ -21,22 +25,79 @@ function openFullscreen(containerId) {
         iframeContainer.msRequestFullscreen();
     }
 }
+function openFullscreen2(containerId) {
+    var elem = document.getElementById(containerId);
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
+function openFullscreen3(containerId) {
+    var elem = document.getElementById(containerId);
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
 var bounds = [
     [60.872, 23.634],
     [77.837, 36.962]
 ];
 mapboxgl.accessToken =
     "pk.eyJ1IjoibXVzYW1hcmVoYW4iLCJhIjoiY2xwZHcxeG85MTMyMDJycXI5YjNyaGhqNiJ9.6UL1Nyb_K5dKT6H4KuHk_Q";
-const initialCoordinate = [-45.447303, 30.753574];
-const targetCoordinate = [70.447303, 30.753574];
-const map = new mapboxgl.Map({
-    container: "map",
-    zoom: 0,
-    center: initialCoordinate,
-    pitch: 0,
-    bearing: 0,
-    style: "mapbox://styles/mapbox/streets-v12",
-});
+    const initialCoordinate = [-45.447303, 30.753574];
+    const targetCoordinate = [70.447303, 30.753574];
+    const map = new mapboxgl.Map({
+        container: "map",
+        zoom: 0,
+        center: initialCoordinate,
+        pitch: 0,
+        bearing: 0,
+        style: {
+            'version': 8,
+            'sources': {
+                'raster-tiles': {
+                    'type': 'raster',
+                    'tiles': ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                    'tileSize': 256,
+                    'attribution':
+                        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                },
+                'terrain-tiles': {
+                    'type': 'raster',
+                    'tiles': ['https://tile.opentopomap.org/{z}/{x}/{y}.png'],
+                    'tileSize': 256,
+                    'attribution': 'Tiles &copy; <a href="https://opentopomap.org">OpenTopoMap</a> contributors'
+                }
+            },
+            'layers': [
+                {
+                    'id': 'simple-tiles',
+                    'type': 'raster',
+                    'source': 'raster-tiles',
+                    'minzoom': 0,
+                    'maxzoom': 22
+                },
+                {
+                    'id': 'terrain-layer',
+                    'type': 'raster',
+                    'source': 'terrain-tiles',
+                    'minzoom': 0,
+                    'maxzoom': 20
+                }
+            ]
+        },
+        center: initialCoordinate,
+        zoom: 0,
+        pitch: 0,
+        bearing: 0
+    });
 // Define the adjusted coordinates based on the bounding box
 const southwest = [21.739091, 57.216797];
 const northeast = [37.090240, 78.793945];
@@ -79,7 +140,7 @@ function addBuildingControl(map) {
         container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
   
         const button = document.createElement("button");
-        button.innerHTML = `<img src="buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+        button.innerHTML = `<img src="Media/svgIcons/buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
         button.style.backgroundColor = "#ffffff"; // Default background color
   
         button.addEventListener("click", () => {
@@ -157,70 +218,184 @@ function addBuildingControl(map) {
   function removeBuildings(map) {
     map.removeLayer("add-3d-buildings");
   }
+// creating a customn control for 3D terrrain
+function add3DControl(map) {
+    class ThreeDControl {
+      constructor() {
+        this._button = null;
+        this._is3DActive = false;
+        this._defaultPitch = 0;
+        this._defaultBearing = 0;
+      }
+  
+      onAdd(map) {
+        const tooltipText = "For 3D visualization click here";
+  
+        const div = document.createElement("div");
+        div.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
+  
+        // Create button with tooltip and icon
+        this._button = document.createElement("button");
+        this._button.innerHTML = `<img src="Media/svgIcons/3Dworldicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+        this._button.title = tooltipText;
+  
+        // Add event listener to toggle 3D terrain and adjust pitch and bearing
+        this._button.addEventListener("click", () => {
+          this._is3DActive = !this._is3DActive;
+          if (this._is3DActive) {
+            map.addSource('mapbox-dem', {
+              'type': 'raster-dem',
+              'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+              'tileSize': 512,
+              'maxzoom': 14
+            });
+            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 3.5 });
+            map.easeTo({
+              pitch: 80,
+              bearing: 41,
+              duration: 1000 // Adjust duration as needed
+            });
+            this._button.classList.add("active");
+            this._button.style.backgroundColor = "#007bff"; // Highlight the icon in blue
+          } else {
+            map.removeSource('mapbox-dem');
+            map.setTerrain(null);
+            map.easeTo({
+              pitch: this._defaultPitch,
+              bearing: this._defaultBearing,
+              duration: 1000 // Adjust duration as needed
+            });
+            this._button.classList.remove("active");
+            this._button.style.backgroundColor = "#ffffff"; // Un-highlight the icon
+          }
+        });
+  
+        div.appendChild(this._button);
+  
+        return div;
+      }
+    }
+  
+    const threeDControl = new ThreeDControl();
+    map.addControl(threeDControl, "top-right");
+    
+    // Store default pitch and bearing values
+    map.once('load', () => {
+      threeDControl._defaultPitch = map.getPitch();
+      threeDControl._defaultBearing = map.getBearing();
+    });
+  }
 // creating a class for a control of style switcher basemap
 class MapboxStyleSwitcherControl {
     constructor(styles) {
         this.styles = styles || MapboxStyleSwitcherControl.DEFAULT_STYLES;
     }
+    
     getDefaultPosition() {
         const defaultPosition = "top-right";
         return defaultPosition;
     }
+    
     onAdd(map) {
         this.controlContainer = document.createElement("div");
         this.controlContainer.classList.add("mapboxgl-ctrl");
         this.controlContainer.classList.add("mapboxgl-ctrl-group");
+        
         const mapStyleContainer = document.createElement("div");
         const styleButton = document.createElement("button");
         mapStyleContainer.classList.add("mapboxgl-style-list");
+        
         for (const style of this.styles) {
             const styleElement = document.createElement("button");
             styleElement.innerText = style.title;
             styleElement.classList.add(style.title.replace(/[^a-z0-9-]/gi, '_'));
-            styleElement.dataset.uri = JSON.stringify(style.uri);
-            styleElement.addEventListener("click", event => {
-                const srcElement = event.srcElement;
-                map.setStyle(JSON.parse(srcElement.dataset.uri));
-                mapStyleContainer.style.display = "none";
-                styleButton.style.display = "block";
-                const elms = mapStyleContainer.getElementsByClassName("active");
-                while (elms[0]) {
-                    elms[0].classList.remove("active");
-                }
-                srcElement.classList.add("active");
-            });
+            if (style.uri) {
+                styleElement.dataset.uri = JSON.stringify(style.uri);
+                styleElement.addEventListener("click", event => {
+                    const srcElement = event.currentTarget;
+                    map.setStyle(JSON.parse(srcElement.dataset.uri));
+                    mapStyleContainer.style.display = "none";
+                    styleButton.style.display = "block";
+                    const elms = mapStyleContainer.getElementsByClassName("active");
+                    while (elms[0]) {
+                        elms[0].classList.remove("active");
+                    }
+                    srcElement.classList.add("active");
+                });
+            } else if (style.tiles) {
+                styleElement.addEventListener("click", event => {
+                    const srcElement = event.currentTarget;
+                    const sourceId = "simple-tiles";
+                    const existingSource = map.getSource(sourceId);
+                    if (existingSource) {
+                        existingSource.tiles = style.tiles;
+                        map.triggerRepaint();
+                    } else {
+                        map.addSource(sourceId, {
+                            "type": "raster",
+                            "tiles": style.tiles,
+                            "tileSize": 256
+                        });
+                        map.addLayer({
+                            "id": sourceId,
+                            "type": "raster",
+                            "source": sourceId,
+                            "minzoom": 0,
+                            "maxzoom": 22
+                        });
+                    }
+                    mapStyleContainer.style.display = "none";
+                    styleButton.style.display = "block";
+                    const elms = mapStyleContainer.getElementsByClassName("active");
+                    while (elms[0]) {
+                        elms[0].classList.remove("active");
+                    }
+                    srcElement.classList.add("active");
+                });
+            }
+            
             if (style.title === MapboxStyleSwitcherControl.DEFAULT_STYLE) {
                 styleElement.classList.add("active");
             }
+            
             mapStyleContainer.appendChild(styleElement);
         }
+        
         styleButton.classList.add("mapboxgl-ctrl-icon");
         styleButton.classList.add("mapboxgl-style-switcher");
         styleButton.addEventListener("click", () => {
             styleButton.style.display = "none";
             mapStyleContainer.style.display = "block";
         });
+        
         document.addEventListener("click", event => {
             if (!this.controlContainer.contains(event.target)) {
                 mapStyleContainer.style.display = "none";
                 styleButton.style.display = "block";
             }
         });
+        
         this.controlContainer.appendChild(styleButton);
         this.controlContainer.appendChild(mapStyleContainer);
+        
         return this.controlContainer;
     }
+    
     onRemove() {
         return;
     }
 }
-MapboxStyleSwitcherControl.DEFAULT_STYLE = "Streets";
+
+MapboxStyleSwitcherControl.DEFAULT_STYLE = "Topography";
 MapboxStyleSwitcherControl.DEFAULT_STYLES = [
     { title: "Dark", uri: "mapbox://styles/mapbox/dark-v11" },
     { title: "Light", uri: "mapbox://styles/mapbox/light-v11" },
     { title: "Outdoors", uri: "mapbox://styles/mapbox/outdoors-v12" },
     { title: "Satellite", uri: "mapbox://styles/mapbox/satellite-streets-v12" },
-    { title: "Streets", uri: "mapbox://styles/mapbox/streets-v10" }
+    { title: "Streets", uri: "mapbox://styles/mapbox/streets-v10" },
+    { title: "Topography", tiles: [
+        "https://tile.opentopomap.org/{z}/{x}/{y}.png"
+    ]}
 ];
 // creating a function to load the layers even if styles are changed 
 function addAdditionalSourceAndLayer() {
@@ -253,96 +428,11 @@ function addAdditionalSourceAndLayer() {
             'line-width': 1 // Line width
         }
     });
-    // Define the video source
-    //the mangrove-cover-indusdelta layer
-    map.addSource('Mangrove_Cover_indusdelta', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Indus2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'mindusdelta',
-        type: 'raster',
-        source: 'Mangrove_Cover_indusdelta',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-    map.addSource('Mangrove_Cover_sandspit', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Sandspit2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'msandspit',
-        type: 'raster',
-        source: 'Mangrove_Cover_sandspit',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-    map.addSource('Mangrove_Cover_Jiwani', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=jiwani2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'mjiwani',
-        type: 'raster',
-        source: 'Mangrove_Cover_Jiwani',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-    // adding the Mangrove_Cover_kalmatkhor
-    map.addSource('Mangrove_Cover_kalmatkhor', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Kalmat2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'mkalmatkhor',
-        type: 'raster',
-        source: 'Mangrove_Cover_kalmatkhor',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-    //adding the Mangrove_Cover_sonmianikhor layer
-    map.addSource('Mangrove_Cover_sonmianikhor', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Sonmiani2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'msonmianikhor',
-        type: 'raster',
-        source: 'Mangrove_Cover_sonmianikhor',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-
     //adding the sea surface salinity layer 2020
     map.addSource('SalinityIndex2020', {
         type: 'raster',
         tiles: [
-            'http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms?SERVICE=WMS&REQUEST=GetMap&LAYERS=2020&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+            'http://172.18.1.39:8080/geoserver/NDMA-Coastal/wms?SERVICE=WMS&REQUEST=GetMap&LAYERS=2020&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
         ],
         tileSize: 256
     });
@@ -357,7 +447,7 @@ function addAdditionalSourceAndLayer() {
     map.addSource('SalinityIndex2021', {
         type: 'raster',
         tiles: [
-            'http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms?SERVICE=WMS&REQUEST=GetMap&LAYERS=Mosaic21-Salinity&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+            'http://172.18.1.39:8080/geoserver/NDMA-Coastal/wms?SERVICE=WMS&REQUEST=GetMap&LAYERS=Mosaic21&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
         ],
         tileSize: 256
     });
@@ -402,7 +492,7 @@ function addAdditionalSourceAndLayer() {
     map.addSource('salineWaterintrusion', {
         type: 'raster',
         tiles: [
-            'http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms?SERVICE=WMS&REQUEST=GetMap&LAYERS=saline_tarces&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+            'http://172.18.1.39:8080/geoserver/NDMA-Coastal/wms?SERVICE=WMS&REQUEST=GetMap&LAYERS=saline_tarces&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
         ],
         tileSize: 256
     });
@@ -610,8 +700,9 @@ map.on('load', () => {
 */
  // creating a map on load for customn controls 
 map.on('load',() => {
-    addHomeButton(map)
+    addHomeButton(map);
     addBuildingControl(map);
+    add3DControl(map);
 
 });
 
@@ -623,18 +714,9 @@ map.on('style.load', () => {
 });
 // creating the toggle layer functionalities 
 map.on('idle', async() => {
-    const toggleableLayerIds = ['mindusdelta', 'mjiwani', 'msandspit', 'mkalmatkhor', 'msonmianikhor', 'sstmonthday', 'sstmonthnight', 'sstanomalies', 'plasticwgeneration', 'misplasticwaste', 'misplasticwasteocean', 'propplasticocean', 'marinemicroemicnoc', 'marineplastictracker','marinesurveillance','swronemeter','swrtwometer','swrfivemeter','swrtenmeter','coastalflood','sealevelriseanomalies','salinewater','seasaldaily','seasalmonthly','salinity2021','salinity2020']; // IDs of layers with checkboxes and sliders
+    const toggleableLayerIds = ['salinewater','seasaldaily','seasalmonthly','salinity2021','salinity2020']; // IDs of layers with checkboxes and sliders
 
     const layerZoomLocations = {
-        mindusdelta: [24.8607, 67.0011], // Example values for mindusdelta
-        mjiwani: [25.0538, 61.7707], // Example values for mjiwani
-        msandspit: [24.8404, 66.9098], // Example values for msandspit
-        mkalmatkhor: [25.4211, 64.0769], // Example values for mkalmatkhor
-        msonmianikhor: [25.1667, 66.5000], // Example values for msonmianikhor
-        swronemeter: [24.8404, 66.9098], // Example values for swronemeter
-        swrtwometer: [24.8404, 66.9098], // Example values for swrtwometer
-        swrfivemeter: [24.8404, 66.9098], // Example values for swrfivemeter
-        swrtenmeter: [24.8404, 66.9098],
         salinity2020:[24.860966,66.990501],
         salinity2021:[24.860966,66.990501],
         salinewater:[24.860966,66.990501]

@@ -1,0 +1,883 @@
+:root {
+    --navbar-width: 256px;
+    --navbar-width-min: 80px;
+    --navbar-dark-primary: #0d2a55;
+    --navbar-dark-secondary: #f0f7f871;
+    --navbar-light-primary: #eef3f1;
+    --navbar-light-secondary: #f5faff;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    /* font-family: Candara, sans-serif; */
+    background-color: #28333b;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    overflow: hidden;
+    /* Hide scrollbars */
+  
+  
+  }
+  #a {
+    text-decoration:none;
+  }
+  
+  #top-div {
+    height: 3.5vw;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    z-index: 3000;
+    
+    justify-content: center;
+    /* Add a gradient background */
+    background: linear-gradient(to top, #000222, #002088c4);
+    overflow: hidden;
+    border-radius:.5vw;
+  }
+  
+  #hello-text {
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+    font-family: Arial;
+    z-index: 3000;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.726);
+    /* Text shadow effect */
+  }
+  
+  #ndma-logo {
+    height: auto;
+    width: auto;
+    position: absolute;
+    z-index: 3000;
+    top: 0;
+    left: 5px;
+    height: 100%;
+  }
+  
+  #ndma-logo img {
+    height: 3.5vw;
+    width: auto;
+    z-index: 3000;
+    /* Maintain aspect ratio */
+  }
+  
+#nav-title img {
+    height: 30px; /* Set the height of your logo image */
+    margin-right: 10px; /* Adjust the margin as needed */
+}
+.sub-buttons-wrapper {
+    position: absolute;
+}
+#seasurfacetemperatureToggle.active+#seasurfacetemperatureDropdown {
+    display: flex;
+}
+
+#seasurfacetemperatureDropdown {
+    display: none;
+    flex-direction: column;
+    /* Adjust the direction to column for sub-buttons */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    gap: 8px;
+    margin-top: 20px;
+    /* Adjust the gap between the main button and sub-buttons */
+}
+
+#seasurfacetemperatureDropdown .nav-button#SeaSurfaceTemperaturemonthlyday,
+#seasurfacetemperatureDropdown .nav-button#SeaSurfaceTemperaturemonthlynight,
+#seasurfacetemperatureDropdown .nav-button#Seasurfacetemperatureanomalies {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    color: var(--navbar-light-secondary);
+}
+
+#seasurfacetemperatureDropdown .nav-button#SeaSurfaceTemperaturemonthlyday,
+#seasurfacetemperatureDropdown .nav-button#SeaSurfaceTemperaturemonthlynight,
+#seasurfacetemperatureDropdown .nav-button#Seasurfacetemperatureanomalies {
+    margin-top: 8px;
+    /* Adjust the gap between the sub-buttons */
+}
+
+#seasurfacetemperatureDropdown .nav-button span {
+    margin-left: 8px;
+    /* Adjust the gap between the icon and text */
+}
+#Globalfishing.moved-down,
+#Globalfishing.moved-down {
+    margin-top: 230px;
+    /* Adjust the margin value accordingly */
+}
+#plasticWasteToggle.active+#plasticWasteDropdown {
+    display: flex;
+}
+
+#plasticWasteDropdown {
+    display: none;
+    flex-direction: column;
+    /* Adjust the direction to column for sub-buttons */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    gap: 8px;
+    margin-top: 20px;
+    /* Adjust the gap between the main button and sub-buttons */
+}
+
+#plasticWasteDropdown .nav-button#plasticWasteGeneration,
+#plasticWasteDropdown .nav-button#MissmanagedPW,
+#plasticWasteDropdown .nav-button#MissmanagedPWocean,
+#plasticWasteDropdown .nav-button#PropabilityOFPlasticOcean {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    color: var(--navbar-light-secondary);
+}
+
+#plasticWasteDropdown .nav-button#MissmanagedPW,
+#plasticWasteDropdown .nav-button#MissmanagedPWocean,
+#plasticWasteDropdown .nav-button#PropabilityOFPlasticOcean {
+    margin-top: 8px;
+    /* Adjust the gap between the sub-buttons */
+}
+
+#plasticWasteDropdown .nav-button span {
+    margin-left: 8px;
+    /* Adjust the gap between the icon and text */
+}
+
+#seawaterRiseToggle.active+#seawaterRiseDropdown {
+    display: flex;
+}
+
+#seawaterRiseToggle.moved-down,
+#seaWaterIntrusionToggle.moved-down {
+    margin-top: 230px;
+    /* Adjust the margin value accordingly */
+}
+
+#seaWaterIntrusionToggle+#seaWaterIntrusionDropdown {
+    display: none;
+    /* Initially hide the dropdown */
+}
+
+#seaWaterIntrusionToggle.active+#seaWaterIntrusionDropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    /* Adjust positioning to be below the toggle */
+    left: 0;
+    /* Adjust positioning to align with the toggle */
+    background-color: var(--navbar-dark-primary);
+}
+#nav-footer-content {
+    padding: 10px;
+}
+
+.running-text-box {
+    background-color: var(--navbar-dark-primary);;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    animation: scrollText 40s linear infinite;
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+.infoplastic {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.infoplastic h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.infomissmanaged {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.infomissmanaged h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.infomissmanaged1 {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.infomissmanaged1 h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.infopropability {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.infopropability h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.legendplastic {
+    line-height: 18px;
+    color: #555;
+}
+
+.legendplastic i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.legendmissmanaged {
+    line-height: 18px;
+    color: #555;
+}
+
+.legendmissmanaged i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.legendmissmanaged1 {
+    line-height: 18px;
+    color: #555;
+}
+
+.legendmissmanaged1 i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.legendpropability {
+    line-height: 18px;
+    color: #555;
+}
+
+.legendpropability i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.savi15raster {
+    line-height: 18px;
+    background-color: #e6dede; /* Optional: Add a background color */
+}
+
+
+.savi15raster i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.savi15raster span {
+    font-size: 14px;
+    margin-right: 5px; /* Adjust spacing between color square and label */
+}
+.SalinityIndex15rasterraster {
+    line-height: 18px;
+    background-color: #e6dede; /* Optional: Add a background color */
+}
+
+
+.SalinityIndex15rasterraster i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.SalinityIndex15rasterraster span {
+    font-size: 14px;
+    margin-right: 5px; /* Adjust spacing between color square and label */
+}
+
+.SalinityIndex23rasterraster {
+    line-height: 18px;
+    background-color: #e6dede; /* Optional: Add a background color */
+}
+
+
+.SalinityIndex23rasterraster i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.SalinityIndex23rasterraster span {
+    font-size: 14px;
+    margin-right: 5px; /* Adjust spacing between color square and label */
+}
+.savi23raster {
+    line-height: 18px;
+    color: #555;
+    font-family: Arial, sans-serif; /* Adjust font family as needed */
+    background-color: #e6dede; /* Optional: Add a background color */
+    padding: 10px; /* Optional: Add padding for better aesthetics */
+    border: 1px solid #ccc; /* Optional: Add a border for better separation */
+    border-radius: 5px; /* Optional: Add border radius for rounded corners */
+}
+
+
+.savi23raster i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.savi23raster span {
+    font-size: 14px;
+    margin-right: 5px; /* Adjust spacing between color square and label */
+}
+
+.reflectance15raster {
+    line-height: 18px;
+    color: #555;
+    font-family: Arial, sans-serif; /* Adjust font family as needed */
+    background-color: #e6dede; /* Optional: Add a background color */
+    padding: 10px; /* Optional: Add padding for better aesthetics */
+    border: 1px solid #ccc; /* Optional: Add a border for better separation */
+    border-radius: 5px; /* Optional: Add border radius for rounded corners */
+}
+
+
+.reflectance15raster i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.reflectance15raster span {
+    font-size: 14px;
+    margin-right: 5px; /* Adjust spacing between color square and label */
+}
+
+.reflectance23raster {
+    line-height: 18px;
+    color: #555;
+    font-family: Arial, sans-serif; /* Adjust font family as needed */
+    background-color: #e6dede; /* Optional: Add a background color */
+    padding: 10px; /* Optional: Add padding for better aesthetics */
+    border: 1px solid #ccc; /* Optional: Add a border for better separation */
+    border-radius: 5px; /* Optional: Add border radius for rounded corners */
+}
+
+
+.reflectance23raster i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* Optional: Add hover effect to highlight legend items */
+/* Optional: Customize legend item labels */
+.reflectance23raster span {
+    font-size: 14px;
+    margin-right: 5px; /* Adjust spacing between color square and label */
+}
+
+
+html,
+body {
+    margin: 0;
+    background: var(--background);
+}
+
+.sub-buttons {
+    display: none;
+    flex-direction: column;
+    /* Set the default direction to column */
+    position: absolute;
+    top: 100%;
+    left: 0;
+}
+
+.sub-button {
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 2px;
+    /* Add margin for better spacing */
+    background-color: var(--navbar-dark-primary);
+    /* Match the navbar background color */
+    color: var(--navbar-light-secondary);
+}
+
+.nav-button:hover .sub-buttons {
+    display: flex;
+    /* Show sub-buttons when the main button is hovered */
+}
+
+.plastic-waste-btn {
+    background-color: rgba(24, 113, 165, 0.582);
+    /* Yellow color as an example */
+    color: #333;
+    /* Text color */
+    font-weight: bold;
+}
+
+#nav-toggle:checked~#nav-header {
+    width: calc(var(--navbar-width-min) - 16px);
+}
+
+#nav-toggle:checked~#nav-content,
+#nav-toggle:checked~#nav-footer {
+    width: var(--navbar-width-min);
+}
+
+#nav-toggle:checked~#nav-header #nav-title {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s;
+}
+
+#nav-toggle:checked~#nav-header label[for=nav-toggle] {
+    left: calc(50% - 8px);
+    transform: translate(-50%);
+}
+
+#nav-toggle:checked~#nav-header #nav-toggle-burger {
+    background: var(--navbar-light-primary);
+}
+
+#nav-toggle:checked~#nav-header #nav-toggle-burger:before,
+#nav-toggle:checked~#nav-header #nav-toggle-burger::after {
+    width: 16px;
+    background: var(--navbar-light-secondary);
+    transform: translate(0, 0) rotate(0deg);
+}
+
+#nav-toggle:checked~#nav-content .nav-button span {
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+#nav-toggle:checked~#nav-content .nav-button .fas {
+    min-width: calc(100% - 16px);
+}
+
+#nav-toggle:checked~#nav-footer #nav-footer-avatar {
+    margin-left: 0;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+#nav-toggle:checked~#nav-footer #nav-footer-titlebox,
+#nav-toggle:checked~#nav-footer label[for=nav-footer-toggle] {
+    opacity: 0;
+    transition: opacity 0.1s;
+    pointer-events: none;
+}
+
+#nav-bar {
+    position: absolute;
+    left: 1vw;
+    top: 4vw;
+    height: calc(100% - 2vw);
+    background: var(--navbar-dark-primary);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    color: var(--navbar-light-primary);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    overflow: hidden;
+    user-select: none;
+}
+
+#nav-bar hr {
+    margin: 0;
+    position: relative;
+    left: 16px;
+    width: calc(100% - 32px);
+    border: none;
+    border-top: solid 1px var(--navbar-dark-secondary);
+}
+
+#nav-bar a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+#nav-bar input[type=checkbox] {
+    display: none;
+}
+
+#nav-header {
+    position: relative;
+    width: var(--navbar-width);
+    left: 16px;
+    width: calc(var(--navbar-width) - 16px);
+    min-height: 80px;
+    background: var(--navbar-dark-primary);
+    border-radius: 16px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    transition: width 0.2s;
+}
+
+#nav-header hr {
+    position: absolute;
+    bottom: 0;
+}
+
+#nav-title {
+    font-size: 1.0rem;
+    transition: opacity 1s;
+}
+
+label[for=nav-toggle] {
+    position: absolute;
+    right: 0;
+    width: 3rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#nav-toggle-burger {
+    position: relative;
+    width: 16px;
+    height: 2px;
+    background: var(--navbar-dark-primary);
+    border-radius: 99px;
+    transition: background 0.2s;
+}
+
+#nav-toggle-burger:before,
+#nav-toggle-burger:after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    width: 10px;
+    height: 2px;
+    background: var(--navbar-light-primary);
+    border-radius: 99px;
+    transform: translate(2px, 8px) rotate(30deg);
+    transition: 0.2s;
+}
+
+#nav-toggle-burger:after {
+    top: 6px;
+    transform: translate(2px, -8px) rotate(-30deg);
+}
+
+#nav-content {
+    margin: -16px 0;
+    padding: 16px 0;
+    position: relative;
+    flex: 1;
+    width: var(--navbar-width);
+    background: var(--navbar-dark-primary);
+    box-shadow: 0 0 0 16px var(--navbar-dark-primary);
+    direction: rtl;
+    overflow-x: hidden;
+    transition: width 0.2s;
+}
+
+#nav-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+#nav-content::-webkit-scrollbar-thumb {
+    border-radius: 99px;
+    background-color: #eef8f6;
+}
+
+#nav-content-highlight {
+    position: absolute;
+    left: 16px;
+    top: -70px;
+    width: calc(100% - 16px);
+    height: 54px;
+    background: var(--background);
+    background-attachment: fixed;
+    border-radius: 16px 0 0 16px;
+    transition: top 0.2s;
+}
+
+#nav-content-highlight:before,
+#nav-content-highlight:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    box-shadow: 16px 16px var(--background);
+}
+
+#nav-content-highlight:after {
+    top: 100%;
+    box-shadow: 16px -16px var(--background);
+}
+
+.nav-button {
+    position: relative;
+    margin-left: 16px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    color: var(--navbar-light-secondary);
+    direction: ltr;
+    cursor: pointer;
+    z-index: 1;
+    transition: color 0.2s;
+}
+
+.nav-button span {
+    transition: opacity 1s;
+}
+
+.nav-button .fas {
+    transition: min-width 0.2s;
+}
+
+.nav-button:nth-of-type(1):hover {
+    color: var(--navbar-dark-primary);
+}
+
+.nav-button:nth-of-type(1):hover~#nav-content-highlight {
+    top: 16px;
+}
+
+.nav-button:nth-of-type(2):hover {
+    color: var(--navbar-dark-primary);
+}
+
+.nav-button:nth-of-type(2):hover~#nav-content-highlight {
+    top: 70px;
+}
+
+.nav-button:nth-of-type(3):hover {
+    color: var(--navbar-dark-primary);
+}
+
+.nav-button:nth-of-type(3):hover~#nav-content-highlight {
+    top: 124px;
+}
+
+.nav-button:nth-of-type(4):hover {
+    color: var(--navbar-dark-primary);
+}
+
+.nav-button:nth-of-type(4):hover~#nav-content-highlight {
+    top: 178px;
+}
+
+.nav-button:nth-of-type(5):hover {
+    color: var(--navbar-dark-primary);
+}
+
+.nav-button:nth-of-type(5):hover~#nav-content-highlight {
+    top: 232px;
+}
+
+.nav-button:nth-of-type(6):hover {
+    color: var(--navbar-dark-primary);
+}
+
+.nav-button:nth-of-type(6):hover~#nav-content-highlight {
+    top: 286px;
+}
+
+.nav-button:nth-of-type(7):hover {
+    color: var(--navbar-dark-primary);
+}
+
+.nav-button:nth-of-type(7):hover~#nav-content-highlight {
+    top: 340px;
+}
+
+.nav-button:nth-of-type(8):hover {
+    color: var(--navbar-dark-primary);
+}
+
+.nav-button:nth-of-type(8):hover~#nav-content-highlight {
+    top: 394px;
+}
+
+#nav-bar .fas {
+    min-width: 3rem;
+    text-align: center;
+}
+
+#nav-footer {
+    position: relative;
+    width: var(--navbar-width);
+    height: 54px;
+    background: var(--navbar-dark-secondary);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    transition: width 0.2s, height 0.2s;
+}
+
+#nav-footer-heading {
+    position: relative;
+    width: 100%;
+    height: 54px;
+    display: flex;
+    align-items: center;
+}
+
+#nav-footer-avatar {
+    position: relative;
+    margin: 11px 0 11px 16px;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    transform: translate(0);
+    transition: 0.2s;
+}
+
+#nav-footer-avatar img {
+    height: 100%;
+}
+
+#nav-footer-titlebox {
+    position: relative;
+    margin-left: 16px;
+    width: 10px;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 1s;
+}
+
+#nav-footer-subtitle {
+    color: var(--navbar-light-secondary);
+    font-size: 0.6rem;
+}
+
+#nav-footer-toggle:checked+#nav-footer {
+    height: 30%;
+    min-height: 54px;
+}
+
+#nav-footer-toggle:checked+#nav-footer label[for=nav-footer-toggle] {
+    transform: rotate(180deg);
+}
+
+label[for=nav-footer-toggle] {
+    position: absolute;
+    right: 0;
+    width: 3rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+}
+h{
+    background-color: red;
+}
+#nav-footer-content {
+    margin: 0 16px 16px 16px;
+    border-top: solid 1px var(--navbar-light-secondary);
+    padding: 100px 0;
+    color: var(--navbar-light-secondary);
+    font-size: 1rem;
+    overflow: hidden;
+}
+
+#nav-footer-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+#nav-footer-content::-webkit-scrollbar-thumb {
+    border-radius: 99px;
+    background-color: #234b45;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+    /* Ensure the map is behind other content */
+}
+
+#main-container {
+    margin-left: 275px;
+    /* Adjust this value based on your navbar width */
+}

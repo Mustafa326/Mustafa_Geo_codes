@@ -7,22 +7,97 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
       <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
       <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
-      <link rel="stylesheet" href="transitions.css"/>
-      <script src="animateTransition.min.js"></script>
+      <link rel="stylesheet" href="css/transitions.css"/>
+      <script src="js/animateTransition.min.js"></script>
       <meta charset="UTF-8" />
       <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
       <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
       <!--GeoJson files link-->
       <!-- Linking the Geojson-->
-      <script src="Pakistan_rivers.geojson"></script>
-      <script src="distBound.geojson"></script>
-      <link rel="stylesheet" type="text/css" href="coastal_portalcssfinal.css" />
+      <script src="data/Pakistan_rivers.geojson"></script>
+      <script src="data/distBound.geojson"></script>
+      <link rel="stylesheet" type="text/css" href="css/coastal_portalcssfinal.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      <style>
+         body {
+     background: url('Media/giff/Mangrovesbackgroundgif.gif') no-repeat center center fixed;
+     background-size: cover;
+     background-color: #CFD8DC;
+     /* Fallback color if the GIF is not available or fully loaded */
+     height: 100%;
+     margin: 0;
+     padding: 0;
+     overflow: hidden;
+     /* Disable scrolling */
+   }
+   #main-container-mangroves {
+  position: absolute;
+  top: 76%;
+  left: 1%;
+  width: 36%;
+  height: 19%;
+  background: url('Media/giff/mangrovesgif.gif') no-repeat center center ;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-size: cover; /* This ensures that the background covers the entire container */
+}
+   #top-div {
+     padding: 10px;
+     text-align: center;
+     flex-shrink: 0;
+     background: linear-gradient(135deg, #72FF99, #00B712); /* Glossy green gradient */
+     overflow: hidden;
+     /* Ensure contents don't overflow */
+     width: 100%;
+     position: fixed;
+   }
+   #bottom-div {
+     overflow: hidden; /* Ensure contents don't overflow */
+     width: 100%;
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+     height: 5%;
+     background: linear-gradient(135deg, #72FF99, #00B712); /* Glossy green gradient */
+     color: white; /* Set text color to black */
+     font-size: 20px;
+     text-align: center;
+     line-height: 1.5;
+   }
+   
+   #moving-text1 {
+     white-space: nowrap;
+     font-size: 26px;
+     font-weight: bold;
+     color: white; /* Set text color to black */
+     text-shadow: none; /* Remove text shadow */
+     animation: scroll-left 50s linear infinite; /* Adjust animation duration as needed */
+   }
+   .bold-slide {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+@keyframes scroll-left {
+   0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(calc(-350% - 100vw));
+  }
+}
+
+
+      </style>
    </head>
    <body>
       <div id="container">
       <!-- Top Div -->
       <div id="top-div">
-         <div id="hello-text">Coastal Hazard Monitoring Portal</div>
+         <div id="hello-text">Coastal Hazard Monitoring Portal: Mangrove</div>
          <div id="ndma-logo">
             <!-- Modified Home button -->
             <button class="btn" onclick="goBack()"><i class="fa fa-home"></i> Home</button>
@@ -30,132 +105,167 @@
       </div>
       <!-- Row Container -->
       <div id="row-container">
+      <!-- First Row: Accordion -->
+      <div id="accordion-container">
+         <div class="accordion overflow-auto" id="accordionExample">
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Mangrove
+                  </button>
+               </h2>
+               <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body accordion-scroll">
+                     <details id="Mangrove-Cover-accordian" class="emhvras-home-side-bar-accordian" open >
+                        <summary class="layer-groups-title">
+                           Mangrove Cover
+                        </summary>
+                        <p id="Mangrove-Cover-accordian-p-tag">
+                           <!--Mangrove Cover Watch-->
+                        <details id="mangrove-mwatch-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-title">
+                              Mangrove Cover Watch
+                              <input class="layers-checkbox" type="checkbox" data-layergroup="mwatch" data-layertype="layer" data-layername="mwatch" data-layerlegend="false" data-istempo="true" />
+                           </summary>
+                           <p id="Mangrove-Cover-mwatch-accordian-p-tag" class="layer-p-tag">
+                              <span class="layer-description">
+                              <b>Layer Description:</b><br> Represents the mangrove watch with the statistics.
+                              </span><br>
+                        </details>
+                        </p>
+                        <p id="Mangrove-Cover-accordian-p-tag">
+                           <!--Mangrove Cover Indus Delta-->
+                        <details id="mangrove-mindusdelta-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-title">
+                              Mangrove Cover Indus Delta
+                              <input class="layers-checkbox" type="checkbox" data-layergroup="mangroves" data-layertype="layer" data-layername="mindusdelta" data-layerlegend="false" data-istempo="true" />
+                           </summary>
+                           <p id="Mangrove-Cover-mindusdelta-accordian-p-tag" class="layer-p-tag">
+                           <div class="layer-opacity-slider-div">
+                              <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
+                              <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="mindusdelta" />
+                           </div>
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> Represents the Mangrove Cover of Indus delta coastline of the year 2022. Along with a time series representation of the change in mangrove cover
+                           </span><br>
+                           <img src="Media/Legends/Mangrove_cover_legend.png" width="45%" />
+                        </details>
+                        </p>
+                        <p id="Mangrove-Cover-accordian-p-tag">
+                           <!--Mangrove Cover Jiwani-->
+                        <details id="mangrove-mjiwani-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-title">
+                              Mangrove Cover Jiwani
+                              <input class="layers-checkbox" type="checkbox" data-layergroup="mangrove" data-layertype="layer" data-layername="mjiwani" data-layerlegend="false" data-istempo="true" />
+                           </summary>
+                           <p id="Mangrove-Cover-mjiwani-accordian-p-tag" class="layer-p-tag">
+                           <div class="layer-opacity-slider-div">
+                              <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
+                              <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="mjiwani" />
+                           </div>
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> Represents the Mangrove Cover of Jiwani coastline of the year 2022.Along with a time series representation of the change in mangrove cover
+                           </span><br>
+                           <img src="Media/Legends/Mangrove_cover_legend.png" width="45%" />
+                        </details>
+                        </p>
+                        <p id="Mangrove-Cover-accordian-p-tag">
+                           <!--Mangrove Cover Sandspit-->
+                        <details id="mangrove-msandspit-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-title">
+                              Mangrove Sandspit
+                              <input class="layers-checkbox" type="checkbox" data-layergroup="mangrove" data-layertype="layer" data-layername="msandspit" data-layerlegend="false" data-istempo="true" />
+                           </summary>
+                           <p id="Mangrove-Cover-msandspit-accordian-p-tag" class="layer-p-tag">
+                           <div class="layer-opacity-slider-div">
+                              <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
+                              <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="msandspit" />
+                           </div>
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> Represents the Mangrove Cover of Sandspit coastline of the year 2022.Along with a time series representation of the change in mangrove cover
+                           </span><br>
+                           <img src="Media/Legends/Mangrove_cover_legend.png" width="45%" />
+                        </details>
+                        </p>
+                        <p id="Mangrove-Cover-accordian-p-tag">
+                           <!--Mangrove Cover Indus Kalmat Khor-->
+                        <details id="mangrove-mkalmatkhor-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-title">
+                              Mangrove Cover Kalmat Khor
+                              <input class="layers-checkbox" type="checkbox" data-layergroup="mangrove" data-layertype="layer" data-layername="mkalmatkhor" data-layerlegend="false" data-istempo="true" />
+                           </summary>
+                           <p id="Mangrove-Cover-mkalmatkhor-accordian-p-tag" class="layer-p-tag">
+                           <div class="layer-opacity-slider-div">
+                              <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
+                              <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="mkalmatkhor" />
+                           </div>
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> Represents the Mangrove Cover of Kalmat Khor coastline of the year 2022.Along with a time series representation of the change in mangrove cover
+                           </span><br>
+                           <img src="Media/Legends/Mangrove_cover_legend.png" width="45%" />
+                        </details>
+                        </p>
+                        <p id="Mangrove-Cover-accordian-p-tag">
+                           <!--Mangrove Cover Indus Sonmiani Khor-->
+                        <details id="mangrove-msonmianikhor-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-title">
+                              Mangrove Cover Sonmiani Khor
+                              <input class="layers-checkbox" type="checkbox" data-layergroup="mangrove" data-layertype="layer" data-layername="msonmianikhor" data-layerlegend="false" data-istempo="true" />
+                           </summary>
+                           <p id="Mangrove-Cover-msonmianikhor-accordian-p-tag" class="layer-p-tag">
+                           <div class="layer-opacity-slider-div">
+                              <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
+                              <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="msonmianikhor" />
+                           </div>
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> Represents the Mangrove Cover of Sonmiani Khor coastline of the year 2022.Along with a time series representation of the change in mangrove cover
+                           </span><br>
+                           <img src="Media/Legends/Mangrove_cover_legend.png" width="45%" />
+                        </details>
+                        </p>
+                     </details>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
       <!-- Second Row: Map -->
       <div id="map-container">
          <div id="map">
-            <!-- First Row: Accordion -->
-            <div id="accordion-container">
-               <div class="accordion overflow-auto" id="accordionExample">
-                  <div class="accordion-item">
-                     <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Mangrove
-                        </button>
-                     </h2>
-                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body accordion-scroll">
-                           <details id="Mangrove-Cover-accordian" class="emhvras-home-side-bar-accordian">
-                              <summary class="layer-groups-title">
-                                 Mangrove Cover
-                              </summary>
-                              <p id="Mangrove-Cover-accordian-p-tag">
-                                 <!--Mangrove Cover Watch-->
-                              <details id="mangrove-mwatch-accordian" class="emhvras-home-side-bar-accordian">
-                                 <summary class="layer-title">
-                                    Mangrove Cover Watch
-                                    <input class="layers-checkbox" type="checkbox" data-layergroup="mwatch" data-layertype="layer" data-layername="mwatch" data-layerlegend="false" data-istempo="true" />
-                                 </summary>
-                                 <p id="Mangrove-Cover-mwatch-accordian-p-tag" class="layer-p-tag">
-                                    <span class="layer-description">
-                                    <b>Layer Description:</b><br> Represents the mangrove watch with the statistics.
-                                    </span><br>
-                              </details>
-                              </p>
-                              <p id="Mangrove-Cover-accordian-p-tag">
-                                 <!--Mangrove Cover Indus Delta-->
-                              <details id="mangrove-mindusdelta-accordian" class="emhvras-home-side-bar-accordian">
-                                 <summary class="layer-title">
-                                    Mangrove Cover Indus Delta
-                                    <input class="layers-checkbox" type="checkbox" data-layergroup="mangroves" data-layertype="layer" data-layername="mindusdelta" data-layerlegend="false" data-istempo="true" />
-                                 </summary>
-                                 <p id="Mangrove-Cover-mindusdelta-accordian-p-tag" class="layer-p-tag">
-                                 <div class="layer-opacity-slider-div">
-                                    <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
-                                    <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="mindusdelta" />
-                                 </div>
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> Represents the Mangrove Cover of Indus delta coastline of the year 2022
-                                 </span><br>
-                                 <img src="Mangrove_cover_legend.png" width="45%" />
-                              </details>
-                              </p>
-                              <p id="Mangrove-Cover-accordian-p-tag">
-                                 <!--Mangrove Cover Jiwani-->
-                              <details id="mangrove-mjiwani-accordian" class="emhvras-home-side-bar-accordian">
-                                 <summary class="layer-title">
-                                    Mangrove Cover Jiwani
-                                    <input class="layers-checkbox" type="checkbox" data-layergroup="mangrove" data-layertype="layer" data-layername="mjiwani" data-layerlegend="false" data-istempo="true" />
-                                 </summary>
-                                 <p id="Mangrove-Cover-mjiwani-accordian-p-tag" class="layer-p-tag">
-                                 <div class="layer-opacity-slider-div">
-                                    <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
-                                    <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="mjiwani" />
-                                 </div>
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> Represents the Mangrove Cover of Jiwani coastline of the year 2022
-                                 </span><br>
-                                 <img src="Mangrove_cover_legend.png" width="45%" />
-                              </details>
-                              </p>
-                              <p id="Mangrove-Cover-accordian-p-tag">
-                                 <!--Mangrove Cover Sandspit-->
-                              <details id="mangrove-msandspit-accordian" class="emhvras-home-side-bar-accordian">
-                                 <summary class="layer-title">
-                                    Mangrove Sandspit
-                                    <input class="layers-checkbox" type="checkbox" data-layergroup="mangrove" data-layertype="layer" data-layername="msandspit" data-layerlegend="false" data-istempo="true" />
-                                 </summary>
-                                 <p id="Mangrove-Cover-msandspit-accordian-p-tag" class="layer-p-tag">
-                                 <div class="layer-opacity-slider-div">
-                                    <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
-                                    <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="msandspit" />
-                                 </div>
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> Represents the Mangrove Cover of Sandspit coastline of the year 2022
-                                 </span><br>
-                                 <img src="Mangrove_cover_legend.png" width="45%" />
-                              </details>
-                              </p>
-                              <p id="Mangrove-Cover-accordian-p-tag">
-                                 <!--Mangrove Cover Indus Kalmat Khor-->
-                              <details id="mangrove-mkalmatkhor-accordian" class="emhvras-home-side-bar-accordian">
-                                 <summary class="layer-title">
-                                    Mangrove Cover Kalmat Khor
-                                    <input class="layers-checkbox" type="checkbox" data-layergroup="mangrove" data-layertype="layer" data-layername="mkalmatkhor" data-layerlegend="false" data-istempo="true" />
-                                 </summary>
-                                 <p id="Mangrove-Cover-mkalmatkhor-accordian-p-tag" class="layer-p-tag">
-                                 <div class="layer-opacity-slider-div">
-                                    <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
-                                    <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="mkalmatkhor" />
-                                 </div>
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> Represents the Mangrove Cover of Kalmat Khor coastline of the year 2022
-                                 </span><br>
-                                 <img src="Mangrove_cover_legend.png" width="45%" />
-                              </details>
-                              </p>
-                              <p id="Mangrove-Cover-accordian-p-tag">
-                                 <!--Mangrove Cover Indus Sonmiani Khor-->
-                              <details id="mangrove-msonmianikhor-accordian" class="emhvras-home-side-bar-accordian">
-                                 <summary class="layer-title">
-                                    Mangrove Cover Sonmiani Khor
-                                    <input class="layers-checkbox" type="checkbox" data-layergroup="mangrove" data-layertype="layer" data-layername="msonmianikhor" data-layerlegend="false" data-istempo="true" />
-                                 </summary>
-                                 <p id="Mangrove-Cover-msonmianikhor-accordian-p-tag" class="layer-p-tag">
-                                 <div class="layer-opacity-slider-div">
-                                    <label>Layer opacity: <span id="layer-opacity-slider-value-label-mangroves">100%</span></label>
-                                    <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="msonmianikhor" />
-                                 </div>
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> Represents the Mangrove Cover of Sonmiani Khor coastline of the year 2022
-                                 </span><br>
-                                 <img src="Mangrove_cover_legend.png" width="45%" />
-                              </details>
-                              </p>
-                           </details>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+            <!-- Time slider for Mangrove indus -->
+            <div class="slider-container-mangroves" id="mangrove-slider-container">
+               <input id="mangrove-slider" class="slider" type="range" min="0" max="2" step="1" value="0">
+               <div id="mangrove-playButton">▶️</div>
+               <div id="mangrove-removeButton">❌</div>
+               <div id="mangrove-layerName" class="layer-name"></div>
+           </div>
+           <!-- Time slider for Mangrove Kalmat Khor -->
+           <div class="slider-container-mangroves-kalmatkhor" id="mangrove-slider-container-kalmatkhor">
+            <input id="mangrove-slider-kalmatkhor" class="slider-kalmatkhor" type="range" min="0" max="2" step="1" value="0">
+            <div id="mangrove-kalmatkhor-playButton">▶️</div>
+            <div id="mangrove-kalmatkhor-removeButton">❌</div>
+            <div id="mangrove-kalmatkhor-layerName" class="layer-name"></div>
+           </div>
+        <!-- Time slider for Mangrove Sonmiani Khor -->
+            <div class="slider-container-mangroves-sonmianikhor" id="mangrove-slider-container-sonmianikhor">
+               <input id="mangrove-slider-sonmianikhor" class="slider-sonmianikhor" type="range" min="0" max="2" step="1" value="0">
+               <div id="mangrove-sonmianikhor-playButton">▶️</div>
+               <div id="mangrove-sonmianikhor-removeButton">❌</div>
+               <div id="mangrove-sonmianikhor-layerName" class="layer-name"></div>
+            </div>
+     <!-- Time slider for Mangrove jiwani -->
+            <div class="slider-container-mangroves-jiwani" id="mangrove-slider-container-jiwani">
+               <input id="mangrove-slider-jiwani" class="slider-jiwani" type="range" min="0" max="2" step="1" value="0">
+               <div id="mangrove-jiwani-playButton">▶️</div>
+               <div id="mangrove-jiwani-removeButton">❌</div>
+               <div id="mangrove-jiwani-layerName" class="layer-name"></div>
+            </div>
+  <!-- Time slider for Mangrove sandspit -->
+            <div class="slider-container-mangroves-sandspit" id="mangrove-slider-container-sandspit">
+               <input id="mangrove-slider-sandspit" class="slider-sandspit" type="range" min="0" max="2" step="1" value="0">
+               <div id="mangrove-sandspit-playButton">▶️</div>
+               <div id="mangrove-sandspit-removeButton">❌</div>
+               <div id="mangrove-sandspit-layerName" class="layer-name"></div>
             </div>
          </div>
       </div>
@@ -163,20 +273,37 @@
       <div id="main-container-mangroves">
          <!-- Content of the main container (iframes) goes here -->
          <div class="fullscreen-button-container">
-            <button class="fullscreen-button" onclick="openFullscreen('main-container-mangroves');">Full Screen</button>
+            <button class="fullscreen-button" onclick="openFullscreen('main-container-mangroves');"data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
          </div>
       </div>
       <div id="video-container-mangroves">
+         <div class="fullscreen-button-container">
+            <button class="fullscreen-button" onclick="openFullscreen2('video-container-mangroves');" data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
+        </div>
          <video autoplay muted loop id="myVideo-mangroves">
-            <source src="AboutMangroves.mp4" type="video/mp4">
+            <source src="Media/videos/MangroveCoverVideoGraph.mp4" type="video/mp4">
          </video>
       </div>
+      <div id="video-container-mangroves2">
+         <div class="fullscreen-button-container">
+            <button class="fullscreen-button" onclick="openFullscreen3('video-container-mangroves2');" data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
+        </div>
+         <video autoplay muted loop id="myVideo-mangroves2">
+            <source src="Media/videos/mangrovesvideo3.mp4" type="video/mp4">
+         </video>
+      </div>
+      <!-- advisory-container -->
+      <div id="advisory-container" class="container">
+         <button class="flash-button">Advisories</button>
+         <img src="Media/Images/mangrove_runnin1.png" alt="Image 1">
+         <img src="Media/Images/mangrove_runnin2.png" alt="Image 2">
+         <img src="Media/Images/mangrove_runnin3.png" alt="Image 1">
+         <img src="Media/Images/mangrove_runnin4.png" alt="Image 2">
+       </div>
       <!-- Bottom Div -->
       <div id="bottom-div">
          <div id="moving-text1">
-            <span class="bold-slide">Coastal Hazard Monitoring  🌊 :-</span> Pakistan's coastal hazard monitoring is a comprehensive initiative aimed at assessing and mitigating potential risks along its coastal areas. With a diverse coastline
-            along the Arabian Sea, stretching over 1,000 kilometers, the country faces various hazards such as cyclones, storm surges, and sea-level rise. The monitoring system integrates advanced technologies, satellite imagery, and on-ground
-            observations to track and analyze coastal dynamics.
+            <span class="bold-slide">Coastal Hazard Monitoring: Mangroves  <img src="Media/svgIcons/mangrove-svgrepo-com.svg" width="1.5%" alt="Mangroves Icon"> :-</span> Earth’s mangrove area has been lost since 1980, destroyed for coastal development, chopped down for timber, or poisoned by industrial pollution And although the rate of loss is slowing, mangroves are still disappearing three to five times faster than land-based forests. Especially in Asia,Pakistan stands out as a notable exception. After losing as much as three-quarters of its mangrove forest over the past century, in the early 1990s the South Asian nation began restoring its mangroves. What began as a series of small, piecemeal efforts eventually grew into one of the most ambitious reforestation campaigns in the world. Now, under a nationally coordinated effort, Pakistan has restored vast swathes of degraded mangrove habitat and become one of the few places to have experienced a net gain in mangrove area in recent years.
          </div>
       </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -186,6 +313,6 @@
       <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
       <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
       <script src="https://cdn.maptiler.com/maptiler-weather/v1.1.0/maptiler-weather.umd.min.js"></script>
-      <script src="CoastalPortalMangroveJS.js"></script>
+      <script src="js/CoastalPortalMangroveJS.js"></script>
    </body>
 </html>

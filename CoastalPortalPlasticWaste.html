@@ -10,22 +10,96 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
       <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
-      <link rel="stylesheet" href="transitions.css"/>
-      <script src="animateTransition.min.js"></script>
+      <link rel="stylesheet" href="css/transitions.css"/>
+      <script src="js/animateTransition.min.js"></script>
       <!--GeoJson files link-->
       <!-- Linking the Geojson-->
-      <script src="Pakistan_rivers.geojson"></script>
-      <script src="plasticwaste_geojson.geojson"></script>
-      <script src="MarineMicroplasticConcentrations_leaflet.geojson"></script>
-      <script src="River_Plastic_Emissions.geojson"></script>
-      <script src="distBound.geojson"></script>
-      <link rel="stylesheet" type="text/css" href="coastal_portalcssfinal.css" />
+      <script src="data/Pakistan_rivers.geojson"></script>
+      <script src="data/plasticwaste_geojson.geojson"></script>
+      <script src="data/MarineMicroplasticConcentrations_leaflet.geojson"></script>
+      <script src="data/River_Plastic_Emissions.geojson"></script>
+      <script src="data/distBound.geojson"></script>
+      <link rel="stylesheet" type="text/css" href="css/coastal_portalcssfinal.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+   <style>
+      body {
+  background: url('Media/giff/PlasticWasteBackgroundgif.gif') no-repeat center center fixed;
+  background-size: cover;
+  background-color: #CFD8DC;
+  /* Fallback color if the GIF is not available or fully loaded */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* Disable scrolling */
+}
+#main-container-PlasticWaste {
+  position: absolute;
+  top: 76%;
+  left: 1%;
+  width: 36%;
+  height: 19%;
+  background: url('Media/giff/Plastic_Waste_trackingfinal_gif.gif') no-repeat center center ;
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+  background-size: cover; /* This ensures that the background covers the entire container */
+}
+#top-div {
+  padding: 10px;
+  text-align: center;
+  flex-shrink: 0;
+  background: #0d6efd; /* White color with 47% opacity */
+  overflow: hidden;
+  /* Ensure contents don't overflow */
+  width: 100%;
+  position: fixed;
+}
+#bottom-div {
+  overflow: hidden; /* Ensure contents don't overflow */
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5%;
+  background: rgba(255, 255, 255, 0.47); /* White color with 47% opacity */
+  color: black; /* Set text color to black */
+  font-size: 20px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+#moving-text1 {
+  white-space: nowrap;
+  font-size: 26px;
+  font-weight: bold;
+  color: black; /* Set text color to black */
+  text-shadow: none; /* Remove text shadow */
+  animation: scroll-left 50s linear infinite; /* Adjust animation duration as needed */
+}
+.bold-slide {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+@keyframes scroll-left {
+   0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(calc(-350% - 100vw));
+  }
+}
+
+   </style>
    </head>
    <body>
       <div id="container">
       <!-- Top Div -->
       <div id="top-div">
-         <div id="hello-text">Coastal Hazard Monitoring Portal</div>
+         <div id="hello-text">Coastal Hazard Monitoring Portal: Plastic Waste</div>
          <div id="ndma-logo">
             <!-- Modified Home button -->
             <button class="btn" onclick="goBack()"><i class="fa fa-home"></i> Home</button>
@@ -33,199 +107,217 @@
       </div>
       <!-- Row Container -->
       <div id="row-container">
-      <!-- Second Row: Map -->
-      <div id="map-container">
-         <div id="map">
-            <!-- First Row: Accordion -->
-            <div id="accordion-container">
-               <div class="accordion overflow-auto" id="accordionExample">
-                  <div class="accordion-item">
-                     <h2 class="accordion-header" id="headingFour">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        Plastic Waste & Detection
-                        </button>
-                     </h2>
-                     <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                        <div class="accordion-body accordion-scroll">
-                           <details id="Plastic-Waste-Detection-accordian" class="emhvras-home-side-bar-accordian">
-                           <summary class="layer-groups-title">
-                              Plastic Waste Layers
-                           </summary>
-                           <p id="Plastic-Waste-Detection-accordian-p-tag">
-                              <!--Plastic Waste Generation-->
-                           <details id="Plastic-Waste-Detection-plasticwgeneration-accordian" class="emhvras-home-side-bar-accordian">
-                              <summary class="layer-title">
-                                 Plastic Waste Generation
-                                 <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="plasticwgeneration" data-layerlegend="false" data-istempo="true" />
-                              </summary>
-                              <p id="plasticwaste-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
-                              <div class="layer-opacity-slider-div">
-                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-plasticwaste">100%</span></label>
-                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="plasticwgeneration" />
-                              </div>
-                              <p id="plasticwaste-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
-                              <div class="overlay-option">
-                                 <label>Information Bar:</label>
-                                 <div class='map-overlay' id='features'>
-                                    <h2>Plastic Waste Generation</h2>
-                                    <div id='pdplasticgeneration'>
-                                       <p>Hover over a region!</p>
-                                    </div>
-                                 </div>
-                              </div>
-                              <p id="Plastic-Waste-Detection-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> Plastic waste generation per person, measured in kilograms per person per day. This measures total plastic waste generation prior to management and therefore does not represent the quantity of plastic at risk of polluting waterways, rivers and the ocean environment. The Primary Unit for representations is tones                                      
-                                 </span><br>
-                                 <img src="Plastic_Waste_Generation.png" width="95%" />
-                           </details>
-                           </p>
-                           <p id="Plastic-Waste-Detection-accordian-p-tag">
-                              <!-- Mismanaged Plastic Waste-->
-                           <details id="plasticwaste-misplasticwaste-accordian" class="emhvras-home-side-bar-accordian">
-                              <summary class="layer-title">
-                                 Mismanaged Plastic Waste
-                                 <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="misplasticwaste" data-layerlegend="false" data-istempo="true" />
-                              </summary>
-                              <p id="plasticwaste-misplasticwaste-accordian-p-tag" class="layer-p-tag">
-                              <div class="layer-opacity-slider-div">
-                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-plasticwaste">100%</span></label>
-                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="misplasticwaste" />
-                              </div>
-                              <p id="plasticwaste-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
-                              <div class="overlay-option">
-                                 <label>Information Bar:</label>
-                                 <div class='map-overlay' id='features_mismanagedpw'>
-                                    <h2>Mismanaged Plastic Waste</h2>
-                                    <div id='pdmisplasticwastenon'>
-                                       <p>Hover over a region!</p>
-                                    </div>
-                                 </div>
-                              </div>
-                              <p id="Plastic-Waste-Detection-misplasticwaste-accordian-p-tag" class="layer-p-tag">
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> Mismanaged plastic waste includes materials burned in open pits, dumped into seas or open waters, or disposed of in unsanitary landfills and dumpsites.
-                                 </span><br>
-                                 <img src="mismanagedpw.png" width="95%" />
-                           </details>
-                           </p>
-                           <p id="Plastic-Waste-Detection-accordian-p-tag">
-                              <!-- Mismanaged Plastic Waste Ocean-->
-                           <details id="plasticwaste-misplasticwasteocean-accordian" class="emhvras-home-side-bar-accordian">
-                              <summary class="layer-title">
-                                 Mismanaged Plastic Waste (Ocean)
-                                 <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="misplasticwasteocean" data-layerlegend="false" data-istempo="true" />
-                              </summary>
-                              <p id="plasticwaste-misplasticwasteocean-accordian-p-tag" class="layer-p-tag">
-                              <div class="layer-opacity-slider-div">
-                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-plasticwaste">100%</span></label>
-                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="misplasticwasteocean" />
-                              </div>
-                              <p id="plasticwaste-misplasticwasteocean-accordian-p-tag" class="layer-p-tag">
-                              <div class="overlay-option">
-                                 <label>Information Bar:</label>
-                                 <div class='map-overlay' id='features_misplasticwasteocean'>
-                                    <h2>Mismanaged Plastic Waste (Ocean)</h2>
-                                    <div id='pdmismanagedpwo'>
-                                       <p>Hover over a region!</p>
-                                    </div>
-                                 </div>
-                              </div>
-                              <p id="Plastic-Waste-Detection-misplasticwasteocean-accordian-p-tag" class="layer-p-tag">
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> This is an annual estimate of plastic emissions. A country's total does not include waste that is exported overseas, which may be at higher risk of entering the ocean.  
-                                 </span><br>
-                                 <img src="mismanagedPWOcean.png" width="95%" />
-                           </details>
-                           </p>
-                           <p id="Plastic-Waste-Detection-accordian-p-tag">
-                              <!-- Propability Of Plastic (Ocean)-->
-                           <details id="plasticwaste-propplasticocean-accordian" class="emhvras-home-side-bar-accordian">
-                              <summary class="layer-title">
-                                 Propability Of Plastic (Ocean)
-                                 <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="propplasticocean" data-layerlegend="false" data-istempo="true" />
-                              </summary>
-                              <p id="plasticwaste-propplasticocean-accordian-p-tag" class="layer-p-tag">
-                              <div class="layer-opacity-slider-div">
-                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-plasticwaste">100%</span></label>
-                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="propplasticocean" />
-                              </div>
-                              <p id="plasticwaste-propplasticocean-accordian-p-tag" class="layer-p-tag">
-                              <div class="overlay-option">
-                                 <label>Information Bar:</label>
-                                 <div class='map-overlay' id='features_propplasticocean'>
-                                    <h2>Propability Of Plastic (Ocean)</h2>
-                                    <div id='pdpropability'>
-                                       <p>Hover over a region!</p>
-                                    </div>
-                                 </div>
-                              </div>
-                              <p id="Plastic-Waste-Detection-propplasticocean-accordian-p-tag" class="layer-p-tag">
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> Mismanaged plastic waste includes materials burned in open pits, dumped into seas or open waters, or disposed of in unsanitary landfills and dumpsites. A country's total does not include waste that is exported overseas, which may be at higher risk of entering the ocean.                              
-                                 </span><br>
-                                 <img src="mismanagedPWOcean.png" width="95%" />
-                           </details>
-                           </p>
-                           <p id="Plastic-Waste-Detection-EEZ-Marine-Surveillance-accordian-p-tag">
-                            <!--S.S.T Monthly Day-->
-                         <details id="plasticwaste-eezmarinesurveillance-marinesurveillance-accordian" class="emhvras-home-side-bar-accordian">
-                            <summary class="layer-title">
-                             Marine Surveillance
-                               <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="marinesurveillance" data-layerlegend="false" data-istempo="true" />
-                            </summary>
-                            <p id="plasticwaste-eezmarinesurveillance-marinesurveillance-accordian-p-tag" class="layer-p-tag">
-                            <p id="Plastic-Waste-Detection-EEZ-Marine-Surveillance-marinesurveillance-accordian-p-tag" class="layer-p-tag">
-                               <span class="layer-description">
-                               <b>Layer Description:</b><br> Represents the Marine Surveillance data 
-                               </span><br>
-                         </details>
-                           </p>
-                           <p id="Marine-Litter-concentration-coast-accordian-p-tag">
-                              <!-- Marine Micro Plastic Emission Concentration (2020-2024)-->
-                           <details id="marinelitterconcentration-marinemicroemicnoc-accordian" class="emhvras-home-side-bar-accordian">
-                              <summary class="layer-title">
-                                 Marine Micro-Plastic Emission Concentration (2020-2024)
-                                 <input class="layers-checkbox" type="checkbox" data-layergroup="marinelitterconcentration" data-layertype="layer" data-layername="marinemicroemicnoc" data-layerlegend="false" data-istempo="true" />
-                              </summary>
-                              <p id="marinelitterconcentration-marinemicroemicnoc-accordian-p-tag" class="layer-p-tag">
-                              <div class="layer-opacity-slider-div">
-                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-marinelitterconcentration">100%</span></label>
-                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="marinemicroemicnoc" />
-                              </div>
-                              <p id="Marine-Litter-concentration-coast-marinemicroemicnoc-accordian-p-tag" class="layer-p-tag">
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> This layer provides insights into the extent of plastic pollution across various watersheds and countries worldwide. Utilizing data on mismanaged plastic waste production (MPW) per country, population density, topographic elevation, and the presence of artificial barriers, the layer offers a comprehensive understanding of the sources and distribution of plastic pollution.By combining data on waste generation per capita, population density, and water flow per river catchment area, researchers calculated MPW rates for each area.
-                                 </span><br>
-                                 <img src="Marinelitteremissions.png" width="95%" height="75%" />
-                           </details>
-                           </p>
-                           
+      <!-- First Row: Accordion -->
+      <div id="accordion-container">
+         <div class="accordion overflow-auto" id="accordionExample">
+            <div class="accordion-item">
+               <h2 class="accordion-header" id="headingFour">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                  Plastic Waste & Detection
+                  </button>
+               </h2>
+               <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                  <div class="accordion-body accordion-scroll">
+                     <details id="Plastic-Waste-Detection-accordian" class="accordion-collapse collapse show" open >
+                     <summary class="layer-groups-title">
+                        Plastic Waste Layers
+                     </summary>
+                     <p id="Plastic-Waste-Detection-accordian-p-tag">
+                        <!--Plastic Waste Generation-->
+                     <details id="Plastic-Waste-Detection-plasticwgeneration-accordian" class="emhvras-home-side-bar-accordian" >
+                        <summary class="layer-title">
+                           Plastic Waste Generation
+                           <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="plasticwgeneration" data-layerlegend="false" data-istempo="true" />
+                        </summary>
+                        <p id="plasticwaste-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
+                        <div class="layer-opacity-slider-div">
+                           <label>Layer opacity: <span id="layer-opacity-slider-value-label-plasticwaste">100%</span></label>
+                           <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="plasticwgeneration" />
                         </div>
-                     </div>
+                        <p id="plasticwaste-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
+                        <div class="overlay-option">
+                           <label>Information Bar:</label>
+                           <div class='map-overlay' id='features'>
+                              <h2>Plastic Waste Generation</h2>
+                              <div id='pdplasticgeneration'>
+                                 <p>Hover over a region!</p>
+                              </div>
+                           </div>
+                        </div>
+                        <p id="Plastic-Waste-Detection-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> Plastic waste generation per person, measured in kilograms per person per day. This measures total plastic waste generation prior to management and therefore does not represent the quantity of plastic at risk of polluting waterways, rivers and the ocean environment. The Primary Unit for representations is tones                                      
+                           </span><br>
+                           <img src="Media/Legends/Plastic_Waste_Generation.png" width="95%" />
+                     </details>
+                     </p>
+                     <p id="Plastic-Waste-Detection-accordian-p-tag">
+                        <!-- Mismanaged Plastic Waste-->
+                     <details id="plasticwaste-misplasticwaste-accordian" class="emhvras-home-side-bar-accordian">
+                        <summary class="layer-title">
+                           Mismanaged Plastic Waste
+                           <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="misplasticwaste" data-layerlegend="false" data-istempo="true" />
+                        </summary>
+                        <p id="plasticwaste-misplasticwaste-accordian-p-tag" class="layer-p-tag">
+                        <div class="layer-opacity-slider-div">
+                           <label>Layer opacity: <span id="layer-opacity-slider-value-label-plasticwaste">100%</span></label>
+                           <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="misplasticwaste" />
+                        </div>
+                        <p id="plasticwaste-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
+                        <div class="overlay-option">
+                           <label>Information Bar:</label>
+                           <div class='map-overlay' id='features_mismanagedpw'>
+                              <h2>Mismanaged Plastic Waste</h2>
+                              <div id='pdmisplasticwastenon'>
+                                 <p>Hover over a region!</p>
+                              </div>
+                           </div>
+                        </div>
+                        <p id="Plastic-Waste-Detection-misplasticwaste-accordian-p-tag" class="layer-p-tag">
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> Mismanaged plastic waste includes materials burned in open pits, dumped into seas or open waters, or disposed of in unsanitary landfills and dumpsites.
+                           </span><br>
+                           <img src="Media/Legends/mismanagedpw.png" width="95%" />
+                     </details>
+                     </p>
+                     <p id="Plastic-Waste-Detection-accordian-p-tag">
+                        <!-- Mismanaged Plastic Waste Ocean-->
+                     <details id="plasticwaste-misplasticwasteocean-accordian" class="emhvras-home-side-bar-accordian">
+                        <summary class="layer-title">
+                           Mismanaged Plastic Waste (Ocean)
+                           <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="misplasticwasteocean" data-layerlegend="false" data-istempo="true" />
+                        </summary>
+                        <p id="plasticwaste-misplasticwasteocean-accordian-p-tag" class="layer-p-tag">
+                        <div class="layer-opacity-slider-div">
+                           <label>Layer opacity: <span id="layer-opacity-slider-value-label-plasticwaste">100%</span></label>
+                           <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="misplasticwasteocean" />
+                        </div>
+                        <p id="plasticwaste-misplasticwasteocean-accordian-p-tag" class="layer-p-tag">
+                        <div class="overlay-option">
+                           <label>Information Bar:</label>
+                           <div class='map-overlay' id='features_misplasticwasteocean'>
+                              <h2>Mismanaged Plastic Waste (Ocean)</h2>
+                              <div id='pdmismanagedpwo'>
+                                 <p>Hover over a region!</p>
+                              </div>
+                           </div>
+                        </div>
+                        <p id="Plastic-Waste-Detection-misplasticwasteocean-accordian-p-tag" class="layer-p-tag">
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> This is an annual estimate of plastic emissions. A country's total does not include waste that is exported overseas, which may be at higher risk of entering the ocean.  
+                           </span><br>
+                           <img src="Media/Legends/mismanagedPWOcean.png" width="95%" />
+                     </details>
+                     </p>
+                     <p id="Plastic-Waste-Detection-accordian-p-tag">
+                        <!-- Propability Of Plastic (Ocean)-->
+                     <details id="plasticwaste-propplasticocean-accordian" class="emhvras-home-side-bar-accordian">
+                        <summary class="layer-title">
+                           Propability Of Plastic (Ocean)
+                           <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="propplasticocean" data-layerlegend="false" data-istempo="true" />
+                        </summary>
+                        <p id="plasticwaste-propplasticocean-accordian-p-tag" class="layer-p-tag">
+                        <div class="layer-opacity-slider-div">
+                           <label>Layer opacity: <span id="layer-opacity-slider-value-label-plasticwaste">100%</span></label>
+                           <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="propplasticocean" />
+                        </div>
+                        <p id="plasticwaste-propplasticocean-accordian-p-tag" class="layer-p-tag">
+                        <div class="overlay-option">
+                           <label>Information Bar:</label>
+                           <div class='map-overlay' id='features_propplasticocean'>
+                              <h2>Propability Of Plastic (Ocean)</h2>
+                              <div id='pdpropability'>
+                                 <p>Hover over a region!</p>
+                              </div>
+                           </div>
+                        </div>
+                        <p id="Plastic-Waste-Detection-propplasticocean-accordian-p-tag" class="layer-p-tag">
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> Mismanaged plastic waste includes materials burned in open pits, dumped into seas or open waters, or disposed of in unsanitary landfills and dumpsites. A country's total does not include waste that is exported overseas, which may be at higher risk of entering the ocean.                              
+                           </span><br>
+                           <img src="Media/Legends/mismanagedPWOcean.png" width="95%" />
+                     </details>
+                     </p>
+                     <p id="Plastic-Waste-Detection-EEZ-Marine-Surveillance-accordian-p-tag">
+                      <!--S.S.T Monthly Day-->
+                   <details id="plasticwaste-eezmarinesurveillance-marinesurveillance-accordian" class="emhvras-home-side-bar-accordian">
+                      <summary class="layer-title">
+                       Marine Surveillance
+                         <input class="layers-checkbox" type="checkbox" data-layergroup="plasticwaste" data-layertype="layer" data-layername="marinesurveillance" data-layerlegend="false" data-istempo="true" />
+                      </summary>
+                      <p id="plasticwaste-eezmarinesurveillance-marinesurveillance-accordian-p-tag" class="layer-p-tag">
+                      <p id="Plastic-Waste-Detection-EEZ-Marine-Surveillance-marinesurveillance-accordian-p-tag" class="layer-p-tag">
+                         <span class="layer-description">
+                         <b>Layer Description:</b><br> Represents the Marine Surveillance data 
+                         </span><br>
+                   </details>
+                     </p>
+                     <p id="Marine-Litter-concentration-coast-accordian-p-tag">
+                        <!-- Marine Micro Plastic Emission Concentration (2020-2024)-->
+                     <details id="marinelitterconcentration-marinemicroemicnoc-accordian" class="emhvras-home-side-bar-accordian">
+                        <summary class="layer-title">
+                           Marine Micro-Plastic Emission Concentration (2020-2024)
+                           <input class="layers-checkbox" type="checkbox" data-layergroup="marinelitterconcentration" data-layertype="layer" data-layername="marinemicroemicnoc" data-layerlegend="false" data-istempo="true" />
+                        </summary>
+                        <p id="marinelitterconcentration-marinemicroemicnoc-accordian-p-tag" class="layer-p-tag">
+                        <div class="layer-opacity-slider-div">
+                           <label>Layer opacity: <span id="layer-opacity-slider-value-label-marinelitterconcentration">100%</span></label>
+                           <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="marinemicroemicnoc" />
+                        </div>
+                        <p id="Marine-Litter-concentration-coast-marinemicroemicnoc-accordian-p-tag" class="layer-p-tag">
+                           <span class="layer-description">
+                           <b>Layer Description:</b><br> This layer provides insights into the extent of plastic pollution across various watersheds and countries worldwide. Utilizing data on mismanaged plastic waste production (MPW) per country, population density, topographic elevation, and the presence of artificial barriers, the layer offers a comprehensive understanding of the sources and distribution of plastic pollution.By combining data on waste generation per capita, population density, and water flow per river catchment area, researchers calculated MPW rates for each area.
+                           </span><br>
+                           <img src="Media/Legends/Marinelitteremissions.png" width="95%" height="75%" />
+                     </details>
+                     </p>
+                     
                   </div>
                </div>
             </div>
+         </div>
+      </div>
+      <!-- Second Row: Map -->
+      <div id="map-container">
+         <div id="map">
          </div>
       </div>
       <!-- Third Row: Main Container -->
       <div id="main-container-PlasticWaste">
          <!-- Content of the main container (iframes) goes here -->
          <div class="fullscreen-button-container">
-            <button class="fullscreen-button" onclick="openFullscreen('main-container-PlasticWaste');">Full Screen</button>
+            <button class="fullscreen-button" onclick="openFullscreen('main-container-PlasticWaste');"data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
          </div>
       </div>
       <div id="video-container-PlasticWaste">
+         <div class="fullscreen-button-container">
+            <button class="fullscreen-button" onclick="openFullscreen2('video-container-PlasticWaste');" data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
+        </div>
          <video autoplay muted loop id="myVideo-PlasticWaste">
-            <source src="MarineLitter.mp4" type="video/mp4">
+            <source src="Media/videos/PlasticWasteGraphProjection.mp4" type="video/mp4">
          </video>
       </div>
+      <div id="video-container-PlasticWaste2">
+         <div class="fullscreen-button-container">
+            <button class="fullscreen-button" onclick="openFullscreen3('video-container-PlasticWaste2');" data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
+        </div>
+         <video autoplay muted loop id="myVideo-PlasticWaste2">
+            <source src="Media/videos/Plasticwastevideo3.mp4" type="video/mp4">
+         </video>
+      </div>
+      <!-- advisory-container -->
+      <div id="advisory-container" class="container">
+         <button class="flash-button">Advisories</button>
+         <img src="Media/Images/plasticwaste_runnin1.png" alt="Image 1">
+         <img src="Media/Images/plasticwaste_runnin2.png" alt="Image 2">
+         <img src="Media/Images/plasticwaste_runnin3.png" alt="Image 1">
+         <img src="Media/Images/plasticwaste_runnin4.png" alt="Image 2">
+       </div>
+     </div>
       <!-- Bottom Div -->
       <div id="bottom-div">
          <div id="moving-text1">
-            <span class="bold-slide">Coastal Hazard Monitoring  🌊 :-</span> Pakistan's coastal hazard monitoring is a comprehensive initiative aimed at assessing and mitigating potential risks along its coastal areas. With a diverse coastline
-            along the Arabian Sea, stretching over 1,000 kilometers, the country faces various hazards such as cyclones, storm surges, and sea-level rise. The monitoring system integrates advanced technologies, satellite imagery, and on-ground
-            observations to track and analyze coastal dynamics.
+            <span class="bold-slide">Coastal Hazard Monitoring: Plastic Waste <img src="Media/svgIcons/marine-debris.svg" width="1.5%" alt="Marine Debris Icon"> :-</span> An estimated 8 million tons of plastic waste enters the oceans every year. By 2050, it is expected that there will be more plastic in the oceans than fish. Plastics pose threat to nature by being non-biodegradable and toxic. A simple plastic bag can take up to 500 years to decompose while a plastic bottle can take around 300 years.As per UN assessments, more than 3.3 million tons of plastic is wasted each year in Pakistan, and if no action is taken, plastic waste is expected to reach 12 million tons annually by 2040, which will lead to significant damage to the environment and human health. This Portal assists in the monitoring of Plastic Waste with respect to the coast of Pakistan            
          </div>
       </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -235,6 +327,6 @@
       <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
       <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
       <script src="https://cdn.maptiler.com/maptiler-weather/v1.1.0/maptiler-weather.umd.min.js"></script>
-      <script src="CoastalPortalPLasticWasteJS.js"></script>
+      <script src="js/CoastalPortalPLasticWasteJS.js"></script>
    </body>
 </html>

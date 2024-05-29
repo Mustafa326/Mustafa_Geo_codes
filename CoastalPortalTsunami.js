@@ -2,6 +2,10 @@
 function goBack() {
     window.history.back();
  }
+ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 function openFullscreen(containerId) {
     var elem = document.getElementById(containerId);
     if (elem.requestFullscreen) {
@@ -79,7 +83,7 @@ function addBuildingControl(map) {
         container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
   
         const button = document.createElement("button");
-        button.innerHTML = `<img src="buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+        button.innerHTML = `<img src="Media/svgIcons/buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
         button.style.backgroundColor = "#ffffff"; // Default background color
   
         button.addEventListener("click", () => {
@@ -156,6 +160,73 @@ function addBuildingControl(map) {
   
   function removeBuildings(map) {
     map.removeLayer("add-3d-buildings");
+  }
+// creating a customn control for 3D terrrain
+function add3DControl(map) {
+    class ThreeDControl {
+      constructor() {
+        this._button = null;
+        this._is3DActive = false;
+        this._defaultPitch = 0;
+        this._defaultBearing = 0;
+      }
+  
+      onAdd(map) {
+        const tooltipText = "For 3D visualization click here";
+  
+        const div = document.createElement("div");
+        div.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
+  
+        // Create button with tooltip and icon
+        this._button = document.createElement("button");
+        this._button.innerHTML = `<img src="Media/svgIcons/3Dworldicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+        this._button.title = tooltipText;
+  
+        // Add event listener to toggle 3D terrain and adjust pitch and bearing
+        this._button.addEventListener("click", () => {
+          this._is3DActive = !this._is3DActive;
+          if (this._is3DActive) {
+            map.addSource('mapbox-dem', {
+              'type': 'raster-dem',
+              'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+              'tileSize': 512,
+              'maxzoom': 14
+            });
+            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 3.5 });
+            map.easeTo({
+              pitch: 80,
+              bearing: 41,
+              duration: 1000 // Adjust duration as needed
+            });
+            this._button.classList.add("active");
+            this._button.style.backgroundColor = "#007bff"; // Highlight the icon in blue
+          } else {
+            map.removeSource('mapbox-dem');
+            map.setTerrain(null);
+            map.easeTo({
+              pitch: this._defaultPitch,
+              bearing: this._defaultBearing,
+              duration: 1000 // Adjust duration as needed
+            });
+            this._button.classList.remove("active");
+            this._button.style.backgroundColor = "#ffffff"; // Un-highlight the icon
+          }
+        });
+  
+        div.appendChild(this._button);
+  
+        return div;
+      }
+    }
+  
+    const threeDControl = new ThreeDControl();
+    map.addControl(threeDControl, "top-right");
+    
+    // Store default pitch and bearing values
+    map.once('load', () => {
+      threeDControl._defaultPitch = map.getPitch();
+      threeDControl._defaultBearing = map.getBearing();
+    });
   }
 // creating a class for a control of style switcher basemap
 class MapboxStyleSwitcherControl {
@@ -254,82 +325,6 @@ function addAdditionalSourceAndLayer() {
         }
     });
     // Add GeoJSON source from Plastic Waste Geojson
-    //the mangrove-cover-indusdelta layer
-    map.addSource('Mangrove_Cover_indusdelta', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Indus2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'mindusdelta',
-        type: 'raster',
-        source: 'Mangrove_Cover_indusdelta',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-    map.addSource('Mangrove_Cover_sandspit', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Sandspit2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'msandspit',
-        type: 'raster',
-        source: 'Mangrove_Cover_sandspit',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-    map.addSource('Mangrove_Cover_Jiwani', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=jiwani2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'mjiwani',
-        type: 'raster',
-        source: 'Mangrove_Cover_Jiwani',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-    // adding the Mangrove_Cover_kalmatkhor
-    map.addSource('Mangrove_Cover_kalmatkhor', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Kalmat2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
-    map.addLayer({
-        id: 'mkalmatkhor',
-        type: 'raster',
-        source: 'Mangrove_Cover_kalmatkhor',
-        //'paint': { 'raster-opacity': 0.7 },
-        layout: { visibility: 'none' }
-    }, );
-    //adding the Mangrove_Cover_sonmianikhor layer
-    map.addSource('Mangrove_Cover_sonmianikhor', {
-        type: 'raster',
-        // use the tiles option to specify a WMS tile source URL
-        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
-        tiles: [
-            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Sonmiani2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
-        ],
-        tileSize: 256
-    });
     //adding the Tropycal Cyclone Layer
     map.addSource('tsunamilayers', {
         type: 'raster',
@@ -350,7 +345,7 @@ function addAdditionalSourceAndLayer() {
     map.addSource('tropicalcyclonepopulation', {
         type: 'raster',
         tiles: [
-            'https://gis2.ngi.no/arcgistemp/services/EPOS/TsunamiRunupAndExposure/MapServer/WMSServer?service=WMS&request=GetMap&layers=1&version=1.3.0&format=image/png&transparent=true&width=256&height=256&crs=EPSG:3857&bbox={bbox-epsg-3857}'
+            'https://datacore.unepgrid.ch/geoserver/ows?SERVICE=WMS&REQUEST=GetMap&LAYERS=wesr_risk:cy_physexp&version=1.3.0&format=image/png&transparent=true&width=256&height=256&crs=EPSG:3857&bbox={bbox-epsg-3857}'
         ],
         tileSize: 256
     });
@@ -540,7 +535,7 @@ map.on('load', () => {
 map.on('load',() => {
     addHomeButton(map)
     addBuildingControl(map);
-
+    add3DControl(map);
 });
 
 
@@ -551,25 +546,7 @@ map.on('style.load', () => {
 });
 // creating the toggle layer functionalities 
 map.on('idle', async() => {
-    const toggleableLayerIds = ['mindusdelta', 'mjiwani', 'msandspit', 'mkalmatkhor', 'msonmianikhor','tsunamrisk','tcyclonepopulation','tcyclonemortality']; // IDs of layers with checkboxes and sliders
-
-    const layerZoomLocations = {
-        mindusdelta: [24.8607, 67.0011], // Example values for mindusdelta
-        mjiwani: [25.0538, 61.7707], // Example values for mjiwani
-        msandspit: [24.8404, 66.9098], // Example values for msandspit
-        mkalmatkhor: [25.4211, 64.0769], // Example values for mkalmatkhor
-        msonmianikhor: [25.1667, 66.5000], // Example values for msonmianikhor
-        swronemeter: [24.8404, 66.9098], // Example values for swronemeter
-        swrtwometer: [24.8404, 66.9098], // Example values for swrtwometer
-        swrfivemeter: [24.8404, 66.9098], // Example values for swrfivemeter
-        swrtenmeter: [24.8404, 66.9098],
-        salinity2020:[24.860966,66.990501],
-        salinity2021:[24.860966,66.990501],
-        salinewater:[24.860966,66.990501]
-
-        // Example values for msandspit
-    };
-
+    const toggleableLayerIds = ['tsunamrisk','tcyclonepopulation','tcyclonemortality']; // IDs of layers with checkboxes and sliders
     for (const id of toggleableLayerIds) {
         const visibilityCheckbox = document.querySelector(`input[data-layername="${id}"]`);
         const opacitySlider = document.querySelector(`input[data-opacitylayername="${id}"]`);
@@ -585,12 +562,6 @@ map.on('idle', async() => {
             if (map.getLayer(id)) {
                 map.setLayoutProperty(id, 'visibility', visibility);
                 if (visibility === 'visible') {
-                    const [lat, lng] = layerZoomLocations[id];
-                    map.flyTo({
-                        center: [lng, lat],
-                        zoom: 10, // Adjust the zoom level as needed
-                        essential: true // This animation is considered essential with respect to prefers-reduced-motion media query
-                    });
                 }
             }
         });

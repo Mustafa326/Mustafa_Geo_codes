@@ -10,23 +10,97 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
       <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
-      <link rel="stylesheet" href="transitions.css"/>
-      <script src="animateTransition.min.js"></script>
+      <link rel="stylesheet" href="css/transitions.css"/>
+      <script src="js/animateTransition.min.js"></script>
       <!--GeoJson files link-->
       <!-- Linking the Geojson-->
-      <script src="Pakistan_rivers.geojson"></script>
-      <script src="1m_rise.geojson"></script>
-      <script src="2m_rise.geojson"></script>
-      <script src="5m_rise.geojson"></script>
-      <script src="10m_rise.geojson"></script>
-      <script src="distBound.geojson"></script>
-      <link rel="stylesheet" type="text/css" href="coastal_portalcssfinal.css" />
+      <script src="data/Pakistan_rivers.geojson"></script>
+      <script src="data/1m_rise.geojson"></script>
+      <script src="data/2m_rise.geojson"></script>
+      <script src="data/5m_rise.geojson"></script>
+      <script src="data/10m_rise.geojson"></script>
+      <script src="data/distBound.geojson"></script>
+      <link rel="stylesheet" type="text/css" href="css/coastal_portalcssfinal.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      <style>
+         body {
+     background: url('Media/giff/SeaWaterRiseBackgroundgif.gif') no-repeat center center fixed;
+     background-size: cover;
+     background-color: #CFD8DC;
+     /* Fallback color if the GIF is not available or fully loaded */
+     height: 100%;
+     margin: 0;
+     padding: 0;
+     overflow: hidden;
+     /* Disable scrolling */
+   }
+   #main-container-sealevelriseanomalies {
+  position: absolute;
+  top: 76%;
+  left: 1%;
+  width: 36%;
+  height: 19%;
+  background: url('Media/giff/SeaLevelRiseGraphgif.gif') no-repeat center center;
+  background-size: 100% 100%; /* Ensure the GIF covers the entire container without cropping or stretching */
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+}
+   #top-div {
+     padding: 10px;
+     text-align: center;
+     flex-shrink: 0;
+     background: linear-gradient(to right, rgb(60, 255, 0), rgba(255, 0, 0)); /* Color bar transition from light yellow to dark red with 10% transparency */
+     overflow: hidden;
+     /* Ensure contents don't overflow */
+     width: 100%;
+     position: fixed;
+   }
+   #bottom-div {
+     overflow: hidden; /* Ensure contents don't overflow */
+     width: 100%;
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+     height: 5%;
+     background: linear-gradient(to right, rgb(60, 255, 0), rgba(255, 0, 0)); /* Color bar transition from light yellow to dark red with 10% transparency */
+     color: white; /* Set text color to black */
+     font-size: 20px;
+     text-align: center;
+     line-height: 1.5;
+   }
+   
+   #moving-text1 {
+     white-space: nowrap;
+     font-size: 26px;
+     font-weight: bold;
+     color: white; /* Set text color to black */
+     text-shadow: none; /* Remove text shadow */
+     animation: scroll-left 50s linear infinite; /* Adjust animation duration as needed */
+   }
+   .bold-slide {
+     background-color: rgb(255, 0, 0);
+     color: white;
+     padding: 5px;
+     border-radius: 5px;
+   }
+   
+   @keyframes scroll-left {
+      0% {
+       transform: translateX(100%);
+     }
+     100% {
+       transform: translateX(calc(-500% - 100vw));
+     }
+   }
+   
+      </style>
    </head>
    <body>
       <div id="container">
       <!-- Top Div -->
       <div id="top-div">
-         <div id="hello-text">Coastal Hazard Monitoring Portal</div>
+         <div id="hello-text">Coastal Hazard Monitoring Portal: Sea Water Rise</div>
          <div id="ndma-logo">
             <!-- Modified Home button -->
             <button class="btn" onclick="goBack()"><i class="fa fa-home"></i> Home</button>
@@ -34,160 +108,199 @@
       </div>
       <!-- Row Container -->
       <div id="row-container">
-      <!-- Second Row: Map -->
-      <div id="map-container">
-         <div id="map">
-            <!-- First Row: Accordion -->
-            <div id="accordion-container">
-               <div class="accordion overflow-auto" id="accordionExample">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Sea Level Rise
-                       </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                       <div class="accordion-body accordion-scroll">
-                          <details id="EEZ-Marine-Surveillance-accordian" class="emhvras-home-side-bar-accordian">
-                          <summary class="layer-groups-title">
-                            Sea Level Rise Layers
-                          </summary>
-                          <p id="Sea-Water-Rise-accordian-p-tag">
-                            <!--Sea Level Rise 1 Meter-->
-                         <details id="seawaterrise-swronemeter-accordian" class="emhvras-home-side-bar-accordian">
-                            <summary class="layer-title">
-                               Sea Level Rise 1 Meter
-                               <input class="layers-checkbox" type="checkbox" data-layergroup="seawaterrise" data-layertype="layer" data-layername="swronemeter" data-layerlegend="false" data-istempo="true" />
-                            </summary>
-                            <p id="seawaterrise-swronemeter-accordian-p-tag" class="layer-p-tag">
-                            <div class="layer-opacity-slider-div">
-                               <label>Layer opacity: <span id="layer-opacity-slider-value-label-seawaterrise">100%</span></label>
-                               <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="swronemeter" />
-                            </div>
-                            <p id="Sea-Water-Rise-swronemeter-accordian-p-tag" class="layer-p-tag">
-                               <span class="layer-description">
-                               <b>Layer Description:</b><br> Represents the Scenario of 1m rise of sea level
-                               </span><br>
-                         </details>
-                         </p>
-                         <p id="Sea-Water-Rise-accordian-p-tag">
-                          <!--Sea Level Rise 2 Meter-->
-                       <details id="seawaterrise-swrtwometer-accordian" class="emhvras-home-side-bar-accordian">
-                          <summary class="layer-title">
-                             Sea Level Rise 2 Meter
-                             <input class="layers-checkbox" type="checkbox" data-layergroup="seawaterrise" data-layertype="layer" data-layername="swrtwometer" data-layerlegend="false" data-istempo="true" />
-                          </summary>
-                          <p id="seawaterrise-swrtwometer-accordian-p-tag" class="layer-p-tag">
-                          <div class="layer-opacity-slider-div">
-                             <label>Layer opacity: <span id="layer-opacity-slider-value-label-seawaterrise">100%</span></label>
-                             <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="swrtwometer" />
-                          </div>
-                          <p id="Sea-Water-Rise-swrtwometer-accordian-p-tag" class="layer-p-tag">
-                             <span class="layer-description">
-                             <b>Layer Description:</b><br> Represents the Scenario of 2m rise of sea level
-                             </span><br>
-                       </details>
-                       </p>
-                       <p id="Sea-Water-Rise-accordian-p-tag">
-                        <!--Sea Level Rise 5 Meter-->
-                     <details id="seawaterrise-swrfivemeter-accordian" class="emhvras-home-side-bar-accordian">
-                        <summary class="layer-title">
-                           Sea Level Rise 5 Meter
-                           <input class="layers-checkbox" type="checkbox" data-layergroup="seawaterrise" data-layertype="layer" data-layername="swrfivemeter" data-layerlegend="false" data-istempo="true" />
-                        </summary>
-                        <p id="seawaterrise-swrfivemeter-accordian-p-tag" class="layer-p-tag">
-                        <div class="layer-opacity-slider-div">
-                           <label>Layer opacity: <span id="layer-opacity-slider-value-label-seawaterrise">100%</span></label>
-                           <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="swrfivemeter" />
-                        </div>
-                        <p id="Sea-Water-Rise-swrfivemeter-accordian-p-tag" class="layer-p-tag">
-                           <span class="layer-description">
-                           <b>Layer Description:</b><br> Represents the Scenario of 5m rise of sea level
-                           </span><br>
-                     </details>
-                     </p>
-                     <p id="Sea-Water-Rise-accordian-p-tag">
-                      <!--Sea Level Rise 10 Meter-->
-                   <details id="seawaterrise-swrtenmeter-accordian" class="emhvras-home-side-bar-accordian">
+      <!-- First Row: Accordion -->
+      <div id="accordion-container">
+         <div class="accordion overflow-auto" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                  Sea Level Rise
+                 </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                 <div class="accordion-body accordion-scroll">
+                    <details id="EEZ-Marine-Surveillance-accordian" class="accordion-collapse collapse show" open>
+                    <summary class="layer-groups-title">
+                      Sea Level Rise Layers
+                    </summary>
+                    <p id="Sea-Water-Rise-accordian-p-tag">
+                      <!--Sea Level Rise 1 Meter-->
+                   <details id="seawaterrise-swronemeter-accordian" class="emhvras-home-side-bar-accordian">
                       <summary class="layer-title">
-                         Sea Level Rise 10 Meter
-                         <input class="layers-checkbox" type="checkbox" data-layergroup="seawaterrise" data-layertype="layer" data-layername="swrtenmeter" data-layerlegend="false" data-istempo="true" />
+                         Sea Level Rise 1 Meter
+                         <input class="layers-checkbox" type="checkbox" data-layergroup="seawaterrise" data-layertype="layer" data-layername="swronemeter" data-layerlegend="false" data-istempo="true" />
                       </summary>
-                      <p id="seawaterrise-swrtenmeter-accordian-p-tag" class="layer-p-tag">
+                      <p id="seawaterrise-swronemeter-accordian-p-tag" class="layer-p-tag">
                       <div class="layer-opacity-slider-div">
                          <label>Layer opacity: <span id="layer-opacity-slider-value-label-seawaterrise">100%</span></label>
-                         <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="swrtenmeter" />
+                         <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="swronemeter" />
                       </div>
-                      <p id="Sea-Water-Rise-swrtenmeter-accordian-p-tag" class="layer-p-tag">
+                      <p id="Sea-Water-Rise-swronemeter-accordian-p-tag" class="layer-p-tag">
                          <span class="layer-description">
-                         <b>Layer Description:</b><br> Represents the Scenario of 10m rise of sea level
+                         <b>Layer Description:</b><br> Represents the Scenario of 1m rise of sea level
                          </span><br>
                    </details>
                    </p>
-                   <p id="CoastalFloodProjection-accordian-p-tag">
-                     <!--Coastal Flood Projection 50 Years-->
-                  <details id="CoastalFloodProjection-coastalflood-accordian" class="emhvras-home-side-bar-accordian">
-                     <summary class="layer-title">
-                        Coastal Flood Projection 50 Years
-                        <input class="layers-checkbox" type="checkbox" data-layergroup="coastalfloodprojection" data-layertype="layer" data-layername="coastalflood" data-layerlegend="false" data-istempo="true" />
-                     </summary>
-                     <p id="coastalfloodprojection-coastalflood-accordian-p-tag" class="layer-p-tag">
-                     <div class="layer-opacity-slider-div">
-                        <label>Layer opacity: <span id="layer-opacity-slider-value-label-coastalfloodprojection">100%</span></label>
-                        <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="coastalflood" />
-                     </div>
-                     <p id="CoastalFloodProjection-coastalflood-accordian-p-tag" class="layer-p-tag">
-                        <span class="layer-description">
-                        <b>Layer Description:</b><br> The SS-GLOBAL-MUIS-2 dataset presents a significant advancement in the understanding of coastal flood events worldwide. Compiled by Muis et al., this dataset offers the first global reanalysis of storm surges and extreme sea levels based on hydrodynamic modeling techniques.The dataset, known as the Global Tide and Surge Reanalysis (GTSR) dataset, covers the entirety of the world's coastline and provides comprehensive time series data on tides, surges, and estimates of extreme sea levels.
-                        </span><br>
-                        <img src="https://www.geonode-gfdrrlab.org/geoserver/ows?service=WMS&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=hazard%3Ass_muis_rp0100m&style=MUIS_SS" width="45%" />
-                  </details>
-                  </p>
-
-                  <p id="Sea-Level-Rise-Anaomalies-accordian-p-tag">
-                     <!--Sea Level Rise Anaomalies-->
-                  <details id="SeaLevelRiseAnaomalies-sealevelriseanomalies-accordian" class="emhvras-home-side-bar-accordian">
-                     <summary class="layer-title">
-                        Sea Level Rise Anaomalies
-                        <input class="layers-checkbox" type="checkbox" data-layergroup="sealevelriseanaomalies" data-layertype="layer" data-layername="sealevelriseanomalies" data-layerlegend="false" data-istempo="true" />
-                     </summary>
-                     <p id="sealevelriseanaomalies-sealevelriseanomalies-accordian-p-tag" class="layer-p-tag">
-                     <div class="layer-opacity-slider-div">
-                        <label>Layer opacity: <span id="layer-opacity-slider-value-label-sealevelriseanaomalies">100%</span></label>
-                        <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="sealevelriseanomalies" />
-                     </div>
-                     <p id="SeaLevelRiseAnaomalies-sealevelriseanomalies-accordian-p-tag" class="layer-p-tag">
-                        <span class="layer-description">
-                        <b>Layer Description:</b><br> The SS-GLOBAL-MUIS-2 dataset presents a significant advancement in the understanding of coastal flood events worldwide. Compiled by Muis et al., this dataset offers the first global reanalysis of storm surges and extreme sea levels based on hydrodynamic modeling techniques.The dataset, known as the Global Tide and Surge Reanalysis (GTSR) dataset, covers the entirety of the world's coastline and provides comprehensive time series data on tides, surges, and estimates of extreme sea levels.
-                        </span><br>
-                        <img src="Sealevelriseanomalieslegend.png" width="55%" />
-                  </details>
-                  </p>
-                       </div>
+                   <p id="Sea-Water-Rise-accordian-p-tag">
+                    <!--Sea Level Rise 2 Meter-->
+                 <details id="seawaterrise-swrtwometer-accordian" class="emhvras-home-side-bar-accordian">
+                    <summary class="layer-title">
+                       Sea Level Rise 2 Meter
+                       <input class="layers-checkbox" type="checkbox" data-layergroup="seawaterrise" data-layertype="layer" data-layername="swrtwometer" data-layerlegend="false" data-istempo="true" />
+                    </summary>
+                    <p id="seawaterrise-swrtwometer-accordian-p-tag" class="layer-p-tag">
+                    <div class="layer-opacity-slider-div">
+                       <label>Layer opacity: <span id="layer-opacity-slider-value-label-seawaterrise">100%</span></label>
+                       <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="swrtwometer" />
                     </div>
-                 </div>
+                    <p id="Sea-Water-Rise-swrtwometer-accordian-p-tag" class="layer-p-tag">
+                       <span class="layer-description">
+                       <b>Layer Description:</b><br> Represents the Scenario of 2m rise of sea level
+                       </span><br>
+                 </details>
+                 </p>
+                 <p id="Sea-Water-Rise-accordian-p-tag">
+                  <!--Sea Level Rise 5 Meter-->
+               <details id="seawaterrise-swrfivemeter-accordian" class="emhvras-home-side-bar-accordian">
+                  <summary class="layer-title">
+                     Sea Level Rise 5 Meter
+                     <input class="layers-checkbox" type="checkbox" data-layergroup="seawaterrise" data-layertype="layer" data-layername="swrfivemeter" data-layerlegend="false" data-istempo="true" />
+                  </summary>
+                  <p id="seawaterrise-swrfivemeter-accordian-p-tag" class="layer-p-tag">
+                  <div class="layer-opacity-slider-div">
+                     <label>Layer opacity: <span id="layer-opacity-slider-value-label-seawaterrise">100%</span></label>
+                     <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="swrfivemeter" />
+                  </div>
+                  <p id="Sea-Water-Rise-swrfivemeter-accordian-p-tag" class="layer-p-tag">
+                     <span class="layer-description">
+                     <b>Layer Description:</b><br> Represents the Scenario of 5m rise of sea level
+                     </span><br>
+               </details>
+               </p>
+               <p id="Sea-Water-Rise-accordian-p-tag">
+                <!--Sea Level Rise 10 Meter-->
+             <details id="seawaterrise-swrtenmeter-accordian" class="emhvras-home-side-bar-accordian">
+                <summary class="layer-title">
+                   Sea Level Rise 10 Meter
+                   <input class="layers-checkbox" type="checkbox" data-layergroup="seawaterrise" data-layertype="layer" data-layername="swrtenmeter" data-layerlegend="false" data-istempo="true" />
+                </summary>
+                <p id="seawaterrise-swrtenmeter-accordian-p-tag" class="layer-p-tag">
+                <div class="layer-opacity-slider-div">
+                   <label>Layer opacity: <span id="layer-opacity-slider-value-label-seawaterrise">100%</span></label>
+                   <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="swrtenmeter" />
+                </div>
+                <p id="Sea-Water-Rise-swrtenmeter-accordian-p-tag" class="layer-p-tag">
+                   <span class="layer-description">
+                   <b>Layer Description:</b><br> Represents the Scenario of 10m rise of sea level
+                   </span><br>
+             </details>
+             </p>
+             <p id="CoastalFloodProjection-accordian-p-tag">
+               <!--Coastal Flood Projection 50 Years-->
+            <details id="CoastalFloodProjection-coastalflood-accordian" class="emhvras-home-side-bar-accordian">
+               <summary class="layer-title">
+                  Coastal Flood Projection 50 Years
+                  <input class="layers-checkbox" type="checkbox" data-layergroup="coastalfloodprojection" data-layertype="layer" data-layername="coastalflood" data-layerlegend="false" data-istempo="true" />
+               </summary>
+               <p id="coastalfloodprojection-coastalflood-accordian-p-tag" class="layer-p-tag">
+               <div class="layer-opacity-slider-div">
+                  <label>Layer opacity: <span id="layer-opacity-slider-value-label-coastalfloodprojection">100%</span></label>
+                  <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="coastalflood" />
                </div>
-            </div>
+               <p id="CoastalFloodProjection-coastalflood-accordian-p-tag" class="layer-p-tag">
+                  <span class="layer-description">
+                  <b>Layer Description:</b><br> The SS-GLOBAL-MUIS-2 dataset presents a significant advancement in the understanding of coastal flood events worldwide. Compiled by Muis et al., this dataset offers the first global reanalysis of storm surges and extreme sea levels based on hydrodynamic modeling techniques.The dataset, known as the Global Tide and Surge Reanalysis (GTSR) dataset, covers the entirety of the world's coastline and provides comprehensive time series data on tides, surges, and estimates of extreme sea levels.
+                  </span><br>
+                  <img src="https://www.geonode-gfdrrlab.org/geoserver/ows?service=WMS&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=hazard%3Ass_muis_rp0100m&style=MUIS_SS" width="45%" />
+            </details>
+            </p>
+
+            <p id="Sea-Level-Rise-Anaomalies-accordian-p-tag">
+               <!--Sea Level Rise Anaomalies-->
+            <details id="SeaLevelRiseAnaomalies-sealevelriseanomalies-accordian" class="emhvras-home-side-bar-accordian">
+               <summary class="layer-title">
+                  Sea Level Rise Anaomalies
+                  <input class="layers-checkbox" type="checkbox" data-layergroup="sealevelriseanaomalies" data-layertype="layer" data-layername="sealevelriseanomalies" data-layerlegend="false" data-istempo="true" />
+               </summary>
+               <p id="sealevelriseanaomalies-sealevelriseanomalies-accordian-p-tag" class="layer-p-tag">
+               <div class="layer-opacity-slider-div">
+                  <label>Layer opacity: <span id="layer-opacity-slider-value-label-sealevelriseanaomalies">100%</span></label>
+                  <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="sealevelriseanomalies" />
+               </div>
+               <p id="SeaLevelRiseAnaomalies-sealevelriseanomalies-accordian-p-tag" class="layer-p-tag">
+                  <span class="layer-description">
+                  <b>Layer Description:</b><br> The SS-GLOBAL-MUIS-2 dataset presents a significant advancement in the understanding of coastal flood events worldwide. Compiled by Muis et al., this dataset offers the first global reanalysis of storm surges and extreme sea levels based on hydrodynamic modeling techniques.The dataset, known as the Global Tide and Surge Reanalysis (GTSR) dataset, covers the entirety of the world's coastline and provides comprehensive time series data on tides, surges, and estimates of extreme sea levels.
+                  </span><br>
+                  <img src="Media/Legends/Sealevelriseanomalieslegend.png" width="55%" />
+            </details>
+            </p>
+            <p id="Sea-Level-Rise-Anaomalies-accordian-p-tag">
+               <!--Sea Level Rise Simulation-->
+            <details id="SeaLevelRiseAnaomalies-150asimulation-accordian" class="emhvras-home-side-bar-accordian">
+               <summary class="layer-title">
+                  Sea Level Rise Simulation
+                  <input class="layers-checkbox" type="checkbox" data-layergroup="150asimulation" data-layertype="layer" data-layername="150asimulation" data-layerlegend="false" data-istempo="true" />
+               </summary>
+               <p id="sealevelriseanaomalies-150asimulation-accordian-p-tag" class="layer-p-tag">
+                  <hr>
+               <p id="SeaLevelRiseAnaomalies-150asimulation-accordian-p-tag" class="layer-p-tag">
+                  <span class="layer-description">
+                  <b>Layer Description:</b><br> This data set represents the simulation of sea level rise in current scenarios with an estimation of 200 mm/year rise in sea level
+                  </span><br>
+            </details>
+            </p>
+            
+                 </div>
+              </div>
+           </div>
+         </div>
+      </div>
+      <!-- Second Row: Map -->
+      <div id="map-container">
+         <div id="map">
+            <div class="slider-container-sealevelrise">
+               <input id="slider-sealevelrise" class="slider" type="range" min="0" max="5" step="1" value="0">
+               <div id="sealevelrise-playButton">▶️</div>
+               <div id="sealevelrise-removeButton">❌</div>
+               <div id="layerName" class="layer-name"></div>
+           </div>
          </div>
       </div>
       <!-- Third Row: Main Container -->
       <div id="main-container-sealevelriseanomalies">
          <!-- Content of the main container (iframes) goes here -->
          <div class="fullscreen-button-container">
-            <button class="fullscreen-button" onclick="openFullscreen('main-container-sealevelriseanomalies');">Full Screen</button>
+            <button class="fullscreen-button" onclick="openFullscreen('main-container-sealevelriseanomalies');"data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
          </div>
       </div>
       <div id="video-container-sealevelriseanomalies">
+         <div class="fullscreen-button-container">
+            <button class="fullscreen-button" onclick="openFullscreen2('video-container-sealevelriseanomalies');" data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
+        </div>
          <video autoplay muted loop id="myVideo-sealevelriseanomalies">
-            <source src="sea_level_rise_flood_inundation.mp4" type="video/mp4">
+            <source src="Media/videos/sea_level_rise_flood_inundation.mp4" type="video/mp4">
          </video>
       </div>
+      <div id="video-container-sealevelriseanomalies2">
+         <div class="fullscreen-button-container">
+            <button class="fullscreen-button" onclick="openFullscreen3('video-container-sealevelriseanomalies2');" data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
+        </div>
+         <video autoplay muted loop id="myVideo-sealevelriseanomalies2">
+            <source src="Media/videos/thirdvideocontainersealevelrise.mp4" type="video/mp4">
+         </video>
+      </div>
+      <div id="advisory-container" class="container">
+         <button class="flash-button">Advisories</button>
+         <img src="Media/Images/sealevelrise_runnin1.png" alt="Image 1">
+         <img src="Media/Images/sealevelrise_runnin2.png" alt="Image 2">
+         <img src="Media/Images/sealevelrise_runnin3.png" alt="Image 1">
+         <img src="Media/Images/sealevelrise_runnin4.png" alt="Image 2">
+       </div>
+     </div>
       <!-- Bottom Div -->
       <div id="bottom-div">
          <div id="moving-text1">
-            <span class="bold-slide">Coastal Hazard Monitoring  🌊 :-</span> Pakistan's coastal hazard monitoring is a comprehensive initiative aimed at assessing and mitigating potential risks along its coastal areas. With a diverse coastline
-            along the Arabian Sea, stretching over 1,000 kilometers, the country faces various hazards such as cyclones, storm surges, and sea-level rise. The monitoring system integrates advanced technologies, satellite imagery, and on-ground
-            observations to track and analyze coastal dynamics.
+            <span class="bold-slide">Coastal Hazard Monitoring: Sea Water Rise  🌊 :-</span> Sea level rise is an increase in the level of the world's oceans due to the effects of global warming.The rising water level is mostly due to a combination of melt water from glaciers and ice sheets and thermal expansion of seawater as it warms. In 2022, global mean sea level was 101.2 millimeters (4 inches) above 1993 levels, making it the highest annual average in the satellite record (1993-present).Between 1901 and 2018, average global sea level rose by 15–25 cm, an average of 1–2 mm per year. This rate accelerated to 4.62 mm /yr for the decade 2013–2022. Climate change due to human activities is the main cause. Between 1993 and 2018, thermal expansion of water accounted for 42% of sea level rise.
          </div>
       </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -197,6 +310,6 @@
       <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
       <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
       <script src="https://cdn.maptiler.com/maptiler-weather/v1.1.0/maptiler-weather.umd.min.js"></script>
-      <script src="CoastalPortalSeaLevelRiseJS.js"></script>
+      <script src="js/CoastalPortalSeaLevelRiseJS.js"></script>
    </body>
 </html>

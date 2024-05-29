@@ -1,11 +1,4 @@
-// Function to go back to the previous page
-function goBack() {
-    window.history.back();
- }
- var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+
 function openFullscreen(containerId) {
     var elem = document.getElementById(containerId);
     if (elem.requestFullscreen) {
@@ -25,26 +18,6 @@ function openFullscreen(containerId) {
         iframeContainer.msRequestFullscreen();
     }
 }
-function openFullscreen2(containerId) {
-    var elem = document.getElementById(containerId);
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
-    }
-}
-function openFullscreen3(containerId) {
-    var elem = document.getElementById(containerId);
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
-    }
-}
 var bounds = [
     [60.872, 23.634],
     [77.837, 36.962]
@@ -59,7 +32,7 @@ const map = new mapboxgl.Map({
     center: initialCoordinate,
     pitch: 0,
     bearing: 0,
-    style: "mapbox://styles/mapbox/outdoors-v12",
+    style: "mapbox://styles/mapbox/streets-v12",
 });
 // Define the adjusted coordinates based on the bounding box
 const southwest = [21.739091, 57.216797];
@@ -108,12 +81,6 @@ function styleFeature(feature) {
         }
     };
 }
-
-// Create the GeoJSON data with styled features
-var styledFeatures = {
-    type: 'FeatureCollection',
-    features: coastallitter.features.map(styleFeature)
-};
 // Creating a control for home
 const homePosition = {
     center: [69.3451, 30.3753],
@@ -148,7 +115,7 @@ function addBuildingControl(map) {
         container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
   
         const button = document.createElement("button");
-        button.innerHTML = `<img src="Media/svgIcons/buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+        button.innerHTML = `<img src="buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
         button.style.backgroundColor = "#ffffff"; // Default background color
   
         button.addEventListener("click", () => {
@@ -226,73 +193,7 @@ function addBuildingControl(map) {
   function removeBuildings(map) {
     map.removeLayer("add-3d-buildings");
   }
-// creating a customn control for 3D terrrain
-function add3DControl(map) {
-    class ThreeDControl {
-      constructor() {
-        this._button = null;
-        this._is3DActive = false;
-        this._defaultPitch = 0;
-        this._defaultBearing = 0;
-      }
   
-      onAdd(map) {
-        const tooltipText = "For 3D visualization click here";
-  
-        const div = document.createElement("div");
-        div.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
-  
-        // Create button with tooltip and icon
-        this._button = document.createElement("button");
-        this._button.innerHTML = `<img src="Media/svgIcons/3Dworldicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
-        this._button.title = tooltipText;
-  
-        // Add event listener to toggle 3D terrain and adjust pitch and bearing
-        this._button.addEventListener("click", () => {
-          this._is3DActive = !this._is3DActive;
-          if (this._is3DActive) {
-            map.addSource('mapbox-dem', {
-              'type': 'raster-dem',
-              'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-              'tileSize': 512,
-              'maxzoom': 14
-            });
-            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 3.5 });
-            map.easeTo({
-              pitch: 80,
-              bearing: 41,
-              duration: 1000 // Adjust duration as needed
-            });
-            this._button.classList.add("active");
-            this._button.style.backgroundColor = "#007bff"; // Highlight the icon in blue
-          } else {
-            map.removeSource('mapbox-dem');
-            map.setTerrain(null);
-            map.easeTo({
-              pitch: this._defaultPitch,
-              bearing: this._defaultBearing,
-              duration: 1000 // Adjust duration as needed
-            });
-            this._button.classList.remove("active");
-            this._button.style.backgroundColor = "#ffffff"; // Un-highlight the icon
-          }
-        });
-  
-        div.appendChild(this._button);
-  
-        return div;
-      }
-    }
-  
-    const threeDControl = new ThreeDControl();
-    map.addControl(threeDControl, "top-right");
-    
-    // Store default pitch and bearing values
-    map.once('load', () => {
-      threeDControl._defaultPitch = map.getPitch();
-      threeDControl._defaultBearing = map.getBearing();
-    });
-  }
 // creating a class for a control of style switcher basemap
 class MapboxStyleSwitcherControl {
     constructor(styles) {
@@ -352,19 +253,23 @@ class MapboxStyleSwitcherControl {
 }
 MapboxStyleSwitcherControl.DEFAULT_STYLE = "Streets";
 MapboxStyleSwitcherControl.DEFAULT_STYLES = [
-    { title: "Dark", uri: "mapbox://styles/mapbox/dark-v11" },
-    { title: "Light", uri: "mapbox://styles/mapbox/light-v11" },
-    { title: "Outdoors", uri: "mapbox://styles/mapbox/outdoors-v12" },
-    { title: "Satellite", uri: "mapbox://styles/mapbox/satellite-streets-v12" },
+    { title: "Dark", uri: "mapbox://styles/mapbox/dark-v9" },
+    { title: "Light", uri: "mapbox://styles/mapbox/light-v9" },
+    { title: "Outdoors", uri: "mapbox://styles/mapbox/outdoors-v10" },
+    { title: "Satellite", uri: "mapbox://styles/mapbox/satellite-streets-v10" },
     { title: "Streets", uri: "mapbox://styles/mapbox/streets-v10" }
 ];
+// Create the GeoJSON data with styled features
+var styledFeatures = {
+    type: 'FeatureCollection',
+    features: coastallitter.features.map(styleFeature)
+};
 // creating a function to load the layers even if styles are changed 
 function addAdditionalSourceAndLayer() {
-    //adding the District data set
     map.addSource('pakdistricts', {
-        type: 'geojson',
-        data: district
-    });
+    type: 'geojson',
+    data: district
+});
     map.addLayer({
         'id': 'pakdistricts-layer',
         'type': 'fill',
@@ -497,8 +402,359 @@ function addAdditionalSourceAndLayer() {
         },
         'layout': { 'visibility': 'none' }
     });
+    // Define the video source
+    //the mangrove-cover-indusdelta layer
+    map.addSource('Mangrove_Cover_indusdelta', {
+        type: 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        tiles: [
+            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Indus2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'mindusdelta',
+        type: 'raster',
+        source: 'Mangrove_Cover_indusdelta',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    map.addSource('Mangrove_Cover_sandspit', {
+        type: 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        tiles: [
+            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Sandspit2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'msandspit',
+        type: 'raster',
+        source: 'Mangrove_Cover_sandspit',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    map.addSource('Mangrove_Cover_Jiwani', {
+        type: 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        tiles: [
+            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=jiwani2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'mjiwani',
+        type: 'raster',
+        source: 'Mangrove_Cover_Jiwani',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    // adding the Mangrove_Cover_kalmatkhor
+    map.addSource('Mangrove_Cover_kalmatkhor', {
+        type: 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        tiles: [
+            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Kalmat2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'mkalmatkhor',
+        type: 'raster',
+        source: 'Mangrove_Cover_kalmatkhor',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the Mangrove_Cover_sonmianikhor layer
+    map.addSource('Mangrove_Cover_sonmianikhor', {
+        type: 'raster',
+        // use the tiles option to specify a WMS tile source URL
+        // https://docs.mapbox.comhttps://docs.mapbox.com/style-spec/reference/sources/
+        tiles: [
+            'http://172.18.1.4:8080/geoserver/Mustafa_Coastal_Mangrooves/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX={bbox-epsg-3857}&CRS=EPSG:3857&WIDTH=1439&HEIGHT=602&LAYERS=Sonmiani2020mmu&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'msonmianikhor',
+        type: 'raster',
+        source: 'Mangrove_Cover_sonmianikhor',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the Sea Surface Temperature Monthly Day Layer
+    map.addSource('seasurfacetemp_sstmonthday', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=MODIS_Aqua_L3_SST_Thermal_4km_Day_Monthly&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'sstmonthday',
+        type: 'raster',
+        source: 'seasurfacetemp_sstmonthday',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the Sea Surface Temperature Monthly Night Layer
+    map.addSource('seasurfacetemp_sstmonthnight', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=MODIS_Aqua_L3_SST_Thermal_4km_Night_Monthly&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'sstmonthnight',
+        type: 'raster',
+        source: 'seasurfacetemp_sstmonthnight',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the Sea Surface Temperature Anomalies Layer
+    map.addSource('seasurfacetemp_sstanomalies', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=GHRSST_L4_MUR_Sea_Surface_Temperature_Anomalies&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'sstanomalies',
+        type: 'raster',
+        source: 'seasurfacetemp_sstanomalies',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the Sea Level Rise Scenario 1m Layer
+    map.addSource('onemSource', {
+        type: 'geojson',
+        data: onem
+    });
+    // Add the layer with style defined within paint property
+    map.addLayer({
+        id: 'swronemeter',
+        type: 'fill',
+        source: 'onemSource',
+        paint: {
+            "fill-color": "#ff4000", // Hollow fill color
+            "fill-opacity": 0.4,     // Opacity of fill
+            "line-color": "brown",   // Red boundary color
+            "line-width": 1          // Border width
+        },layout: { visibility: 'none' }
+    });
+    //adding the Sea Level Rise Scenario 2m Layer
+    map.addSource('twomSource', {
+        type: 'geojson',
+        data: twom
+    });
+    // Add the layer with style defined within paint property
+    map.addLayer({
+        id: 'swrtwometer',
+        type: 'fill',
+        source: 'twomSource',
+        paint: {
+            "fill-color": "#bf00ff", // Hollow fill color
+            "fill-opacity": 0.4,     // Opacity of fill
+            "line-color": "purple",   // Red boundary color
+            "line-width": 1          // Border width
+        },layout: { visibility: 'none' }
+    });
+    //adding the Sea Level Rise Scenario 5m Layer
+    map.addSource('fivemSource', {
+        type: 'geojson',
+        data: fivem
+    });
+    // Add the layer with style defined within paint property
+    map.addLayer({
+        id: 'swrfivemeter',
+        type: 'fill',
+        source: 'fivemSource',
+        paint: {
+            "fill-color": "#ff8000", // Hollow fill color
+            "fill-opacity": 0.4,     // Opacity of fill
+            "line-color": "orange",   // Red boundary color
+            "line-width": 1          // Border width
+        },layout: { visibility: 'none' }
+    });
+    //adding the Sea Level Rise Scenario 10m Layer
+    map.addSource('tenmSource', {
+        type: 'geojson',
+        data: tenm
+    });
+    // Add the layer with style defined within paint property
+    map.addLayer({
+        id: 'swrtenmeter',
+        type: 'fill',
+        source: 'tenmSource',
+        paint: {
+            "fill-color": "#ff0080", // Hollow fill color
+            "fill-opacity": 0.4,     // Opacity of fill
+            "line-color": "red",   // Red boundary color
+            "line-width": 1          // Border width
+        },layout: { visibility: 'none' }
+    });
+    //adding the Coastal Flood Projection Layer
+    map.addSource('CoastalFloodProjection', {
+        type: 'raster',
+        tiles: [
+            'https://www.geonode-gfdrrlab.org/geoserver/ows?SERVICE=WMS&REQUEST=GetMap&LAYERS=hazard:ss_muis_rp0100m&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'coastalflood',
+        type: 'raster',
+        source: 'CoastalFloodProjection',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the sea level rise layer
+    map.addSource('SeaLevelRiseAnaomalies', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=TOPEX-Poseidon_JASON_Sea_Surface_Height_Anomalies_GDR_Cycles&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'sealevelriseanomalies',
+        type: 'raster',
+        source: 'SeaLevelRiseAnaomalies',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+
+    //adding the sea surface salinity layer 2020
+    map.addSource('SalinityIndex2020', {
+        type: 'raster',
+        tiles: [
+            'http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms?SERVICE=WMS&REQUEST=GetMap&LAYERS=2020&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'salinity2020',
+        type: 'raster',
+        source: 'SalinityIndex2020',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the sea surface salinity layer 2021
+    map.addSource('SalinityIndex2021', {
+        type: 'raster',
+        tiles: [
+            'http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms?SERVICE=WMS&REQUEST=GetMap&LAYERS=Mosaic21-Salinity&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'salinity2021',
+        type: 'raster',
+        source: 'SalinityIndex2021',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the sea surface salinity layer Nasa gibs monthly
+    map.addSource('SeaSurfaceSalinityMonthly', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=SMAP_L3_Sea_Surface_Salinity_REMSS_Monthly&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'seasalmonthly',
+        type: 'raster',
+        source: 'SeaSurfaceSalinityMonthly',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the sea surface salinity layer Nasa gibs daily
+    map.addSource('SeaSurfaceSalinityDaily', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=SMAP_L3_Sea_Surface_Salinity_REMSS_8Day_RunningMean&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'seasaldaily',
+        type: 'raster',
+        source: 'SeaSurfaceSalinityDaily',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the saline water intrusion
+    map.addSource('salineWaterintrusion', {
+        type: 'raster',
+        tiles: [
+            'http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms?SERVICE=WMS&REQUEST=GetMap&LAYERS=saline_tarces&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'salinewater',
+        type: 'raster',
+        source: 'salineWaterintrusion',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the Tropycal Cyclone Layer
+    map.addSource('cyclonelayers', {
+        type: 'raster',
+        tiles: [
+            'https://datacore.unepgrid.ch/geoserver/ows?SERVICE=WMS&REQUEST=GetMap&LAYERS=wesr_risk:cy_hazard_50_yrp&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'tcyclone50',
+        type: 'raster',
+        source: 'cyclonelayers',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+
+    //adding the Tropycal Cyclone Layer population explosure tropicalcyclonepopulation
+    map.addSource('tropicalcyclonepopulation', {
+        type: 'raster',
+        tiles: [
+            'https://datacore.unepgrid.ch/geoserver/ows?SERVICE=WMS&REQUEST=GetMap&LAYERS=wesr_risk:cy_physexp&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'tcyclonepopulation',
+        type: 'raster',
+        source: 'tropicalcyclonepopulation',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+
+    //adding the Tropycal Cyclone Layer mortality 
+    map.addSource('TropicalCyclonesMortality', {
+        type: 'raster',
+        tiles: [
+            'https://datacore.unepgrid.ch/geoserver/ows?SERVICE=WMS&REQUEST=GetMap&LAYERS=wesr_risk:cy_risk&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'tcyclonemortality',
+        type: 'raster',
+        source: 'TropicalCyclonesMortality',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
 }
-/* Adding the layers through map.onload which is not needed if basemap switcher tool is used
+// adding the layers and sources (do not need when the layer swithing control is added)
+/*
 map.on('load', () => {
     //adding the District data set
     map.addSource('pakdistricts', {
@@ -721,23 +977,306 @@ map.on('load', () => {
         //'paint': { 'raster-opacity': 0.7 },
         layout: { visibility: 'none' }
     }, );
+    //adding the Sea Surface Temperature Monthly Day Layer
+    map.addSource('seasurfacetemp_sstmonthday', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=MODIS_Aqua_L3_SST_Thermal_4km_Day_Monthly&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'sstmonthday',
+        type: 'raster',
+        source: 'seasurfacetemp_sstmonthday',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the Sea Surface Temperature Monthly Night Layer
+    map.addSource('seasurfacetemp_sstmonthnight', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=MODIS_Aqua_L3_SST_Thermal_4km_Night_Monthly&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'sstmonthnight',
+        type: 'raster',
+        source: 'seasurfacetemp_sstmonthnight',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the Sea Surface Temperature Anomalies Layer
+    map.addSource('seasurfacetemp_sstanomalies', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=GHRSST_L4_MUR_Sea_Surface_Temperature_Anomalies&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'sstanomalies',
+        type: 'raster',
+        source: 'seasurfacetemp_sstanomalies',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the Sea Level Rise Scenario 1m Layer
+    map.addSource('onemSource', {
+        type: 'geojson',
+        data: onem
+    });
+    // Add the layer with style defined within paint property
+    map.addLayer({
+        id: 'swronemeter',
+        type: 'fill',
+        source: 'onemSource',
+        paint: {
+            "fill-color": "#ff4000", // Hollow fill color
+            "fill-opacity": 0.4,     // Opacity of fill
+            "line-color": "brown",   // Red boundary color
+            "line-width": 1          // Border width
+        },layout: { visibility: 'none' }
+    });
+    //adding the Sea Level Rise Scenario 2m Layer
+    map.addSource('twomSource', {
+        type: 'geojson',
+        data: twom
+    });
+    // Add the layer with style defined within paint property
+    map.addLayer({
+        id: 'swrtwometer',
+        type: 'fill',
+        source: 'twomSource',
+        paint: {
+            "fill-color": "#bf00ff", // Hollow fill color
+            "fill-opacity": 0.4,     // Opacity of fill
+            "line-color": "purple",   // Red boundary color
+            "line-width": 1          // Border width
+        },layout: { visibility: 'none' }
+    });
+    //adding the Sea Level Rise Scenario 5m Layer
+    map.addSource('fivemSource', {
+        type: 'geojson',
+        data: fivem
+    });
+    // Add the layer with style defined within paint property
+    map.addLayer({
+        id: 'swrfivemeter',
+        type: 'fill',
+        source: 'fivemSource',
+        paint: {
+            "fill-color": "#ff8000", // Hollow fill color
+            "fill-opacity": 0.4,     // Opacity of fill
+            "line-color": "orange",   // Red boundary color
+            "line-width": 1          // Border width
+        },layout: { visibility: 'none' }
+    });
+    //adding the Sea Level Rise Scenario 10m Layer
+    map.addSource('tenmSource', {
+        type: 'geojson',
+        data: tenm
+    });
+    // Add the layer with style defined within paint property
+    map.addLayer({
+        id: 'swrtenmeter',
+        type: 'fill',
+        source: 'tenmSource',
+        paint: {
+            "fill-color": "#ff0080", // Hollow fill color
+            "fill-opacity": 0.4,     // Opacity of fill
+            "line-color": "red",   // Red boundary color
+            "line-width": 1          // Border width
+        },layout: { visibility: 'none' }
+    });
+    //adding the Coastal Flood Projection Layer
+    map.addSource('CoastalFloodProjection', {
+        type: 'raster',
+        tiles: [
+            'https://www.geonode-gfdrrlab.org/geoserver/ows?SERVICE=WMS&REQUEST=GetMap&LAYERS=hazard:ss_muis_rp0100m&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'coastalflood',
+        type: 'raster',
+        source: 'CoastalFloodProjection',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+     //adding the sea level rise layer
+     map.addSource('SeaLevelRiseAnaomalies', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=TOPEX-Poseidon_JASON_Sea_Surface_Height_Anomalies_GDR_Cycles&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'sealevelriseanomalies',
+        type: 'raster',
+        source: 'SeaLevelRiseAnaomalies',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+
+    //adding the sea surface salinity layer 2020
+    map.addSource('SalinityIndex2020', {
+        type: 'raster',
+        tiles: [
+            'http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms?SERVICE=WMS&REQUEST=GetMap&LAYERS=2020&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'salinity2020',
+        type: 'raster',
+        source: 'SalinityIndex2020',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the sea surface salinity layer 2021
+    map.addSource('SalinityIndex2021', {
+        type: 'raster',
+        tiles: [
+            'http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms?SERVICE=WMS&REQUEST=GetMap&LAYERS=Mosaic21-Salinity&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'salinity2021',
+        type: 'raster',
+        source: 'SalinityIndex2021',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the sea surface salinity layer Nasa gibs monthly
+    map.addSource('SeaSurfaceSalinityMonthly', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=SMAP_L3_Sea_Surface_Salinity_REMSS_Monthly&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'seasalmonthly',
+        type: 'raster',
+        source: 'SeaSurfaceSalinityMonthly',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the sea surface salinity layer Nasa gibs daily
+    map.addSource('SeaSurfaceSalinityDaily', {
+        type: 'raster',
+        tiles: [
+            'https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&LAYERS=SMAP_L3_Sea_Surface_Salinity_REMSS_8Day_RunningMean&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'seasaldaily',
+        type: 'raster',
+        source: 'SeaSurfaceSalinityDaily',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the saline water intrusion
+    map.addSource('salineWaterintrusion', {
+        type: 'raster',
+        tiles: [
+            'http://172.18.1.4:8080/geoserver/NDMA-costal-rasters/wms?SERVICE=WMS&REQUEST=GetMap&LAYERS=saline_tarces&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'salinewater',
+        type: 'raster',
+        source: 'salineWaterintrusion',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    //adding the Tropycal Cyclone Layer
+    map.addSource('cyclonelayers', {
+        type: 'raster',
+        tiles: [
+            'https://datacore.unepgrid.ch/geoserver/ows?SERVICE=WMS&REQUEST=GetMap&LAYERS=wesr_risk:cy_hazard_50_yrp&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'tcyclone50',
+        type: 'raster',
+        source: 'cyclonelayers',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+
+    //adding the Tropycal Cyclone Layer population explosure tropicalcyclonepopulation
+    map.addSource('tropicalcyclonepopulation', {
+        type: 'raster',
+        tiles: [
+            'https://datacore.unepgrid.ch/geoserver/ows?SERVICE=WMS&REQUEST=GetMap&LAYERS=wesr_risk:cy_physexp&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'tcyclonepopulation',
+        type: 'raster',
+        source: 'tropicalcyclonepopulation',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+
+    //adding the Tropycal Cyclone Layer mortality 
+    map.addSource('TropicalCyclonesMortality', {
+        type: 'raster',
+        tiles: [
+            'https://datacore.unepgrid.ch/geoserver/ows?SERVICE=WMS&REQUEST=GetMap&LAYERS=wesr_risk:cy_risk&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: 'tcyclonemortality',
+        type: 'raster',
+        source: 'TropicalCyclonesMortality',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
 });
 */
-// creating a map on load for customn controls 
+
 map.on('load',() => {
-    addHomeButton(map);
+    addHomeButton(map)
     addBuildingControl(map);
-    add3DControl(map);
 
 });
 //adding styles onto map
 map.on('style.load', () => {
-    addAdditionalSourceAndLayer()
+    addAdditionalSourceAndLayer();
     map.setFog({}); // Set the default atmosphere style
 });
 // creating the toggle layer functionalities 
 map.on('idle', async() => {
-    const toggleableLayerIds = ['plasticwgeneration', 'misplasticwaste', 'misplasticwasteocean', 'propplasticocean', 'marinemicroemicnoc', 'marineplastictracker']; // IDs of layers with checkboxes and sliders
+    const toggleableLayerIds = ['mindusdelta', 'mjiwani', 'msandspit', 'mkalmatkhor', 'msonmianikhor', 'sstmonthday', 'sstmonthnight', 'sstanomalies', 'plasticwgeneration', 'misplasticwaste', 'misplasticwasteocean', 'propplasticocean', 'marinemicroemicnoc', 'marineplastictracker','marinesurveillance','swronemeter','swrtwometer','swrfivemeter','swrtenmeter','coastalflood','sealevelriseanomalies','salinewater','seasaldaily','seasalmonthly','salinity2021','salinity2020','tcyclone50','tcyclonepopulation','tcyclonemortality']; // IDs of layers with checkboxes and sliders
+
+    const layerZoomLocations = {
+        mindusdelta: [24.8607, 67.0011], // Example values for mindusdelta
+        mjiwani: [25.0538, 61.7707], // Example values for mjiwani
+        msandspit: [24.8404, 66.9098], // Example values for msandspit
+        mkalmatkhor: [25.4211, 64.0769], // Example values for mkalmatkhor
+        msonmianikhor: [25.1667, 66.5000], // Example values for msonmianikhor
+        swronemeter: [24.8404, 66.9098], // Example values for swronemeter
+        swrtwometer: [24.8404, 66.9098], // Example values for swrtwometer
+        swrfivemeter: [24.8404, 66.9098], // Example values for swrfivemeter
+        swrtenmeter: [24.8404, 66.9098],
+        salinity2020:[24.860966,66.990501],
+        salinity2021:[24.860966,66.990501],
+        salinewater:[24.860966,66.990501]
+
+        // Example values for msandspit
+    };
+
     for (const id of toggleableLayerIds) {
         const visibilityCheckbox = document.querySelector(`input[data-layername="${id}"]`);
         const opacitySlider = document.querySelector(`input[data-opacitylayername="${id}"]`);
@@ -753,6 +1292,12 @@ map.on('idle', async() => {
             if (map.getLayer(id)) {
                 map.setLayoutProperty(id, 'visibility', visibility);
                 if (visibility === 'visible') {
+                    const [lat, lng] = layerZoomLocations[id];
+                    map.flyTo({
+                        center: [lng, lat],
+                        zoom: 10, // Adjust the zoom level as needed
+                        essential: true // This animation is considered essential with respect to prefers-reduced-motion media query
+                    });
                 }
             }
         });
@@ -767,12 +1312,37 @@ map.on('idle', async() => {
         });
     }
 });
+// for iframe mangrove watch
 document.addEventListener('DOMContentLoaded', function() {
-    const mangroveWatchCheckbox = document.querySelector('input[data-layername="marinesurveillance"]');
-    const mainContainer = document.getElementById('main-container-PlasticWaste');
-    let iframeEezMarineSurveillance; // Declare iframe variable outside event listener
+    const mangroveWatchCheckbox = document.querySelector('input[data-layername="mwatch"]');
+    const mainContainer = document.getElementById('main-container');
+    let iframeMangroveWatch; // Declare iframe variable outside event listener
 
     mangroveWatchCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            // If checkbox is checked, show the iframe
+            iframeMangroveWatch = document.createElement('iframe');
+            iframeMangroveWatch.src = "https://www.globalmangrovewatch.org/country/PAK?bounds=[[4.076083885254093,13.17872774821977],[126.38415324199758,57.87126016158558]]&basemap=%22light%22";
+            iframeMangroveWatch.style.width = '100%';
+            iframeMangroveWatch.style.height = '100%';
+            iframeMangroveWatch.style.border = 'none';
+
+            mainContainer.appendChild(iframeMangroveWatch);
+        } else {
+            // If checkbox is unchecked, remove the iframe
+            if (iframeMangroveWatch) {
+                iframeMangroveWatch.remove();
+            }
+        }
+    });
+});
+// for iframe global fishing watch
+document.addEventListener('DOMContentLoaded', function() {
+    const EEZWatchCheckbox = document.querySelector('input[data-layername="marinesurveillance"]');
+    const mainContainer = document.getElementById('main-container');
+    let iframeEezMarineSurveillance; // Declare iframe variable outside event listener
+
+    EEZWatchCheckbox.addEventListener('change', function() {
         if (this.checked) {
             // If checkbox is checked, show the iframe
             iframeEezMarineSurveillance = document.createElement('iframe');
@@ -853,7 +1423,7 @@ function resetInfoControl() {
 }
 //adding the controls onto the map
 map.addControl(new mapboxgl.FullscreenControl());
-map.addControl(new MapboxStyleSwitcherControl());
 const nav = new mapboxgl.NavigationControl();
 map.addControl(nav, 'top-right');
 map.addControl(new mapboxgl.ScaleControl());
+map.addControl(new MapboxStyleSwitcherControl());

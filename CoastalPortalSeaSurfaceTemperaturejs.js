@@ -2,6 +2,10 @@
 function goBack() {
     window.history.back();
  }
+ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 function openFullscreen(containerId) {
     var elem = document.getElementById(containerId);
     if (elem.requestFullscreen) {
@@ -79,7 +83,7 @@ function addBuildingControl(map) {
         container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
   
         const button = document.createElement("button");
-        button.innerHTML = `<img src="buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+        button.innerHTML = `<img src="Media/svgIcons/buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
         button.style.backgroundColor = "#ffffff"; // Default background color
   
         button.addEventListener("click", () => {
@@ -157,7 +161,73 @@ function addBuildingControl(map) {
   function removeBuildings(map) {
     map.removeLayer("add-3d-buildings");
   }
+// creating a customn control for 3D terrrain
+function add3DControl(map) {
+    class ThreeDControl {
+      constructor() {
+        this._button = null;
+        this._is3DActive = false;
+        this._defaultPitch = 0;
+        this._defaultBearing = 0;
+      }
   
+      onAdd(map) {
+        const tooltipText = "For 3D visualization click here";
+  
+        const div = document.createElement("div");
+        div.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
+  
+        // Create button with tooltip and icon
+        this._button = document.createElement("button");
+        this._button.innerHTML = `<img src="Media/svgIcons/3Dworldicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+        this._button.title = tooltipText;
+  
+        // Add event listener to toggle 3D terrain and adjust pitch and bearing
+        this._button.addEventListener("click", () => {
+          this._is3DActive = !this._is3DActive;
+          if (this._is3DActive) {
+            map.addSource('mapbox-dem', {
+              'type': 'raster-dem',
+              'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+              'tileSize': 512,
+              'maxzoom': 14
+            });
+            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 3.5 });
+            map.easeTo({
+              pitch: 80,
+              bearing: 41,
+              duration: 1000 // Adjust duration as needed
+            });
+            this._button.classList.add("active");
+            this._button.style.backgroundColor = "#007bff"; // Highlight the icon in blue
+          } else {
+            map.removeSource('mapbox-dem');
+            map.setTerrain(null);
+            map.easeTo({
+              pitch: this._defaultPitch,
+              bearing: this._defaultBearing,
+              duration: 1000 // Adjust duration as needed
+            });
+            this._button.classList.remove("active");
+            this._button.style.backgroundColor = "#ffffff"; // Un-highlight the icon
+          }
+        });
+  
+        div.appendChild(this._button);
+  
+        return div;
+      }
+    }
+  
+    const threeDControl = new ThreeDControl();
+    map.addControl(threeDControl, "top-right");
+    
+    // Store default pitch and bearing values
+    map.once('load', () => {
+      threeDControl._defaultPitch = map.getPitch();
+      threeDControl._defaultBearing = map.getBearing();
+    });
+  }
 // creating a class for a control of style switcher basemap
 class MapboxStyleSwitcherControl {
     constructor(styles) {
@@ -546,8 +616,9 @@ map.on('load', () => {
 */
 // creating a map on load for customn controls 
 map.on('load',() => {
-    addHomeButton(map)
+    addHomeButton(map);
     addBuildingControl(map);
+    add3DControl(map);
 
 });
 //adding styles onto map

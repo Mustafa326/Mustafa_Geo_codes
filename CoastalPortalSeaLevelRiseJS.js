@@ -1,7 +1,29 @@
+document.addEventListener("DOMContentLoaded", function() {
+    // Get all accordion items
+    const accordionItems = document.querySelectorAll(".accordion-item");
+  
+    // Add "expanded" class to each accordion item
+    accordionItems.forEach(function(item) {
+      item.classList.add("expanded");
+    });
+  
+    // Get all accordion bodies
+    const accordionBodies = document.querySelectorAll(".accordion-body");
+  
+    // Add "expanded" class to each accordion body
+    accordionBodies.forEach(function(body) {
+      body.classList.add("expanded");
+    });
+  });
 // Function to go back to the previous page
+
 function goBack() {
     window.history.back();
  }
+ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 function openFullscreen(containerId) {
     var elem = document.getElementById(containerId);
     if (elem.requestFullscreen) {
@@ -19,6 +41,26 @@ function openFullscreen(containerId) {
         iframeContainer.webkitRequestFullscreen();
     } else if (iframe && iframeContainer.msRequestFullscreen) { /* IE11 */
         iframeContainer.msRequestFullscreen();
+    }
+}
+function openFullscreen2(containerId) {
+    var elem = document.getElementById(containerId);
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
+function openFullscreen3(containerId) {
+    var elem = document.getElementById(containerId);
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
     }
 }
 var bounds = [
@@ -79,7 +121,7 @@ function addBuildingControl(map) {
         container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
   
         const button = document.createElement("button");
-        button.innerHTML = `<img src="buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+        button.innerHTML = `<img src="Media/svgIcons/buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
         button.style.backgroundColor = "#ffffff"; // Default background color
   
         button.addEventListener("click", () => {
@@ -156,6 +198,73 @@ function addBuildingControl(map) {
   
   function removeBuildings(map) {
     map.removeLayer("add-3d-buildings");
+  }
+// creating a customn control for 3D terrrain
+function add3DControl(map) {
+    class ThreeDControl {
+      constructor() {
+        this._button = null;
+        this._is3DActive = false;
+        this._defaultPitch = 0;
+        this._defaultBearing = 0;
+      }
+  
+      onAdd(map) {
+        const tooltipText = "For 3D visualization click here";
+  
+        const div = document.createElement("div");
+        div.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
+  
+        // Create button with tooltip and icon
+        this._button = document.createElement("button");
+        this._button.innerHTML = `<img src="Media/svgIcons/3Dworldicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+        this._button.title = tooltipText;
+  
+        // Add event listener to toggle 3D terrain and adjust pitch and bearing
+        this._button.addEventListener("click", () => {
+          this._is3DActive = !this._is3DActive;
+          if (this._is3DActive) {
+            map.addSource('mapbox-dem', {
+              'type': 'raster-dem',
+              'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+              'tileSize': 512,
+              'maxzoom': 14
+            });
+            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 3.5 });
+            map.easeTo({
+              pitch: 80,
+              bearing: 41,
+              duration: 1000 // Adjust duration as needed
+            });
+            this._button.classList.add("active");
+            this._button.style.backgroundColor = "#007bff"; // Highlight the icon in blue
+          } else {
+            map.removeSource('mapbox-dem');
+            map.setTerrain(null);
+            map.easeTo({
+              pitch: this._defaultPitch,
+              bearing: this._defaultBearing,
+              duration: 1000 // Adjust duration as needed
+            });
+            this._button.classList.remove("active");
+            this._button.style.backgroundColor = "#ffffff"; // Un-highlight the icon
+          }
+        });
+  
+        div.appendChild(this._button);
+  
+        return div;
+      }
+    }
+  
+    const threeDControl = new ThreeDControl();
+    map.addControl(threeDControl, "top-right");
+    
+    // Store default pitch and bearing values
+    map.once('load', () => {
+      threeDControl._defaultPitch = map.getPitch();
+      threeDControl._defaultBearing = map.getBearing();
+    });
   }
 // creating a class for a control of style switcher basemap
 class MapboxStyleSwitcherControl {
@@ -480,6 +589,77 @@ function addAdditionalSourceAndLayer() {
         //'paint': { 'raster-opacity': 0.7 },
         layout: { visibility: 'none' }
     }, );
+    //adding the SeaLevelRise Simulation with 150mriselayer--------------------------
+    map.addSource('SeaLevelRiseSimulation150a', {
+        type: 'raster',
+        tiles: [
+            'http://172.18.1.39:8080/geoserver/NDMA-Coastal/wms?service=WMS&request=GetMap&layers=Sea_rise_201mm_per_year_2028&version=1.3.0&format=image/png&transparent=true&width=256&height=256&crs=EPSG:3857&bbox={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: '150asimulation',
+        type: 'raster',
+        source: 'SeaLevelRiseSimulation150a',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    map.addSource('SeaLevelRiseSimulation150b', {
+        type: 'raster',
+        tiles: [
+            'http://172.18.1.39:8080/geoserver/NDMA-Coastal/wms?service=WMS&request=GetMap&layers=Sea_rise_201mm_per_year_2035&version=1.3.0&format=image/png&transparent=true&width=256&height=256&crs=EPSG:3857&bbox={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: '150bsimulation',
+        type: 'raster',
+        source: 'SeaLevelRiseSimulation150b',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    map.addSource('SeaLevelRiseSimulation150c', {
+        type: 'raster',
+        tiles: [
+            'http://172.18.1.39:8080/geoserver/NDMA-Coastal/wms?service=WMS&request=GetMap&layers=Sea_rise_201mm_per_year_2040&version=1.3.0&format=image/png&transparent=true&width=256&height=256&crs=EPSG:3857&bbox={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: '150csimulation',
+        type: 'raster',
+        source: 'SeaLevelRiseSimulation150c',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    map.addSource('SeaLevelRiseSimulation150d', {
+        type: 'raster',
+        tiles: [
+            'http://172.18.1.39:8080/geoserver/NDMA-Coastal/wms?service=WMS&request=GetMap&layers=Sea_rise_201mm_per_year_2053&version=1.3.0&format=image/png&transparent=true&width=256&height=256&crs=EPSG:3857&bbox={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: '150dsimulation',
+        type: 'raster',
+        source: 'SeaLevelRiseSimulation150d',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
+    map.addSource('SeaLevelRiseSimulation150e', {
+        type: 'raster',
+        tiles: [
+            'http://172.18.1.39:8080/geoserver/NDMA-Coastal/wms?service=WMS&request=GetMap&layers=Sea_rise_201mm_per_year_2060&version=1.3.0&format=image/png&transparent=true&width=256&height=256&crs=EPSG:3857&bbox={bbox-epsg-3857}'
+        ],
+        tileSize: 256
+    });
+    map.addLayer({
+        id: '150esimulation',
+        type: 'raster',
+        source: 'SeaLevelRiseSimulation150e',
+        //'paint': { 'raster-opacity': 0.7 },
+        layout: { visibility: 'none' }
+    }, );
 
 }
 /* Adding the layers through map.onload which is not needed if basemap switcher tool is used
@@ -745,8 +925,9 @@ map.on('load', () => {
  */
 // creating a map on load for customn controls 
 map.on('load',() => {
-    addHomeButton(map)
+    addHomeButton(map);
     addBuildingControl(map);
+    add3DControl(map);
 
 });
 
@@ -757,7 +938,7 @@ map.on('style.load', () => {
 });
 // creating the toggle layer functionalities 
 map.on('idle', async() => {
-    const toggleableLayerIds = ['mindusdelta', 'mjiwani', 'msandspit', 'mkalmatkhor', 'msonmianikhor','swronemeter','swrtwometer','swrfivemeter','swrtenmeter','coastalflood','sealevelriseanomalies']; // IDs of layers with checkboxes and sliders
+    const toggleableLayerIds = ['mindusdelta', 'mjiwani', 'msandspit', 'mkalmatkhor', 'msonmianikhor','swronemeter','swrtwometer','swrfivemeter','swrtenmeter','coastalflood','sealevelriseanomalies','150asimulation','150bsimulation','150csimulation','150dsimulation','150esimulation','150fsimulation']; // IDs of layers with checkboxes and sliders
 
     const layerZoomLocations = {
         mindusdelta: [24.8607, 67.0011], // Example values for mindusdelta
@@ -806,6 +987,97 @@ map.on('idle', async() => {
         });
     }
 });
+//create a functionality for the time slider 
+document.addEventListener('DOMContentLoaded', () => {
+    const layers = ['150asimulation', '150bsimulation', '150csimulation', '150dsimulation', '150esimulation'];
+    const layerNames = ['Sea Level Rise 200mm/year 2030', 'Sea Level Rise 150mm/year 2040', 'Sea Level Rise 150mm/year 2050', 'Sea Level Rise 150mm/year 2060', 'Sea Level Rise 150mm/year 2070'];
+    const removeButton = document.getElementById('sealevelrise-removeButton');
+    const checkbox = document.querySelector('.layers-checkbox[data-layername="150asimulation"]');
+    const sliderContainer = document.querySelector('.slider-container-sealevelrise');
+    const playButton = document.getElementById('sealevelrise-playButton');
+    let currentLayerIndex = 0;
+    let isPlaying = false;
+    let intervalId;
+
+    if (!sliderContainer) {
+        console.error('sliderContainer element not found');
+    }
+
+    map.on('load', () => {
+        const slider = document.getElementById('slider-sealevelrise');
+        const layerName = document.getElementById('layerName');
+
+        if (!slider || !layerName || !playButton || !removeButton || !checkbox) {
+            console.error('One or more required elements not found');
+            return;
+        }
+
+        slider.addEventListener('input', function (e) {
+            const index = parseInt(e.target.value);
+            updateLayer(index);
+        });
+
+        playButton.addEventListener('click', function () {
+            if (isPlaying) {
+                clearInterval(intervalId);
+                isPlaying = false;
+                this.textContent = '▶️';
+            } else {
+                isPlaying = true;
+                this.textContent = '⏸️';
+                intervalId = setInterval(() => {
+                    const nextIndex = (currentLayerIndex + 1) % layers.length;
+                    updateLayer(nextIndex);
+                }, 2000); // Adjust the interval as needed
+            }
+        });
+
+        function updateLayer(index) {
+            map.setLayoutProperty(layers[currentLayerIndex], 'visibility', 'none');
+            map.setLayoutProperty(layers[index], 'visibility', 'visible');
+            currentLayerIndex = index;
+            layerName.textContent = layerNames[index];
+            slider.value = index;
+        }
+
+        // Remove button event
+        removeButton.addEventListener('click', function () {
+            layers.forEach(layer => {
+                map.setLayoutProperty(layer, 'visibility', 'none');
+            });
+            if (sliderContainer) {
+                sliderContainer.style.display = 'none';
+            }
+            clearInterval(intervalId);
+            isPlaying = false;
+            playButton.textContent = '▶️';
+            // Uncheck the checkbox when layers are removed
+            checkbox.checked = false;
+        });
+
+        // Checkbox event
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                if (sliderContainer) {
+                    sliderContainer.style.display = 'block';
+                }
+                updateLayer(0); // Show the first layer by default
+            } else {
+                layers.forEach(layer => {
+                    map.setLayoutProperty(layer, 'visibility', 'none');
+                });
+                if (sliderContainer) {
+                    sliderContainer.style.display = 'none';
+                }
+                clearInterval(intervalId);
+                isPlaying = false;
+                playButton.textContent = '▶️';
+            }
+        });
+    });
+});
+
+
 //adding the controls onto the map
 map.addControl(new mapboxgl.FullscreenControl());
 map.addControl(new MapboxStyleSwitcherControl());

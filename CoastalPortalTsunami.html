@@ -10,127 +10,218 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
       <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
-      <link rel="stylesheet" href="transitions.css"/>
-      <script src="animateTransition.min.js"></script>
+      <link rel="stylesheet" href="css/transitions.css"/>
+      <script src="js/animateTransition.min.js"></script>
       <!--GeoJson files link-->
       <!-- Linking the Geojson-->
-      <script src="Pakistan_rivers.geojson"></script>
-      <script src="distBound.geojson"></script>
-      <link rel="stylesheet" type="text/css" href="coastal_portalcssfinal.css" />
+      <script src="data/Pakistan_rivers.geojson"></script>
+      <script src="data/distBound.geojson"></script>
+      <link rel="stylesheet" type="text/css" href="css/coastal_portalcssfinal.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      <style>
+         body {
+     background: url('Media/giff/TsunamiBackground.gif') no-repeat center center fixed;
+     background-size: cover;
+     background-color: #CFD8DC;
+     /* Fallback color if the GIF is not available or fully loaded */
+     height: 100%;
+     margin: 0;
+     padding: 0;
+     overflow: hidden;
+     /* Disable scrolling */
+   }
+   #main-containerTsunami {
+  position: absolute;
+  top: 76%;
+  left: 1%;
+  width: 36%;
+  height: 19%;
+  background: url('Media/giff/Tsunamigif.gif') no-repeat center center ;
+  background-size: 100% 100%; /* Ensure the GIF covers the entire container without cropping or stretching */
+  border-radius: 10px;
+  border: 5px solid rgb(10, 10, 10);
+}
+   #top-div {
+     padding: 10px;
+     text-align: center;
+     flex-shrink: 0;
+     background: linear-gradient(to right, rgba(19, 89, 152, 0.8), rgba(20, 131, 199, 0.8), rgba(77, 159, 221, 0.8), rgba(145, 225, 242, 0.8), rgba(88, 195, 192, 0.8)); /* Color bar transition between the provided colors with 5% transparency */
+     overflow: hidden;
+     /* Ensure contents don't overflow */
+     width: 100%;
+     position: fixed;
+   }
+   #bottom-div {
+     overflow: hidden; /* Ensure contents don't overflow */
+     width: 100%;
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+     height: 5%;
+     background: linear-gradient(to right, rgba(19, 89, 152, 8), rgba(20, 131, 199, 0.8), rgba(77, 159, 221, 0.8), rgba(145, 225, 242, 0.8), rgba(88, 195, 192, 0.8)); /* Color bar transition between the provided colors with 5% transparency */
+     color: white; /* Set text color to black */
+     font-size: 20px;
+     text-align: center;
+     line-height: 1.5;
+   }
+   
+   #moving-text1 {
+     white-space: nowrap;
+     font-size: 26px;
+     font-weight: bold;
+     color: white; /* Set text color to black */
+     text-shadow: none; /* Remove text shadow */
+     animation: scroll-left 50s linear infinite; /* Adjust animation duration as needed */
+   }
+   .bold-slide {
+     background-color: rgb(255, 0, 0);
+     color: white;
+     padding: 5px;
+     border-radius: 5px;
+   }
+   
+   @keyframes scroll-left {
+      0% {
+       transform: translateX(100%);
+     }
+     100% {
+       transform: translateX(calc(-500% - 100vw));
+     }
+   }
+   
+      </style>
    </head>
    <body>
       <div id="container">
       <!-- Top Div -->
       <div id="top-div">
-         <div id="hello-text">Coastal Hazard Monitoring Portal</div>
+         <div id="hello-text">Coastal Hazard Monitoring Portal: Tsunami</div>
          <div id="ndma-logo">
-            <!-- Modified Home button -->
-            <button class="btn" onclick="goBack()"><i class="fa fa-home"></i> Home</button>
-         </div>
+            <a>
+               <button class="btn" onclick="goBack()"><i class="fa fa-home"></i> Home</button>
+            </a>
          </div>
       </div>
       <!-- Row Container -->
       <div id="row-container">
-      <!-- Second Row: Map -->
-      <div id="map-container">
-         <div id="map">
-            <!-- First Row: Accordion -->
-            <div id="accordion-container">
-               <div class="accordion overflow-auto" id="accordionExample">
-                  <div class="accordion-item">
-                     <h2 class="accordion-header" id="headingSix">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                        Tsunami
-                        </button>
-                     </h2>
-                     <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
-                        <div class="accordion-body accordion-scroll">
-                           <details id="Plastic-Waste-Detection-accordian" class="emhvras-home-side-bar-accordian">
-                           <summary class="layer-groups-title">
-                              Tsunami Layers
+         <div id="accordion-container">
+            <div class="accordion overflow-auto" id="accordionExample">
+               <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingSix">
+                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                     Tsunami
+                     </button>
+                  </h2>
+                  <div id="collapseSix" class="accordion-collapse collapse show" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                     <div class="accordion-body accordion-scroll">
+                        <details id="Plastic-Waste-Detection-accordian" class="emhvras-home-side-bar-accordian" open>
+                        <summary class="layer-groups-title">
+                           Tsunami Layers
+                        </summary>
+                        <p id="Cyclone-Layers-accordian-p-tag">
+                           <!--Tropical Cyclone  50 year Period Return-->
+                        <details id="Tsunami-Layers-tsunamrisk-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-title">
+                              Coastal Tsunami Risk Zonation
+                              <input class="layers-checkbox" type="checkbox" data-layergroup="tsunamilayers" data-layertype="layer" data-layername="tsunamrisk" data-layerlegend="false" data-istempo="true" />
                            </summary>
-                           <p id="Cyclone-Layers-accordian-p-tag">
-                              <!--Tropical Cyclone  50 year Period Return-->
-                           <details id="Tsunami-Layers-tsunamrisk-accordian" class="emhvras-home-side-bar-accordian">
-                              <summary class="layer-title">
-                                 Coastal Tsunami Risk Zonation
-                                 <input class="layers-checkbox" type="checkbox" data-layergroup="tsunamilayers" data-layertype="layer" data-layername="tsunamrisk" data-layerlegend="false" data-istempo="true" />
-                              </summary>
-                              <p id="tsunamilayers-tsunamrisk-accordian-p-tag" class="layer-p-tag">
-                              <div class="layer-opacity-slider-div">
-                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-tsunamilayers">100%</span></label>
-                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="tsunamrisk" />
-                              </div>
-                              <p id="Cyclone-Layers-Detection-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> This layer represents the calculated and modeled tsunami risk zones of coastlines along the globe 
-                                 </span><br>
-                                 <img src="TsunamihazardfrequencyLegend.png" width="75%" />
-                           </details>
-                           </p>
-                           <p id="Cyclone-Layers-accordian-p-tag">
-                              <!--Tropycal Cyclone Population Exposure Per Year -->
-                           <details id="TropicalCyclonePopulation-tcyclonepopulation-accordian" class="emhvras-home-side-bar-accordian">
-                              <summary class="layer-title">
-                                 Tropical Cyclone Population Exposure Per Year 
-                                 <input class="layers-checkbox" type="checkbox" data-layergroup="TropicalCyclonePopulation" data-layertype="layer" data-layername="tcyclonepopulation" data-layerlegend="false" data-istempo="true" />
-                              </summary>
-                              <p id="tropicalcyclonepopulation-tcyclonepopulation-accordian-p-tag" class="layer-p-tag">
-                              <div class="layer-opacity-slider-div">
-                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-TropicalCyclonePopulation">100%</span></label>
-                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="tcyclonepopulation" />
-                              </div>
-                              <p id="TropicalCyclonePopulation-tcyclonepopulation-accordian-p-tag" class="layer-p-tag">
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> This dataset includes an estimation of the annual physical exposition to tropical cyclones of Saffir-Simpson category 5 it determines the susceptible coastal zones of cyclones based on various factors 
-                                 </span><br>
-                                 <img src="TropicalCyclonepopulation.png" width="75%" />
-                           </details>
-                           </p>
-                           <p id="Cyclone-Layers-accordian-p-tag">
-                              <!--Tropical Cyclones Mortality Risk -->
-                           <details id="TropicalCyclonesMortality-tcyclonemortality-accordian" class="emhvras-home-side-bar-accordian">
-                              <summary class="layer-title">
-                                 Tropical Cyclones Mortality Risk
-                                 <input class="layers-checkbox" type="checkbox" data-layergroup="TropicalCyclonesMortality" data-layertype="layer" data-layername="tcyclonemortality" data-layerlegend="false" data-istempo="true" />
-                              </summary>
-                              <p id="tropicalcyclonesmortality-tcyclonemortality-accordian-p-tag" class="layer-p-tag">
-                              <div class="layer-opacity-slider-div">
-                                 <label>Layer opacity: <span id="layer-opacity-slider-value-label-TropicalCyclonesMortality">100%</span></label>
-                                 <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="tcyclonemortality" />
-                              </div>
-                              <p id="TropicalCyclonesMortality-tcyclonemortality-accordian-p-tag" class="layer-p-tag">
-                                 <span class="layer-description">
-                                 <b>Layer Description:</b><br> This layer represents a dataset that includes an estimate of the global risk induced by tropical cyclone hazard. Unit is estimated risk index from 1 (low) to 5 (extreme). This product was designed by UNEP/GRID-Geneva for the Global Assessment Report on Risk Reduction (GAR). It was modelled using global data.
-                                 </span><br>
-                                 <img src="TropycalCyclonemorality.png" width="45%" />
-                           </details>
-                           </p>
-                        </div>
+                           <p id="tsunamilayers-tsunamrisk-accordian-p-tag" class="layer-p-tag">
+                           <div class="layer-opacity-slider-div">
+                              <label>Layer opacity: <span id="layer-opacity-slider-value-label-tsunamilayers">100%</span></label>
+                              <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="tsunamrisk" />
+                           </div>
+                           <p id="Cyclone-Layers-Detection-plasticwgeneration-accordian-p-tag" class="layer-p-tag">
+                              <span class="layer-description">
+                              <b>Layer Description:</b><br> This layer represents the calculated and modeled tsunami risk zones of coastlines along the globe 
+                              </span><br>
+                              <img src="Media/Legends/TsunamihazardfrequencyLegend.png" width="75%" />
+                        </details>
+                        </p>
+                        <p id="Cyclone-Layers-accordian-p-tag">
+                           <!--Tropycal Cyclone Population Exposure Per Year -->
+                        <details id="TropicalCyclonePopulation-tcyclonepopulation-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-title">
+                              Coastal Tsunami Population Exposure Per Year 
+                              <input class="layers-checkbox" type="checkbox" data-layergroup="TropicalCyclonePopulation" data-layertype="layer" data-layername="tcyclonepopulation" data-layerlegend="false" data-istempo="true" />
+                           </summary>
+                           <p id="tropicalcyclonepopulation-tcyclonepopulation-accordian-p-tag" class="layer-p-tag">
+                           <div class="layer-opacity-slider-div">
+                              <label>Layer opacity: <span id="layer-opacity-slider-value-label-TropicalCyclonePopulation">100%</span></label>
+                              <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="tcyclonepopulation" />
+                           </div>
+                           <p id="TropicalCyclonePopulation-tcyclonepopulation-accordian-p-tag" class="layer-p-tag">
+                              <span class="layer-description">
+                              <b>Layer Description:</b><br> This dataset includes an estimation of the annual physical exposition to tsunami it determines the susceptible coastal zones of tsunami based on various factors 
+                              </span><br>
+                              <img src="Media/Legends/TropicalCyclonepopulation.png" width="75%" />
+                        </details>
+                        </p>
+                        <p id="Cyclone-Layers-accordian-p-tag">
+                           <!--Tropical Cyclones Mortality Risk -->
+                        <details id="TropicalCyclonesMortality-tcyclonemortality-accordian" class="emhvras-home-side-bar-accordian">
+                           <summary class="layer-title">
+                              Coastal Tsunami Mortality Risk
+                              <input class="layers-checkbox" type="checkbox" data-layergroup="TropicalCyclonesMortality" data-layertype="layer" data-layername="tcyclonemortality" data-layerlegend="false" data-istempo="true" />
+                           </summary>
+                           <p id="tropicalcyclonesmortality-tcyclonemortality-accordian-p-tag" class="layer-p-tag">
+                           <div class="layer-opacity-slider-div">
+                              <label>Layer opacity: <span id="layer-opacity-slider-value-label-TropicalCyclonesMortality">100%</span></label>
+                              <input class="layer-opacity-slider-input" type="range" min="0" max="100" step="0" value="100" data-opacitylayername="tcyclonemortality" />
+                           </div>
+                           <p id="TropicalCyclonesMortality-tcyclonemortality-accordian-p-tag" class="layer-p-tag">
+                              <span class="layer-description">
+                              <b>Layer Description:</b><br> This layer represents a dataset that includes an estimate of the global risk induced by Coastal Tsunami hazard. Unit is estimated risk index from 1 (low) to 5 (extreme).
+                              </span><br>
+                              <img src="Media/Legends/TropycalCyclonemorality.png" width="45%" />
+                        </details>
+                        </p>
                      </div>
                   </div>
                </div>
             </div>
+         </div>
+      <!-- Second Row: Map -->
+      <div id="map-container">
+         <div id="map">
+            <!-- First Row: Accordion -->
          </div>
       </div>
       <!-- Third Row: Main Container -->
       <div id="main-containerTsunami">
          <!-- Content of the main container (iframes) goes here -->
          <div class="fullscreen-button-container">
-            <button class="fullscreen-button" onclick="openFullscreen('main-containerTsunami');">Full Screen</button>
+            <button class="fullscreen-button" onclick="openFullscreen('main-containerTsunami');" data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
          </div>
       </div>
       <div id="video-containertsunami">
+         <div class="fullscreen-button-container">
+            <button class="fullscreen-button" onclick="openFullscreen('video-containertsunami');" data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
+         </div>
          <video autoplay muted loop id="myVideotsunami">
-            <source src="AnimationofEarthquakeandTsunamiinSumatra.mp4" type="video/mp4">
+            <source src="Media/videos/AnimationofEarthquakeandTsunamiinSumatra.mp4" type="video/mp4">
          </video>
       </div>
+      <div id="video-containertsunami2">
+         <div class="fullscreen-button-container">
+            <button class="fullscreen-button" onclick="openFullscreen('video-containertsunami2');" data-bs-toggle="tooltip" data-bs-placement="top" title="Go fullscreen"><i class="fa fa-arrows-alt"></i></button>
+         </div>
+         <video autoplay muted loop id="myVideotsunami2">
+            <source src="Media/videos/Tsunamivideo3.mp4" type="video/mp4">
+         </video>
+      </div>
+      <!-- advisory-container -->
+      <div id="advisory-container" class="container">
+         <button class="flash-button">Advisories</button>
+         <img src="Media/Images/tsunami_running1.png" alt="Image 1">
+         <img src="Media/Images/tsunami_running2.png" alt="Image 2">
+         <img src="Media/Images/tsunami_running3.png" alt="Image 1">
+         <img src="Media/Images/tsunami_running4.png" alt="Image 2">
+       </div>
       <!-- Bottom Div -->
       <div id="bottom-div">
          <div id="moving-text1">
-            <span class="bold-slide">Coastal Hazard Monitoring  🌊 :-</span> Pakistan's coastal hazard monitoring is a comprehensive initiative aimed at assessing and mitigating potential risks along its coastal areas. With a diverse coastline
-            along the Arabian Sea, stretching over 1,000 kilometers, the country faces various hazards such as cyclones, storm surges, and sea-level rise. The monitoring system integrates advanced technologies, satellite imagery, and on-ground
-            observations to track and analyze coastal dynamics.
+            <span class="bold-slide">Coastal Hazard Monitoring: Tsunami  🌊 :-</span> A tsunami is a giant wave or series of waves caused by a huge earthquake or volcanic eruption under the ocean. These occur from movement in the Earth's crust.The earthquake causes a large amount of water to be displaced very quickly. When this happens far out at sea, tsunami waves don't really increase in height. As they travel inland, the speed and height of the waves increases.This can cause a huge amount of damage when the wave of water reaches the shoreline.It’s important to remember that a tsunami is a series of waves and not just one wave, this is called a ‘wave train’. What this means is that you should not assume that a tsunami has passed after one initial wave. You should wait for official confirmation from the authorities that it is safe.
          </div>
       </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -140,6 +231,6 @@
       <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.2.0/maptiler-sdk.umd.js"></script>
       <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
       <script src="https://cdn.maptiler.com/maptiler-weather/v1.1.0/maptiler-weather.umd.min.js"></script>
-      <script src="CoastalPortalTsunami.js"></script>
+      <script src="js/CoastalPortalTsunami.js"></script>
    </body>
 </html>
