@@ -1,5 +1,4 @@
-// function to filter out the fire alerts in south asia wfs based on confidence value entered
-
+// function to filter out the fire alerts in south asia wfs based on confidence value entered for last 24 hours 
 document.addEventListener("DOMContentLoaded", function() {
   var firesLayerCheckbox = document.getElementById("fires-layer");
   var firesLayerFilterInput;
@@ -37,6 +36,47 @@ document.addEventListener("DOMContentLoaded", function() {
   
     // Set the filter to show features with confidence values equal to the entered value
     map.setFilter("fires-layer", ["==", ["get", "confidence"], confidence]);
+  }
+});
+
+// for last 7 days
+document.addEventListener("DOMContentLoaded", function() {
+  var firesLayerCheckbox2 = document.getElementById("fires-layer2");
+  var firesLayerFilterInput;
+
+  firesLayerCheckbox2.addEventListener("change", function() {
+    if (this.checked) {
+      firesLayerFilterInput = document.createElement("input");
+      firesLayerFilterInput.type = "number";
+      firesLayerFilterInput.placeholder = "Enter confidence value between 10 to 100";
+      firesLayerFilterInput.addEventListener("input", function() {
+        filterFiresLayer2(parseFloat(this.value));
+      });
+
+      var label = document.createElement("label");
+      label.htmlFor = "fires-layer-filter";
+      label.appendChild(document.createTextNode("Confidence Value: "));
+      label.appendChild(firesLayerFilterInput);
+
+      this.parentNode.appendChild(label);
+    } else {
+      if (firesLayerFilterInput && firesLayerFilterInput.parentNode) {
+        firesLayerFilterInput.parentNode.removeChild(firesLayerFilterInput);
+      }
+    }
+  });
+
+  function filterFiresLayer2() {
+    var confidence = parseFloat(firesLayerFilterInput.value);
+    // Ensure the confidence value is within the range of 0 to 100
+    confidence = Math.min(Math.max(confidence, 0), 100);
+  
+    // Update the visibility of the fires layer based on the entered confidence value
+    var visibility = confidence >= 0 && confidence <= 100 ? "visible" : "none";
+    map.setLayoutProperty("fires-layer2", "visibility", visibility);
+  
+    // Set the filter to show features with confidence values equal to the entered value
+    map.setFilter("fires-layer2", ["==", ["get", "confidence"], confidence]);
   }
 });
 // function for popup for advisories 
@@ -185,7 +225,7 @@ function openFullscreen2(containerId) {
     // Show the first iframe initially
     showSlides2(slideIndex2);
   }
-// Initialize the slideshow when the DOM content is loaded
+  // Initialize the slideshow when the DOM content is loaded
 document.addEventListener("DOMContentLoaded", initializeSlideshow2);
   // Declaration of variables containing latitude and longitude
 var myLat = 0;
@@ -199,6 +239,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibXVzdGFmYTA1IiwiYSI6ImNrNm1ocHBzNTBldDIzanJ1O
 
 const map = new mapboxgl.Map({
     container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v12',
+    /*
     style: {
       'version': 8,
       'sources': {
@@ -220,7 +262,7 @@ const map = new mapboxgl.Map({
               'maxzoom': 18 // Match the max zoom of the Esri tiles
           }
       ]
-  },
+  },*/
     projection: 'globe',
     center: [longhome, lathome], // starting position
     zoom: zoom // starting zoom
@@ -235,7 +277,7 @@ function addBuildingControl(map) {
       container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
 
       const button = document.createElement("button");
-      button.innerHTML = `<img src="buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
+      button.innerHTML = `<img src="Media/svgIcons/buildingicon.svg" alt="Buildings" style="width: 20px; height: 20px;">`;
       button.style.backgroundColor = "#ffffff"; // Default background color
 
       button.addEventListener("click", () => {
@@ -332,7 +374,7 @@ function add3DControl(map) {
 
       // Create button with tooltip and icon
       this._button = document.createElement("button");
-      this._button.innerHTML = `<img src="3Dworldicon.svg" alt="threed" style="width: 20px; height: 20px;">`;
+      this._button.innerHTML = `<img src="Media/svgIcons/3Dworldicon.svg" alt="threed" style="width: 20px; height: 20px;">`;
       this._button.title = tooltipText;
 
       // Add event listener to toggle 3D terrain and adjust pitch and bearing
@@ -381,11 +423,106 @@ function add3DControl(map) {
     threeDControl._defaultBearing = map.getBearing();
   });
 }
+const draw = new MapboxDraw({
+  displayControlsDefault: false,
+  controls: {
+      polygon: true,
+      trash: true
+  },
+  defaultMode: 'draw_polygon'
+});
+map.addControl(draw, 'top-left');
+map.on('draw.create', updateArea);
+map.on('draw.delete', updateArea);
+map.on('draw.update', updateArea);
+//creating a calculate area tool
+function updateArea(e) {
+  const data = draw.getAll();
+  const answer = document.getElementById('calculated-area');
+  if (data.features.length > 0) {
+    const areaInSquareMeters = turf.area(data);
+    // Convert square meters to square kilometers.
+    const areaInSquareKilometers = areaInSquareMeters / 1000000;
+    // Restrict the area to 2 decimal points.
+    const rounded_area = Math.round(areaInSquareKilometers * 100) / 100;
+    answer.innerHTML = `<p><strong>${rounded_area}</strong></p><p>square kilometers</p>`;
+    } else {
+      answer.innerHTML = '';
+      if (e.type !== 'draw.delete')
+      alert('Click the map to draw a polygon.');
+    }
+}
+
+// Function to extract features within drawn polygon and trigger download
+function extractFeaturesInPolygon() {
+  const data = draw.getAll();
+
+  if (data.features.length === 0) {
+      alert('Please draw a polygon first.');
+      return;
+  }
+
+  // Get features from the map's data sources
+  const source = map.getSource('fires');
+  const source2 = map.getSource('fires2');
+  
+  const mapFeatures = source._data.features;
+  const mapFeatures2 = source2._data.features;
+
+  if (!Array.isArray(mapFeatures) && !Array.isArray(mapFeatures2)) {
+      alert("No features found in the map's data sources.");
+      return;
+  }
+
+  // Get the drawn polygon
+  const drawnPolygon = data.features[0];
+
+  // Filter features within the drawn polygon from both sources
+  const featuresWithinPolygon = [
+      ...mapFeatures.filter(function(feature) {
+          return turf.inside(feature, drawnPolygon);
+      }),
+      ...mapFeatures2.filter(function(feature) {
+          return turf.inside(feature, drawnPolygon);
+      })
+  ];
+
+  console.log('Features within drawn polygon:', featuresWithinPolygon);
+
+  if (featuresWithinPolygon.length > 0) {
+      // Create a GeoJSON object containing features within the polygon
+      const geojsonWithinPolygon = {
+          type: 'FeatureCollection',
+          features: featuresWithinPolygon
+      };
+
+      // Convert GeoJSON to string for downloading
+      const geojsonString = JSON.stringify(geojsonWithinPolygon);
+
+      // Create a Blob object containing the GeoJSON string
+      const blob = new Blob([geojsonString], { type: 'application/json;charset=utf-8' });
+
+      // Trigger download
+      saveAs(blob, 'features_within_polygon.geojson'); // Using FileSaver.js for compatibility
+
+      // Log success message
+      console.log('Features exported successfully. Check your downloads.');
+  } else {
+      alert('No features found within the drawn polygon.');
+  }
+}
+
+// Add click event listener to a button for exporting features within the drawn polygon
+document.getElementById('export').onclick = function(e) {
+  extractFeaturesInPolygon();
+};
+
 // adding the draw tool control
 // Add Draw control to the map
 // Initialize MapboxDraw with options to position it on the top left
 // Initialize MapboxDraw with options
 // Initialize MapboxDraw with options
+/*
 const draw = new MapboxDraw({
   displayControlsDefault: false,
   controls: {
@@ -406,7 +543,9 @@ function extractFeaturesInPolygon() {
 
   // Get features from the map's data source
   const source = map.getSource('fires');
+  const source2 = map.getSource('fires2');
   const mapFeatures = source._data.features;
+  const mapFeatures2 = source2._data.features;
 
   if (!Array.isArray(mapFeatures)) {
       alert("No features found in the map's data source.");
@@ -450,65 +589,94 @@ function extractFeaturesInPolygon() {
 document.getElementById('export').onclick = function(e) {
   extractFeaturesInPolygon();
 };
+*/
 // creating the functionality to change basemap as leaflet in the mapbox gl js 
 // creating a class for a control of style switcher basemap
 class MapboxStyleSwitcherControl {
-  constructor(styles) {
-      this.styles = styles || MapboxStyleSwitcherControl.DEFAULT_STYLES;
-  }
-  getDefaultPosition() {
-      const defaultPosition = "top-right";
-      return defaultPosition;
-  }
-  onAdd(map) {
-      this.controlContainer = document.createElement("div");
-      this.controlContainer.classList.add("mapboxgl-ctrl");
-      this.controlContainer.classList.add("mapboxgl-ctrl-group");
-      const mapStyleContainer = document.createElement("div");
-      const styleButton = document.createElement("button");
-      mapStyleContainer.classList.add("mapboxgl-style-list");
-      for (const style of this.styles) {
-          const styleElement = document.createElement("button");
-          styleElement.innerText = style.title;
-          styleElement.classList.add(style.title.replace(/[^a-z0-9-]/gi, '_'));
-          styleElement.dataset.uri = JSON.stringify(style.uri);
-          styleElement.addEventListener("click", event => {
-              const srcElement = event.srcElement;
-              map.setStyle(JSON.parse(srcElement.dataset.uri));
-              mapStyleContainer.style.display = "none";
-              styleButton.style.display = "block";
-              const elms = mapStyleContainer.getElementsByClassName("active");
-              while (elms[0]) {
-                  elms[0].classList.remove("active");
-              }
-              srcElement.classList.add("active");
-          });
-          if (style.title === MapboxStyleSwitcherControl.DEFAULT_STYLE) {
-              styleElement.classList.add("active");
-          }
-          mapStyleContainer.appendChild(styleElement);
+  getVisibleLayers() {
+    const visibleLayers = [];
+    const layers = this.map.getStyle().layers;
+    layers.forEach((layer) => {
+      if (layer.layout && layer.layout.visibility === "visible") {
+        visibleLayers.push(layer.id);
       }
-      styleButton.classList.add("mapboxgl-ctrl-icon");
-      styleButton.classList.add("mapboxgl-style-switcher");
-      styleButton.addEventListener("click", () => {
-          styleButton.style.display = "none";
-          mapStyleContainer.style.display = "block";
-      });
-      document.addEventListener("click", event => {
-          if (!this.controlContainer.contains(event.target)) {
-              mapStyleContainer.style.display = "none";
-              styleButton.style.display = "block";
-          }
-      });
-      this.controlContainer.appendChild(styleButton);
-      this.controlContainer.appendChild(mapStyleContainer);
-      return this.controlContainer;
+    });
+    return visibleLayers;
   }
+
+  setVisibleLayers(layers) {
+    layers.forEach((layerId) => {
+      if (this.map.getLayer(layerId)) {
+        this.map.setLayoutProperty(layerId, "visibility", "visible");
+      }
+    });
+  }
+
+  constructor(styles) {
+    this.styles = styles || MapboxStyleSwitcherControl.DEFAULT_STYLES;
+  }
+
+  getDefaultPosition() {
+    return "top-right";
+  }
+
+  onAdd(map) {
+    this.map = map;
+    this.controlContainer = document.createElement("div");
+    this.controlContainer.classList.add("mapboxgl-ctrl");
+    this.controlContainer.classList.add("mapboxgl-ctrl-group");
+    const mapStyleContainer = document.createElement("div");
+    const styleButton = document.createElement("button");
+    mapStyleContainer.classList.add("mapboxgl-style-list");
+
+    for (const style of this.styles) {
+      const styleElement = document.createElement("button");
+      styleElement.innerText = style.title;
+      styleElement.classList.add(style.title.replace(/[^a-z0-9-]/gi, "_"));
+      styleElement.dataset.uri = JSON.stringify(style.uri);
+      styleElement.addEventListener("click", (event) => {
+        const srcElement = event.srcElement;
+        const visibleLayers = this.getVisibleLayers(); // Store visible layers
+        map.setStyle(JSON.parse(srcElement.dataset.uri));
+        map.once("style.load", () => {
+          this.setVisibleLayers(visibleLayers); // Reapply visibility
+        });
+        mapStyleContainer.style.display = "none";
+        styleButton.style.display = "block";
+        const elms = mapStyleContainer.getElementsByClassName("active");
+        while (elms[0]) {
+          elms[0].classList.remove("active");
+        }
+        srcElement.classList.add("active");
+      });
+      if (style.title === MapboxStyleSwitcherControl.DEFAULT_STYLE) {
+        styleElement.classList.add("active");
+      }
+      mapStyleContainer.appendChild(styleElement);
+    }
+    styleButton.classList.add("mapboxgl-ctrl-icon");
+    styleButton.classList.add("mapboxgl-style-switcher");
+    styleButton.addEventListener("click", () => {
+      styleButton.style.display = "none";
+      mapStyleContainer.style.display = "block";
+    });
+    document.addEventListener("click", (event) => {
+      if (!this.controlContainer.contains(event.target)) {
+        mapStyleContainer.style.display = "none";
+        styleButton.style.display = "block";
+      }
+    });
+    this.controlContainer.appendChild(styleButton);
+    this.controlContainer.appendChild(mapStyleContainer);
+    return this.controlContainer;
+  }
+
   onRemove() {
-      return;
+    this.controlContainer.parentNode.removeChild(this.controlContainer);
+    this.map = undefined;
   }
 }
-MapboxStyleSwitcherControl.DEFAULT_STYLE = "Esri World";
+MapboxStyleSwitcherControl.DEFAULT_STYLE = "Streets";
 MapboxStyleSwitcherControl.DEFAULT_STYLES = [
   { title: "Dark", uri: "mapbox://styles/mapbox/dark-v11" },
   { title: "Light", uri: "mapbox://styles/mapbox/light-v11" },
@@ -527,7 +695,172 @@ map.addControl(new MapboxStyleSwitcherControl());
 const nav = new mapboxgl.NavigationControl();
 map.addControl(nav, 'top-right');
 
+//adding the GDAC events
+//adding the gdac layers
+var data; // Define data in a wider scope
+var pointLayers = {};
+var polygonLayers = {};
 
+fetch('https://www.gdacs.org/gdacsapi/api/events/geteventlist/MAP?')
+.then(response => response.json())
+.then(responseData => {
+    data = responseData; // Assign fetched data to the data variable
+    console.log(data.features); // Logging events
+    addGDACMarkers(); // Call addGDACMarkers after fetching data
+    addPolygonLayers(); // Call addPolygonLayers after fetching data
+});
+
+// Function to generate popup content
+function generatePopupContent(properties) {
+    const popupContent = `
+        <h3>Event Information</h3>
+        <table>
+            <tr><th>Attribute</th><th>Value</th></tr>
+            <tr><td>Event Type</td><td>${properties.eventtype}</td></tr>
+            <tr><td>Event Name</td><td>${properties.eventname}</td></tr>
+            <tr><td>Description</td><td>${properties.description}</td></tr>
+            <tr><td>Alert Level</td><td>${properties.alertlevel}</td></tr>
+            <tr><td>Alert Score</td><td>${properties.alertscore}</td></tr>
+            <tr><td>Severity</td><td>${properties.severitydata.severity} ${properties.severitydata.severityunit}</td></tr>
+            <tr><td>Severity Text</td><td>${properties.severitydata.severitytext}</td></tr>
+            <tr><td>Country</td><td>${properties.country}</td></tr>
+            <tr><td>From Date</td><td>${properties.fromdate}</td></tr>
+            <tr><td>To Date</td><td>${properties.todate}</td></tr>
+        </table>
+        <button id="close-popup">Close</button>
+    `;
+    return popupContent;
+}
+
+// Function to add GDAC markers with icons
+function addGDACMarkers() {
+    data.features.forEach(feature => {
+        // Check for event type WF (WildFire) or VO (Volcano) and DR (Drought)
+        if (feature.properties.eventtype === 'WF' || feature.properties.eventtype === 'VO' || feature.properties.eventtype === 'DR') {
+            var coordinates = feature.geometry.coordinates;
+            var popupContent = generatePopupContent(feature.properties);
+
+            // Check if the icon URL is present in the properties
+            var iconUrl = feature.properties.icon;
+
+            // Create a marker element
+            var el = document.createElement('div');
+            el.id = `gdac-marker-${feature.properties.id}`;
+            el.className = 'marker gdac-marker';
+
+            // If icon URL is present, set the background-image to the icon
+            if (iconUrl) {
+                el.style.backgroundImage = `url(${iconUrl})`;
+            } else {
+                console.warn('Icon URL not found for feature:', feature);
+            }
+
+            // Set the size of the marker
+            el.style.width = '30px';
+            el.style.height = '30px';
+
+            if (feature.geometry.type === 'Point') {
+                var pointLayerId = 'point-layer-' + Math.random().toString(36).substr(2, 9);
+                pointLayers[pointLayerId] = coordinates;
+
+                map.addLayer({
+                    'id': pointLayerId,
+                    'type': 'symbol',
+                    'source': {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [{
+                                'type': 'Feature',
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': coordinates
+                                }
+                            }]
+                        }
+                    },
+                    'layout': {
+                        'icon-image': 'marker-15', // default Mapbox marker
+                        'icon-size': 1.5,
+                        'visibility': 'none' 
+                    }
+                });
+
+                new mapboxgl.Marker(el)
+                    .setLngLat(coordinates)
+                    .setPopup(new mapboxgl.Popup().setHTML(popupContent))
+                    .addTo(map);
+            }
+        }
+    });
+}
+
+// Function to add polygon layers
+function addPolygonLayers() {
+    data.features.forEach(feature => {
+        // Check for event type TC or FL
+        if (feature.properties.eventtype === 'WF' || feature.properties.eventtype === 'VO' || feature.properties.eventtype === 'DR') {
+            var fillColor;
+            var coordinates = feature.geometry.coordinates;
+            var alertLevel = feature.properties.alertlevel;
+
+            if (alertLevel === 'Red') {
+                fillColor = '#FF0000'; // Red
+            } else if (alertLevel === 'Orange') {
+                fillColor = '#FFA500'; // Orange
+            } else if (alertLevel === 'Green') {
+                fillColor = '#008000'; // Green
+            } else {
+                fillColor = '#000000'; // Default color
+            }
+
+            if (feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon') {
+                var polygonId = 'polygon-' + Math.random().toString(36).substr(2, 9); // Generate unique ID
+                polygonLayers[polygonId] = coordinates;
+
+                map.addLayer({
+                    'id': polygonId,
+                    'type': 'fill',
+                    'source': {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'Feature',
+                            'geometry': feature.geometry
+                        }
+                    },
+                    'layout': { visibility: 'none' },
+                    'paint': {
+                        'fill-color': fillColor,
+                        'fill-opacity': 0.4
+                    }
+                });
+
+                // Add click event listener to each polygon layer
+                map.on('click', polygonId, function (e) {
+                    var popupContent = generatePopupContent(feature.properties);
+                    new mapboxgl.Popup()
+                        .setLngLat(e.lngLat)
+                        .setHTML(`<p>${popupContent}</p>`)
+                        .addTo(map);
+                });
+            }
+        }
+    });
+}
+
+ // Function to remove GDAC markers
+function removeGDACMarkers() {
+    // Remove all markers with class 'gdac-marker'
+    const gdacMarkers = document.querySelectorAll('.gdac-marker');
+    gdacMarkers.forEach(marker => marker.remove());
+
+    // Remove all point layers
+    for (const layerId in pointLayers) {
+        if (map.getLayer(layerId)) {
+            map.removeLayer(layerId);
+        }
+    }
+}
 
 // Adjust the addEONETMarkers function to use SVG icons and only display wildfire events
 function addEONETMarkers() {
@@ -554,7 +887,7 @@ function addEONETMarkers() {
                   console.log('Coordinates:', coordinates);
 
                   // Use the category ID to construct the path to the Gif icon
-                  const iconPath = `forestfireanimated.gif`;
+                  const iconPath = `Media/giff/forestfireanimated.gif`;
 
                   // Set the background-image to the SVG icon
                   el.style.backgroundImage = `url(${iconPath})`;
@@ -621,7 +954,7 @@ map.on('style.load', () => {
 // adding the necessary layers 
 // creating a function to load the layers even if styles are changed 
 function addAdditionalSourceAndLayer() {
-  // Fetch CSV data
+  // Fetch wfs data for last 24 hours burned data
 fetch('https://firms.modaps.eosdis.nasa.gov/mapserver/wfs/South_Asia/48615d588cfc60c9fc9b81e90d881e8f/?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=ms:fires_modis_24hrs&STARTINDEX=0&COUNT=1000&SRSNAME=urn:ogc:def:crs:EPSG::4326&BBOX=-90,-180,90,180,urn:ogc:def:crs:EPSG::4326&outputformat=csv')
 .then(response => response.text())
 .then(csvData => {
@@ -746,6 +1079,207 @@ fetch('https://firms.modaps.eosdis.nasa.gov/mapserver/wfs/South_Asia/48615d588cf
         map.getCanvas().style.cursor = '';
     });
 });
+
+
+//adding the fires wfs for last seven days 
+fetch('https://firms.modaps.eosdis.nasa.gov/mapserver/wfs/South_Asia/48615d588cfc60c9fc9b81e90d881e8f/?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAME=ms:fires_modis_7days&STARTINDEX=0&COUNT=1000&SRSNAME=urn:ogc:def:crs:EPSG::4326&BBOX=-90,-180,90,180,urn:ogc:def:crs:EPSG::4326&outputformat=csv')
+.then(response => response.text())
+.then(csvData => {
+    // Parse CSV data
+    const firesData2 = csvData.split('\n').slice(1).map(line => {
+        const [wkt, latitude, longitude, brightness, scan, track, acq_date, acq_time, acq_datetime, confidence, brightness_2, frp] = line.split(',');
+        return {
+            wkt,
+            latitude,
+            longitude,
+            brightness,
+            scan,
+            track,
+            acq_date,
+            acq_time,
+            acq_datetime,
+            confidence: parseFloat(confidence), // Convert confidence to float
+            brightness_2,
+            frp
+        };
+    });
+
+    // Convert CSV data to GeoJSON format
+    const geojson2 = {
+        type: "FeatureCollection",
+        features: firesData2.map((fire, index) => {
+            const [latitude, longitude] = [parseFloat(fire.latitude), parseFloat(fire.longitude)];
+            return {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: [longitude, latitude], // GeoJSON coordinates are [longitude, latitude]
+                },
+                properties: {
+                    id: index,
+                    wkt: fire.wkt,
+                    latitude: fire.latitude,
+                    longitude: fire.longitude,
+                    brightness: fire.brightness,
+                    scan: fire.scan,
+                    track: fire.track,
+                    acq_date: fire.acq_date,
+                    acq_time: fire.acq_time,
+                    acq_datetime: fire.acq_datetime,
+                    confidence: fire.confidence,
+                    brightness_2: fire.brightness_2,
+                    frp: fire.frp,
+                }
+            };
+        })
+    };
+
+    // Add GeoJSON data to the map
+    map.addSource("fires2", {
+        type: "geojson",
+        data: geojson2
+    });
+
+    // Add layer using red circles for fire incidents
+    map.addLayer({
+        id: "fires-layer2",
+        type: "circle",
+        source: "fires2",
+        paint: {
+            "circle-radius": 6, // Adjust circle radius as needed
+            "circle-color": [
+              "interpolate",
+              ["linear"],
+              ["get", "confidence"],
+              0, "#F1EEC6", // Yellow color for confidence 0
+              40, "#FAF285", // Orange color for confidence 40
+              50, "#F8B452", // Orange-red color for confidence 50
+              60, "#F9A937", // Red-orange color for confidence 60
+              70, "#F97656", // Red color for confidence 70
+              80, "#FC3200" // Dark red color for confidence above 80
+          ],
+            "circle-opacity": 0.8 // Adjust opacity if needed
+        },
+        layout: { visibility: 'none' } // Change visibility to 'visible'
+    });
+
+    // Add click event listener to the fires layer
+    map.on("click", "fires-layer2", (e) => {
+        const properties = e.features[0].properties;
+        const popupContent = `
+            <h3>Fire Information</h3>
+            <table>
+                <tr><th>Attribute</th><th>Value</th></tr>
+                <tr><td>WKT</td><td>${properties.wkt}</td></tr>
+                <tr><td>Latitude</td><td>${properties.latitude}</td></tr>
+                <tr><td>Longitude</td><td>${properties.longitude}</td></tr>
+                <tr><td>Brightness</td><td>${properties.brightness}</td></tr>
+                <tr><td>Scan</td><td>${properties.scan}</td></tr>
+                <tr><td>Track</td><td>${properties.track}</td></tr>
+                <tr><td>Acq Date</td><td>${properties.acq_date}</td></tr>
+                <tr><td>Acq Time</td><td>${properties.acq_time}</td></tr>
+                <tr><td>Acq Datetime</td><td>${properties.acq_datetime}</td></tr>
+                <tr><td>Confidence</td><td>${properties.confidence}</td></tr>
+                <tr><td>Brightness_2</td><td>${properties.brightness_2}</td></tr>
+                <tr><td>FRP</td><td>${properties.frp}</td></tr>
+            </table>
+            <button id="close-popup">Close</button>
+        `;
+        const popup = new mapboxgl.Popup()
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML(popupContent)
+            .addTo(map);
+
+        // Close popup when close button is clicked
+        document.getElementById('close-popup').addEventListener('click', () => {
+            popup.remove();
+        });
+    });
+
+    // Change the cursor to a pointer when hovering over the fires layer
+    map.on('mouseenter', 'fires-layer2', () => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to the default cursor when it leaves
+    map.on('mouseleave', 'fires-layer2', () => {
+        map.getCanvas().style.cursor = '';
+    });
+});
+// Define GeoJSON data for the red circle markers
+const redCircleData = {
+  type: 'FeatureCollection',
+  features: [
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [72.99914, 33.75744]
+      },
+      properties: {
+        elevation: 307.83,
+        accquired_time:"2024-05-15 / 02:23:00",
+        satelite:"VIIRS N20" 
+      }
+    },
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [72.99979, 33.75548]
+      },
+      properties: {
+        elevation: 307.83,
+        accquired_time:"2024-05-15 / 02:23:00",
+        satelite:"VIIRS N20" 
+      }
+    }
+  ]
+};
+
+// Add the GeoJSON source and layer to the map
+map.on('load', function () {
+  map.addSource('red-circles', {
+    type: 'geojson',
+    data: redCircleData
+  });
+
+  map.addLayer({
+    id: 'red-circles-layer',
+    type: 'circle',
+    source: 'red-circles',
+    paint: {
+      'circle-radius': 6,
+      'circle-color': '#FF0000'
+    }
+  });
+});
+// Add popups
+map.on('click', 'red-circles-layer', function (e) {
+  const coordinates = e.features[0].geometry.coordinates.slice();
+  const properties = e.features[0].properties;
+
+  const description = `
+    <strong>Elevation:</strong> ${properties.elevation} m<br>
+    <strong>Acquired Time:</strong> ${properties.accquired_time}<br>
+    <strong>Satellite:</strong> ${properties.satelite}
+  `;
+
+  new mapboxgl.Popup()
+    .setLngLat(coordinates)
+    .setHTML(description)
+    .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the red circles layer
+map.on('mouseenter', 'red-circles-layer', function () {
+  map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves
+map.on('mouseleave', 'red-circles-layer', function () {
+  map.getCanvas().style.cursor = '';
+});
   // function for date 
   function formatDate(selectedDate) {
     const dateObj = new Date(selectedDate);
@@ -800,6 +1334,31 @@ const last7DaysRange = getLast7DaysRange();
 
 // Log last 7 days range
 console.log('Last 7 Days Range:', last7DaysRange);
+
+// function to calculate last 30 days 
+function getLast30DaysRange() {
+  const endDate = new Date();
+  const startDate = new Date(endDate);
+  startDate.setDate(startDate.getDate() - 30); // Subtract 30 days from current date
+
+  // Format start date
+  const startYear = startDate.getFullYear();
+  const startMonth = String(startDate.getMonth() + 1).padStart(2, '0');
+  const startDay = String(startDate.getDate()).padStart(2, '0');
+
+  // Format end date
+  const endYear = endDate.getFullYear();
+  const endMonth = String(endDate.getMonth() + 1).padStart(2, '0');
+  const endDay = String(endDate.getDate()).padStart(2, '0');
+
+  // Construct time range string
+  const timeRange = `${startYear}-${startMonth}-${startDay}/${endYear}-${endMonth}-${endDay}`;
+
+  return timeRange;
+}
+// Get last 7 days range
+const Last30DaysRange = getLast30DaysRange();
+console.log('Last 30 Days Range:', Last30DaysRange);
 // function for 1 day forcast 
 function getOneDayAhead() {
   const currentDate = new Date();
@@ -859,7 +1418,7 @@ console.log('Burned Areas Last One Day Range:', burnedAreasLastOneDayRange);
       'paint': {
           'fill-color': 'transparent', // Transparent fill color
           'fill-outline-color': 'black', // Black outline color
-          'fill-opacity': 0.5, // Adjust transparency if needed
+          'fill-opacity': 0.8, // Adjust transparency if needed
       }
   });
   //adding the rivers data set
@@ -890,7 +1449,7 @@ console.log('Burned Areas Last One Day Range:', burnedAreasLastOneDayRange);
       id: 'fwidc',
       type: 'raster',
       source: 'FWI_DroughtCode',
-      paint: { 'raster-opacity': 0.7 },
+      paint: { 'raster-opacity': 0.5 },
       layout: { visibility: 'none' }
   }, );
   //Add the Fire Weather Index (FWI) layer
@@ -924,7 +1483,7 @@ console.log('Burned Areas Last One Day Range:', burnedAreasLastOneDayRange);
       id: 'fwiisi',
       type: 'raster',
       source: 'FWIInitialSpreadIndex',
-      paint: { 'raster-opacity': 0.7 },
+      paint: { 'raster-opacity': 0.5 },
       layout: { visibility: 'none' }
   }, );
   // adding the MARK-5 - Fire Danger Index (MARK-5 FDI)
@@ -941,7 +1500,7 @@ console.log('Burned Areas Last One Day Range:', burnedAreasLastOneDayRange);
       id: 'fdimark',
       type: 'raster',
       source: 'MARK5FireDangerIndex',
-      paint: { 'raster-opacity': 0.7 },
+      paint: { 'raster-opacity': 0.5 },
       layout: { visibility: 'none' }
   }, );
   //adding the FWI - Build Up Index (BUI) layer
@@ -958,7 +1517,7 @@ console.log('Burned Areas Last One Day Range:', burnedAreasLastOneDayRange);
     id: 'fdibui',
     type: 'raster',
     source: 'FWIBuildUpIndex',
-    paint: { 'raster-opacity': 0.7 },
+    paint: { 'raster-opacity': 0.5 },
     layout: { visibility: 'none' }
 }, );
 //adding the FWI - Fine Fuel Moisture Code (FFMC) layer
@@ -975,7 +1534,7 @@ map.addLayer({
 id: 'fwiffmc',
 type: 'raster',
 source: 'FWIFineFuelMoistureCode',
-paint: { 'raster-opacity': 0.7 },
+paint: { 'raster-opacity': 0.5 },
 layout: { visibility: 'none' }
 }, );
 //adding the FWI - Duff Moisture Code (DMC) layer
@@ -992,7 +1551,7 @@ map.addLayer({
 id: 'fwifdmc',
 type: 'raster',
 source: 'FWIDuffMoistureCode',
-paint: { 'raster-opacity': 0.7 },
+paint: { 'raster-opacity': 0.5 },
 layout: { visibility: 'none' }
 }, );
 //adding the FWI - Anomaly layer
@@ -1009,7 +1568,7 @@ map.addLayer({
 id: 'fwianomaly',
 type: 'raster',
 source: 'FWIAnomaly',
-paint: { 'raster-opacity': 0.7 },
+paint: { 'raster-opacity': 0.5 },
 layout: { visibility: 'none' }
 }, );
 //adding the FWI - Ranking layer
@@ -1026,7 +1585,7 @@ map.addLayer({
 id: 'fwiranking',
 type: 'raster',
 source: 'FWIRanking',
-paint: { 'raster-opacity': 0.7 },
+paint: { 'raster-opacity': 0.5 },
 layout: { visibility: 'none' }
 }, );
 //adding the KBDI - Keetch-Byron Drought Index
@@ -1043,7 +1602,7 @@ map.addLayer({
 id: 'kbdidi',
 type: 'raster',
 source: 'KBDIKeetchByronDroughtIndex',
-paint: { 'raster-opacity': 0.7 },
+paint: { 'raster-opacity': 0.5 },
 layout: { visibility: 'none' }
 }, );
 //adding the MARK-5 - Rate of Spread (MARK-5 ROS) layer
@@ -1060,7 +1619,7 @@ map.addLayer({
 id: 'markros',
 type: 'raster',
 source: 'MARK5RateofSpread',
-paint: { 'raster-opacity': 0.7 },
+paint: { 'raster-opacity': 0.5 },
 layout: { visibility: 'none' }
 }, );
 //adding the NFDRS - Ignition Probability (NFDRS IC) layer
@@ -1077,7 +1636,7 @@ map.addLayer({
 id: 'nfdrsic',
 type: 'raster',
 source: 'NFDRSIgnitionProbability',
-paint: { 'raster-opacity': 0.7 },
+paint: { 'raster-opacity': 0.5 },
 layout: { visibility: 'none' }
 }, );
   //adding the Black Carbon emmision Layer
@@ -1092,7 +1651,7 @@ layout: { visibility: 'none' }
       id: 'blackcarbon',
       type: 'raster',
       source: 'BlackCarbonEmission',
-      paint: { 'raster-opacity': 0.7 },
+      paint: { 'raster-opacity': 0.5 },
       layout: { visibility: 'none' }
   }, );
    //adding the Methane emmision Layer
@@ -1107,7 +1666,7 @@ map.addLayer({
     id: 'Methane',
     type: 'raster',
     source: 'MethaneEmission',
-    paint: { 'raster-opacity': 0.7 },
+    paint: { 'raster-opacity': 0.5 },
     layout: { visibility: 'none' }
 }, );
 //adding the Carbon Dioxide emmision Layer
@@ -1122,7 +1681,7 @@ map.addLayer({
   id: 'carbondioxide',
   type: 'raster',
   source: 'CarbonDioxideEmission',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Carbon Monoxide emmision Layer
@@ -1137,7 +1696,7 @@ map.addLayer({
   id: 'carbonmonooxide',
   type: 'raster',
   source: 'CarbonMonoxideEmission',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Particulate Matter emmision Layer
@@ -1152,7 +1711,7 @@ map.addLayer({
   id: 'particulatematter',
   type: 'raster',
   source: 'ParticulateMatterEmission',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
  //adding the Virrs Layer Layer
@@ -1167,7 +1726,7 @@ map.addLayer({
   id: 'VIIRSSNN21',
   type: 'raster',
   source: 'VIRSSMain',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Virrs Suomi-NPP Layer
@@ -1182,7 +1741,23 @@ map.addLayer({
   id: 'virsssuomi',
   type: 'raster',
   source: 'virssSuomiNPP',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
+  layout: { visibility: 'none' }
+}, );
+
+//adding the Virrs Suomi-NPP last 7 days Layer
+map.addSource('virssSuomiNPP7', {
+  type: 'raster',
+  tiles: [
+    'https://firms.modaps.eosdis.nasa.gov/mapserver/wms/fires/48615d588cfc60c9fc9b81e90d881e8f/?SERVICE=WMS&REQUEST=GetMap&LAYERS=fires_viirs_snpp_7&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+  ],
+  tileSize: 256
+});
+map.addLayer({
+  id: 'virsssuomi7',
+  type: 'raster',
+  source: 'virssSuomiNPP7',
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Virrs NOAA-20 Layer
@@ -1197,7 +1772,22 @@ map.addLayer({
   id: 'virssnoaa20',
   type: 'raster',
   source: 'virssNOAA20',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
+  layout: { visibility: 'none' }
+}, );
+//adding the Virrs NOAA-20 last 7 days Layer
+map.addSource('virssNOAA207', {
+  type: 'raster',
+  tiles: [
+    'https://firms.modaps.eosdis.nasa.gov/mapserver/wms/fires/48615d588cfc60c9fc9b81e90d881e8f/?SERVICE=WMS&REQUEST=GetMap&LAYERS=fires_viirs_noaa20_7&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+  ],
+  tileSize: 256
+});
+map.addLayer({
+  id: 'virssnoaa207',
+  type: 'raster',
+  source: 'virssNOAA207',
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Virrs NOAA-21 Layer
@@ -1212,7 +1802,22 @@ map.addLayer({
   id: 'virssnoaa21',
   type: 'raster',
   source: 'virssNOAA21',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
+  layout: { visibility: 'none' }
+}, );
+//adding the Viirs NOAA-21 last 7 days layer
+map.addSource('virssNOAA217', {
+  type: 'raster',
+  tiles: [
+    'https://firms.modaps.eosdis.nasa.gov/mapserver/wms/fires/48615d588cfc60c9fc9b81e90d881e8f/?SERVICE=WMS&REQUEST=GetMap&LAYERS=fires_viirs_noaa21_7&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+  ],
+  tileSize: 256
+});
+map.addLayer({
+  id: 'virssnoaa217',
+  type: 'raster',
+  source: 'virssNOAA217',
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the MODIS Aqua & Terra Layer
@@ -1227,7 +1832,7 @@ map.addLayer({
   id: 'modisaquaterra',
   type: 'raster',
   source: 'MODISAqua&Terra',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the MODIS-Aqua Layer
@@ -1242,7 +1847,22 @@ map.addLayer({
   id: 'modisaqua',
   type: 'raster',
   source: 'MODISAqua',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
+  layout: { visibility: 'none' }
+}, );
+//adding the MODIS-Aqua Layer last 7 days
+map.addSource('MODISAqua7', {
+  type: 'raster',
+  tiles: [
+    'https://firms.modaps.eosdis.nasa.gov/mapserver/wms/fires/48615d588cfc60c9fc9b81e90d881e8f/?SERVICE=WMS&REQUEST=GetMap&LAYERS=fires_aqua_7&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+  ],
+  tileSize: 256
+});
+map.addLayer({
+  id: 'modisaqua7',
+  type: 'raster',
+  source: 'MODISAqua7',
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the MODIS-Terra Layer
@@ -1257,7 +1877,22 @@ map.addLayer({
   id: 'modisterra',
   type: 'raster',
   source: 'MODISTerra',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
+  layout: { visibility: 'none' }
+}, );
+//adding the MODIS-Terra Layer last 7 days
+map.addSource('MODISTerra7', {
+  type: 'raster',
+  tiles: [
+    'https://firms.modaps.eosdis.nasa.gov/mapserver/wms/fires/48615d588cfc60c9fc9b81e90d881e8f/?SERVICE=WMS&REQUEST=GetMap&LAYERS=fires_terra_7&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}'
+  ],
+  tileSize: 256
+});
+map.addLayer({
+  id: 'modisterra7',
+  type: 'raster',
+  source: 'MODISTerra7',
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Burned Area One day layer Layer
@@ -1272,7 +1907,38 @@ map.addLayer({
   id: 'burnedareaday1',
   type: 'raster',
   source: 'BurnedAreaday1',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
+  layout: { visibility: 'none' }
+}, );
+//adding the Burned Area last 7 days layer Layer
+map.addSource('BurnedAreaday7', {
+  type: 'raster',
+  tiles: [
+    `https://maps.effis.emergency.copernicus.eu/gwis?SERVICE=WMS&REQUEST=GetMap&LAYERS=nrt.ba&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}&TIME=${last7DaysRange}`
+  ],
+  tileSize: 256
+});
+map.addLayer({
+  id: 'burnedareaday7',
+  type: 'raster',
+  source: 'BurnedAreaday7',
+  paint: { 'raster-opacity': 0.5 },
+  layout: { visibility: 'none' }
+}, );
+
+//adding the Burned Area last 30 days layer Layer
+map.addSource('BurnedAreaday30', {
+  type: 'raster',
+  tiles: [
+    `https://maps.effis.emergency.copernicus.eu/gwis?SERVICE=WMS&REQUEST=GetMap&LAYERS=nrt.ba&VERSION=1.3.0&FORMAT=image/png&TRANSPARENT=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}&TIME=${Last30DaysRange}`
+  ],
+  tileSize: 256
+});
+map.addLayer({
+  id: 'burnedareaday30',
+  type: 'raster',
+  source: 'BurnedAreaday30',
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Land Surface Temperature (Day)
@@ -1287,7 +1953,7 @@ map.addLayer({
   id: 'lstd',
   type: 'raster',
   source: 'LandSurfaceTemperature',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Land Surface Temperature (Night) Layer
@@ -1302,7 +1968,7 @@ map.addLayer({
   id: 'lstn',
   type: 'raster',
   source: 'LandSurfaceTemperature(Night)',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Vegitation Index Layer
@@ -1317,7 +1983,7 @@ map.addLayer({
   id: 'vegitationindex',
   type: 'raster',
   source: 'VegitationIndex',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Fires and Thermal Anomalies (Day and Night) Layer
@@ -1332,7 +1998,7 @@ map.addLayer({
   id: 'fireanomalies',
   type: 'raster',
   source: 'FiresandThermalAnomalies',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Protected Area  Layer
@@ -1347,7 +2013,7 @@ map.addLayer({
   id: 'protectedareas',
   type: 'raster',
   source: 'ProtectedAreas(IUCN)',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the LULC  Layer
@@ -1362,7 +2028,7 @@ map.addLayer({
   id: 'landuse',
   type: 'raster',
   source: 'LULC',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Setelment  Layer
@@ -1377,7 +2043,7 @@ map.addLayer({
   id: 'Settelmentslayer',
   type: 'raster',
   source: 'Settlement',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the forest cover  Layer
@@ -1392,7 +2058,7 @@ map.addLayer({
   id: 'fcover',
   type: 'raster',
   source: 'ForestCover',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 
@@ -1408,7 +2074,7 @@ map.addLayer({
   id: 'LightningForecast',
   type: 'raster',
   source: 'LightningForecast1dayforecast',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 //adding the Fuels Emission Layer
@@ -1423,7 +2089,7 @@ map.addLayer({
   id: 'Fuelsemission',
   type: 'raster',
   source: 'FuelsEmission',
-  paint: { 'raster-opacity': 0.7 },
+  paint: { 'raster-opacity': 0.5 },
   layout: { visibility: 'none' }
 }, );
 // Now that images are loaded, add the NASA EONET source and layer
@@ -1464,7 +2130,7 @@ map.addLayer({
       id: 'LightningForecast',
       type: 'raster',
       source: 'LightningForecast1dayforecast',
-      paint: { 'raster-opacity': 0.7 },
+      paint: { 'raster-opacity': 0.5 },
       layout: { visibility: 'none' }
   });
  
@@ -1489,7 +2155,7 @@ updateWMSLayer(currentTime);
 
 // creating the toggle layer functionalities
 map.on('idle', async() => {
-  const toggleableLayerIds = ['fwidc', 'fwi', 'fwiisi', 'fdimark','fdibui','fwiffmc','fwifdmc','fwianomaly','fwiranking','kbdidi','markros','nfdrsic','blackcarbon', 'Methane', 'carbondioxide', 'carbonmonooxide', 'particulatematter','LightningForecast','Fuelsemission','nasa_eonet','VIIRSSNN21','virsssuomi','virssnoaa20','virssnoaa21','modisaquaterra','modisaqua','modisterra','burnedareaday1','lstd','lstn','vegitationindex','fireanomalies','protectedareas','landuse','Settelmentslayer','fires-layer','fcover']; // IDs of layers with switches in the navbar
+  const toggleableLayerIds = ['fwidc', 'fwi', 'fwiisi', 'fdimark','fdibui','fwiffmc','fwifdmc','fwianomaly','fwiranking','kbdidi','markros','nfdrsic','blackcarbon', 'Methane', 'carbondioxide', 'carbonmonooxide', 'particulatematter','LightningForecast','Fuelsemission','nasa_eonet','VIIRSSNN21','virsssuomi','virssnoaa20','virssnoaa21','modisaquaterra','modisaqua','modisterra','burnedareaday1','lstd','lstn','vegitationindex','fireanomalies','protectedareas','landuse','Settelmentslayer','fires-layer','fires-layer2','burnedareaday7','burnedareaday30','fcover','virssnoaa217','virsssuomi7','virssnoaa207','virssnoaa217','modisterra7','modisaqua7','red-circles-layer']; // IDs of layers with switches in the navbar
 
   for (const id of toggleableLayerIds) {
       const visibilitySwitch = document.querySelector(`#${id}`);
@@ -1509,7 +2175,8 @@ map.on('idle', async() => {
   }
   const nasaEonetCheckbox = document.getElementById('nasa_eonet');
 
-    nasaEonetCheckbox.addEventListener('change', function () {
+
+  nasaEonetCheckbox.addEventListener('change', function () {
         if (this.checked) {
             if (!map.getSource('eonet-source')) {
                 map.addSource('eonet-source', {
@@ -1521,7 +2188,21 @@ map.on('idle', async() => {
         } else {
             removeEONETMarkers();
         }
-    });
+  });
+  document.getElementById('gdac_alert').addEventListener('change', function() {
+    const visibility = this.checked ? 'visible' : 'none';
+    for (const layerId in polygonLayers) {
+        if (map.getLayer(layerId)) {
+            map.setLayoutProperty(layerId, 'visibility', visibility);
+        }
+    }
+    if (!this.checked) {
+        removeGDACMarkers();
+    } else {
+        addGDACMarkers();
+    }
+});
+
 });
 // Function to add or remove legend image
 function toggleLegendImage(layerId, add) {
@@ -1533,7 +2214,7 @@ function toggleLegendImage(layerId, add) {
       legendImageDiv.id = `${layerId}_legend_div`;
       legendImageDiv.classList.add('legend-image-div');
       const legendImage = document.createElement('img');
-      legendImage.src = `${layerId}_legend.png`;
+      legendImage.src = `Media/Legends/${layerId}_legend.png`;
       legendImage.alt = `Legend for ${layerId}`;
       legendImage.classList.add('legend-image');
 
@@ -1552,7 +2233,7 @@ function toggleLegendImage(layerId, add) {
 }
 
 // Attach event listeners to layer switches in the navbar
-const toggleableLayerIds = ['fwidc', 'fwi', 'fwiisi', 'fdimark', 'fdibui', 'fwiffmc', 'fwifdmc', 'fwianomaly', 'fwiranking', 'kbdidi', 'markros', 'nfdrsic', 'blackcarbon', 'Methane', 'carbondioxide', 'carbonmonooxide', 'particulatematter', 'LightningForecast', 'Fuelsemission','nasa_eonet','VIIRSSNN21','virsssuomi','virssnoaa20','virssnoaa21','modisaquaterra','modisaqua','modisterra','burnedareaday1','lstd','lstn','vegitationindex','fireanomalies','protectedareas','landuse','Settelmentslayer','fires-layer','fcover'];
+const toggleableLayerIds = ['fwidc', 'fwi', 'fwiisi', 'fdimark', 'fdibui', 'fwiffmc', 'fwifdmc', 'fwianomaly', 'fwiranking', 'kbdidi', 'markros', 'nfdrsic', 'blackcarbon', 'Methane', 'carbondioxide', 'carbonmonooxide', 'particulatematter', 'LightningForecast', 'Fuelsemission','nasa_eonet','VIIRSSNN21','virsssuomi','virssnoaa20','virssnoaa21','modisaquaterra','modisaqua','modisterra','burnedareaday1','lstd','lstn','vegitationindex','fireanomalies','protectedareas','landuse','Settelmentslayer','fires-layer','fires-layer2','burnedareaday7','burnedareaday30','fcover','virssnoaa217','virsssuomi7','virssnoaa207','virssnoaa217','modisterra7','modisaqua7'];
 toggleableLayerIds.forEach(id => {
   const visibilitySwitch = document.getElementById(id);
   if (visibilitySwitch) {
